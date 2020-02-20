@@ -17,8 +17,8 @@ def train(training_program_path, individual):
     :param individual: an Individual class instance
 
     '''
-    training_list = load_training(training_program)
-    performed_training_list = [[can_do(training_set, individual) for training_set in training_day] for training_day in
+    training_list = load_training(training_program_path)
+    performed_training_list = [[can_do(training_set, individual.bench_press) for training_set in training_day] for training_day in
                                training_list]
 
     # train the bench press
@@ -50,7 +50,6 @@ def generate_trimp(training, performance):
 
     '''
 
-
     cumulative_load = 0
     for training_set in training:
         cumulative_load += training_set.reps * training_set.weight / performance
@@ -58,19 +57,18 @@ def generate_trimp(training, performance):
     return cumulative_load
 
 
-def can_do(training_set, individual):
+def can_do(training_set, movement):
     '''Takes a requested training set and returns what the set that the
     individual is theoretically capable of doing.
 
     :param training_set: a TrainingSet tuple to perform
-    :param individual: an Individual class instance
+    :param movement: a Movement class instance
 
     :returns: training set that was possible to perform
 
     '''
 
-
-    reps_possible = individual.amrap(training_set.weight)
+    reps_possible = movement.amrap(training_set.weight)
     if reps_possible < training_set.reps:
         return TrainingSet(training_set.weight, reps_possible)
     else:
