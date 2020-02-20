@@ -1,33 +1,20 @@
 import math
+import datetime
 
 
 class Individual:
 
-    def __init__(self, age=0, gender="", name="", fitness=1, fatique=1, performance=1, path_to_csv=""):
+    def __init__(self, birth= datetime.date(1, 1, 1), gender="", name="", bench_press_movement=0, path_to_csv=""):
         if(path_to_csv == ""):
-            self.age = age
+            self.birth = birth
             self.gender = gender
             self.name = name
-            self.fitness = fitness
-            self.fatique = fatique
-            self.performance = performance
+            self.bench_press_movement = bench_press_movement
         else:
             load_CSV(path_to_csv)
 
-    def fitness_decay(self):
-        return 1
-
-    def fatique_decay(self):
-        return 1
-
-    def fitness_gain(self):
-        return 1
-
-    def fatique_gain(self):
-        return 1
-
-    def amrap(self, weight):
-        return math.floor(30 * (performance/weight - 1))
+    def getAge(self, date: datetime):
+        return math.floor((date - self.birth).days/365)
 
     def load_CSV(self, path_to_csv):
         return
