@@ -1,6 +1,18 @@
 import numpy as np
 import names
+from absl import flags
+from absl import app
 #from individual import Individual
+
+
+FLAGS = flags.FLAGS
+
+flags.DEFINE_integer("n",100,"How many individuals to generate")
+flags.DEFINE_integer("bpm",100,"Mean of bench press max")
+flags.DEFINE_integer("bpv",5,"Variance in bench press max")
+flags.DEFINE_integer("am",30,"Age mean")
+flags.DEFINE_integer("av",5,"Age variance")
+
 
 def generate_indviduals(num, age_mean, age_variance, bench_press_fitness_mean, bench_press_fitness_variance):
     '''
@@ -28,7 +40,11 @@ def save_individuals(individuals):
     '''
     pass
 
+def main(argv):
+    generated_individuals = generate_indviduals(FLAGS.n, FLAGS.am, FLAGS.av, FLAGS.bpm, FLAGS.bpv)
+    #save_individuals()
 
 if __name__ == "__main__":
-    print(generate_indviduals(50,30,5,100,5))
+    app.run(main)
+    #print(generate_indviduals(50,30,5,100,5))
 
