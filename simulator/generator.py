@@ -41,7 +41,7 @@ def generate_indviduals(num, age_mean, age_variance, bench_press_fitness_mean, b
     now = datetime.datetime.now()
     birth_dates = [datetime.datetime(now.year-age, now.month, now.day) for age in ages]
     
-    #Normally distributed bench press fitnesses used to create bench press movements
+    #Normally distributed bench press fitnesses used to create bench press movementss
     bench_press_fitnesses = np.random.normal(bench_press_fitness_mean, bench_press_fitness_variance, num).astype("int")
 
     genders = np.ones(num)
