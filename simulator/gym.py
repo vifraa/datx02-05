@@ -1,4 +1,7 @@
 import math
+from collections import namedtuple
+
+TrainingSet = namedtuple("TrainingSet", "weight, reps")
 
 def train(training_program_path, individual):
 '''Function uses an implementation of the Banister model to
@@ -21,7 +24,7 @@ training program.
 def apply_banister(training_list, movement):
 '''Banister model applied to an instance of Movement class.
 
-:param training_list: a list of performed sets over time
+:param training_list: a list of performed TrainingSet tuples over time
 :param movement: an instance of the Movement class
 
 '''
@@ -36,7 +39,7 @@ def apply_banister(training_list, movement):
 def generate_trimp(training, performance):
 '''Create load from given training.
 
-:param training: a list of the sets performed during training
+:param training: a list of the TrainingSet tuples performed during training
 :param performance: an individuals 1RM
 
 :returns: a scalar value denoting the load of the given training
@@ -54,7 +57,7 @@ def can_do(training_set, individual):
 '''Takes a requested training set and returns what the set that the
 individual is theoretically capable of doing.
 
-:param training_set: training set to perform
+:param training_set: a TrainingSet tuple to perform
 :param individual: an Individual class instance
 
 :returns: training set that was possible to perform
@@ -72,7 +75,7 @@ def load_training(path_to_program):
 
 :param path_to_program: path to training program csv
 
-:returns: python list of days containing TrainingSet instances
+:returns: python list of days containing TrainingSet tuples
 
 '''
    return None
