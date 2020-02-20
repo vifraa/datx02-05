@@ -15,11 +15,22 @@ training program.
     training_list = load_training(training_program)
     performed_training_list = [[can_do(training_set, individual) for training_set in training_day] for training_day in training_list]
 
-    for training_day in performed_training_list:
-        trimp = generate_trimp(training_day, individual.bench_press_performance)
-        individual.bench_press_fitness     = individual.bench_press_fitness * math.exp(-1/individual.bench_press_fitness_decay) + trimp
-        individual.bench_press_fatigue     = individual.bench_press_fatigue * math.exp(-1/individual.bench_press_fatigue_decay) + trimp
-        individual.bench_press_performance = individual.bench_press_fitness * individual.bench_press_fitness_gain - individual.bench_press_fatigue * individual.bench_press_fatigue_gain
+    # train the bench press
+    apply_banister(performed_training_list, individual.bench_press)
+
+def apply_banister(training_list, movement):
+'''Banister model applied to an instance of Movement class.
+
+:param training_list: a list of performed sets over time
+:param movement: an instance of the Movement class
+
+'''
+
+    for training_day in training_list:
+        trimp = generate_trimp(training_day, movement.performance)
+        movement.fitness     = movement.fitness * math.exp(-1/movement.fitness_decay) + trimp
+        movement.fatigue     = movement.fatigue * math.exp(-1/movement.fatigue_decay) + trimp
+        movement.performance = movement.fitness * movement.fitness_gain - movement.fatigue * movement.fatigue_gain
 
 
 def generate_trimp(training, performance):
