@@ -94,4 +94,4 @@ def load_training(path_to_program):
     return training_list
 
 if __name__ == "__main__":
-    training = load_training("sample_training.csv")
+    training = load_training("sample_training_program.csv")
