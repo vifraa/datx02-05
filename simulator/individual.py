@@ -30,5 +30,4 @@ class Individual:
 
     def to_dataframe(self, path_to_save):
         dic = {'id': self.id,'birth': self.birth,'gender': self.gender,'name': self.name, 'weight': self.weight}
-        columns = ['id','birth','gender','name','weight']
-        return pd.DataFrame(dic,columns)
+        return pd.DataFrame(dic)
