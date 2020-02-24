@@ -9,12 +9,15 @@ def train(training_program_path, individual):
     '''Function uses an implementation of the Banister model to
     adjust fitness and fatigue of an individual by decomposing
     a given training program into loads, and then feeding those
-    to the individual.
+    to the individual. The actual performed training logs are
+    then returned.
 
     :param training_program_path: a path to a csv_file containing a
     training program.
 
     :param individual: an Individual class instance
+
+    :returns: list of performed training logs
 
     '''
     training_list = load_training(training_program_path)
@@ -23,6 +26,8 @@ def train(training_program_path, individual):
 
     # train the bench press
     apply_banister(performed_training_list, individual.bench_press)
+
+    return performed_training_list
 
 
 def apply_banister(training_list, movement):
