@@ -23,7 +23,7 @@ class Individual:
     def load_CSV(self, path_to_csv):
         df = pd.read_csv(path_to_csv)
         dfRow = df.loc[df['id'] == self.id]
-        #self.birth = datetime(dfRow['birth'])
+        self.birth = datetime.strptime(dfRow['birth'],'%Y-%m-%d')
         self.gender = dfRow['gender']
         self.name = dfRow['name']
         self.weight = dfRow['weight']
