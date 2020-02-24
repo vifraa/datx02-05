@@ -12,8 +12,9 @@ mock_log_1 = [123, 1, 5, 60, "2019-01-25", 6]
 
 
 # transform mock_person_1 and mock_log_1 to S1 vector of the important variables of both
+# [age, gender, personWeigth, exercise, reps, liftedWeight, performance]
 def transform():
-    transfored_array = [mock_person_1[0], mock_person_1[1], mock_person_1[2], mock_person_1[3],
+    transfored_array = [mock_person_1[1], mock_person_1[2], mock_person_1[3],
                          mock_log_1[1], mock_log_1[2], mock_log_1[3], mock_log_1[5]]
 
 
