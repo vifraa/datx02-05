@@ -57,6 +57,13 @@ def generate_indviduals(num, age_mean, age_variance, bench_press_fitness_mean, b
     return individuals
 
 def save_individuals(individuals, csv_file_path):
+        '''
+    Generates individuals to be used in the simulator
+
+    :param individuals: List of Individual(s) to save to .csv.
+    :param csv_file_path: Path to file name of .csv.
+    '''
+    
     all_indviduals_df = pd.DataFrame(columns=['id','birth','gender','name','weight','bench_press_movement'])
     for individual in individuals:
         print(individual.to_dataframe())
