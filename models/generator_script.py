@@ -71,7 +71,7 @@ class Set:
         self.timestamp = datetime.timestamp(datetime.now())
 
     def __iter__(self):
-        return iter([self.id, self.exercise, self.reps, self.weight, self.timestamp, self.weight])
+        return iter([self.id, self.exercise, self.reps, self.weight, self.timestamp, self.performance])
 
 
 individuals = generate_individuals(100)
