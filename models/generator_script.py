@@ -89,3 +89,5 @@ with open("individuals.csv", "w", newline="") as file:
     wr = csv.writer(file, quoting=csv.QUOTE_ALL)
     for v in individuals:
         wr.writerow(list(v))
+
+
