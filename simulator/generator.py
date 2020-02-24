@@ -15,6 +15,7 @@ flags.DEFINE_integer("bpv",5,"Variance in bench press max")
 flags.DEFINE_integer("am",30,"Age mean")
 flags.DEFINE_integer("av",5,"Age variance")
 flags.DEFINE_float("gr", 0.5, "Gender ratio of male")
+flags.DEFINE_string("p","simulator/individuals/GeneratedIndividuals.csv", "Full path to save generated individuals in .csv format to")
 
 def gender_to_string(x):
     if x==0:
@@ -57,23 +58,20 @@ def generate_indviduals(num, age_mean, age_variance, bench_press_fitness_mean, b
     return individuals
 
 def save_individuals(individuals, csv_file_path):
-        '''
+    '''
     Generates individuals to be used in the simulator
 
     :param individuals: List of Individual(s) to save to .csv.
     :param csv_file_path: Path to file name of .csv.
     '''
-    
     all_indviduals_df = pd.DataFrame(columns=['id','birth','gender','name','weight','bench_press_movement'])
     for individual in individuals:
-        print(individual.to_dataframe())
         all_indviduals_df = all_indviduals_df.append(individual.to_dataframe())
-    print(all_indviduals_df)
     all_indviduals_df.to_csv(csv_file_path, index=False)
 
 def main(argv):
     generated_individuals = generate_indviduals(FLAGS.n, FLAGS.am, FLAGS.av, FLAGS.bpm, FLAGS.bpv, FLAGS.gr)
-    save_individuals(generated_individuals, "individuals.csv")
+    save_individuals(generated_individuals, FLAGS.p)
 
 if __name__ == "__main__":
     app.run(main)
