@@ -1,5 +1,6 @@
 import numpy as np
 import names
+import pandas as pd
 import datetime
 from absl import flags
 from absl import app
@@ -49,24 +50,21 @@ def generate_indviduals(num, age_mean, age_variance, bench_press_fitness_mean, b
     np.random.shuffle(genders)  
     for i in range(num):
         name = names.get_full_name(gender=gender_to_string(genders[i]))
-        #bench_press_movement = Movement(bench_press_fitnesses[i])
-        #individual = Individual(birth_dates[i], genders[i], name, bench_press_movement)
-        #individuals.append(individual)
-        individuals.append([name, birth_dates[i], bench_press_fitnesses[i], genders[i]])
+        bench_press_movement = Movement(bench_press_fitnesses[i])
+        individual = Individual(i, birth_dates[i], genders[i], name, 0, bench_press_movement)
+        individuals.append(individual)
 
     return individuals
 
-def save_individuals(individuals):
-    '''
-    Saves all individuals  blabla
-    '''
-    pass
+def save_individuals(individuals, csv_file_path):
+    all_indviduals_df = pd.DataFrame(columns=['id','birth','gender','name','weight','bench_press_movement'])
+    for individual in individuals:
+        all_indviduals_df.append(individual.to_dataframe())
+    all_indviduals_df.to_csv(r'csv_file_path')
 
 def main(argv):
     generated_individuals = generate_indviduals(FLAGS.n, FLAGS.am, FLAGS.av, FLAGS.bpm, FLAGS.bpv, FLAGS.gr)
-    print(generated_individuals)
-    #save_individuals()
+    save_individuals(generate_indviduals, "individuals.csv")
 
 if __name__ == "__main__":
     app.run(main)
-    #print(generate_indviduals(50,30,5,100,5))
