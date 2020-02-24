@@ -1,11 +1,12 @@
 import math
 import datetime
 import pandas as pd
+import pickle
 
 
 class Individual:
 
-    def __init__(self, birth: datetime = datetime.date(1, 1, 1), gender=2, name="", weight = 0, bench_press_movement=0, id="", path_to_csv=""):
+    def __init__(self, id="", birth: datetime = datetime.date(1, 1, 1), gender=2, name="", weight = 0, bench_press_movement=0, path_to_csv=""):
         if(path_to_csv == ""):
             self.birth = birth
             self.gender = gender
@@ -29,5 +30,5 @@ class Individual:
 
 
     def to_dataframe(self, path_to_save):
-        dic = {'id': self.id,'birth': self.birth,'gender': self.gender,'name': self.name, 'weight': self.weight}
+        dic = {'id': self.id,'birth': self.birth,'gender': self.gender,'name': self.name, 'weight': self.weight,'bench_press_movement': pickle.dumps(self.bench_press_movement)}
         return pd.DataFrame(dic)
