@@ -50,6 +50,7 @@ class Individual:
         self.weight = random.randint(60, 110)
         self.gender = random.randint(0,2)
         self.starting_stength = starting_stength
+        self.timestamp = datetime.timestamp(datetime.now())
 
     def __str__(self):
         return "{id: " + str(self.id) + ", starting_stength: " + str(self.starting_stength) + "}"
@@ -58,7 +59,7 @@ class Individual:
         return str(self)
 
     def __iter__(self):
-        return iter([self.id, self.age, self.weight, self.gender])
+        return iter([self.id, self.age, self.weight, self.gender, self.timestamp])
 
 class Set: 
     def __init__(self, id, exercise, reps, weight, performance):
