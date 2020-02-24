@@ -15,7 +15,7 @@ class Individual:
             self.id = id
             self.bench_press_movement = bench_press_movement
         else:
-            load_CSV(path_to_csv)
+            self.load_CSV(path_to_csv)
 
     def getAge(self, date: datetime):
         return math.floor((date - self.birth).days/365)
@@ -23,12 +23,12 @@ class Individual:
     def load_CSV(self, path_to_csv):
         df = pd.read_csv(path_to_csv)
         dfRow = df.loc[df['id'] == self.id]
-        self.birth = datetime(dfRow['birth'])
+        #self.birth = datetime(dfRow['birth'])
         self.gender = dfRow['gender']
         self.name = dfRow['name']
         self.weight = dfRow['weight']
 
 
-    def to_dataframe(self, path_to_save):
-        dic = {'id': self.id,'birth': self.birth,'gender': self.gender,'name': self.name, 'weight': self.weight,'bench_press_movement': pickle.dumps(self.bench_press_movement)}
+    def to_dataframe(self):
+        dic = {'id': [self.id],'birth': [self.birth],'gender': [self.gender],'name': [self.name], 'weight': [self.weight],'bench_press_movement': [pickle.dumps(self.bench_press_movement)]}
         return pd.DataFrame(dic)

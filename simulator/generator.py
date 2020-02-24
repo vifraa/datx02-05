@@ -4,8 +4,8 @@ import pandas as pd
 import datetime
 from absl import flags
 from absl import app
-#from individual import Individual
-
+from individual import Individual
+from movement import Movement
 
 FLAGS = flags.FLAGS
 
@@ -50,8 +50,8 @@ def generate_indviduals(num, age_mean, age_variance, bench_press_fitness_mean, b
     np.random.shuffle(genders)  
     for i in range(num):
         name = names.get_full_name(gender=gender_to_string(genders[i]))
-        bench_press_movement = Movement(bench_press_fitnesses[i])
-        individual = Individual(i, birth_dates[i], genders[i], name, 0, bench_press_movement)
+        bench_press_movement = Movement(1,1,bench_press_fitnesses[i],1,1,1,1)
+        individual = Individual(i, birth_dates[i], int(genders[i]), name, 0, bench_press_movement)
         individuals.append(individual)
 
     return individuals
@@ -59,12 +59,14 @@ def generate_indviduals(num, age_mean, age_variance, bench_press_fitness_mean, b
 def save_individuals(individuals, csv_file_path):
     all_indviduals_df = pd.DataFrame(columns=['id','birth','gender','name','weight','bench_press_movement'])
     for individual in individuals:
-        all_indviduals_df.append(individual.to_dataframe())
-    all_indviduals_df.to_csv(r'csv_file_path')
+        print(individual.to_dataframe())
+        all_indviduals_df = all_indviduals_df.append(individual.to_dataframe())
+    print(all_indviduals_df)
+    all_indviduals_df.to_csv(csv_file_path, index=False)
 
 def main(argv):
     generated_individuals = generate_indviduals(FLAGS.n, FLAGS.am, FLAGS.av, FLAGS.bpm, FLAGS.bpv, FLAGS.gr)
-    save_individuals(generate_indviduals, "individuals.csv")
+    save_individuals(generated_individuals, "individuals.csv")
 
 if __name__ == "__main__":
     app.run(main)
