@@ -14,4 +14,5 @@ class Movement:
         self.fatigue_decay = fatigue_decay
 
     def amrap(self, weight):
-        return math.floor(30 * (self.performance/weight - 1))
+        reps = math.floor(30 * (self.performance/weight - 1))
+        return max(0, reps)
