@@ -17,7 +17,7 @@ class Individual:
         else:
             self.load_from_dataframe(dataframe)
 
-    def getAge(self, date: datetime):
+    def get_age(self, date: datetime = datetime.datetime.now()):
         return math.floor((date - self.birth).days/365)
 
     def load_from_dataframe(self, df):
@@ -32,3 +32,6 @@ class Individual:
     def to_dataframe(self):
         dic = {'id': [self.id],'birth': [self.birth],'gender': [self.gender],'name': [self.name], 'weight': [self.weight],'bench_press_movement': [pickle.dumps(self.bench_press_movement)]}
         return pd.DataFrame(dic)
+
+
+    
