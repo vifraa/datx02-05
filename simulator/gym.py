@@ -1,8 +1,6 @@
 import math
 import pandas as pd
-from collections import namedtuple
-
-TrainingSet = namedtuple("TrainingSet", "weight, reps")
+from datetime import date, datetime
 
 
 def train(training_program_path, individual):
@@ -20,64 +18,105 @@ def train(training_program_path, individual):
     :returns: list of performed training logs
 
     '''
-    training_list = load_training(training_program_path)
-    performed_training_list = [[can_do(training_set, individual.bench_press) for training_set in training_day] for training_day in
-                               training_list]
+    training_dataframe = load_training(training_program_path)
 
     # train the bench press
-    apply_banister(performed_training_list, individual.bench_press)
+    performed_training_dataframe = apply_banister(training_dataframe, individual.bench_press_movement)
 
-    return performed_training_list
+    return performed_training_dataframe
 
 
-def apply_banister(training_list, movement):
+def apply_banister(training_dataframe, movement):
     '''Banister model applied to an instance of Movement class.
 
-    :param training_list: a list of performed TrainingSet tuples over time
+    :param training_dataframe: a dataframe of performed training sets over time
     :param movement: an instance of the Movement class
 
+    :returns: a dataframe containing the actual performed training
+
     '''
 
-    for training_day in training_list:
-        trimp = generate_trimp(training_day, movement.performance)
-        movement.fitness = movement.fitness * math.exp(-1 / movement.fitness_decay) + trimp
-        movement.fatigue = movement.fatigue * math.exp(-1 / movement.fatigue_decay) + trimp
-        movement.performance = movement.fitness * movement.fitness_gain - movement.fatigue * movement.fatigue_gain
+    # iterate through all prescribed sets
+    previous_date = training_dataframe["Timestamp"].iloc[0].date()
+    cumulative_trimp = 0
+    performed_training = training_dataframe.copy()
+    for index, training_set in training_dataframe.iterrows():
+
+        # convert training to what would be possible for the individual to perform
+        training_set = can_do(training_set, movement)
+        performed_training.iloc[index, :] = training_set
+
+        # since our timestep is daily, we have to accumulate the training sets taken place during
+        # the same day in our calculations
+        if training_set["Timestamp"].date() > previous_date:
+
+            # apply training effects from previous training day
+            apply_training_effects(movement, cumulative_trimp)
+
+            # reset training load for next day
+            cumulative_trimp = 0
+
+            # iterate through eventual rest-days where no training is performed
+            delta = training_set["Timestamp"].date() - previous_date.date()
+            rest_days = delta.days
+            for _ in range(rest_days):
+                apply_training_effects(movement, cumulative_trimp)
+
+        else:
+            cumulative_trimp = generate_trimp(training_set, movement.performance)
+
+        previous_date = training_set["Timestamp"].date()
+
+    # finally apply any training effects acummulated at end
+    if cumulative_trimp > 0:
+        apply_training_effects(movement, cumulative_trimp)
+
+    # return actual performed training
+    return performed_training
 
 
-def generate_trimp(training, performance):
+def apply_training_effects(movement, cumulative_trimp):
+    '''Apply trimp to affect movement parameters according to the Banister model.
+
+    :param movement: an instance of the Movement class
+    :param cumulative_trimp: trimp to apply to Movement parameters
+
+    '''
+
+    movement.fitness = movement.fitness * math.exp(-1 / movement.fitness_decay) + cumulative_trimp
+    movement.fatigue = movement.fatigue * math.exp(-1 / movement.fatigue_decay) + cumulative_trimp
+    movement.performance = movement.fitness * movement.fitness_gain - movement.fatigue * movement.fatigue_gain
+
+
+def generate_trimp(training_set, performance):
     '''Create load from given training.
 
-    :param training: a list of the TrainingSet tuples performed during training
+    :param training_set: a pandas Series representing a training set
     :param performance: an individuals 1RM
 
-    :returns: a scalar value denoting the load of the given training
+    :returns: a scalar value denoting the load of the given training set
 
     '''
 
-    cumulative_load = 0
-    for training_set in training:
-        cumulative_load += training_set.reps * training_set.weight / performance
-
-    return cumulative_load
+    load = training_set["Reps"] * training_set["Weight"] / performance
+    return load
 
 
 def can_do(training_set, movement):
     '''Takes a requested training set and returns what the set that the
     individual is theoretically capable of doing.
 
-    :param training_set: a TrainingSet tuple to perform
+    :param training_set: a pandas Series representing the training set to perform
     :param movement: a Movement class instance
 
-    :returns: training set that was possible to perform
+    :returns: a pandas Series representing the training set that was possible to perform
 
     '''
 
-    reps_possible = movement.amrap(training_set.weight)
-    if reps_possible < training_set.reps:
-        return TrainingSet(training_set.weight, reps_possible)
-    else:
-        return training_set
+    reps_possible = movement.amrap(training_set["Weight"])
+    if reps_possible < training_set["Reps"]:
+        training_set["Reps"] = reps_possible
+    return training_set
 
 
 def load_training(path_to_program):
@@ -85,16 +124,15 @@ def load_training(path_to_program):
 
     :param path_to_program: path to training program csv
 
-    :returns: python list of days containing TrainingSet tuples
+    :returns: pandas dataframe of days containing training sets
 
     '''
 
     training_frame = pd.read_csv(path_to_program, sep="|")
-    training_list = []
-    for set in training_frame.iterrows():
-        training_list.append(TrainingSet(weight=set[1].Weight, reps=set[1].Reps))
 
-    return training_list
+    # make timestamp column more conveniently usable
+    training_frame["Timestamp"] = pd.to_datetime(training_frame["Timestamp"])
+    return training_frame
 
 if __name__ == "__main__":
     training = load_training("sample_training_program.csv")

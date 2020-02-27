@@ -3,14 +3,14 @@ import math
 from gym import apply_banister, generate_trimp, can_do, load_training
 
 
-def test_apply_banister(training_list, bench_press):
+def test_apply_banister(training_dataframe, bench_press):
     '''Give training with known parameters and assert that the resulting
     training adaptations are correct'''
     old_fitness = bench_press.fitness
     old_fatigue = bench_press.fatigue
-    trimp = generate_trimp(training_list[0], bench_press.performance)
+    trimp = generate_trimp(training_dataframe.iloc[0, :], bench_press.performance)
 
-    apply_banister(training_list, bench_press)
+    apply_banister(training_dataframe, bench_press)
 
     assert bench_press.fitness == old_fitness * math.exp(-1 / bench_press.fitness_decay) + trimp
     assert bench_press.fatigue == old_fatigue * math.exp(-1 / bench_press.fatigue_decay) + trimp
@@ -18,29 +18,28 @@ def test_apply_banister(training_list, bench_press):
            - bench_press.fatigue * bench_press.fatigue_gain
 
 
-def test_generate_trimp(training_list, bench_press):
+def test_generate_trimp(training_dataframe, bench_press):
     '''Test if training load returned by function is correct for known input'''
-    trimp = generate_trimp(training_list[0], bench_press.performance)
-    ground_truth = training_list[0][0].reps * training_list[0][0].weight / bench_press.performance
+    training_set = training_dataframe.iloc[0, :]
+    trimp = generate_trimp(training_set, bench_press.performance)
+    ground_truth = training_set["Reps"] * training_set["Weight"] / bench_press.performance
     assert trimp == ground_truth
 
 
-def test_can_do(training_list, bench_press):
+def test_can_do(training_dataframe, bench_press):
     '''Test if training is possible by giving possible training'''
-    for training_day in training_list:
-        for training_set in training_day:
-            assert training_set == can_do(training_set, bench_press)
+    for index, training_set in training_dataframe.iterrows():
+        assert training_set["Reps"] == can_do(training_set, bench_press)["Reps"]
 
 
-def test_cant_do(impossible_training_list, bench_press):
+def test_cant_do(impossible_training_dataframe, bench_press):
     '''Test if training is impossible by giving impossible training'''
-    for training_day in impossible_training_list:
-        for training_set in training_day:
-            assert not training_set == can_do(training_set, bench_press)
+    for index, training_set in impossible_training_dataframe.iterrows():
+        assert not training_set["Reps"] == can_do(training_set, bench_press)["Reps"]
 
 
 def test_load_training():
     '''Test that loading sample training program from csv works as expected'''
-    program = load_training("sample_training_program.csv")
-    assert program[0].reps == 4
-    assert program[0].weight == 1337
+    program_dataframe = load_training("sample_training_program.csv")
+    assert program_dataframe.iloc[0, :]["Reps"] == 4
+    assert program_dataframe.iloc[0, :]["Weight"] == 10

@@ -20,7 +20,6 @@ def test_gender_to_string():
     """Tests the gender_to_string() method of generator"""
     assert gender_to_string(1) == "female"
     assert gender_to_string(0) == "male"
-    assert gender_to_string(2) == "unknown"
 
 
 def test_generate_individuals():

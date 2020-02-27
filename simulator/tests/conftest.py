@@ -1,8 +1,9 @@
 import pytest
 import datetime
+import pandas as pd
+from datetime import datetime
 from individual import Individual
 from movement import Movement
-from gym import TrainingSet
 
 
 @pytest.fixture()
@@ -15,17 +16,24 @@ def bench_press():
 @pytest.fixture()
 def individual(bench_press):
     '''Fixture for sample individual with set parameters'''
-    return Individual(id=0, birth=datetime.date(1, 1, 1), gender=1, name="Juliana Maddox", weight=40,
+    return Individual(id=0, birth=datetime(1, 1, 1), gender=1, name="Juliana Maddox", weight=40,
                       bench_press_movement=bench_press)
 
-
 @pytest.fixture()
-def training_list():
-    '''Fixture for sample list of TrainingSets performed'''
-    return [[TrainingSet(weight=200, reps=3)]]
+def timestamp():
+    return datetime.strptime("02/02/2010 12:00", "%d/%m/%Y %H:%M")
 
 
 @pytest.fixture()
-def impossible_training_list():
-    '''Fixture for sample list of TrainingSets performed'''
-    return [[TrainingSet(weight=99999999, reps=99999999)]]
+def training_dataframe(timestamp):
+    '''Fixture for sample dataframe of training program'''
+    column_names = ["Weight", "Reps", "Timestamp"]
+    return pd.DataFrame([[200, 3, timestamp]], columns=column_names)
+
+
+@pytest.fixture()
+def impossible_training_dataframe(timestamp):
+    '''Fixture for sample dataframe of impossible training program'''
+    column_names = ["Weight", "Reps", "Timestamp"]
+    return pd.DataFrame([[999999, 999999, timestamp]], columns=column_names)
+
