@@ -6,4 +6,5 @@ install:
   - pip install -r requirements.txt
 
 script:
-  - pylint --version #change this to run pylint on python files once we have some
+  - pylint **/**.py #change this to run pylint on python files once we have some
+  - pytest
