@@ -44,8 +44,8 @@ class data_browser:
         tmp = np.asarray(self.log_90_people)
         return tmp[:, 2:4]
 
-all = np.asarray(data_browser().get_90_log_of_reps_weight_for_all_people())
-print(all)
+#all = np.asarray(data_browser().get_90_log_data_for_all())
+#print(all)
 # ---------------------------------------------------------------------------------------
 
 # transform the data of the people, the logs and the final performance to one array in the following form
@@ -64,13 +64,16 @@ class concatenated_data:
     def concatenate_90_logs_for_one_person_with_personal_info_and_performance(self, id):
         all_logs = np.asarray(self.concatenate_90_logs_for_one_person(id))
         all_logs_with_performance = np.asarray(data_browser().get_90_log_data_for_person(id))
-        performance = all_logs_with_performance[89][5]
+        pre_performance = all_logs_with_performance[0][5]
+        post_performance = all_logs_with_performance[89][5]
         personal_info = np.asarray(data_browser().get_90_of_age_weight_gender_log_data_for_all_people())[id]
         res = []
         res.extend(all_logs)
         res.extend(personal_info)
-        res.extend(np.asarray([performance]))
+        res.extend(np.asarray([pre_performance]))
+        res.extend(np.asarray([post_performance]))
         return res
+
 
 
     def concatenate_90_logs_for_all_with_personal_info_and_performance(self):
@@ -82,10 +85,10 @@ class concatenated_data:
 
 con = np.asarray(concatenated_data().concatenate_90_logs_for_all_with_personal_info_and_performance())
 
-with open("regression_dataframes.csv", "w", newline="") as file:
-    wr = csv.writer(file, quoting=csv.QUOTE_ALL)
-    for v in con:
-        wr.writerow(list(v))
+with open("regression_dataframes2.csv", "w", newline="") as file:
+   wr = csv.writer(file, quoting=csv.QUOTE_ALL)
+   for v in con:
+       wr.writerow(list(v))
 
 
 
