@@ -18,7 +18,6 @@ flags.DEFINE_float("gr", 0.5, "Gender ratio of male")
 flags.DEFINE_string("p", "simulator/individuals/GeneratedIndividuals.csv",
                     "Full path to save generated individuals in .csv format to")
 
-
 def gender_to_string(x):
     if x == 0:
         return "male"
@@ -26,7 +25,7 @@ def gender_to_string(x):
         return "female"
 
 
-def generate_indviduals(num, age_mean, age_variance, bench_press_fitness_mean, bench_press_fitness_variance,
+def generate_individuals(num, age_mean, age_variance, bench_press_fitness_mean, bench_press_fitness_variance,
                         gender_ratio):
     '''
     Generates individuals to be used in the simulator
@@ -87,7 +86,7 @@ def save_individuals(individuals, csv_file_path):
 
 
 def main(argv):
-    generated_individuals = generate_indviduals(FLAGS.n, FLAGS.am, FLAGS.av, FLAGS.bpm, FLAGS.bpv, FLAGS.gr)
+    generated_individuals = generate_individuals(FLAGS.n, FLAGS.am, FLAGS.av, FLAGS.bpm, FLAGS.bpv, FLAGS.gr)
     save_individuals(generated_individuals, FLAGS.p)
 
 

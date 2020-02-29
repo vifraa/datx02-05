@@ -1,10 +1,24 @@
 import pandas as pd
 import gym
-import generator
+from generator import generate_individuals
 from individual import Individual
 
+
+def __train_and_save(individuals, training_results_path, training_program_path):
+    column_names = ["ID", "Exercise", "Weight", "Reps", "Timestamp"]
+    training_logs = pd.DataFrame(columns=column_names)
+
+    # perform training
+    for individual in individuals:
+        performed_training = gym.train(training_program_path, individual)
+        performed_training.insert(0, "ID", [individual.id] * performed_training.shape[0], True)
+        training_logs = training_logs.append(performed_training)
+
+    # write training logs to given file path
+    training_logs.to_csv(training_results_path, sep="|", index=False)
+
 def train_population(population_size, age_mean, age_variance, bench_press_fitness_mean, bench_press_fitness_variance,
-                     gender_ratio, training_results_path):
+                     gender_ratio, training_program_path, training_results_path):
     """Takes a set of population parameters and generates a population. These individuals are then exposed to
      a given training program. The function then saves these individuals and their training data in a csv file.
 
@@ -16,7 +30,9 @@ def train_population(population_size, age_mean, age_variance, bench_press_fitnes
     :param training_results_path: file path to where performed training should be saved as csv file
 
     """
-    return None
+
+    individuals = generate_individuals(population_size, age_mean,age_variance,bench_press_fitness_mean,bench_press_fitness_variance,gender_ratio)
+    __train_and_save(individuals,training_results_path, training_program_path)
 
 def train_population_from_file(individuals_path, training_program_path, training_results_path):
     """Takes a file containing a set of individuals to expose training to. The function then saves these
@@ -36,18 +52,12 @@ def train_population_from_file(individuals_path, training_program_path, training
     for _, individual_series in individuals_df.iterrows():
         individuals.append(Individual(series=individual_series))
 
-    column_names = ["ID", "Exercise", "Weight", "Reps", "Timestamp"]
-    training_logs = pd.DataFrame(columns=column_names)
 
-    # perform training
-    for individual in individuals:
-        performed_training = gym.train(training_program_path, individual)
-        performed_training.insert(0, "ID", [individual.id] * performed_training.shape[0], True)
-        training_logs = training_logs.append(performed_training)
+    __train_and_save(individuals, training_results_path, training_program_path)
 
-    # write training logs to given file path
-    training_logs.to_csv(training_results_path, sep="|", index=False)
 
 if __name__ == "__main__":
-    train_population_from_file("simulator/individuals/GeneratedIndividuals.csv", "simulator/tests/sample_training_program.csv",
-                               "simulator/individuals/logs.csv")
+    #train_population_from_file("simulator/individuals/GeneratedIndividuals.csv", "simulator/tests/sample_training_program.csv",
+    #                              "simulator/individuals/logs.csv")
+    train_population(10,30,5,100,5,1,"simulator/tests/sample_training_program.csv",
+                                  "simulator/individuals/logs.csv")
