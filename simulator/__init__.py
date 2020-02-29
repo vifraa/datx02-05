@@ -33,7 +33,7 @@ def train_population_from_file(individuals_path, training_program_path, training
 
     # construct objects from entries
     individuals = []
-    for index, individual_series in individuals_df.iterrows():
+    for _, individual_series in individuals_df.iterrows():
         individuals.append(Individual(series=individual_series))
 
     column_names = ["ID", "Exercise", "Weight", "Reps", "Timestamp"]

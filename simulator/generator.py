@@ -45,8 +45,11 @@ def generate_indviduals(num, age_mean, age_variance, bench_press_fitness_mean, b
     # Normally distributed ages used to create birth dates
     ages = np.random.normal(age_mean, age_variance, num).astype("int")
     now = datetime.datetime.now()
-    birth_dates = [datetime.datetime(now.year - age, now.month, now.day) for age in ages]
-
+    try:
+        birth_dates = [datetime.datetime(now.year - age, now.month, now.day) for age in ages]
+    except ValueError:
+        #Date could not be set, defaulting
+        birth_dates = [datetime.datetime(now.year - age, 1,1) for age in ages]
     # Normally distributed bench press fitnesses used to create bench press movementss
     bench_press_fitnesses = np.random.normal(bench_press_fitness_mean, bench_press_fitness_variance, num).astype("int")
 
