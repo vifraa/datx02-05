@@ -8,4 +8,4 @@ install:
 script:
   - pylint **/**.py #change this to run pylint on python files once we have some
   - cd simulator
-  - pytest
+  - python -m pytest
