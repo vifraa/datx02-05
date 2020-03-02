@@ -66,5 +66,5 @@ def train_population_from_file(individuals_path, training_program_path, training
 if __name__ == "__main__":
     #train_population_from_file("simulator/individuals/GeneratedIndividuals.csv", "simulator/tests/sample_training_program.csv",
     #                              "simulator/individuals/logs.csv")
-    train_population(10,30,5,100,5,1,"simulator/tests/sample_training_program.csv",
-                                  "simulator/individuals/logs.csv")
+    train_population(10, 30, 5, 100, 5, 1, "simulator/tests/sample_training_program.csv",
+                     "simulator/individuals/logs.csv")

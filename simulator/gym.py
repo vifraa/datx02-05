@@ -15,7 +15,7 @@ def train(training_program_path, individual):
 
     :param individual: an Individual class instance
 
-    :returns: list of performed training logs
+    :returns: list of performed training logs with current level of performance
 
     '''
     training_dataframe = load_training(training_program_path)
@@ -32,7 +32,7 @@ def apply_banister(training_dataframe, movement):
     :param training_dataframe: a dataframe of performed training sets over time
     :param movement: an instance of the Movement class
 
-    :returns: a dataframe containing the actual performed training
+    :returns: a dataframe containing the actual performed training with performance at every step
 
     '''
 
@@ -40,11 +40,18 @@ def apply_banister(training_dataframe, movement):
     previous_date = training_dataframe["Timestamp"].iloc[0].date()
     cumulative_trimp = 0
     performed_training = training_dataframe.copy()
+
+    # add column for current level of performance
+    performed_training["Performance"] = [0] * len(performed_training)
+
     for index, training_set in training_dataframe.iterrows():
 
         # convert training to what would be possible for the individual to perform
         training_set = can_do(training_set, movement)
         performed_training.iloc[index, :] = training_set
+
+        # add current level of performance to log
+        performed_training.loc[training_dataframe.index[index], "Performance"] = movement.performance
 
         # since our timestep is daily, we have to accumulate the training sets taken place during
         # the same day in our calculations
