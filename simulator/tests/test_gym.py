@@ -40,6 +40,6 @@ def test_cant_do(impossible_training_dataframe, bench_press):
 
 def test_load_training():
     '''Test that loading sample training program from csv works as expected'''
-    program_dataframe = load_training("sample_training_program.csv")
+    program_dataframe = load_training("tests/sample_training_program.csv")
     assert program_dataframe.iloc[0, :]["Reps"] == 4
     assert program_dataframe.iloc[0, :]["Weight"] == 10
