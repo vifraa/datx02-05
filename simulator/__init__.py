@@ -5,6 +5,13 @@ from individual import Individual
 
 
 def __train_and_save(individuals, training_results_path, training_program_path):
+    """
+    Trains the individuals with the given traning program and save the logss
+
+    :param individuals: Individuals to train
+    :param training_results_path: Path to save logs to
+    :param training_program_path: Path to training program
+    """
     column_names = ["ID", "Exercise", "Weight", "Reps", "Timestamp"]
     training_logs = pd.DataFrame(columns=column_names)
 

@@ -25,8 +25,9 @@ def gender_to_string(x):
         return "female"
 
 
-def generate_individuals(num, age_mean, age_variance, bench_press_fitness_mean, bench_press_fitness_variance,
-                        gender_ratio):
+def generate_individuals(num, age_mean, age_variance, bench_press_fitness_mean, 
+        bench_press_fitness_variance,
+        gender_ratio):
     '''
     Generates individuals to be used in the simulator
 
