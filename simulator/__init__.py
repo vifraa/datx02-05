@@ -1,6 +1,6 @@
 import pandas as pd
 import gym
-from generator import generate_individuals
+from generator import generate_individuals, save_individuals
 from individual import Individual
 
 
@@ -24,8 +24,9 @@ def __train_and_save(individuals, training_results_path, training_program_path):
     # write training logs to given file path
     training_logs.to_csv(training_results_path, sep="|", index=False)
 
+
 def train_population(population_size, age_mean, age_variance, bench_press_fitness_mean, bench_press_fitness_variance,
-                     gender_ratio, training_program_path, training_results_path):
+                     gender_ratio, training_program_path, training_results_path, individuals_path):
     """Takes a set of population parameters and generates a population. These individuals are then exposed to
      a given training program. The function then saves these individuals and their training data in a csv file.
 
@@ -35,11 +36,17 @@ def train_population(population_size, age_mean, age_variance, bench_press_fitnes
     :param bench_press_fitness_mean: The mean of the 1RM in bench press for the individuals
     :param bench_press_fitness_variance: The variance in the 1RM for the individuals for a normal distribution
     :param training_results_path: file path to where performed training should be saved as csv file
+    :param individuals_path: file path to where the generated individuals should be saved
 
     """
 
-    individuals = generate_individuals(population_size, age_mean,age_variance,bench_press_fitness_mean,bench_press_fitness_variance,gender_ratio)
-    __train_and_save(individuals,training_results_path, training_program_path)
+    individuals = generate_individuals(population_size, age_mean, age_variance, bench_press_fitness_mean,
+                                       bench_press_fitness_variance, gender_ratio)
+    __train_and_save(individuals, training_results_path, training_program_path)
+
+    # save the generated individuals
+    save_individuals(individuals, individuals_path)
+
 
 def train_population_from_file(individuals_path, training_program_path, training_results_path):
     """Takes a file containing a set of individuals to expose training to. The function then saves these
@@ -59,12 +66,11 @@ def train_population_from_file(individuals_path, training_program_path, training
     for _, individual_series in individuals_df.iterrows():
         individuals.append(Individual(series=individual_series))
 
-
     __train_and_save(individuals, training_results_path, training_program_path)
 
 
 if __name__ == "__main__":
-    #train_population_from_file("simulator/individuals/GeneratedIndividuals.csv", "simulator/tests/sample_training_program.csv",
+    # train_population_from_file("simulator/individuals/GeneratedIndividuals.csv", "simulator/tests/sample_training_program.csv",
     #                              "simulator/individuals/logs.csv")
     train_population(10, 30, 5, 100, 5, 1, "simulator/tests/sample_training_program.csv",
-                     "simulator/individuals/logs.csv")
+                     "simulator/individuals/logs.csv", "simulator/individuals/memes.csv")
