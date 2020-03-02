@@ -7,6 +7,5 @@ install:
 
 script:
   - pylint **/**.py #change this to run pylint on python files once we have some
-  - pwd
-  - cd/simulator
+  - cd simulator
   - pytest
