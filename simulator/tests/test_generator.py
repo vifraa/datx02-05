@@ -1,5 +1,5 @@
 import pytest
-from generator import generate_indviduals, gender_to_string, save_individuals
+from generator import generate_individuals, gender_to_string, save_individuals
 import datetime
 import numpy as np
 
@@ -30,7 +30,7 @@ def test_generate_individuals():
     bench_press_fitness_mean = 100
     bench_press_fitness_variance = 5
     gender_ratio = 0.5
-    generated_individuals = generate_indviduals(num,age_mean,age_variance,bench_press_fitness_mean,bench_press_fitness_variance,gender_ratio)
+    generated_individuals = generate_individuals(num,age_mean,age_variance,bench_press_fitness_mean,bench_press_fitness_variance,gender_ratio)
     
     assert len(generated_individuals) == num
     assert gender_ratio == gender_ratio_calc(generated_individuals)
