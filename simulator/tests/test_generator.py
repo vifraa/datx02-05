@@ -1,10 +1,5 @@
-import pytest
-from generator import generate_individuals, gender_to_string, save_individuals
-import datetime
-import numpy as np
 import filecmp
-
-
+from generator import generate_individuals, gender_to_string, save_individuals
 
 
 def gender_ratio_calc(individuals):
@@ -26,25 +21,28 @@ def test_gender_to_string():
 
 
 def test_generate_individuals():
-    """Tests if generated individuals are of the same length and gender_ratio, have not yet figured out how to test the variance and mean"""
+    """Tests if generated individuals are of the same length and gender_ratio, have not yet figured
+    out how to test the variance and mean"""
     num = 10
     age_mean = 25
     age_variance = 2
     bench_press_fitness_mean = 100
     bench_press_fitness_variance = 5
     gender_ratio = 0.5
-    generated_individuals = generate_individuals(num,age_mean,age_variance,bench_press_fitness_mean,bench_press_fitness_variance,gender_ratio)
-    
+    generated_individuals = generate_individuals(num, age_mean, age_variance,
+                                                 bench_press_fitness_mean,
+                                                 bench_press_fitness_variance, gender_ratio)
+
     assert len(generated_individuals) == num
     assert gender_ratio == gender_ratio_calc(generated_individuals)
 
 
 def test_save_individuals(tmpdir, individual):
     """
-    Tests the save_individuals method of generator module. Saves a file and compares it to a manually created file to check if they are the same.
+    Tests the save_individuals method of generator module. Saves a file and compares it to a
+    manually created file to check if they are the same.
     """
-    p = tmpdir.mkdir("sub").join("test_individuals.csv")
-    individuals = [individual,individual] #use two individuals
-    save_individuals(individuals,p)
-    assert filecmp.cmp(p,"tests/sample_individuals.csv")
-
+    path = tmpdir.mkdir("sub").join("test_individuals.csv")
+    individuals = [individual, individual]  # use two individuals
+    save_individuals(individuals, path)
+    assert filecmp.cmp(path, "tests/sample_individuals.csv")

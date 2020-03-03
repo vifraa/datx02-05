@@ -1,3 +1,6 @@
+"""Module contains class representing a powerlifting trainee for use during the simulation of
+powerlifting training."""
+
 import math
 from datetime import datetime
 import pandas as pd
