@@ -2,6 +2,9 @@ import pytest
 from generator import generate_individuals, gender_to_string, save_individuals
 import datetime
 import numpy as np
+import filecmp
+
+
 
 
 def gender_ratio_calc(individuals):
@@ -34,4 +37,14 @@ def test_generate_individuals():
     
     assert len(generated_individuals) == num
     assert gender_ratio == gender_ratio_calc(generated_individuals)
+
+
+def test_save_individuals(tmpdir, individual):
+    """
+    Tests the save_individuals method of generator module. Saves a file and compares it to a manually created file to check if they are the same.
+    """
+    p = tmpdir.mkdir("sub").join("test_individuals.csv")
+    individuals = [individual,individual] #use two individuals
+    save_individuals(individuals,p)
+    assert filecmp.cmp(p,"tests/sample_individuals.csv")
 

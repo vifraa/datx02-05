@@ -8,7 +8,6 @@ from individual import Individual
 from movement import Movement
 
 FLAGS = flags.FLAGS
-
 flags.DEFINE_integer("n", 100, "How many individuals to generate")
 flags.DEFINE_integer("bpm", 100, "Mean of bench press max")
 flags.DEFINE_integer("bpv", 5, "Variance in bench press max")
