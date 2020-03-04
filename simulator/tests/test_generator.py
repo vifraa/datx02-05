@@ -29,9 +29,12 @@ def test_generate_individuals():
     bench_press_fitness_mean = 100
     bench_press_fitness_variance = 5
     gender_ratio = 0.5
-    generated_individuals = generate_individuals(num, age_mean, age_variance,
-                                                 bench_press_fitness_mean,
-                                                 bench_press_fitness_variance, gender_ratio)
+    weight_mean = 70
+    weight_variance = 5
+    generated_individuals = generate_individuals(num, age_mean, age_variance, 
+                                                 weight_mean, weight_variance,
+                                                 bench_press_fitness_mean, bench_press_fitness_variance,
+                                                 gender_ratio)
 
     assert len(generated_individuals) == num
     assert gender_ratio == gender_ratio_calc(generated_individuals)

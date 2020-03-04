@@ -19,7 +19,8 @@ flags.DEFINE_integer("av", 5, "Age variance")
 flags.DEFINE_float("gr", 0.5, "Gender ratio of male")
 flags.DEFINE_string("p", "simulator/individuals/GeneratedIndividuals.csv",
                     "Full path to save generated individuals in .csv format to")
-
+flags.DEFINE_integer("wm", 50, "Weight mean")
+flags.DEFINE_integer("wv", 5, "Weigt variance")
 
 def gender_to_string(sex_coding):
     """Returns string representing sex coding
@@ -31,7 +32,7 @@ def gender_to_string(sex_coding):
     return "female"
 
 
-def generate_individuals(num, age_mean, age_variance, bench_press_fitness_mean,
+def generate_individuals(num, age_mean, age_variance, weight_mean, weight_variance, bench_press_fitness_mean,
                          bench_press_fitness_variance, gender_ratio):
     """
     Generates individuals to be used in the simulator
@@ -61,14 +62,14 @@ def generate_individuals(num, age_mean, age_variance, bench_press_fitness_mean,
     # Normally distributed bench press fitnesses used to create bench press movementss
     bench_press_fitnesses = np.random.normal(bench_press_fitness_mean, bench_press_fitness_variance,
                                              num).astype("int")
-
+    weights = np.random.normal(weight_mean,weight_variance, num)
     genders = np.ones(num)
     genders[:int(num * gender_ratio)] = 0
     np.random.shuffle(genders)
     for i in range(num):
         name = names.get_full_name(gender=gender_to_string(genders[i]))
         bench_press_movement = Movement(1, 1, bench_press_fitnesses[i], 1, 1, 1, 1)
-        individual = Individual(i, birth_dates[i], int(genders[i]), name, 0, bench_press_movement)
+        individual = Individual(i, birth_dates[i], int(genders[i]), name, weights[i], bench_press_movement)
         individuals.append(individual)
 
     return individuals
@@ -98,7 +99,7 @@ def save_individuals(individuals, csv_file_path):
 def main():
     """absl entry if user wishes to generate individuals without also training them using the main
     program"""
-    generated_individuals = generate_individuals(FLAGS.n, FLAGS.am, FLAGS.av, FLAGS.bpm, FLAGS.bpv,
+    generated_individuals = generate_individuals(FLAGS.n, FLAGS.am, FLAGS.av, FLAGS.wm, FLAGS.wv, FLAGS.bpm, FLAGS.bpv,
                                                  FLAGS.gr)
     save_individuals(generated_individuals, FLAGS.p)
 

@@ -30,7 +30,7 @@ def __train_and_save(individuals, training_results_path, training_program_path):
     training_logs.to_csv(training_results_path, sep="|", index=False)
 
 
-def train_population(population_size, age_mean, age_variance, bench_press_fitness_mean,
+def train_population(population_size, age_mean, age_variance,weight_mean, weight_variance, bench_press_fitness_mean,
                      bench_press_fitness_variance, gender_ratio, training_program_path,
                      training_results_path, individuals_path):
     """Takes a set of population parameters and generates a population. These individuals are then
@@ -50,7 +50,7 @@ def train_population(population_size, age_mean, age_variance, bench_press_fitnes
 
     """
 
-    individuals = generate_individuals(population_size, age_mean, age_variance,
+    individuals = generate_individuals(population_size, age_mean, age_variance, weight_mean, weight_variance,
                                        bench_press_fitness_mean,
                                        bench_press_fitness_variance, gender_ratio)
     __train_and_save(individuals, training_results_path, training_program_path)
@@ -83,5 +83,6 @@ def train_population_from_file(individuals_path, training_program_path, training
 if __name__ == "__main__":
     # train_population_from_file("simulator/individuals/GeneratedIndividuals.csv",
     # "simulator/tests/sample_training_program.csv", "simulator/individuals/logs.csv")
-    train_population(10, 30, 5, 100, 5, 1, "simulator/tests/sample_training_program.csv",
+    train_population(10, 30, 5, 70, 5, 100, 5, 1, "simulator/tests/sample_training_program.csv",
                      "simulator/individuals/logs.csv", "simulator/individuals/memes.csv")
+    
