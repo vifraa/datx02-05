@@ -10,6 +10,7 @@ from absl import flags
 from absl import app
 from individual import Individual
 from movement import Movement
+import gym
 
 FLAGS = flags.FLAGS
 flags.DEFINE_integer("n", 100, "How many individuals to generate")
