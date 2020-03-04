@@ -1,6 +1,7 @@
 """Module generates a population of individuals based on given population parameters. These
 individuals can then be stored away for later use."""
 
+import os
 import datetime
 import numpy as np
 import names
@@ -79,12 +80,13 @@ def generate_individuals(num, age_mean, age_variance, weight_mean, weight_varian
     return individuals
 
 
-def save_individuals(individuals, csv_file_path):
-    """
-    Generates individuals to be used in the simulator
+def save_individuals(individuals, csv_file_path, timestamp):
+    """Saves individuals for later use in csv file. If given path to csv file already containing
+    individuals the function just appends the given individuals to that file.
 
     :param individuals: List of Individual(s) to save to .csv.
     :param csv_file_path: Path to file name of .csv.
+    :param timestamp that denotes the time associated with the current state of the individual.
     """
     all_indviduals_df = pd.DataFrame(columns=['ID', 'Birth', 'Gender', 'Name', 'Weight',
                                               'bench_press_fitness',
@@ -93,11 +95,19 @@ def save_individuals(individuals, csv_file_path):
                                               'bench_press_fitness_gain',
                                               'bench_press_fatigue_gain',
                                               'bench_press_fitness_decay',
-                                              'bench_press_fatigue_decay'
+                                              'bench_press_fatigue_decay',
+                                              'Timestamp'
                                               ])
+    # check if file is empty
+    if os.path.isfile(csv_file_path) and os.path.getsize(csv_file_path) > 0:
+        all_indviduals_df = all_indviduals_df.append(pd.read_csv(csv_file_path))
+
     for individual in individuals:
-        all_indviduals_df = all_indviduals_df.append(
-            individual.to_series(), ignore_index=True)
+        series = individual.to_series()
+        series["Timestamp"] = timestamp
+        all_indviduals_df = all_indviduals_df.append(series, ignore_index=True)
+
+    # save to given path
     all_indviduals_df.to_csv(csv_file_path, sep="|", index=False)
 
 

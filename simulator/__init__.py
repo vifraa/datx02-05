@@ -16,6 +16,10 @@ def __train_and_save(individuals, training_results_path, training_program_path):
     :param individuals: Individuals to train
     :param training_results_path: Path to save logs to
     :param training_program_path: Path to training program
+
+
+    :returns: Timestamp of the last completed workout
+
     """
     column_names = ["ID", "Exercise", "Weight", "Reps", "Timestamp"]
     training_logs = pd.DataFrame(columns=column_names)
@@ -29,6 +33,8 @@ def __train_and_save(individuals, training_results_path, training_program_path):
 
     # write training logs to given file path
     training_logs.to_csv(training_results_path, sep="|", index=False)
+
+    return training_logs["Timestamp"].iloc[-1]
 
 
 def train_population(population_size, age_mean, age_variance, weight_mean, weight_variance, bench_press_fitness_mean,
@@ -54,10 +60,10 @@ def train_population(population_size, age_mean, age_variance, weight_mean, weigh
     individuals = generate_individuals(population_size, age_mean, age_variance, weight_mean, weight_variance,
                                        bench_press_fitness_mean,
                                        bench_press_fitness_variance, gender_ratio)
-    __train_and_save(individuals, training_results_path, training_program_path)
+    timestamp = __train_and_save(individuals, training_results_path, training_program_path)
 
     # save the generated individuals
-    save_individuals(individuals, individuals_path)
+    save_individuals(individuals, individuals_path, timestamp)
 
 
 def train_population_from_file(individuals_path, training_program_path, training_results_path):
@@ -78,7 +84,10 @@ def train_population_from_file(individuals_path, training_program_path, training
     for _, individual_series in individuals_df.iterrows():
         individuals.append(Individual(series=individual_series))
 
-    __train_and_save(individuals, training_results_path, training_program_path)
+    timestamp = __train_and_save(individuals, training_results_path, training_program_path)
+
+    # add the updated individuals to bottom of csv file
+    save_individuals(individuals, individuals_path, timestamp)
 
 
 if __name__ == "__main__":
