@@ -37,9 +37,9 @@ def __train_and_save(individuals, training_results_path, training_program_path):
     return training_logs["Timestamp"].iloc[-1]
 
 
-def train_population(population_size, age_mean, age_variance, weight_mean, weight_variance, bench_press_fitness_mean,
-                     bench_press_fitness_variance, gender_ratio, training_program_path,
-                     training_results_path, individuals_path):
+def train_population(population_size, age_mean, age_variance, weight_mean, weight_variance,
+                     bench_press_fitness_mean, bench_press_fitness_variance, gender_ratio,
+                     training_program_path, training_results_path, individuals_path):
     """Takes a set of population parameters and generates a population. These individuals are then
     exposed to a given training program. The function then saves these individuals and their
     training data in a csv file.
@@ -57,8 +57,8 @@ def train_population(population_size, age_mean, age_variance, weight_mean, weigh
 
     """
 
-    individuals = generate_individuals(population_size, age_mean, age_variance, weight_mean, weight_variance,
-                                       bench_press_fitness_mean,
+    individuals = generate_individuals(population_size, age_mean, age_variance, weight_mean,
+                                       weight_variance, bench_press_fitness_mean,
                                        bench_press_fitness_variance, gender_ratio)
     timestamp = __train_and_save(individuals, training_results_path, training_program_path)
 

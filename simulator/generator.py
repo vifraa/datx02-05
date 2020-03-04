@@ -34,8 +34,8 @@ def gender_to_string(sex_coding):
     return "female"
 
 
-def generate_individuals(num, age_mean, age_variance, weight_mean, weight_variance, bench_press_fitness_mean,
-                         bench_press_fitness_variance, gender_ratio):
+def generate_individuals(num, age_mean, age_variance, weight_mean, weight_variance,
+                         bench_press_fitness_mean, bench_press_fitness_variance, gender_ratio):
     """
     Generates individuals to be used in the simulator
 
@@ -114,8 +114,8 @@ def save_individuals(individuals, csv_file_path, timestamp):
 def main():
     """absl entry if user wishes to generate individuals without also training them using the main
     program"""
-    generated_individuals = generate_individuals(FLAGS.n, FLAGS.am, FLAGS.av, FLAGS.wm, FLAGS.wv, FLAGS.bpm, FLAGS.bpv,
-                                                 FLAGS.gr)
+    generated_individuals = generate_individuals(FLAGS.n, FLAGS.am, FLAGS.av, FLAGS.wm, FLAGS.wv,
+                                                 FLAGS.bpm, FLAGS.bpv, FLAGS.gr)
     save_individuals(generated_individuals, FLAGS.p)
 
 
