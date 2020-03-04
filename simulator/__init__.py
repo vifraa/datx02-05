@@ -23,14 +23,15 @@ def __train_and_save(individuals, training_results_path, training_program_path):
     # perform training
     for individual in individuals:
         performed_training = gym.train(training_program_path, individual)
-        performed_training.insert(0, "ID", [individual.id] * performed_training.shape[0], True)
+        performed_training.insert(
+            0, "ID", [individual.id] * performed_training.shape[0], True)
         training_logs = training_logs.append(performed_training)
 
     # write training logs to given file path
     training_logs.to_csv(training_results_path, sep="|", index=False)
 
 
-def train_population(population_size, age_mean, age_variance,weight_mean, weight_variance, bench_press_fitness_mean,
+def train_population(population_size, age_mean, age_variance, weight_mean, weight_variance, bench_press_fitness_mean,
                      bench_press_fitness_variance, gender_ratio, training_program_path,
                      training_results_path, individuals_path):
     """Takes a set of population parameters and generates a population. These individuals are then
@@ -85,4 +86,3 @@ if __name__ == "__main__":
     # "simulator/tests/sample_training_program.csv", "simulator/individuals/logs.csv")
     train_population(10, 30, 5, 70, 5, 100, 5, 1, "simulator/tests/sample_training_program.csv",
                      "simulator/individuals/logs.csv", "simulator/individuals/memes.csv")
-    

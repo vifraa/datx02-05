@@ -22,6 +22,7 @@ flags.DEFINE_string("p", "simulator/individuals/GeneratedIndividuals.csv",
 flags.DEFINE_integer("wm", 50, "Weight mean")
 flags.DEFINE_integer("wv", 5, "Weigt variance")
 
+
 def gender_to_string(sex_coding):
     """Returns string representing sex coding
     :param sex_coding: integer representing sex
@@ -55,21 +56,24 @@ def generate_individuals(num, age_mean, age_variance, weight_mean, weight_varian
     ages = np.random.normal(age_mean, age_variance, num).astype("int")
     now = datetime.datetime.now()
     try:
-        birth_dates = [datetime.datetime(now.year - age, now.month, now.day) for age in ages]
+        birth_dates = [datetime.datetime(
+            now.year - age, now.month, now.day) for age in ages]
     except ValueError:
         # Date could not be set, defaulting
         birth_dates = [datetime.datetime(now.year - age, 1, 1) for age in ages]
     # Normally distributed bench press fitnesses used to create bench press movementss
     bench_press_fitnesses = np.random.normal(bench_press_fitness_mean, bench_press_fitness_variance,
                                              num).astype("int")
-    weights = np.random.normal(weight_mean,weight_variance, num)
+    weights = np.random.normal(weight_mean, weight_variance, num)
     genders = np.ones(num)
     genders[:int(num * gender_ratio)] = 0
     np.random.shuffle(genders)
     for i in range(num):
         name = names.get_full_name(gender=gender_to_string(genders[i]))
-        bench_press_movement = Movement(1, 1, bench_press_fitnesses[i], 1, 1, 1, 1)
-        individual = Individual(i, birth_dates[i], int(genders[i]), name, weights[i], bench_press_movement)
+        bench_press_movement = Movement(
+            1, 1, bench_press_fitnesses[i], 1, 1, 1, 1)
+        individual = Individual(i, birth_dates[i], int(genders[i]),
+                                name, weights[i], bench_press_movement)
         individuals.append(individual)
 
     return individuals
@@ -92,7 +96,8 @@ def save_individuals(individuals, csv_file_path):
                                               'bench_press_fatigue_decay'
                                               ])
     for individual in individuals:
-        all_indviduals_df = all_indviduals_df.append(individual.to_series(), ignore_index=True)
+        all_indviduals_df = all_indviduals_df.append(
+            individual.to_series(), ignore_index=True)
     all_indviduals_df.to_csv(csv_file_path, sep="|", index=False)
 
 

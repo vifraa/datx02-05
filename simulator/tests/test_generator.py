@@ -31,7 +31,7 @@ def test_generate_individuals():
     gender_ratio = 0.5
     weight_mean = 70
     weight_variance = 5
-    generated_individuals = generate_individuals(num, age_mean, age_variance, 
+    generated_individuals = generate_individuals(num, age_mean, age_variance,
                                                  weight_mean, weight_variance,
                                                  bench_press_fitness_mean, bench_press_fitness_variance,
                                                  gender_ratio)
