@@ -129,3 +129,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Ignore individuals .csv file
+./simulator/individuals/*.csv
