@@ -1,9 +1,8 @@
 """
 Module contains functinality to recommend different training programs to different individuals.
 """
-from simulator.individual import Individual
 
-def recommend_training(individual: Individual, performance: float):
+def recommend_training(individual, performance: float):
     """Based on an individual and its current performance, return the recommended training program
     and the estimated future performance.
 
@@ -30,7 +29,7 @@ def load_models():
     """Instantiates and returns the available models."""
     return []
 
-def predict_from_model(model, individual: Individual, current_performance: float):
+def predict_from_model(model, individual, current_performance: float):
     """Predicts what performance an given individual would have after doing a training program
     from the given training model.
 
