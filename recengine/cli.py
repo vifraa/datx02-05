@@ -1,5 +1,6 @@
 import click
-from pbar_recengine import PbarRecengine
+import numpy as np
+from recengine import RecommendationEngine
 
 @click.group()
 def cli():
@@ -17,15 +18,21 @@ def hello():
 @click.option('--age', '-a', prompt=True, required=True, type=int)
 @click.option('--weight', '-w', prompt=True, required=True, type=int)
 @click.option('--performance', '-p', prompt=True, required=True, type=float)
-@click.option('--sex', type=click.Choice(['MAN', 'WOMAN'], case_sensitive=False),
+@click.option('--sex', type=click.Choice(['MAN', 'WOMAN', 'OTHER'], case_sensitive=False),
               prompt=True, required=True)
 def pbar(age, weight, performance, sex):
     """
-    Based on individuals parameters recommend what training program will bring the most gains.
+    Makes recommendation based on performance before the training program.
     """
-    data = {"age": age, "weight": weight, "sex": sex}
-    recengine = PbarRecengine()
-    pred = recengine.recommend_training(data, performance)
+    if sex == 'MAN':
+        converted_sex = 0
+    elif sex == 'WOMAN':
+        converted_sex = 1
+    else:
+        converted_sex = 2
 
-    click.echo("Worked")
+    data = np.array([age, weight, converted_sex, performance]).reshape(1, -1)
+    recengine = RecommendationEngine("pbar")
+    pred = recengine.recommend_training(data)
+
     click.echo(pred)

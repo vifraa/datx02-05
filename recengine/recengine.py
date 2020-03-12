@@ -1,37 +1,42 @@
 """
 Module contains functionality to recommend different training programs to different individuals.
 """
-import os
 import glob
 import pickle
+import os
 
-def make_prediction(models, data):
-    """Based on an individual and its current performance, return the recommended training program
-    and the estimated future performance.
-
-    :param individual: The individual to recommend training program for.
-    :param performance: The individuals current performance.
+class RecommendationEngine:
+    """
+    RecommendationEngine
     """
 
-    current_best = None
-    for model in models:
-        prediction = model.predict(data)
+    def __init__(self, model_type):
+        dir_path = os.path.join(os.path.dirname(__file__), model_type)
+        file_paths = glob.glob(dir_path + "/*.sav")
 
-        if current_best is None or current_best < prediction:
-            current_best = prediction
+        models = []
+        for path in file_paths:
+            with open(path, "rb") as f:
+                models.append(pickle.load(f))
+        self.models = models
 
-    return current_best
 
 
+    def recommend_training(self, data):
+        """
+        Recommends the best training program for the given data based on the RecommendationEngine's
+        loaded models.
 
-def load_models(dir_path):
-    """Instantiates and returns the available models at the directory path."""
-    file_paths = glob.glob(dir_path + "/*.sav")
+        Returns the prediction result.
 
-    models = []
-    for path in file_paths:
-        with open(path, "rb") as f:
-            models.append(pickle.load(f))
+        :param data: The data to predict on
+        """
 
-    return models
+        current_best = None
+        for model in self.models:
+            prediction = model.predict(data)
 
+            if current_best is None or current_best < prediction:
+                current_best = prediction
+
+        return current_best
