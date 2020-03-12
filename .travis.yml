@@ -9,3 +9,5 @@ script:
   #commented temporary - pylint **/**.py 
   - cd simulator
   - python -m pytest
+  - cd ../recengine
+  - python -m pytest
