@@ -1,22 +1,21 @@
 """
-Module contains functinality to recommend different training programs to different individuals.
+Module contains functionality to recommend different training programs to different individuals.
 """
+import os
+import glob
+import pickle
 
-def recommend_training(individual, performance: float):
+def make_prediction(models, data):
     """Based on an individual and its current performance, return the recommended training program
     and the estimated future performance.
 
     :param individual: The individual to recommend training program for.
     :param performance: The individuals current performance.
     """
-    # TODO Refactor Individual/Create new one that contain performance within itself.
-    # Unnessecary to treat it separat from the individual.
-
-    models = load_models()
 
     current_best = None
     for model in models:
-        prediction = predict_from_model(model, individual, performance)
+        prediction = model.predict(data)
 
         if current_best is None or current_best < prediction:
             current_best = prediction
@@ -25,16 +24,14 @@ def recommend_training(individual, performance: float):
 
 
 
-def load_models():
-    """Instantiates and returns the available models."""
-    return []
+def load_models(dir_path):
+    """Instantiates and returns the available models at the directory path."""
+    file_paths = glob.glob(dir_path + "/*.sav")
 
-def predict_from_model(model, individual, current_performance: float):
-    """Predicts what performance an given individual would have after doing a training program
-    from the given training model.
+    models = []
+    for path in file_paths:
+        with open(path, "rb") as f:
+            models.append(pickle.load(f))
 
-    :param model: The training model used for predicting.
-    :param individual: The individual to predict post performance.
-    :param current_performance: The current performace of the individual.
-    """
-    return 0
+    return models
+
