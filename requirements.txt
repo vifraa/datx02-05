@@ -24,3 +24,4 @@ sklearn
 jupyter
 matplotlib
 click==7.0
+hypothesis
