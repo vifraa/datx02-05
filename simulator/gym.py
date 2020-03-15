@@ -7,7 +7,7 @@ import math
 import pandas as pd
 
 
-def train(training_program_path, individual):
+def train(training_dataframe, individual):
     """Function uses an implementation of the Banister model to
     adjust fitness and fatigue of an individual by decomposing
     a given training program into loads, and then feeding those
@@ -22,7 +22,6 @@ def train(training_program_path, individual):
     :returns: list of performed training logs with current level of performance
 
     """
-    training_dataframe = load_training(training_program_path)
 
     # train the bench press
     performed_training_dataframe = apply_banister(training_dataframe,

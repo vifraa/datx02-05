@@ -112,6 +112,23 @@ def save_individuals(individuals, csv_file_path, timestamp):
     all_indviduals_df.to_csv(csv_file_path, sep="|", index=False)
 
 
+def load_individuals(individuals_path):
+    """Load individuals into list of Individual class instances.
+
+    :param individuals_path: Path to file containing individuals.
+    :returns: A list of Individual class instances
+    """
+    # load individuals from csv file
+    individuals_df = pd.read_csv(individuals_path, sep="|")
+
+    # construct objects from entries
+    individuals = []
+    for _, individual_series in individuals_df.iterrows():
+        individuals.append(Individual(series=individual_series))
+
+    return individuals
+
+
 def main():
     """absl entry if user wishes to generate individuals without also training them using the main
     program"""
