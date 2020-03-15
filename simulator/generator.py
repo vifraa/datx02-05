@@ -101,7 +101,8 @@ def save_individuals(individuals, csv_file_path, timestamp):
                                               ])
     # check if file is empty
     if os.path.isfile(csv_file_path) and os.path.getsize(csv_file_path) > 0:
-        all_indviduals_df = all_indviduals_df.append(pd.read_csv(csv_file_path))
+        all_indviduals_df = all_indviduals_df.append(
+            pd.read_csv(csv_file_path))
 
     for individual in individuals:
         series = individual.to_series()
@@ -129,12 +130,15 @@ def load_individuals(individuals_path):
     return individuals
 
 
-def main():
+def main(argv):
     """absl entry if user wishes to generate individuals without also training them using the main
-    program"""
+    program
+    :param argv: Unused, it's required for absl
+    """
+    del argv  # Unused.
     generated_individuals = generate_individuals(FLAGS.n, FLAGS.am, FLAGS.av, FLAGS.wm, FLAGS.wv,
                                                  FLAGS.bpm, FLAGS.bpv, FLAGS.gr)
-    save_individuals(generated_individuals, FLAGS.p)
+    save_individuals(generated_individuals, FLAGS.p, datetime.datetime.now())
 
 
 if __name__ == "__main__":

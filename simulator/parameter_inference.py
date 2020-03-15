@@ -22,11 +22,12 @@ def infer_model_parameters(individuals_path, training_protocol_path, expected_re
     prescribed_training_df = pd.read_csv(training_protocol_path)
 
     # construct training instructions to use for simulation for each individual
-    individual_training = create_training_dict(individuals, prescribed_training_df)
+    individual_training = create_training_dict(
+        individuals, prescribed_training_df)
 
 
 def create_training_dict(individuals, training_df):
-    """Creates a dataframe of specific weights to use for an individual based on their capacity.
+    """Creates a dictionary of specific weights to use for an individual based on their capacity.
 
     :param individuals: List of individuals to prescribe training.
     :param training_df: Dataframe of prescribed training protocol.
@@ -37,5 +38,32 @@ def create_training_dict(individuals, training_df):
     training_dict = dict()
     for individual in individuals:
         adjusted_training = training_df.copy()
-        adjusted_training.loc["Percent1RM"] =
-        training_dict[individual] =
+
+        # Get the individually adjusted weights
+        specific_weights = get_weights_from_percent(
+            individual, adjusted_training["Percent1RM"])
+
+        # Set them in the program and adjust column name
+        adjusted_training["Percent1RM"] = specific_weights
+        adjusted_training.rename(
+            columns={'Percent1RM': 'Weight'}, inplace=True)
+        training_dict[individual] = adjusted_training
+
+    return training_dict
+
+
+def get_weights_from_percent(individual, percentages):
+    """
+
+    Given a list of percentages, return a list of real weights for the individual.
+
+    :param individual: The invidiual to calculate weights for.
+    :param percentages: Percentages of 1RM in the program.
+    """
+    # This is using performance, perhaps we should use fitness instead?
+    return [individual.bench_press_movement.performance*(percent/100) for percent in percentages]
+
+
+if __name__ == "__main__":
+    infer_model_parameters("simulator/individuals/GeneratedIndividuals.csv",
+                           "simulator/training_programs/ogasawara.csv", None)
