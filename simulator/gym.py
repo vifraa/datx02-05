@@ -70,7 +70,7 @@ def apply_banister(training_dataframe, movement):
             cumulative_trimp = 0
 
             # iterate through eventual rest-days where no training is performed
-            delta = training_set["Timestamp"].date() - previous_date.date()
+            delta = training_set["Timestamp"].date() - previous_date
             rest_days = delta.days
             for _ in range(rest_days):
                 apply_training_effects(movement, cumulative_trimp)
@@ -114,7 +114,6 @@ def generate_trimp(training_set, performance):
     :returns: a scalar value denoting the load of the given training set
 
     """
-
     load = training_set["Reps"] * training_set["Weight"] / performance
     return load
 
