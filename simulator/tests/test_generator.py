@@ -49,5 +49,7 @@ def test_save_individuals(tmpdir, individual):
     """
     path = tmpdir.mkdir("sub").join("test_individuals.csv")
     individuals = [individual, individual]  # use two individuals
-    save_individuals(individuals, path, datetime.datetime.now())
+    save_individuals(individuals, path, None)
+    with open(path) as filee:
+        print(filee.readlines())
     assert filecmp.cmp(path, "tests/sample_individuals.csv")
