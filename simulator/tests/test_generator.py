@@ -1,5 +1,5 @@
 """Unit tests for the generator module"""
-
+import datetime
 import filecmp
 from generator import generate_individuals, gender_to_string, save_individuals
 
@@ -49,5 +49,5 @@ def test_save_individuals(tmpdir, individual):
     """
     path = tmpdir.mkdir("sub").join("test_individuals.csv")
     individuals = [individual, individual]  # use two individuals
-    save_individuals(individuals, path)
+    save_individuals(individuals, path, datetime.datetime.now())
     assert filecmp.cmp(path, "tests/sample_individuals.csv")
