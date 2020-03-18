@@ -3,6 +3,7 @@ Module contains class representation of working with a
 prediction model.
 """
 import pickle
+import os
 
 class Model:
     """
@@ -33,7 +34,3 @@ class Model:
         prediction = self.predictor.predict(data)
         self.last_prediction = prediction
         return prediction
-
-
-    def __str__(self):
-        return f"name: {self.name}, predictor_path: {self.predictor_path}, last_prediction: {self.last_prediction}"
