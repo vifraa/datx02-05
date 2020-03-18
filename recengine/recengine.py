@@ -2,8 +2,8 @@
 Module contains functionality to recommend different training programs to different individuals.
 """
 import glob
-import pickle
 import os
+from model import Model
 
 class RecommendationEngine:
     """
@@ -16,8 +16,8 @@ class RecommendationEngine:
 
         models = []
         for path in file_paths:
-            with open(path, "rb") as f:
-                models.append(pickle.load(f))
+            models.append(Model(path))
+
         self.models = models
 
 
@@ -27,16 +27,14 @@ class RecommendationEngine:
         Recommends the best training program for the given data based on the RecommendationEngine's
         loaded models.
 
-        Returns the prediction result.
+        Return value 1: A map containing the value `predicted_performance` and the `model` used.
+        Return value 2: A list containing all models with their prediction in the same format
+        as return value 1.
 
         :param data: The data to predict on
         """
 
-        current_best = None
-        for model in self.models:
-            prediction = model.predict(data)
-
-            if current_best is None or current_best < prediction:
-                current_best = prediction
-
-        return current_best
+        predictions = [{"predicted_performance": model.predict(data)[0], "model": model}
+                       for model in self.models]
+        predictions = sorted(predictions, key=lambda x: -x["predicted_performance"])
+        return predictions[0], predictions
