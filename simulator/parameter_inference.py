@@ -4,6 +4,7 @@ import pandas as pd
 from individual import Individual
 from generator import load_individuals
 import gym
+import copy
 
 
 def infer_model_parameters(individuals_path, training_protocol_path, performance_gain_mean, performance_gain_std):
@@ -31,11 +32,12 @@ def infer_model_parameters(individuals_path, training_protocol_path, performance
 
     # Train individuals with randomized parameters and see if results are correct
     while (True):  # While results not met
-        individuals = pre_training_individuals.copy()
+        post_training_individuals = [copy.deepcopy(individual)
+                                     for individual in pre_training_individuals]
 
         # Generate random parameters
         fitness_decay = np.random.randint(
-            1, 50)
+            2, 50)
 
         # Integer between 1 and fitness_decay (fitness lasts longer than fatigue)
         fatigue_decay = np.random.randint(1, fitness_decay)
@@ -43,16 +45,15 @@ def infer_model_parameters(individuals_path, training_protocol_path, performance
         # Float between 1 and 5
         fitness_gain, fatigue_gain = np.random.uniform(
             1, 5, 2)
-        print(fitness_decay, fatigue_decay, fitness_gain, fatigue_gain)
         # Set same parameters to each individual and train them
-        for individual in individuals:
+        for individual in post_training_individuals:
             individual.bench_press_movement.fitness_decay = fitness_decay
             individual.bench_press_movement.fatigue_decay = fatigue_decay
             individual.bench_press_movement.fitness_gain = fitness_gain
             individual.bench_press_movement.fatigue_gain = fatigue_gain
-            gym.train(individual_training[individual], individual)
+            gym.train(individual_training[individual.id], individual)
         print(calculate_performance_gain_mean(
-            pre_training_individuals, individuals))
+            pre_training_individuals, post_training_individuals))
 
 
 def calculate_performance_gain_mean(pre_training_individuals, post_training_individuals):
@@ -69,6 +70,7 @@ def calculate_performance_gain_mean(pre_training_individuals, post_training_indi
         post_training_performance = post_training_individuals[i].bench_press_movement.performance
         diff = math.fabs(post_training_performance-pre_training_performance)
         total_gains += diff
+        print(pre_training_performance, post_training_performance)
         print("diff:", diff)
     return total_gains/(len(pre_training_individuals))
 
@@ -94,7 +96,7 @@ def create_training_dict(individuals, training_df):
         adjusted_training["Percent1RM"] = specific_weights
         adjusted_training.rename(
             columns={'Percent1RM': 'Weight'}, inplace=True)
-        training_dict[individual] = adjusted_training
+        training_dict[individual.id] = adjusted_training
 
     return training_dict
 
