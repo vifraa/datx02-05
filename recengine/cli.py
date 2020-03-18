@@ -1,3 +1,8 @@
+"""
+Module containing the CLI application for the Recommendation Engine.
+"""
+import json
+import pprint
 import click
 import numpy as np
 from recengine import RecommendationEngine
@@ -33,6 +38,9 @@ def pbar(age, weight, performance, sex):
 
     data = np.array([age, weight, converted_sex, performance]).reshape(1, -1)
     recengine = RecommendationEngine("pbar")
-    pred = recengine.recommend_training(data)
+    best_pred, _ = recengine.recommend_training(data)
 
-    click.echo(pred)
+    click.echo("\n")
+    click.echo("Predicted performance: " + str(best_pred["predicted_performance"]))
+    click.echo("Training program: " + best_pred["model"].name + "\n")
+    click.echo("(Used model): " + str(best_pred["model"].__dict__))
