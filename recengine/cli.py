@@ -40,7 +40,7 @@ def pbar(age, weight, performance, sex):
     recengine = RecommendationEngine("pbar")
     best_pred, _ = recengine.recommend_training(data)
 
-    click.echo("\n")
-    click.echo("Predicted performance: " + str(best_pred["predicted_performance"]))
-    click.echo("Training program: " + best_pred["model"].name + "\n")
+    click.secho("\nResult: ", fg="green")
+    click.secho("Predicted performance: " + str(best_pred["predicted_performance"]), fg="green")
+    click.secho("Training program: " + best_pred["model"].name + "\n", fg="green")
     click.echo("(Used model): " + str(best_pred["model"].__dict__))
