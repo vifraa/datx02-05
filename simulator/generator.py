@@ -13,7 +13,7 @@ from movement import Movement
 import gym
 
 FLAGS = flags.FLAGS
-flags.DEFINE_integer("n", 10, "How many individuals to generate")
+flags.DEFINE_integer("n", 1, "How many individuals to generate")
 flags.DEFINE_integer("bpm", 100, "Mean of bench press max")
 flags.DEFINE_integer("bpv", 5, "Variance in bench press max")
 flags.DEFINE_integer("am", 30, "Age mean")
@@ -73,7 +73,7 @@ def generate_individuals(num, age_mean, age_variance, weight_mean, weight_varian
     for i in range(num):
         name = names.get_full_name(gender=gender_to_string(genders[i]))
         bench_press_movement = Movement(
-            1, 1, bench_press_fitnesses[i], 1, 1, 1, 1)
+            bench_press_fitnesses[i], 0, bench_press_fitnesses[i], 1, 1, 1, 1)
         individual = Individual(i, birth_dates[i], int(genders[i]),
                                 name, weights[i], bench_press_movement)
         individuals.append(individual)
