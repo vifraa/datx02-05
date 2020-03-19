@@ -23,3 +23,5 @@ absl-py==0.9.0
 sklearn
 jupyter
 matplotlib
+click==7.0
+hypothesis
