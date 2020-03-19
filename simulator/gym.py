@@ -7,7 +7,7 @@ import math
 import pandas as pd
 
 
-def train(training_program_path, individual):
+def train(training_dataframe, individual):
     """Function uses an implementation of the Banister model to
     adjust fitness and fatigue of an individual by decomposing
     a given training program into loads, and then feeding those
@@ -22,7 +22,6 @@ def train(training_program_path, individual):
     :returns: list of performed training logs with current level of performance
 
     """
-    training_dataframe = load_training(training_program_path)
 
     # train the bench press
     performed_training_dataframe = apply_banister(training_dataframe,
@@ -71,7 +70,7 @@ def apply_banister(training_dataframe, movement):
             cumulative_trimp = 0
 
             # iterate through eventual rest-days where no training is performed
-            delta = training_set["Timestamp"].date() - previous_date.date()
+            delta = training_set["Timestamp"].date() - previous_date
             rest_days = delta.days
             for _ in range(rest_days):
                 apply_training_effects(movement, cumulative_trimp)
@@ -115,7 +114,6 @@ def generate_trimp(training_set, performance):
     :returns: a scalar value denoting the load of the given training set
 
     """
-
     load = training_set["Reps"] * training_set["Weight"] / performance
     return load
 

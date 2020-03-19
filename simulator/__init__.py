@@ -24,9 +24,12 @@ def __train_and_save(individuals, training_results_path, training_program_path):
     column_names = ["ID", "Exercise", "Weight", "Reps", "Timestamp"]
     training_logs = pd.DataFrame(columns=column_names)
 
+    # load training program
+    training_dataframe = gym.load_training(training_program_path)
+
     # perform training
     for individual in individuals:
-        performed_training = gym.train(training_program_path, individual)
+        performed_training = gym.train(training_dataframe, individual)
         performed_training.insert(
             0, "ID", [individual.id] * performed_training.shape[0], True)
         training_logs = training_logs.append(performed_training)

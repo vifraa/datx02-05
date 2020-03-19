@@ -13,7 +13,7 @@ from movement import Movement
 import gym
 
 FLAGS = flags.FLAGS
-flags.DEFINE_integer("n", 100, "How many individuals to generate")
+flags.DEFINE_integer("n", 1, "How many individuals to generate")
 flags.DEFINE_integer("bpm", 100, "Mean of bench press max")
 flags.DEFINE_integer("bpv", 5, "Variance in bench press max")
 flags.DEFINE_integer("am", 30, "Age mean")
@@ -73,7 +73,7 @@ def generate_individuals(num, age_mean, age_variance, weight_mean, weight_varian
     for i in range(num):
         name = names.get_full_name(gender=gender_to_string(genders[i]))
         bench_press_movement = Movement(
-            1, 1, bench_press_fitnesses[i], 1, 1, 1, 1)
+            bench_press_fitnesses[i], 0, bench_press_fitnesses[i], 1, 1, 1, 1)
         individual = Individual(i, birth_dates[i], int(genders[i]),
                                 name, weights[i], bench_press_movement)
         individuals.append(individual)
@@ -101,7 +101,8 @@ def save_individuals(individuals, csv_file_path, timestamp):
                                               ])
     # check if file is empty
     if os.path.isfile(csv_file_path) and os.path.getsize(csv_file_path) > 0:
-        all_indviduals_df = all_indviduals_df.append(pd.read_csv(csv_file_path))
+        all_indviduals_df = all_indviduals_df.append(
+            pd.read_csv(csv_file_path))
 
     for individual in individuals:
         series = individual.to_series()
@@ -112,12 +113,32 @@ def save_individuals(individuals, csv_file_path, timestamp):
     all_indviduals_df.to_csv(csv_file_path, sep="|", index=False)
 
 
-def main():
+def load_individuals(individuals_path):
+    """Load individuals into list of Individual class instances.
+
+    :param individuals_path: Path to file containing individuals.
+    :returns: A list of Individual class instances
+    """
+    # load individuals from csv file
+    individuals_df = pd.read_csv(individuals_path, sep="|")
+
+    # construct objects from entries
+    individuals = []
+    for _, individual_series in individuals_df.iterrows():
+        individuals.append(Individual(series=individual_series))
+
+    return individuals
+
+
+def main(argv):
     """absl entry if user wishes to generate individuals without also training them using the main
-    program"""
+    program
+    :param argv: Unused, it's required for absl
+    """
+    del argv  # Unused.
     generated_individuals = generate_individuals(FLAGS.n, FLAGS.am, FLAGS.av, FLAGS.wm, FLAGS.wv,
                                                  FLAGS.bpm, FLAGS.bpv, FLAGS.gr)
-    save_individuals(generated_individuals, FLAGS.p)
+    save_individuals(generated_individuals, FLAGS.p, datetime.datetime.now())
 
 
 if __name__ == "__main__":
