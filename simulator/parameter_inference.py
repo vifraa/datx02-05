@@ -36,19 +36,15 @@ def infer_model_parameters(individuals_path, training_protocol_path, performance
                                      for individual in pre_training_individuals]
 
         # Generate random parameters
-        # fitness_decay = np.random.randint(
-        #    2, 50)
+        fitness_decay = np.random.randint(
+            2, 50)
 
         # Integer between 1 and fitness_decay (fitness lasts longer than fatigue)
-        # fatigue_decay = np.random.randint(1, fitness_decay)
+        fatigue_decay = np.random.randint(1, fitness_decay)
 
         # Float between 1 and 5
-        # fitness_gain, fatigue_gain = np.random.uniform(
-        #   1, 50, 2)
-        fitness_gain = 1.0
-        fatigue_gain = 1.9
-        fitness_decay = 49.5
-        fatigue_decay = 11
+        fitness_gain, fatigue_gain = np.random.uniform(
+            1, 5, 2)
         # Set same parameters to each individual and train them
         for individual in post_training_individuals:
             individual.bench_press_movement.fitness_decay = fitness_decay
@@ -56,8 +52,13 @@ def infer_model_parameters(individuals_path, training_protocol_path, performance
             individual.bench_press_movement.fitness_gain = fitness_gain
             individual.bench_press_movement.fatigue_gain = fatigue_gain
             gym.train(individual_training[individual.id], individual)
-        print(calculate_performance_gain_mean(
-            pre_training_individuals, post_training_individuals))
+        average_gains = calculate_performance_gain_mean(
+            pre_training_individuals, post_training_individuals)
+        if (performance_gain_mean-performance_gain_std <= average_gains and
+                average_gains <= performance_gain_mean+performance_gain_std):
+            print("Fitness_decay:{}\n Fatigue_decay:{}\n Fitness_gain:{}\n Fatigue_gain:{}".format(
+                fitness_decay, fatigue_decay, fitness_gain, fatigue_gain))
+            break
 
 
 def calculate_performance_gain_mean(pre_training_individuals, post_training_individuals):
@@ -74,8 +75,6 @@ def calculate_performance_gain_mean(pre_training_individuals, post_training_indi
         post_training_performance = post_training_individuals[i].bench_press_movement.performance
         diff = math.fabs(post_training_performance-pre_training_performance)
         total_gains += diff
-        print(pre_training_performance, post_training_performance)
-        print("diff:", diff)
     return total_gains/(len(pre_training_individuals))
 
 
