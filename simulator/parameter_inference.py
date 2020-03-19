@@ -52,8 +52,11 @@ def infer_model_parameters(individuals_path, training_protocol_path, performance
             individual.bench_press_movement.fitness_gain = fitness_gain
             individual.bench_press_movement.fatigue_gain = fatigue_gain
             gym.train(individual_training[individual.id], individual)
+
         average_gains = calculate_performance_gain_mean(
             pre_training_individuals, post_training_individuals)
+
+        # If average gains after program is within one standard deviation of the study's result, we consider it done
         if (performance_gain_mean-performance_gain_std <= average_gains and
                 average_gains <= performance_gain_mean+performance_gain_std):
             print("Fitness_decay:{}\n Fatigue_decay:{}\n Fitness_gain:{}\n Fatigue_gain:{}".format(
