@@ -14,15 +14,15 @@ import gym
 
 FLAGS = flags.FLAGS
 flags.DEFINE_integer("n", 1, "How many individuals to generate")
-flags.DEFINE_integer("bpm", 100, "Mean of bench press max")
-flags.DEFINE_integer("bpv", 5, "Variance in bench press max")
+flags.DEFINE_float("bpm", 100, "Mean of bench press max")
+flags.DEFINE_float("bpv", 5, "Variance in bench press max")
 flags.DEFINE_integer("am", 30, "Age mean")
 flags.DEFINE_integer("av", 5, "Age variance")
 flags.DEFINE_float("gr", 0.5, "Gender ratio of male")
 flags.DEFINE_string("p", "simulator/individuals/GeneratedIndividuals.csv",
                     "Full path to save generated individuals in .csv format to")
-flags.DEFINE_integer("wm", 50, "Weight mean")
-flags.DEFINE_integer("wv", 5, "Weigt variance")
+flags.DEFINE_float("wm", 50, "Weight mean")
+flags.DEFINE_float("wv", 5, "Weigt variance")
 
 
 def gender_to_string(sex_coding):
