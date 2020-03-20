@@ -7,7 +7,8 @@ import gym
 import copy
 
 
-def infer_model_parameters(individuals_path, training_protocol_path, performance_gain_mean, performance_gain_std):
+def infer_model_parameters(individuals_path, training_protocol_path,
+                           performance_gain_mean, performance_gain_std, threshold):
     """Run training study in accordance to given population parameters, training protocols and
     expected results. The internal modelling parameters of the population will then be inferred
     by trying random values until a good fit on performance is found for training population.
@@ -16,6 +17,8 @@ def infer_model_parameters(individuals_path, training_protocol_path, performance
     :param training_protocol_path: Path to the training protocol to follow.
     :param performance_gain_mean: The mean of peformance increases in terms of 1RM.
     :param performance_gain_std: The standard deviation of performance increases in terms of 1RM.
+    :param threshold: The allowed difference between expected and actual mean and standard
+    deviation in performance gains.
     :returns: The inferred internal model parameters and the resulting accuracy in terms of
     difference between actual and expected performance.
     """
@@ -30,8 +33,19 @@ def infer_model_parameters(individuals_path, training_protocol_path, performance
     individual_training = create_training_dict(
         pre_training_individuals, prescribed_training_df)
 
+    # parameters to estimate
+    fitness_gain = 0
+    fatigue_gain = 0
+    fitness_decay = 0
+    fatigue_decay = 0
+
+    delta = 99999999999
+    best_delta = delta
+    iteration_mean = 0
+    iteration_stdev = 0
+
     # Train individuals with randomized parameters and see if results are correct
-    while (True):  # While results not met
+    while delta > threshold:
         post_training_individuals = [copy.deepcopy(individual)
                                      for individual in pre_training_individuals]
 
@@ -45,6 +59,7 @@ def infer_model_parameters(individuals_path, training_protocol_path, performance
         # Float between 1 and 5
         fitness_gain, fatigue_gain = np.random.uniform(
             1, 5, 2)
+
         # Set same parameters to each individual and train them
         for individual in post_training_individuals:
             individual.bench_press_movement.fitness_decay = fitness_decay
@@ -53,32 +68,49 @@ def infer_model_parameters(individuals_path, training_protocol_path, performance
             individual.bench_press_movement.fatigue_gain = fatigue_gain
             gym.train(individual_training[individual.id], individual)
 
-        average_gains = calculate_performance_gain_mean(
-            pre_training_individuals, post_training_individuals)
+        iteration_mean, iteration_stdev = \
+            calculate_performance_gain_distribution(pre_training_individuals,
+                                                    post_training_individuals)
 
-        # If average gains after program is within one standard deviation of the study's result, we consider it done
-        if (performance_gain_mean-performance_gain_std <= average_gains and
-                average_gains <= performance_gain_mean+performance_gain_std):
-            print("Fitness_decay:{}\n Fatigue_decay:{}\n Fitness_gain:{}\n Fatigue_gain:{}".format(
-                fitness_decay, fatigue_decay, fitness_gain, fatigue_gain))
-            break
+        delta = abs(performance_gain_mean - iteration_mean) + \
+                abs(performance_gain_std - iteration_stdev)
+
+        best_delta = min(delta, best_delta)
+
+        # update user on progress
+        print("Current iteration delta: {}".format(delta))
+        print("Best delta so far: {}".format(best_delta))
+
+    print("Distribution mean error: {}".format(abs(iteration_mean-performance_gain_mean)))
+    print("Distribution standard deviation error: {}".format(
+        abs(iteration_stdev-performance_gain_std)))
+    print("fitness_gain: {}".format(fitness_gain))
+    print("fatigue_gain: {}".format(fatigue_gain))
+    print("fitness_decay: {}".format(fitness_decay))
+    print("fatigue_decay: {}".format(fatigue_decay))
+
+    # parameters have been found
+    return fitness_gain, fatigue_gain, fitness_decay, fatigue_decay, iteration_mean, iteration_stdev
 
 
-def calculate_performance_gain_mean(pre_training_individuals, post_training_individuals):
+def calculate_performance_gain_distribution(pre_training_individuals, post_training_individuals):
     """
     Given a set of individuals pre training and post training, calculates the mean in performance gain in terms of KG and 1RM.
 
     :param pre_training_individuals: Individuals before training.
     :param post_training individuals: Individuals after training.
+
+    :returns: tuple of performance gain mean and standard deviation
     """
 
-    total_gains = 0
+    changes = []
     for i in range(len(pre_training_individuals)):
         pre_training_performance = pre_training_individuals[i].bench_press_movement.performance
         post_training_performance = post_training_individuals[i].bench_press_movement.performance
         diff = math.fabs(post_training_performance-pre_training_performance)
-        total_gains += diff
-    return total_gains/(len(pre_training_individuals))
+        changes.append(diff)
+
+    return np.mean(changes), np.std(changes)
 
 
 def create_training_dict(individuals, training_df):
@@ -120,5 +152,5 @@ def get_weights_from_percent(individual, percentages):
 
 
 if __name__ == "__main__":
-    infer_model_parameters("simulator/individuals/GeneratedIndividuals.csv",
-                           "simulator/training_programs/ogasawara.csv", 10, 5)
+    infer_model_parameters("simulator/training_programs/ogasawara_pop.csv",
+                           "simulator/training_programs/ogasawara.csv", 10.5, 2.95, 5)
