@@ -170,6 +170,5 @@ def percentage_to_weights_program(percentage_program, movement):
     converted_program.rename(
          columns={'Percent1RM': 'Weight'}, inplace=True)
     converted_program["Weight"] = weights
-    print(converted_program)
 
     return converted_program
