@@ -102,7 +102,7 @@ def save_individuals(individuals, csv_file_path, timestamp):
     # check if file is empty
     if os.path.isfile(csv_file_path) and os.path.getsize(csv_file_path) > 0:
         all_indviduals_df = all_indviduals_df.append(
-            pd.read_csv(csv_file_path))
+            pd.read_csv(csv_file_path, sep="|"))
 
     for individual in individuals:
         series = individual.to_series()
