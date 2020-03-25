@@ -23,6 +23,17 @@ then
     helpFunction
 fi
 
-rm -r "$outputPath"
+if ! [ -d "$inputPath" ]; then
+    # Input path exists
+    echo "Input path: " "$inputPath"  " does not exists"
+    helpFunction
+fi
+
+# Only remove output path if it alreadt exists.
+if [ -d "$outputPath" ]; then
+    rm -r "$outputPath"
+fi
+    
 cp -r "$inputPath" "$outputPath"
+
 
