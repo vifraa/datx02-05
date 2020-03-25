@@ -152,5 +152,8 @@ def get_weights_from_percent(individual, percentages):
 
 
 if __name__ == "__main__":
-    infer_model_parameters("simulator/training_programs/ogasawara_pop.csv",
-                           "simulator/training_programs/ogasawara.csv", 10.5, 2.95, 5)
+    infer_model_parameters("simulator/training_programs/ogasawara_HL_pop.csv",
+                           "simulator/training_programs/ogasawara_HL.csv", 10.5, 2.95, 5)
+
+    #infer_model_parameters("simulator/training_programs/ogasawara_LL_pop.csv","simulator/training_programs/ogasawara_LL.csv",5.2,1.7,5)
+    #infer_model_parameters("simulator/training_programs/kikuchi_pop.csv","simulator/training_programs/kikuchi.csv",5.0,12.1,5)
