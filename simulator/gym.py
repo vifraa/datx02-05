@@ -135,7 +135,7 @@ def can_do(training_set, movement):
     return training_set
 
 
-def load_training(path_to_program):
+def load_training(path_to_program, movement):
     """Load training program into python list structure from csv.
 
     :param path_to_program: path to training program csv
@@ -145,7 +145,31 @@ def load_training(path_to_program):
     """
 
     training_frame = pd.read_csv(path_to_program, sep="|")
-
+    training_frame = percentage_to_weights_program(training_frame, movement)
     # make timestamp column more conveniently usable
     training_frame["Timestamp"] = pd.to_datetime(training_frame["Timestamp"])
     return training_frame
+
+
+def percentage_to_weights_program(percentage_program, movement):
+    """Convert a percentage based program to a program containing weights in KG to be used by 
+    the individual based on their 1RM
+    
+    :param percentage program: pandas dataframe percentage based program
+    :param movement: the movement (eg. bench press or other)
+
+    :returns: the converted program containing weights in KG
+    """
+    weights = []
+    for percentage in percentage_program["Percent1RM"]:
+        weight = (percentage*movement.performance)/100 # Calculate real weight
+        weights.append(weight)
+
+    # Create the converted program
+    converted_program = percentage_program.copy()
+    converted_program.rename(
+         columns={'Percent1RM': 'Weight'}, inplace=True)
+    converted_program["Weight"] = weights
+    print(converted_program)
+
+    return converted_program
