@@ -45,8 +45,8 @@ def test_cant_do(impossible_training_dataframe, bench_press):
             training_set, bench_press)["Reps"]
 
 
-def test_load_training():
+def test_load_training(individual):
     """Test that loading sample training program from csv works as expected"""
-    program_dataframe = load_training("tests/sample_training_program.csv")
+    program_dataframe = load_training("tests/sample_training_program.csv", individual.bench_press_movement)
     assert program_dataframe.iloc[0, :]["Reps"] == 4
-    assert program_dataframe.iloc[0, :]["Weight"] == 10
+    assert program_dataframe.iloc[0, :]["Weight"] == 300*0.75

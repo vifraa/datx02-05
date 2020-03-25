@@ -25,10 +25,10 @@ def __train_and_save(individuals, training_results_path, training_program_path):
     training_logs = pd.DataFrame(columns=column_names)
 
     # load training program
-    training_dataframe = gym.load_training(training_program_path)
 
     # perform training
     for individual in individuals:
+        training_dataframe = gym.load_training(training_program_path, individual.bench_press_movement)
         performed_training = gym.train(training_dataframe, individual)
         performed_training.insert(
             0, "ID", [individual.id] * performed_training.shape[0], True)
@@ -96,5 +96,5 @@ def train_population_from_file(individuals_path, training_program_path, training
 if __name__ == "__main__":
     # train_population_from_file("simulator/individuals/GeneratedIndividuals.csv",
     # "simulator/tests/sample_training_program.csv", "simulator/individuals/logs.csv")
-    train_population(10, 30, 5, 70, 5, 100, 5, 1, "simulator/tests/sample_training_program.csv",
+    train_population(10, 30, 5, 70, 5, 100, 5, 1, "simulator/training_programs/ogasawara.csv",
                      "simulator/individuals/logs.csv", "simulator/individuals/memes.csv")

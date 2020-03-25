@@ -22,13 +22,10 @@ def infer_model_parameters(individuals_path, training_protocol_path, performance
 
     # load individuals
     pre_training_individuals = load_individuals(individuals_path)
-
-    # load training protocol
-    prescribed_training_df = gym.load_training(training_protocol_path)
-
+    
     # construct training instructions to use for simulation for each individual
     individual_training = create_training_dict(
-        pre_training_individuals, prescribed_training_df)
+        pre_training_individuals, training_protocol_path)
 
     # Train individuals with randomized parameters and see if results are correct
     while (True):  # While results not met
@@ -75,28 +72,19 @@ def calculate_performance_gain_mean(pre_training_individuals, post_training_indi
     return total_gains/(len(pre_training_individuals))
 
 
-def create_training_dict(individuals, training_df):
+def create_training_dict(individuals, program_path):
     """Creates a dictionary of specific weights to use for an individual based on their capacity.
 
     :param individuals: List of individuals to prescribe training.
-    :param training_df: Dataframe of prescribed training protocol.
+    :param program_path: file path to program
 
     :returns: Dataframe where percentage of 1RM has been replaced be pre-protocol performance
     weights.
     """
     training_dict = dict()
     for individual in individuals:
-        adjusted_training = training_df.copy()
 
-        # Get the individually adjusted weights
-        specific_weights = get_weights_from_percent(
-            individual, adjusted_training["Percent1RM"])
-
-        # Set them in the program and adjust column name
-        adjusted_training["Percent1RM"] = specific_weights
-        adjusted_training.rename(
-            columns={'Percent1RM': 'Weight'}, inplace=True)
-        training_dict[individual.id] = adjusted_training
+        training_dict[individual.id] = gym.load_training(program_path, individual.bench_press_movement)
 
     return training_dict
 
