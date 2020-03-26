@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from recengine import RecommendationEngine
 import numpy as np
 
@@ -6,8 +6,8 @@ import numpy as np
 app = Flask(__name__)
 
 @app.route("/")
-def hello_world():
-    return "hello world"
+def index():
+    return render_template('index.html')
 
 @app.route('/pbar', methods = ['GET', 'POST'])
 def pbar():
