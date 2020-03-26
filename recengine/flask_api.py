@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from recengine import RecommendationEngine
 import numpy as np
 
@@ -27,7 +27,17 @@ def pbar():
         else:
             converted_sex = 2
         data = np.array([age, weight, converted_sex, performance]).reshape(1, -1)
-        best_pred, _ = recengine.recommend_training(data)
+        best_pred, all_predictions = recengine.recommend_training(data)
+
+        res = {
+            "predicted_performance": best_pred["predicted_performance"],
+            "training_program": best_pred["model"].name,
+            "all_predictions": all_predictions
+        }
+
+        return jsonify(res)
+
+
     return f"{performance}{weight}{sex}{age}"
 
 
