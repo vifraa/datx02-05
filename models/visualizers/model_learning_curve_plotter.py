@@ -161,8 +161,9 @@ def Learning_curves_test():
     cv = ShuffleSplit(n_splits=20, test_size=0.2, random_state=0)
     estimator = Perceptron()
     Learning_curve_plotter(estimator, title, X, y, axes=axes[:, 2], ylim=(0.7, 1.01),cv=cv, n_jobs=4)
-    plt.show()
 
+
+    plt.show()
 
 
 Learning_curves_test()
