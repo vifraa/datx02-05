@@ -43,9 +43,13 @@ class Validation_curve_plot:
 '''
 testing learning perceptrons and SVC on digit data set
 '''
-from sklearn import datasets
-from sklearn.svm import SVC
-from sklearn.linear_model import Perceptron
-X, y = datasets.load_digits(return_X_y=True)
-Validation_curve_plot(X, y, Perceptron(), "alpha")
-Validation_curve_plot(X, y, SVC(), "gamma")
+def Validation_curves_test():
+    from sklearn import datasets
+    from sklearn.svm import SVC
+    from sklearn.linear_model import Perceptron
+    X, y = datasets.load_digits(return_X_y=True)
+    Validation_curve_plot(X, y, SVC(), "gamma")
+    Validation_curve_plot(X, y, Perceptron(), "alpha")
+
+
+Validation_curves_test()

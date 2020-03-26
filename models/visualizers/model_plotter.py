@@ -2,6 +2,8 @@ from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+
+# can be tested directly in 90-sets-model
 class Reducer_plotter:
 
     def pca_plot(df):
@@ -30,3 +32,5 @@ class Reducer_plotter:
             alpha=0.3
         )
         '''
+
+

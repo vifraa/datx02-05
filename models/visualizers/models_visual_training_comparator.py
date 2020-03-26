@@ -42,8 +42,12 @@ class Models_comparator:
 '''
 testing learning perceptrons and stochastic gradient decent on digit data set
 '''
-from sklearn import datasets
-from sklearn.linear_model import SGDClassifier, Perceptron
-X, y = datasets.load_digits(return_X_y=True)
-regressors = [("SGD", SGDClassifier(max_iter=100)), ("Perceptron", Perceptron())]
-Models_comparator(X, y, regressors)
+
+def comparator_test():
+    from sklearn import datasets
+    from sklearn.linear_model import SGDClassifier, Perceptron
+    X, y = datasets.load_digits(return_X_y=True)
+    regressors = [("SGD", SGDClassifier(max_iter=100)), ("Perceptron", Perceptron())]
+    Models_comparator(X, y, regressors)
+
+comparator_test()
