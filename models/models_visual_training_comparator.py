@@ -1,28 +1,24 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import Perceptron
 
 
-class Compare:
+class models_comparator:
 
-    def __init__(self, X, y):
+    def __init__(self, X, y, regressors):
         self.X = X
         self.y = y
+        self.regressors = regressors
         self.compare_models()
 
     def compare_models(self):
         heldout = [0.95, 0.90, 0.75, 0.50, 0.01]
         rounds = 20
 
-        regressors = [
-            ("Perceptron", Perceptron())
-        ]
-
         xx = 1. - np.array(heldout)
 
-        for name, clf in regressors:
+        for name, clf in self.regressors:
             print("training %s" % name)
             rng = np.random.RandomState(42)
             yy = []
@@ -44,8 +40,10 @@ class Compare:
 
 
 '''
-testing learning perceptrons on digit data set
+testing learning perceptrons and stochastic gradient decent on digit data set
 '''
 from sklearn import datasets
+from sklearn.linear_model import SGDClassifier, Perceptron
 X, y = datasets.load_digits(return_X_y=True)
-Compare(X, y)
+regressors = [("SGD", SGDClassifier(max_iter=100)), ("Perceptron", Perceptron())]
+models_comparator(X, y, regressors)
