@@ -2,7 +2,7 @@ from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-class reducer_plotter:
+class Reducer_plotter:
 
     def pca_plot(df):
         pca = PCA(n_components=3)

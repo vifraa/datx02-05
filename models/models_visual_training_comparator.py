@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import Perceptron
 
 
-class models_comparator:
+class Models_comparator:
 
     def __init__(self, X, y, regressors):
         self.X = X
@@ -46,4 +46,4 @@ from sklearn import datasets
 from sklearn.linear_model import SGDClassifier, Perceptron
 X, y = datasets.load_digits(return_X_y=True)
 regressors = [("SGD", SGDClassifier(max_iter=100)), ("Perceptron", Perceptron())]
-models_comparator(X, y, regressors)
+Models_comparator(X, y, regressors)

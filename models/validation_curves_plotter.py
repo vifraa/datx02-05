@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.model_selection import validation_curve
 
-class validation_curve_plot:
+class Validation_curve_plot:
     def __init__(self, X, y, estimator, param_name):
         self.X = X
         self.y = y
@@ -47,5 +47,5 @@ from sklearn import datasets
 from sklearn.svm import SVC
 from sklearn.linear_model import Perceptron
 X, y = datasets.load_digits(return_X_y=True)
-validation_curve_plot(X, y, Perceptron(), "alpha")
-validation_curve_plot(X, y, SVC(), "gamma")
+Validation_curve_plot(X, y, Perceptron(), "alpha")
+Validation_curve_plot(X, y, SVC(), "gamma")
