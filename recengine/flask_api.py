@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 from recengine import RecommendationEngine
 import numpy as np
+import sys
 
 
 app = Flask(__name__)
@@ -8,7 +9,28 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
+    print('Hello world!', file=sys.stderr)
     return render_template('index.html')
+
+
+@app.route("/formpbar", methods=["POST"])
+def formpbar():
+    recengine = RecommendationEngine("pbar")
+    age = int(request.form.get("fage"))
+    sex = request.form.get("fsex")
+    weight = float(request.form.get("fweight"))
+    performance = float(request.form.get("fperformance"))
+    if sex == 'MAN':
+        converted_sex = 0
+    elif sex == 'WOMAN':
+        converted_sex = 1
+    else:
+        converted_sex = 2
+    data = np.array([age, weight, converted_sex,
+                     performance]).reshape(1, -1)
+    best_pred, all_predictions = recengine.recommend_training(data)
+    return render_template("index.html", age=age, sex=sex, weight=weight, performance=performance,
+                           best_pred=best_pred["model"].name, predicted_performance=best_pred["predicted_performance"])
 
 
 @app.route('/pbar', methods=['POST'])
