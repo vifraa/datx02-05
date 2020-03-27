@@ -10,11 +10,10 @@ from movement import Movement
 class Individual:
     """The Individual class is representing an individual with several personal parameters."""
 
-
     def __init__(self, id="", birth: datetime = datetime(1, 1, 1), gender=2, name="", weight=0,
                  bench_press_movement=0, series=pd.Series()):
         """Constructor for the indivual class
-        
+
         :param id: An unique identifier.
         :param birth: The individual's date of birth.
         :param gender: A number between 0-2 representing different genders.
@@ -24,7 +23,7 @@ class Individual:
         :param series: Makes it possible to load an individual from an one-dimentional array (series).
         """
         if series.empty:
-            self.birth = birth
+            self.birth = birth.date()
             self.gender = gender
             self.name = name
             self.weight = weight
@@ -33,21 +32,20 @@ class Individual:
         else:
             self.load_from_series(series)
 
-    
     def get_age(self, date: datetime = datetime.now()):
         """Returns the individual's age at a given date.
-        
+
         :param date: The end date in the subtraction of age.
         """
         return math.floor((date - self.birth).days / 365)
 
     def load_from_series(self, series):
         """Loads an individual from a given one-dimentional array (series).
-        
+
         :param series: The one-dimentional array (series) that the individual will be initialized from.
         """
         self.id = series['ID']
-        self.birth = datetime.strptime(series['Birth'], '%Y-%m-%d')
+        self.birth = datetime.strptime(series['Birth'], '%Y-%m-%d').date()
         self.gender = series['Gender']
         self.name = series['Name']
         self.weight = series['Weight']

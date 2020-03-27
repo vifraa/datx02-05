@@ -28,7 +28,8 @@ def __train_and_save(individuals, training_results_path, training_program_path):
 
     # perform training
     for individual in individuals:
-        training_dataframe = gym.load_training(training_program_path, individual.bench_press_movement)
+        training_dataframe = gym.load_training(
+            training_program_path, individual.bench_press_movement)
         performed_training = gym.train(training_dataframe, individual)
         performed_training.insert(
             0, "ID", [individual.id] * performed_training.shape[0], True)
@@ -63,7 +64,8 @@ def train_population(population_size, age_mean, age_variance, weight_mean, weigh
     individuals = generate_individuals(population_size, age_mean, age_variance, weight_mean,
                                        weight_variance, bench_press_fitness_mean,
                                        bench_press_fitness_variance, gender_ratio)
-    timestamp = __train_and_save(individuals, training_results_path, training_program_path)
+    timestamp = __train_and_save(
+        individuals, training_results_path, training_program_path)
 
     # save the generated individuals
     save_individuals(individuals, individuals_path, timestamp)
@@ -87,7 +89,8 @@ def train_population_from_file(individuals_path, training_program_path, training
     for _, individual_series in individuals_df.iterrows():
         individuals.append(Individual(series=individual_series))
 
-    timestamp = __train_and_save(individuals, training_results_path, training_program_path)
+    timestamp = __train_and_save(
+        individuals, training_results_path, training_program_path)
 
     # add the updated individuals to bottom of csv file
     save_individuals(individuals, individuals_path, timestamp)
@@ -96,5 +99,7 @@ def train_population_from_file(individuals_path, training_program_path, training
 if __name__ == "__main__":
     # train_population_from_file("simulator/individuals/GeneratedIndividuals.csv",
     # "simulator/tests/sample_training_program.csv", "simulator/individuals/logs.csv")
-    train_population(10, 30, 5, 70, 5, 100, 5, 1, "simulator/training_programs/ogasawara.csv",
-                     "simulator/individuals/logs.csv", "simulator/individuals/memes.csv")
+    # train_population(10, 30, 5, 70, 5, 100, 5, 1, "simulator/training_programs/ogasawara_HL.csv",
+    #                 "simulator/individuals/logs.csv", "simulator/individuals/TrainedGeneratedIndividuals.csv")
+    train_population_from_file("simulator/individuals/GeneratedIndividuals.csv",
+                               "simulator/training_programs/ogasawara_HL.csv", "simulator/individuals/logs.csv")
