@@ -61,8 +61,7 @@ def apply_banister(training_dataframe, movement):
 
         # add current level of performance to log
         index_label = training_dataframe.index[index]
-        performed_training.loc[index_label,
-                               "Performance"] = movement.performance
+        performed_training.loc[index_label, "Performance"] = movement.get_current_performance()
 
         # since our timestep is daily, we have to accumulate the training sets taken place during
         # the same day in our calculations
@@ -82,7 +81,7 @@ def apply_banister(training_dataframe, movement):
 
         else:
             cumulative_trimp = generate_trimp(
-                training_set, movement.performance)
+                training_set, movement.get_current_performance())
 
         previous_date = training_set["Timestamp"].date()
 
@@ -106,8 +105,6 @@ def apply_training_effects(movement, cumulative_trimp):
         math.exp(-1 / movement.fitness_decay) + cumulative_trimp
     movement.fatigue = movement.fatigue * \
         math.exp(-1 / movement.fatigue_decay) + cumulative_trimp
-    movement.performance = movement.fitness * movement.fitness_gain - \
-        movement.fatigue * movement.fatigue_gain
 
 
 def generate_trimp(training_set, performance):

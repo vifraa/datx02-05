@@ -10,7 +10,7 @@ def test_apply_banister(training_dataframe, bench_press):
     old_fitness = bench_press.fitness
     old_fatigue = bench_press.fatigue
     trimp = generate_trimp(
-        training_dataframe.iloc[0, :], bench_press.performance)
+        training_dataframe.iloc[0, :], bench_press.get_current_performance())
 
     apply_banister(training_dataframe, bench_press)
 
@@ -18,16 +18,17 @@ def test_apply_banister(training_dataframe, bench_press):
         math.exp(-1 / bench_press.fitness_decay) + trimp
     assert bench_press.fatigue == old_fatigue * \
         math.exp(-1 / bench_press.fatigue_decay) + trimp
-    assert bench_press.performance == bench_press.fitness * bench_press.fitness_gain \
-        - bench_press.fatigue * bench_press.fatigue_gain
+    assert bench_press.get_current_performance() == bench_press.basic_performance + \
+           bench_press.fitness * bench_press.fitness_gain \
+           - bench_press.fatigue * bench_press.fatigue_gain
 
 
 def test_generate_trimp(training_dataframe, bench_press):
     """Test if training load returned by function is correct for known input"""
     training_set = training_dataframe.iloc[0, :]
-    trimp = generate_trimp(training_set, bench_press.performance)
+    trimp = generate_trimp(training_set, bench_press.get_current_performance())
     ground_truth = training_set["Reps"] * \
-        training_set["Weight"] / bench_press.performance
+        training_set["Weight"] / bench_press.get_current_performance()
     assert trimp == ground_truth
 
 

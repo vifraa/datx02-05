@@ -54,7 +54,7 @@ class Individual:
         self.bench_press_movement = Movement(
             series["bench_press_fitness"],
             series["bench_press_fatigue"],
-            series["bench_press_performance"],
+            series["bench_press_basic_performance"],
             series["bench_press_fitness_gain"],
             series["bench_press_fatigue_gain"],
             series["bench_press_fitness_decay"],
@@ -69,7 +69,7 @@ class Individual:
             'Weight': self.weight,
             'bench_press_fitness': self.bench_press_movement.fitness,
             'bench_press_fatigue': self.bench_press_movement.fatigue,
-            'bench_press_performance': self.bench_press_movement.performance,
+            'bench_press_basic_performance': self.bench_press_movement.get_current_performance(),
             'bench_press_fitness_gain': self.bench_press_movement.fitness_gain,
             'bench_press_fatigue_gain': self.bench_press_movement.fatigue_gain,
             'bench_press_fitness_decay': self.bench_press_movement.fitness_decay,
