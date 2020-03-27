@@ -10,19 +10,19 @@ from absl import flags
 from absl import app
 from individual import Individual
 from movement import Movement
-import gym
+from gym import BASE_FITNESS_GAIN, BASE_FATIGUE_GAIN, BASE_FITNESS_DECAY, BASE_FATIGUE_DECAY
 
 FLAGS = flags.FLAGS
 flags.DEFINE_integer("n", 1, "How many individuals to generate")
-flags.DEFINE_integer("bpm", 100, "Mean of bench press max")
-flags.DEFINE_integer("bpv", 5, "Variance in bench press max")
+flags.DEFINE_float("bpm", 100, "Mean of bench press max")
+flags.DEFINE_float("bpv", 5, "Variance in bench press max")
 flags.DEFINE_integer("am", 30, "Age mean")
 flags.DEFINE_integer("av", 5, "Age variance")
 flags.DEFINE_float("gr", 0.5, "Gender ratio of male")
 flags.DEFINE_string("p", "simulator/individuals/GeneratedIndividuals.csv",
                     "Full path to save generated individuals in .csv format to")
-flags.DEFINE_integer("wm", 50, "Weight mean")
-flags.DEFINE_integer("wv", 5, "Weigt variance")
+flags.DEFINE_float("wm", 50, "Weight mean")
+flags.DEFINE_float("wv", 5, "Weigt variance")
 
 
 def gender_to_string(sex_coding):
@@ -73,7 +73,8 @@ def generate_individuals(num, age_mean, age_variance, weight_mean, weight_varian
     for i in range(num):
         name = names.get_full_name(gender=gender_to_string(genders[i]))
         bench_press_movement = Movement(
-            bench_press_fitnesses[i], 0, bench_press_fitnesses[i], 1, 1, 1, 1)
+            bench_press_fitnesses[i], 0, bench_press_fitnesses[i],
+            BASE_FITNESS_GAIN, BASE_FATIGUE_GAIN, BASE_FITNESS_DECAY, BASE_FATIGUE_DECAY)
         individual = Individual(i, birth_dates[i], int(genders[i]),
                                 name, weights[i], bench_press_movement)
         individuals.append(individual)
@@ -102,7 +103,7 @@ def save_individuals(individuals, csv_file_path, timestamp):
     # check if file is empty
     if os.path.isfile(csv_file_path) and os.path.getsize(csv_file_path) > 0:
         all_indviduals_df = all_indviduals_df.append(
-            pd.read_csv(csv_file_path))
+            pd.read_csv(csv_file_path, sep="|"))
 
     for individual in individuals:
         series = individual.to_series()
