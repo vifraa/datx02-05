@@ -1,60 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<title>Recommendation Engine</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <title>Recommendation Engine</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-<style>
+        <style>
 
-body {
-    background: #e2e1e0;
-}
-.table {
-    width: fit-content;
+                body {
+                    background: #e2e1e0;
+                }
+                
+                .col-form-label {
+                    text-align: right;
+                    font-weight: bold;
+                }
+                
+                .carder {
+                    padding: 20px;
+                    border-radius: 2px;
+                    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+                    background: #ffffff;
+                    margin-bottom: 20px;
+                    margin-top: 20px;
+                }
 
-}
-.col-form-label {
-    text-align: right;
-    font-weight: bold;
-}
-.form-wrapper {
-    padding: 20px;
-  border-radius: 2px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-      background: #ffffff;
+                p.result-inputs>span {
+                    font-weight: bold;
+                }
 
-}
-</style>
-</head>
+                p.result-inputs {
+                    margin-bottom: 0px;
+                }
+
+                .black-striped {
+                    background-color: rgba(0,0,0,.2);
+                }
+
+        </style>
+    </head>
 
     <body>
-        <div class="container-fluid" style="margin-top: 115px;">
+        <div class="container">
             <div class="row" >
                 <div class="col-xs-12 col-md-5">
-                    <div class="form-wrapper">
-                        <h3 style="">Recommendation Engine</h3>
+                    <div class="carder">
+                        <h2 style="">Recommendation Engine</h2>
                         <p>Input your parameters to get a recommendation on the most effective workout for you.</p>
                         <form method="POST" action="/formpbar">
                             <div class="form-group row">
                                 <label for="nameInput" class="col-sm-4 col-form-label">Name</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="nameInput" required>
+                                    <input type="text" name="fname" class="form-control" id="nameInput" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="ageInput" class="col-sm-4 col-form-label">Age</label>
                                 <div class="col-sm-8">
-                                    <input type="number" class="form-control" id="ageInput" required>
+                                    <input type="number" name="fage" class="form-control" id="ageInput" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="weightInput" class="col-sm-4 col-form-label">Weight</label>
                                 <div class="col-sm-8">
-                                    <input type="number" class="form-control" id="weightInput" required>
+                                    <input type="number" name="fweight" class="form-control" id="weightInput" required>
                                 </div>
                             </div>
 
@@ -63,15 +75,15 @@ body {
                                     <legend class="col-form-label col-sm-4 pt-0">Sex</legend>
                                     <div class="col-sm-8">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="MAN">
+                                            <input class="form-check-input" name="fsex" type="checkbox" id="inlineCheckbox1" value="0">
                                             <label class="form-check-label" for="inlineCheckbox1">Man</label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="WOMAN">
+                                            <input class="form-check-input" name="fsex" type="checkbox" id="inlineCheckbox2" value="1">
                                             <label class="form-check-label" for="inlineCheckbox2">Woman</label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="OTHER">
+                                            <input class="form-check-input" name="fsex" type="checkbox" id="inlineCheckbox3" value="2">
                                             <label class="form-check-label" for="inlineCheckbox3">Other</label>
                                         </div>
                                     </div>
@@ -81,7 +93,7 @@ body {
                             <div class="form-group row">
                                 <label for="1rmInput" class="col-sm-4 col-form-label">Current 1RM</label>
                                 <div class="col-sm-8">
-                                    <input type="number" class="form-control" id="1rmInput" required>
+                                    <input type="number" name="fperformance" class="form-control" id="1rmInput" required>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -94,44 +106,60 @@ body {
                 </div>
 
 
+                {% if age and weight and sex and performance and best_pred %}
                 <div class="col-xs-12 col-md-7">
-                    {% if age and weight and sex and performance and best_pred %}
-                    <h1>You input: {{weight, age, sex, performance}}: </h1>
-                    Your best program is: {{best_pred}} and your predicted 1RM following the program is {{predicted_performance}}
-                    {% endif %}
+                    <div class="carder">
+                        <h2>Greetings {{name}}!</h2>
+                        <p class="result-inputs">
+                            <span>Weight: </span> {{weight}}
+                        </p>
+                        <p class="result-inputs">
+                            <span>Age: </span> {{age}}
+                        </p>
+                        <p class="result-inputs">
+                            <span>Sex: </span> {{sex}}
+                        </p>
+                        <p class="result-inputs">
+                            <span>Current 1RM: </span> {{performance}}
+                        </p>
 
+                        <p class="mt-4">
+                            The resulting program that yeilds the best result is <b>{{best_pred}}</b> and the machine learning models predict that
+                            you will reach the performance of <b>{{ '%0.2f' | format(predicted_performance)}}</b> 1RM.
+                        </p>
 
-                    {% if program %}
-                    <h1>
-                        Program:
-                    </h1>
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-compact">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>Day</th>
-                                    <th>Weight (kg)</th>
-                                    <th>Reps</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                        {% if program %}
+                        <h3>
+                            {{best_pred}}:
+                        </h3>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Day</th>
+                                        <th>Weight (kg)</th>
+                                        <th>Reps</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                                {% for day, sets in program.items() %}
-                                {% for set in sets %}
-                                <tr>
-                                    <td>{{day}}</td>
-                                    <td>{{((set[1] | float) / 100) * performance}}</td>
-                                    <td>{{set[2]}}</td>
-                                </tr>
-                                {% endfor %}
-                                {% endfor %}
+                                    {% for day, sets in program.items() %}
+                                    {% for set in sets %}
+                                    <tr class="{{'black-striped' if ((day | int) % 2 == 0)}}">
+                                        <td>{{day}}</td>
+                                        <td>{{((set[1] | float) / 100) * performance}}</td>
+                                        <td>{{set[2]}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% endfor %}
 
-                            </tbody>
-                        </table>
-
+                                </tbody>
+                            </table>
+                        </div>
+                        {% endif %}
                     </div>
-                    {% endif %}
                 </div>
+                {% endif %}
             </div>
         </div>
     </body>
