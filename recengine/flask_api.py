@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, render_template
-from recengine import RecommendationEngine
+from recengine import RecommendationEngine, fetch_program_from_model
 import numpy as np
 import sys
 
@@ -28,9 +28,12 @@ def formpbar():
         converted_sex = 2
     data = np.array([age, weight, converted_sex,
                      performance]).reshape(1, -1)
-    best_pred, all_predictions = recengine.recommend_training(data)
+    best_pred, _ = recengine.recommend_training(data)
+    program = fetch_program_from_model(best_pred["model"])
     return render_template("index.html", age=age, sex=sex, weight=weight, performance=performance,
-                           best_pred=best_pred["model"].name, predicted_performance=best_pred["predicted_performance"])
+                           best_pred=best_pred["model"].name,
+                           predicted_performance=best_pred["predicted_performance"],
+                           program=program)
 
 
 @app.route('/pbar', methods=['POST'])
