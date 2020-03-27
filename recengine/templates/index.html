@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -106,7 +105,7 @@
                 </div>
 
 
-                {% if age and weight and sex and performance and best_pred %}
+                {% if age and weight and sex and performance and best_pred and predicted_performance %}
                 <div class="col-xs-12 col-md-7">
                     <div class="carder">
                         <h2>Greetings {{name}}!</h2>
@@ -125,7 +124,7 @@
 
                         <p class="mt-4">
                             The resulting program that yeilds the best result is <b>{{best_pred}}</b> and the machine learning models predict that
-                            you will reach the performance of <b>{{ '%0.2f' | format(predicted_performance)}}</b> 1RM.
+                            you will reach the performance of <b>{{ '%0.2f' | format(predicted_performance | float)}}</b> 1RM.
                         </p>
 
                         {% if program %}
