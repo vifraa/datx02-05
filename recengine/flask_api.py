@@ -16,24 +16,21 @@ def index():
 @app.route("/formpbar", methods=["POST"])
 def formpbar():
     recengine = RecommendationEngine("pbar")
+    name = request.form.get("fname")
     age = int(request.form.get("fage"))
-    sex = request.form.get("fsex")
+    sex = int(request.form.get("fsex"))
     weight = float(request.form.get("fweight"))
     performance = float(request.form.get("fperformance"))
-    if sex == 'MAN':
-        converted_sex = 0
-    elif sex == 'WOMAN':
-        converted_sex = 1
-    else:
-        converted_sex = 2
-    data = np.array([age, weight, converted_sex,
+
+    data = np.array([age, weight, sex,
                      performance]).reshape(1, -1)
     best_pred, _ = recengine.recommend_training(data)
     program = fetch_program_from_model(best_pred["model"])
     return render_template("index.html", age=age, sex=sex, weight=weight, performance=performance,
                            best_pred=best_pred["model"].name,
                            predicted_performance=best_pred["predicted_performance"],
-                           program=program)
+                           program=program,
+                           name=name)
 
 
 @app.route('/pbar', methods=['POST'])
