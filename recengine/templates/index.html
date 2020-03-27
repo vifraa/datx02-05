@@ -2,52 +2,127 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>My Page</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Recommendation Engine</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<style>
+.table {
+    width: fit-content;
+
+}
+.col-form-label {
+    text-align: right;
+    font-weight: bold;
+}
+.form-wrapper {
+    padding: 20px;
+}
+</style>
 </head>
 
-<body>
-    <form method="POST" action="/formpbar">
-        Name <input type="text" name="fname" required> <br>
-        Age: <input type="number" name="fage" required><br>
-        Weight: <input type="number" name="fweight" required><br>
-        Sex: <input type="radio" id="male" name="fsex" value="MAN">
-        <label for="male">Male</label>
-        <input type="radio" id="female" name="fsex" value="WOMAN">
-        <label for="female">Female</label>
-        <input type="radio" id="other" name="fsex" value="OTHER">
-        <label for="other">Other</label><br>
-        Current1RM: <input type="float" name="fperformance" required><br>
-        <input type="submit" value="Submit">
-    </form>
-    {% if age and weight and sex and performance and best_pred %}
-    <h1>You input: {{weight, age, sex, performance}}: </h1>
-    Your best program is: {{best_pred}} and your predicted 1RM following the program is {{predicted_performance}}
-    {% endif %}
+    <body>
+        <div class="container-fluid" style="margin-top: 115px;">
+            <div class="row" >
+                <div class="col-xs-12 col-md-4">
+                    <div class="form-wrapper">
+                        <form method="POST" action="/formpbar">
+                            <div class="form-group row">
+                                <label for="nameInput" class="col-sm-4 col-form-label">Name</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="nameInput" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="ageInput" class="col-sm-4 col-form-label">Age</label>
+                                <div class="col-sm-8">
+                                    <input type="number" class="form-control" id="ageInput" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="weightInput" class="col-sm-4 col-form-label">Weight</label>
+                                <div class="col-sm-8">
+                                    <input type="number" class="form-control" id="weightInput" required>
+                                </div>
+                            </div>
+
+                            <fieldset class="form-group row">
+                                <div class="row">
+                                    <legend class="col-form-label col-sm-4 pt-0">Sex</legend>
+                                    <div class="col-sm-8">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="MAN">
+                                            <label class="form-check-label" for="inlineCheckbox1">Man</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="WOMAN">
+                                            <label class="form-check-label" for="inlineCheckbox2">Woman</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="OTHER">
+                                            <label class="form-check-label" for="inlineCheckbox3">Other</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <div class="form-group row">
+                                <label for="1rmInput" class="col-sm-4 col-form-label">Current 1RM</label>
+                                <div class="col-sm-8">
+                                    <input type="number" class="form-control" id="1rmInput" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-8 offset-sm-4" style="text-align: right;">
+                                    <button type="submit" style="width: 100%" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
 
-    {% if program %}
-    <h1>
-        Program:
-    </h1>
-    <table>
-        <tr>
-            <th>Day</th>
-            <th>Weight (kg)</th>
-            <th>Reps</th>
-        </tr>
-        {% for day, sets in program.items() %}
-            {% for set in sets %}
-            <tr>
-                <td>{{day}}</td>
-                <td>{{((set[1] | float) / 100) * performance}}</td>
-                <td>{{set[2]}}</td>
-            </tr>
-            {% endfor %}
-        {% endfor %}
-    </table>
-    {% endif %}
+                <div class="col-xs-12 col-md-8">
+                    {% if age and weight and sex and performance and best_pred %}
+                    <h1>You input: {{weight, age, sex, performance}}: </h1>
+                    Your best program is: {{best_pred}} and your predicted 1RM following the program is {{predicted_performance}}
+                    {% endif %}
 
-</body>
 
+                    {% if program %}
+                    <h1>
+                        Program:
+                    </h1>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-compact">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Day</th>
+                                    <th>Weight (kg)</th>
+                                    <th>Reps</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {% for day, sets in program.items() %}
+                                {% for set in sets %}
+                                <tr>
+                                    <td>{{day}}</td>
+                                    <td>{{((set[1] | float) / 100) * performance}}</td>
+                                    <td>{{set[2]}}</td>
+                                </tr>
+                                {% endfor %}
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
