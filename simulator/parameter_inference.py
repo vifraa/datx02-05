@@ -102,8 +102,10 @@ def calculate_performance_gain_distribution(pre_training_individuals, post_train
 
     changes = []
     for i in range(len(pre_training_individuals)):
-        pre_training_performance = pre_training_individuals[i].bench_press_movement.performance
-        post_training_performance = post_training_individuals[i].bench_press_movement.performance
+        pre_training_performance = \
+            pre_training_individuals[i].bench_press_movement.get_current_performance()
+        post_training_performance = \
+            post_training_individuals[i].bench_press_movement.get_current_performance()
         diff = math.fabs(post_training_performance-pre_training_performance)
         changes.append(diff)
 
@@ -136,7 +138,8 @@ def get_weights_from_percent(individual, percentages):
     :param percentages: Percentages of 1RM in the program.
     """
     # This is using performance, perhaps we should use fitness instead?
-    return [individual.bench_press_movement.performance*(percent/100) for percent in percentages]
+    return [individual.bench_press_movement.get_current_performance()
+            * (percent/100) for percent in percentages]
 
 
 if __name__ == "__main__":

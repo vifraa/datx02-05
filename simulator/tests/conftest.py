@@ -12,7 +12,7 @@ from movement import Movement
 @pytest.fixture()
 def bench_press():
     """Fixture for sample bench press movement with set parameters"""
-    return Movement(fitness=300, fatigue=0, performance=300, fitness_gain=1, fatigue_gain=1,
+    return Movement(fitness=0, fatigue=0, basic_performance=300, fitness_gain=1, fatigue_gain=1,
                     fitness_decay=1, fatigue_decay=0.99)
 
 

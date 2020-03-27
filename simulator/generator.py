@@ -93,7 +93,7 @@ def save_individuals(individuals, csv_file_path, timestamp):
     all_indviduals_df = pd.DataFrame(columns=['ID', 'Birth', 'Gender', 'Name', 'Weight',
                                               'bench_press_fitness',
                                               'bench_press_fatigue',
-                                              'bench_press_performance',
+                                              'bench_press_basic_performance',
                                               'bench_press_fitness_gain',
                                               'bench_press_fatigue_gain',
                                               'bench_press_fitness_decay',
