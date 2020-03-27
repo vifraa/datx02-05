@@ -6,6 +6,11 @@ feasible for the trainee."""
 import math
 import pandas as pd
 
+BASE_FITNESS_GAIN = 1.8254336640074262
+BASE_FITNESS_DECAY = 45
+BASE_FATIGUE_GAIN = 1.3279029823134185
+BASE_FATIGUE_DECAY = 36
+
 
 def train(training_dataframe, individual):
     """Function uses an implementation of the Banister model to

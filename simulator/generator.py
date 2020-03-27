@@ -10,7 +10,7 @@ from absl import flags
 from absl import app
 from individual import Individual
 from movement import Movement
-import gym
+from gym import BASE_FITNESS_GAIN, BASE_FATIGUE_GAIN, BASE_FITNESS_DECAY, BASE_FATIGUE_DECAY
 
 FLAGS = flags.FLAGS
 flags.DEFINE_integer("n", 1, "How many individuals to generate")
@@ -73,7 +73,8 @@ def generate_individuals(num, age_mean, age_variance, weight_mean, weight_varian
     for i in range(num):
         name = names.get_full_name(gender=gender_to_string(genders[i]))
         bench_press_movement = Movement(
-            bench_press_fitnesses[i], 0, bench_press_fitnesses[i], 1, 1, 1, 1)
+            bench_press_fitnesses[i], 0, bench_press_fitnesses[i],
+            BASE_FITNESS_GAIN, BASE_FATIGUE_GAIN, BASE_FITNESS_DECAY, BASE_FATIGUE_DECAY)
         individual = Individual(i, birth_dates[i], int(genders[i]),
                                 name, weights[i], bench_press_movement)
         individuals.append(individual)
@@ -143,4 +144,3 @@ def main(argv):
 
 if __name__ == "__main__":
     app.run(main)
-   
