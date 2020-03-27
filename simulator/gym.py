@@ -61,7 +61,8 @@ def apply_banister(training_dataframe, movement):
 
         # add current level of performance to log
         index_label = training_dataframe.index[index]
-        performed_training.loc[index_label, "Performance"] = movement.get_current_performance()
+        performed_training.loc[index_label,
+                               "Performance"] = movement.get_current_performance()
 
         # since our timestep is daily, we have to accumulate the training sets taken place during
         # the same day in our calculations
@@ -156,7 +157,7 @@ def load_training(path_to_program, movement):
 def percentage_to_weights_program(percentage_program, movement):
     """Convert a percentage based program to a program containing weights in KG to be used by 
     the individual based on their 1RM
-    
+
     :param percentage program: pandas dataframe percentage based program
     :param movement: the movement (eg. bench press or other)
 
@@ -164,13 +165,14 @@ def percentage_to_weights_program(percentage_program, movement):
     """
     weights = []
     for percentage in percentage_program["Percent1RM"]:
-        weight = (percentage*movement.performance)/100 # Calculate real weight
+        weight = (percentage*movement.basic_performance) / \
+            100  # Calculate real weight
         weights.append(weight)
 
     # Create the converted program
     converted_program = percentage_program.copy()
     converted_program.rename(
-         columns={'Percent1RM': 'Weight'}, inplace=True)
+        columns={'Percent1RM': 'Weight'}, inplace=True)
     converted_program["Weight"] = weights
 
     return converted_program
