@@ -9,6 +9,10 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 <style>
+
+body {
+    background: #e2e1e0;
+}
 .table {
     width: fit-content;
 
@@ -19,6 +23,10 @@
 }
 .form-wrapper {
     padding: 20px;
+  border-radius: 2px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+      background: #ffffff;
+
 }
 </style>
 </head>
@@ -26,8 +34,10 @@
     <body>
         <div class="container-fluid" style="margin-top: 115px;">
             <div class="row" >
-                <div class="col-xs-12 col-md-4">
+                <div class="col-xs-12 col-md-5">
                     <div class="form-wrapper">
+                        <h3 style="">Recommendation Engine</h3>
+                        <p>Input your parameters to get a recommendation on the most effective workout for you.</p>
                         <form method="POST" action="/formpbar">
                             <div class="form-group row">
                                 <label for="nameInput" class="col-sm-4 col-form-label">Name</label>
@@ -84,7 +94,7 @@
                 </div>
 
 
-                <div class="col-xs-12 col-md-8">
+                <div class="col-xs-12 col-md-7">
                     {% if age and weight and sex and performance and best_pred %}
                     <h1>You input: {{weight, age, sex, performance}}: </h1>
                     Your best program is: {{best_pred}} and your predicted 1RM following the program is {{predicted_performance}}
