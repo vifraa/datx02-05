@@ -1,6 +1,6 @@
 .idea
 
-data/individuals.csv
+!data/individuals.csv
 
-data/training.csv
+!data/training.csv
 
