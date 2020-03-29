@@ -25,7 +25,7 @@ def hello():
 @click.option('--performance', '-p', prompt=True, required=True, type=float)
 @click.option('--sex', type=click.Choice(['MAN', 'WOMAN', 'OTHER'], case_sensitive=False),
               prompt=True, required=True)
-@click.option('--hideprogram', '-h', is_flag="True")
+@click.option('--hideprogram', '-h', is_flag="True", help="Hide the output of the program structure.")
 def pbar(age, weight, performance, sex, hideprogram):
     """
     Makes recommendation based on performance before the training program.
