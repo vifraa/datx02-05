@@ -1,6 +1,6 @@
 from MLmodels.DataReader import DataSample
 from sklearn.metrics import mean_squared_error, r2_score
-from helpers import print_mean_squared_error, print_coefficient_of_determination
+from helpers import print_training_result_summary
 from sklearn.model_selection import ShuffleSplit
 from visualizers.model_learning_curve_plotter import Learning_curve_plotter
 from sklearn.linear_model import Ridge as RidgeModel
@@ -25,8 +25,7 @@ class Ridge:
         ridge_mean_squared_error = mean_squared_error(self.data.Ytest, ridge_Ypred)
         ridge_r2_score = r2_score(self.data.Ytest, ridge_Ypred)
 
-        print_mean_squared_error(ridge_mean_squared_error)
-        print_coefficient_of_determination(ridge_r2_score)
+        print_training_result_summary('Ridge', ridge_mean_squared_error, ridge_r2_score)
 
 
     def plot_learning_curves(self):
