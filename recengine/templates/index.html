@@ -110,21 +110,21 @@
                     <div class="carder">
                         <h2>Greetings {{name}}!</h2>
                         <p class="result-inputs">
-                            <span>Weight: </span> {{weight}}
+                            <span>Weight: </span> {{weight}} kg
                         </p>
                         <p class="result-inputs">
-                            <span>Age: </span> {{age}}
+                            <span>Age: </span> {{age}} years
                         </p>
                         <p class="result-inputs">
                             <span>Sex: </span> {{sex}}
                         </p>
                         <p class="result-inputs">
-                            <span>Current 1RM: </span> {{performance}}
+                            <span>Current 1RM: </span> {{performance}} kg
                         </p>
 
                         <p class="mt-4">
                             The resulting program that yeilds the best result is <b>{{best_pred}}</b> and the machine learning models predict that
-                            you will reach the performance of <b>{{ '%0.2f' | format(predicted_performance | float)}}</b> 1RM.
+                            you will reach the performance (1RM) of <b>{{ '%0.2f' | format(predicted_performance | float)}}</b> kg.
                         </p>
 
                         {% if program %}
