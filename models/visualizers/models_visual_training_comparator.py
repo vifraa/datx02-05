@@ -50,4 +50,3 @@ def comparator_test():
     regressors = [("SGD", SGDClassifier(max_iter=100)), ("Perceptron", Perceptron())]
     Models_comparator(X, y, regressors)
 
-comparator_test()

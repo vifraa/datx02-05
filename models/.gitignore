@@ -1,6 +1,5 @@
 .idea
 
-!data/individuals.csv
+!data/regression_dataframes2.csv
 
-!data/training.csv
 
