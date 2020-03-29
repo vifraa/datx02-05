@@ -27,3 +27,13 @@ class RandomForest:
 
         print_mean_squared_error(RandomForest_mean_squared_error)
         print_coefficient_of_determination(RandomForest_r2_score)
+
+    def plot_learning_curves(self):
+        warnings.filterwarnings("ignore")
+        title = "Learning Curves RandomForest"
+        cv = ShuffleSplit(n_splits=50, test_size=0.2, random_state=0)
+        estimator = RandomForestRegressor(max_depth=10, random_state=0)
+        Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
+        plt.show()
+
+RandomForest().plot_learning_curves()
