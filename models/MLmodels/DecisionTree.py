@@ -38,4 +38,9 @@ class DecisionTree:
         self.regression()
         self.plot_learning_curves()
 
+    def get_pure_model(self):
+        return tree.DecisionTreeRegressor()
+
+
+
 #DecisionTree().regression_and_plot_curves()

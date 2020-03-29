@@ -39,4 +39,9 @@ class Ridge:
         self.regression()
         self.plot_learning_curves()
 
+    def get_pure_model(self):
+        return RidgeModel(alpha=1.0)
+
+
+
 # Ridge().regression_and_plot_curves()

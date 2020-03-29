@@ -38,4 +38,8 @@ class ElasticNet:
         self.regression()
         self.plot_learning_curves()
 
+    def get_pure_model(self):
+        return ElasticNetModel(alpha=1.0)
+
+
 #ElasticNet().regression_and_plot_curves()
