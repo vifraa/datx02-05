@@ -19,12 +19,12 @@ def test_pbar_works_isolated():
 
 
 @pytest.mark.parametrize("cli_input, expected", [
-    (["--age", "18", "--weight", "80.5", "--performance", "60.5", "--sex", "MAN"], 0),
-    (["--age", "18", "--weight", "80.5", "--performance", "60.5", "--sex", "WOMAN"], 0),
-    (["--age", "18", "--weight", "80.5", "--performance", "60.5", "--sex", "OTHER"], 0),
-    (["--age", "18", "--weight", "80.5", "--performance", "60.5", "--sex", "WILLNOTWORK"], 2),
-    (["--age", "18.2", "--weight", "80.5", "--performance", "60.5", "--sex", "MAN"], 2),
-    (["--age", "18", "--weight", "80", "--performance", "60", "--sex", "MAN"], 0)
+    (["--age", "18", "--weight", "80.5", "--performance", "60.5", "--sex", "MAN", "-h"], 0),
+    (["--age", "18", "--weight", "80.5", "--performance", "60.5", "--sex", "WOMAN", "-h"], 0),
+    (["--age", "18", "--weight", "80.5", "--performance", "60.5", "--sex", "OTHER", "-h"], 0),
+    (["--age", "18", "--weight", "80.5", "--performance", "60.5", "--sex", "WILLNOTWORK", "-h"], 2),
+    (["--age", "18.2", "--weight", "80.5", "--performance", "60.5", "--sex", "MAN", "-h"], 2),
+    (["--age", "18", "--weight", "80", "--performance", "60", "--sex", "MAN", "-h"], 0)
 ])
 def test_pbar_ensures_correct_types(cli_input, expected):
     """
@@ -47,5 +47,5 @@ def test_pbar(age, weight, performance, sex):
     runner = CliRunner()
 
     res = runner.invoke(pbar, ["--age", age, "--weight",
-                               weight, "--performance", performance, "--sex", sex])
+                               weight, "--performance", performance, "--sex", sex, "-h"])
     assert res.exit_code == 0
