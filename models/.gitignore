@@ -1,5 +1,8 @@
 .idea
 
+data/
+
 !data/regression_dataframes2.csv
+
 
 
