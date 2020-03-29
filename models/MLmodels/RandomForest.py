@@ -36,4 +36,3 @@ class RandomForest:
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         plt.show()
 
-RandomForest().plot_learning_curves()

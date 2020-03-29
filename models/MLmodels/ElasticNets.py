@@ -36,4 +36,3 @@ class ElasticNet:
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         plt.show()
 
-ElasticNet().plot_learning_curves()

@@ -24,6 +24,7 @@ class Lasso:
         lasso_mean_squared_error = mean_squared_error(self.data.Ytest, lasso_Ypred)
         lasso_r2_score = r2_score(self.data.Ytest, lasso_Ypred)
 
+        
         print_mean_squared_error(lasso_mean_squared_error)
         print_coefficient_of_determination(lasso_r2_score)
 
@@ -35,6 +36,5 @@ class Lasso:
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         plt.show()
 
-Lasso().plot_learning_curves()
 
 
