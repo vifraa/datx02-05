@@ -14,7 +14,6 @@ class Lasso:
             self.data = DataSample()
         else:
             self.data = data
-        self.regression()
 
     def regression(self):
         lasso = linear_model.Lasso(alpha=0.1)
@@ -34,4 +33,8 @@ class Lasso:
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         plt.show()
 
-Lasso().plot_learning_curves()
+    def regression_and_plot_curves(self):
+        self.regression()
+        self.plot_learning_curves()
+
+#Lasso().regression_and_plot_curves()

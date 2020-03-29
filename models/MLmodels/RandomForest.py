@@ -14,7 +14,6 @@ class RandomForest:
             self.data = DataSample()
         else:
             self.data = data
-        self.regression()
 
     def regression(self):
         RandomForestM = RandomForestRegressor(max_depth=10, random_state=0)
@@ -35,3 +34,8 @@ class RandomForest:
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         plt.show()
 
+    def regression_and_plot_curves(self):
+        self.regression()
+        self.plot_learning_curves()
+
+# RandomForest().regression_and_plot_curves()

@@ -14,7 +14,6 @@ class ElasticNet:
             self.data = DataSample()
         else:
             self.data = data
-        self.regression()
 
     def regression(self):
         eNet = ElasticNetModel(alpha=1.0)
@@ -35,3 +34,8 @@ class ElasticNet:
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         plt.show()
 
+    def regression_and_plot_curves(self):
+        self.regression()
+        self.plot_learning_curves()
+
+#ElasticNet().regression_and_plot_curves()
