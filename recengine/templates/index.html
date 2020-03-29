@@ -74,15 +74,15 @@
                                     <legend class="col-form-label col-sm-4 pt-0">Sex</legend>
                                     <div class="col-sm-8">
                                         <div class="form-check">
-                                            <input class="form-check-input" name="fsex" type="checkbox" id="inlineCheckbox1" value="0">
+                                            <input class="form-check-input" name="fsex" type="radio" id="inlineCheckbox1" value="0">
                                             <label class="form-check-label" for="inlineCheckbox1">Man</label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" name="fsex" type="checkbox" id="inlineCheckbox2" value="1">
+                                            <input class="form-check-input" name="fsex" type="radio" id="inlineCheckbox2" value="1">
                                             <label class="form-check-label" for="inlineCheckbox2">Woman</label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" name="fsex" type="checkbox" id="inlineCheckbox3" value="2">
+                                            <input class="form-check-input" name="fsex" type="radio" id="inlineCheckbox3" value="2">
                                             <label class="form-check-label" for="inlineCheckbox3">Other</label>
                                         </div>
                                     </div>
@@ -105,7 +105,7 @@
                 </div>
 
 
-                {% if age and weight and sex and performance and best_pred and predicted_performance %}
+                {% if age and weight and sex is number and performance and best_pred and predicted_performance %}
                 <div class="col-xs-12 col-md-7">
                     <div class="carder">
                         <h2>Greetings {{name}}!</h2>
