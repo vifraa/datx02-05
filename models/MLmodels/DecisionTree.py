@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import warnings
 
 
-class ElasticNet:
+class DecisionTree:
     def __init__(self, data=None):
         if data is None:
             self.data = DataSample()
@@ -17,13 +17,14 @@ class ElasticNet:
         self.regression()
 
     def regression(self):
-        DecisionTree = tree.DecisionTreeRegressor()
-        DecisionTree.fit(self.data.Xtrain, self.data.Ytrain)
+        DecisionTreeM = tree.DecisionTreeRegressor()
+        DecisionTreeM.fit(self.data.Xtrain, self.data.Ytrain)
 
-        DecisionTree_Ypred = DecisionTree.predict(self.data.Xtest)
+        DecisionTree_Ypred = DecisionTreeM.predict(self.data.Xtest)
 
         DecisionTree_mean_squared_error = mean_squared_error(self.data.Ytest, DecisionTree_Ypred)
         DecisionTree_r2_score = r2_score(self.data.Ytest, DecisionTree_Ypred)
 
         print_mean_squared_error(DecisionTree_mean_squared_error)
         print_coefficient_of_determination(DecisionTree_r2_score)
+
