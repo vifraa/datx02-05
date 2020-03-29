@@ -40,7 +40,6 @@ def pbar(age, weight, performance, sex, hideprogram):
     data = np.array([age, weight, converted_sex, performance]).reshape(1, -1)
     recengine = RecommendationEngine("pbar")
     best_pred, _ = recengine.recommend_training(data)
-    program = fetch_program_from_model(best_pred["model"])
 
     click.secho("\nTraining program: " + best_pred["model"].name, fg="green")
     click.secho("Predicted performance: " +
@@ -48,6 +47,8 @@ def pbar(age, weight, performance, sex, hideprogram):
 
     hide_program_output = hideprogram
     if hide_program_output is False:
+        program = fetch_program_from_model(best_pred["model"])
+
         click.secho("Program structure: ", fg="green")
         for day, sets in program.items():
             click.secho("Day: " + str(day), fg="green")
