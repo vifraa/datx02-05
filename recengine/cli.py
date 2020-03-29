@@ -5,7 +5,7 @@ import json
 import pprint
 import click
 import numpy as np
-from recengine import RecommendationEngine
+from recengine import RecommendationEngine, fetch_program_from_model
 
 @click.group()
 def cli():
@@ -39,7 +39,16 @@ def pbar(age, weight, performance, sex):
     data = np.array([age, weight, converted_sex, performance]).reshape(1, -1)
     recengine = RecommendationEngine("pbar")
     best_pred, _ = recengine.recommend_training(data)
+    program = fetch_program_from_model(best_pred["model"])
 
     click.secho("\nTraining program: " + best_pred["model"].name, fg="green")
     click.secho("Predicted performance: " + str(best_pred["predicted_performance"]) + "\n", fg="green")
-    click.echo("(Used model): " + str(best_pred["model"].__dict__))
+
+    hide_program_output = False
+    if hide_program_output is False:
+        click.secho("Program structure: ", fg="green")
+        for day, sets in program.items():
+            click.secho("Day: " + str(day), fg="green")
+            for i, p_set in enumerate(sets):
+                calculated_weight = (float(p_set[1]) / 100 * performance)
+                click.secho("     (Set " + str(i) + ") Weight: " + str(calculated_weight) + " Reps: " + str(p_set[2]))
