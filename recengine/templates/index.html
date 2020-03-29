@@ -116,7 +116,14 @@
                             <span>Age: </span> {{age}} years
                         </p>
                         <p class="result-inputs">
-                            <span>Sex: </span> {{sex}}
+                            <span>Sex: </span> 
+                            {% if sex == 0 %}
+                                Man
+                            {% elif sex == 1 %}
+                                Woman
+                            {% else %}
+                                Other
+                            {% endif %}
                         </p>
                         <p class="result-inputs">
                             <span>Current 1RM: </span> {{performance}} kg
