@@ -13,7 +13,7 @@ def test_pbar_works_isolated():
     runner = CliRunner()
     with runner.isolated_filesystem():
         res = runner.invoke(pbar, ["--age", 18, "--weight", 80,
-                                   "--performance", 60, "--sex", "MAN"])
+                                   "--performance", 60, "--sex", "MAN", "-h"])
 
         assert res.exit_code == 0
 
