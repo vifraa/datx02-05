@@ -28,3 +28,12 @@ class DecisionTree:
         print_mean_squared_error(DecisionTree_mean_squared_error)
         print_coefficient_of_determination(DecisionTree_r2_score)
 
+    def plot_learning_curves(self):
+        warnings.filterwarnings("ignore")
+        title = "Learning Curves DecisionTree"
+        cv = ShuffleSplit(n_splits=50, test_size=0.2, random_state=0)
+        estimator = tree.DecisionTreeRegressor()
+        Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
+        plt.show()
+
+DecisionTree().plot_learning_curves()
