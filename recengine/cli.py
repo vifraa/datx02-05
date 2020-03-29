@@ -25,7 +25,8 @@ def hello():
 @click.option('--performance', '-p', prompt=True, required=True, type=float)
 @click.option('--sex', type=click.Choice(['MAN', 'WOMAN', 'OTHER'], case_sensitive=False),
               prompt=True, required=True)
-def pbar(age, weight, performance, sex):
+@click.option('--hideprogram', '-h', is_flag="True")
+def pbar(age, weight, performance, sex, hideprogram):
     """
     Makes recommendation based on performance before the training program.
     """
@@ -42,13 +43,15 @@ def pbar(age, weight, performance, sex):
     program = fetch_program_from_model(best_pred["model"])
 
     click.secho("\nTraining program: " + best_pred["model"].name, fg="green")
-    click.secho("Predicted performance: " + str(best_pred["predicted_performance"]) + "\n", fg="green")
+    click.secho("Predicted performance: " +
+                str(best_pred["predicted_performance"]) + "\n", fg="green")
 
-    hide_program_output = False
+    hide_program_output = hideprogram
     if hide_program_output is False:
         click.secho("Program structure: ", fg="green")
         for day, sets in program.items():
             click.secho("Day: " + str(day), fg="green")
             for i, p_set in enumerate(sets):
                 calculated_weight = (float(p_set[1]) / 100 * performance)
-                click.secho("     (Set " + str(i) + ") Weight: " + str(calculated_weight) + " Reps: " + str(p_set[2]))
+                click.secho("     (Set " + str(i) + ") Weight: " +
+                            str(calculated_weight) + " Reps: " + str(p_set[2]))
