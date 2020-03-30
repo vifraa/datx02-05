@@ -43,6 +43,12 @@ class RecommendationEngine:
         return predictions[0], predictions
 
 def fetch_program_from_model(model):
+    """
+    Based on an inputted model fetches and returns the training program
+    used to generate the data to create the model.
+
+    :param model: The model to fetch the training program for.
+    """
     file_name = os.path.basename(model.predictor_path)
 
     program_folder_path = os.path.join(os.path.dirname(
