@@ -50,6 +50,8 @@ def fetch_program_from_model(model):
     :param model: The model to fetch the training program for.
     """
     file_name = os.path.basename(model.predictor_path)
+    file_name = os.path.splitext(file_name)[0]+'.csv'
+    
 
     program_folder_path = os.path.join(os.path.dirname(
         __file__), os.pardir, 'simulator', 'training_programs')
@@ -81,4 +83,4 @@ def fetch_program_from_model(model):
     return program
 
 def _parse_string_date(date_string):
-    return datetime.strptime(date_string, "%d/%m/%Y %H:%M")
+    return datetime.strptime(date_string, "%m/%d/%Y %H:%M")
