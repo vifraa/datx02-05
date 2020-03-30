@@ -8,6 +8,8 @@ class Movement:
     the squat, bench press and deadlift. The parameters of the Movement class are those which are
     relevant to the Banister model."""
 
+    last_performed_set = None
+
     def __init__(self, fitness, fatigue, basic_performance, fitness_gain, fatigue_gain, fitness_decay,
                  fatigue_decay):
         """Constructor for the Movement class.
@@ -52,3 +54,22 @@ class Movement:
         """
         reps = math.floor(30 * (self.get_current_performance() / weight - 1))
         return max(0, reps)
+
+    def getPCRecoveredPercent(self,timestamp):
+        """Uses the timestamp of the current set and subtracts the delta time from 
+        the last performed set, which gives the rest time. Uses 30 seconds as half-time for the 
+        phosphorylcreatine (PC) levels. 
+        Publication: 
+        "The Time Course of Phosphorylcreatine Resynthesis during Recovery of the Quadriceps Muscle in Man"
+
+        :param timestamp: The timestamp of the next set that is going to be performed.
+
+        """
+        if(self.last_performed_set is not None):
+            rest_time = timestamp - self.last_performed_set
+            self.last_performed_set = timestamp
+            return pow(0.5,rest_time.seconds/30)
+        else:
+            self.last_performed_set = timestamp
+            return 1
+
