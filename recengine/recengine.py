@@ -3,6 +3,9 @@ Module contains functionality to recommend different training programs to differ
 """
 import glob
 import os
+from collections import defaultdict
+import csv
+from datetime import datetime
 from model import Model
 
 class RecommendationEngine:
@@ -38,3 +41,44 @@ class RecommendationEngine:
                        for model in self.models]
         predictions = sorted(predictions, key=lambda x: -x["predicted_performance"])
         return predictions[0], predictions
+
+def fetch_program_from_model(model):
+    """
+    Based on an inputted model fetches and returns the training program
+    used to generate the data to create the model.
+
+    :param model: The model to fetch the training program for.
+    """
+    file_name = os.path.basename(model.predictor_path)
+
+    program_folder_path = os.path.join(os.path.dirname(
+        __file__), os.pardir, 'simulator', 'training_programs')
+    program_path = os.path.join(program_folder_path, file_name)
+
+    try:
+        with open(program_path, newline='') as file:
+            program_reader = csv.reader(file, delimiter="|")
+            headers = next(program_reader)
+
+            program = defaultdict(list)
+            previous_set_day = None
+            current_day_index = 0
+            for row in program_reader:
+                if previous_set_day is None:
+                    previous_set_day = _parse_string_date(row[3])
+                    current_day_index += 1
+                    program[str(current_day_index)].append(row)
+                elif previous_set_day.date() == _parse_string_date(row[3]).date():
+                    program[str(current_day_index)].append(row)
+                    previous_set_day = _parse_string_date(row[3])
+                else:
+                    current_day_index += 1
+                    previous_set_day = _parse_string_date(row[3])
+                    program[str(current_day_index)].append(row)
+    except FileNotFoundError:
+        return {}
+
+    return program
+
+def _parse_string_date(date_string):
+    return datetime.strptime(date_string, "%d/%m/%Y %H:%M")
