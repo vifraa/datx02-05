@@ -33,14 +33,14 @@ def formpbar():
                            name=name)
 
 
-@app.route('/pbar', methods=['POST'])
+@app.route('/api/v1/pbar', methods=['POST'])
 def pbar():
 
     recengine = RecommendationEngine("pbar")
-    age = int(request.args.get('age', ''))
-    weight = float(request.args.get('weight', ''))
-    sex = request.args.get('sex', '')
-    performance = float(request.args.get('performance', ''))
+    age = int(request.json.get('age', ''))
+    weight = float(request.json.get('weight', ''))
+    sex = request.json.get('sex', '')
+    performance = float(request.json.get('performance', ''))
     if sex == 'MAN':
         converted_sex = 0
     elif sex == 'WOMAN':
@@ -50,11 +50,12 @@ def pbar():
     data = np.array([age, weight, converted_sex,
                      performance]).reshape(1, -1)
     best_pred, all_predictions = recengine.recommend_training(data)
+    program = fetch_program_from_model(best_pred["model"])
 
     res = {
         "predicted_performance": best_pred["predicted_performance"],
         "training_program": best_pred["model"].name,
-        "all_predictions": "lul"
+        "program_structure": program
     }
 
     return jsonify(res)
