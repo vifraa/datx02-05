@@ -14,7 +14,7 @@ from gym import BASE_FITNESS_GAIN, BASE_FATIGUE_GAIN, BASE_FITNESS_DECAY, BASE_F
 
 FLAGS = flags.FLAGS
 flags.DEFINE_integer("n", 1, "How many individuals to generate")
-flags.DEFINE_float("bpm", 100, "Mean of bench press max")
+flags.DEFINE_float("bpm", 40, "Mean of bench press max")
 flags.DEFINE_float("bpv", 5, "Variance in bench press max")
 flags.DEFINE_integer("am", 30, "Age mean")
 flags.DEFINE_integer("av", 5, "Age variance")
@@ -65,7 +65,7 @@ def generate_individuals(num, age_mean, age_variance, weight_mean, weight_varian
         birth_dates = [datetime.datetime(now.year - age, 1, 1) for age in ages]
     # Normally distributed bench press fitnesses used to create bench press movementss
     bench_press_performances = np.random.normal(bench_press_fitness_mean, bench_press_fitness_variance,
-                                             num).astype("int")
+                                                num).astype("int")
     weights = np.random.normal(weight_mean, weight_variance, num)
     genders = np.ones(num)
     genders[:int(num * gender_ratio)] = 0

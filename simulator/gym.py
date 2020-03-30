@@ -11,6 +11,9 @@ BASE_FITNESS_DECAY = 45
 BASE_FATIGUE_GAIN = 1.3279029823134185
 BASE_FATIGUE_DECAY = 36
 
+__LOG_ON = True
+ffp_logs = {"fitness": [], "fatigue": [], "performance": []}
+
 
 def train(training_dataframe, individual):
     """Function uses an implementation of the Banister model to
@@ -31,8 +34,10 @@ def train(training_dataframe, individual):
     # train the bench press
     performed_training_dataframe = apply_banister(training_dataframe,
                                                   individual.bench_press_movement)
+    if __LOG_ON:
+        return performed_training_dataframe, ffp_logs
 
-    return performed_training_dataframe
+    return performed_training_dataframe, None
 
 
 def apply_banister(training_dataframe, movement):
@@ -106,6 +111,10 @@ def apply_training_effects(movement, cumulative_trimp):
         math.exp(-1 / movement.fitness_decay) + cumulative_trimp
     movement.fatigue = movement.fatigue * \
         math.exp(-1 / movement.fatigue_decay) + cumulative_trimp
+    if __LOG_ON:
+        ffp_logs["fitness"].append(movement.fitness)
+        ffp_logs["fatigue"].append(movement.fatigue)
+        ffp_logs["performance"].append(movement.get_current_performance())
 
 
 def generate_trimp(training_set, performance):
@@ -155,7 +164,7 @@ def load_training(path_to_program, movement):
 
 
 def percentage_to_weights_program(percentage_program, movement):
-    """Convert a percentage based program to a program containing weights in KG to be used by 
+    """Convert a percentage based program to a program containing weights in KG to be used by
     the individual based on their 1RM
 
     :param percentage program: pandas dataframe percentage based program

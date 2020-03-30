@@ -7,6 +7,9 @@ import pandas as pd
 import gym
 from generator import generate_individuals, save_individuals
 from individual import Individual
+from matplotlib import pyplot as plt
+
+__individual_to_ffp_logs = {}
 
 
 def __train_and_save(individuals, training_results_path, training_program_path):
@@ -30,11 +33,12 @@ def __train_and_save(individuals, training_results_path, training_program_path):
     for individual in individuals:
         training_dataframe = gym.load_training(
             training_program_path, individual.bench_press_movement)
-        performed_training = gym.train(training_dataframe, individual)
+        performed_training, ffp_logs = gym.train(
+            training_dataframe, individual)
         performed_training.insert(
             0, "ID", [individual.id] * performed_training.shape[0], True)
         training_logs = training_logs.append(performed_training)
-
+        __individual_to_ffp_logs[individual] = ffp_logs
     # write training logs to given file path
     training_logs.to_csv(training_results_path, sep="|", index=False)
 
@@ -96,10 +100,27 @@ def train_population_from_file(individuals_path, training_program_path, training
     save_individuals(individuals, individuals_path, timestamp)
 
 
+def plot_ffp_logs():
+    """
+    Plots each individuals curve for performance, fatigue and fitness during the training program
+    """
+    count = 1
+    for key, value in __individual_to_ffp_logs.items():
+        plt.subplot(len(__individual_to_ffp_logs), 1, count, title=key.name)
+        plt.plot(value["fitness"], marker="o",
+                 color="skyblue", label=f"fitness{key.name}")
+        plt.plot(value["performance"], marker="o",
+                 color="olive", label=f"performance{key.name}")
+        plt.plot(value["fatigue"], marker="o",
+                 color="toto", label=f"fatigue{key.name}")
+        count += 1
+
+
 if __name__ == "__main__":
     # train_population_from_file("simulator/individuals/GeneratedIndividuals.csv",
     # "simulator/tests/sample_training_program.csv", "simulator/individuals/logs.csv")
     # train_population(10, 30, 5, 70, 5, 100, 5, 1, "simulator/training_programs/ogasawara_HL.csv",
     #                 "simulator/individuals/logs.csv", "simulator/individuals/TrainedGeneratedIndividuals.csv")
     train_population_from_file("simulator/individuals/GeneratedIndividuals.csv",
-                               "simulator/training_programs/ogasawara_HL.csv", "simulator/individuals/logs.csv")
+                               "simulator/training_programs/carls_power_program_BP.csv", "simulator/individuals/logs.csv")
+    plot_ffp_logs()
