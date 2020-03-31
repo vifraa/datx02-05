@@ -107,13 +107,17 @@ def plot_ffp_logs():
     count = 1
     for key, value in __individual_to_ffp_logs.items():
         plt.subplot(len(__individual_to_ffp_logs), 1, count, title=key.name)
-        plt.plot(value["fitness"], marker="o",
-                 color="skyblue", label=f"fitness{key.name}")
-        plt.plot(value["performance"], marker="o",
-                 color="olive", label=f"performance{key.name}")
-        plt.plot(value["fatigue"], marker="o",
-                 color="toto", label=f"fatigue{key.name}")
+        plt.plot(value["fitness"],
+                 color="skyblue", label="fitness")
+        plt.plot(value["performance"],
+                 color="olive", label="performance")
+        plt.plot(value["fatigue"],
+                 color="indigo", label="fatigue")
+        plt.legend()
+        plt.xlabel("days")
         count += 1
+
+    plt.show()
 
 
 if __name__ == "__main__":
