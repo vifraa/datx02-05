@@ -15,7 +15,7 @@ def split_into_weeks(rows, time_format):
     :param time_format: The timeformat used for the timestamp in each set.
     """
     weeks = defaultdict(list)
-
+    
     for row in rows:
         week = datetime.strptime(row[3], time_format).isocalendar()[1]
         weeks[str(week)].append(row)
@@ -44,10 +44,11 @@ def calculate_ttrdata_from_week_dict(weeks):
     """
     ttr = []
 
-    for _, rows in weeks.items():
+    for week in sorted(weeks.keys()):
+        rows = weeks.get(week)
+
         week_tonnage = 0
         week_1rm = 0
-
         for row in rows:
             weight = float(row[1])
             reps = int(row[2])
