@@ -7,7 +7,7 @@ import pprint
 import click
 import numpy as np
 from recengine import RecommendationEngine, fetch_program_from_model
-from data_parser import ttr_from_csv
+from data_parser import ttrdata_from_csv
 
 @click.group()
 def cli():
@@ -69,7 +69,8 @@ def pbar(age, weight, performance, sex, hideprogram):
 
 @cli.command()
 @click.option('--file', '-f', required=True, type=str, help="Filepath to training data csv.")
-@click.option('--timeformat', '-t', prompt=True, required=True, type=str, help="Time format of the timestamp column.")
+@click.option('--timeformat', '-t', prompt=True, required=True, type=str, 
+              help="Time format of the timestamp column.")
 @click.option('--hideprogram', '-h', is_flag="True",
               help="Hide the output of the program structure.")
 def ttr(file, timeformat, hideprogram):
@@ -78,9 +79,9 @@ def ttr(file, timeformat, hideprogram):
     """
 
     full_path = os.path.join(os.getcwd(), file)
-    ttr_from_csv(full_path, timeformat)
+    ttrdata = ttrdata_from_csv(full_path, timeformat)
 
-
+    click.echo(str(ttrdata))
     click.echo(full_path)
 
 
