@@ -2,10 +2,12 @@
 Module containing the CLI application for the Recommendation Engine.
 """
 import json
+import os
 import pprint
 import click
 import numpy as np
 from recengine import RecommendationEngine, fetch_program_from_model
+from data_parser import ttr_from_csv
 
 @click.group()
 def cli():
@@ -67,15 +69,19 @@ def pbar(age, weight, performance, sex, hideprogram):
 
 @cli.command()
 @click.option('--file', '-f', required=True, type=str, help="Filepath to training data csv.")
-@click.option('--performance', '-p', prompt=True, required=True, type=float, help="Current 1RM.")
+@click.option('--timeformat', '-t', prompt=True, required=True, type=str, help="Time format of the timestamp column.")
 @click.option('--hideprogram', '-h', is_flag="True",
               help="Hide the output of the program structure.")
-def ttr(file, performance, hideprogram):
+def ttr(file, timeformat, hideprogram):
     """
     Using previous training data makes an recommendation.
     """
 
-    click.echo("Hello World")
+    full_path = os.path.join(os.getcwd(), file)
+    ttr_from_csv(full_path, timeformat)
+
+
+    click.echo(full_path)
 
 
 #    if hideprogram is False:
