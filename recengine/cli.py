@@ -84,8 +84,14 @@ def ttr(file, timeformat, hideprogram):
     full_path = os.path.join(os.getcwd(), file)
     ttrdata = ttrdata_from_csv(full_path, timeformat)
 
-    click.echo(str(ttrdata))
-    click.echo(full_path)
+    if len(ttrdata) < 8:
+        click.secho("The inputted data has to span atleast four weeks", fg="red")
+    elif len(ttrdata) > 8:
+        four_weeks_ttrdata = ttrdata[-8:]
+        click.secho("Last 4 weeks ttrdata:", fg="green")
+        click.secho(str(four_weeks_ttrdata))
+
+    click.echo("TTR Data: " + str(ttrdata))
 
 
 #    if hideprogram is False:
