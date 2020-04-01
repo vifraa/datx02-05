@@ -76,6 +76,9 @@ def pbar(age, weight, performance, sex, hideprogram):
 def ttr(file, timeformat, hideprogram):
     """
     Using previous training data makes an recommendation.
+
+    Format of the CSV file should be the following with '|' delimiters:
+    Exercice | Weight | Reps | Timestamp
     """
 
     full_path = os.path.join(os.getcwd(), file)
