@@ -53,6 +53,6 @@ def pbar(age, weight, performance, sex, hideprogram):
         for day, sets in program.items():
             click.secho("Day: " + str(day), fg="green")
             for i, p_set in enumerate(sets):
-                calculated_weight = (float(p_set[1]) / 100 * performance)
+                calculated_weight = (p_set.percent_1rm / 100 * performance)
                 click.secho("     (Set " + str(i) + ") Weight: " +
-                            str(calculated_weight) + " Reps: " + str(p_set[2]))
+                            str(calculated_weight) + " Reps: " + str(p_set.repetitions))
