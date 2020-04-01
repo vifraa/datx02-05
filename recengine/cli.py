@@ -69,11 +69,12 @@ def pbar(age, weight, performance, sex, hideprogram):
 
 @cli.command()
 @click.option('--file', '-f', required=True, type=str, help="Filepath to training data csv.")
-@click.option('--timeformat', '-t', prompt=True, required=True, type=str, 
+@click.option('--timeformat', '-t', prompt=True, required=True, type=str,
               help="Time format of the timestamp column.")
+@click.option('--weeks', '-w', type=int, default=4, help="How many weeks of data should be used. [DEFAULT=4]")
 @click.option('--hideprogram', '-h', is_flag="True",
               help="Hide the output of the program structure.")
-def ttr(file, timeformat, hideprogram):
+def ttr(file, timeformat, weeks, hideprogram):
     """
     Using previous training data makes an recommendation.
 
@@ -84,15 +85,17 @@ def ttr(file, timeformat, hideprogram):
     full_path = os.path.join(os.getcwd(), file)
     ttrdata = ttrdata_from_csv(full_path, timeformat)
 
-    if len(ttrdata) < 8:
-        click.secho("The inputted data has to span atleast four weeks", fg="red")
-    elif len(ttrdata) > 8:
+    if len(ttrdata) < weeks * 2:
+        click.secho("The inputted data has to span atleast " + str(weeks) + " weeks", fg="red")
+    elif len(ttrdata) > weeks * 2:
         four_weeks_ttrdata = ttrdata[-8:]
         click.secho("Last 4 weeks ttrdata:", fg="green")
         click.secho(str(four_weeks_ttrdata))
 
     click.echo("TTR Data: " + str(ttrdata))
 
+    # TODO Create TTR recengine when there exists available models.
+    # TODO Print found program.
 
 #    if hideprogram is False:
 #        print_training_program_from_model(best_pred["model"], performance)
