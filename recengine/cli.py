@@ -13,10 +13,26 @@ def cli():
     """
 
 
-@cli.command()
-def hello():
-    """Says hello to the world."""
-    click.echo("Hello World")
+def print_training_program_from_model(model, performance):
+    """
+    Prints the training program related to the given model.
+
+    :param model: Model to find program from.
+    :param performance: Current performance of the individual.
+    """
+    program = fetch_program_from_model(model)
+
+
+
+    click.secho("Program structure: ", fg="green")
+    for day, sets in program.items():
+        click.secho("Day: " + str(day), fg="green")
+        for i, p_set in enumerate(sets):
+            calculated_weight = (p_set.percent_1rm / 100 * performance)
+            click.secho("     (Set " + str(i) + ") Weight: " +
+                        str(calculated_weight) + " Reps: " + str(p_set.repetitions))
+
+
 
 
 @cli.command()
@@ -25,7 +41,8 @@ def hello():
 @click.option('--performance', '-p', prompt=True, required=True, type=float)
 @click.option('--sex', type=click.Choice(['MAN', 'WOMAN', 'OTHER'], case_sensitive=False),
               prompt=True, required=True)
-@click.option('--hideprogram', '-h', is_flag="True", help="Hide the output of the program structure.")
+@click.option('--hideprogram', '-h', is_flag="True",
+              help="Hide the output of the program structure.")
 def pbar(age, weight, performance, sex, hideprogram):
     """
     Makes recommendation based on performance before the training program.
@@ -45,14 +62,21 @@ def pbar(age, weight, performance, sex, hideprogram):
     click.secho("Predicted performance: " +
                 str(best_pred["predicted_performance"]) + "\n", fg="green")
 
-    hide_program_output = hideprogram
-    if hide_program_output is False:
-        program = fetch_program_from_model(best_pred["model"])
+    if hideprogram is False:
+        print_training_program_from_model(best_pred["model"], performance)
 
-        click.secho("Program structure: ", fg="green")
-        for day, sets in program.items():
-            click.secho("Day: " + str(day), fg="green")
-            for i, p_set in enumerate(sets):
-                calculated_weight = (p_set.percent_1rm / 100 * performance)
-                click.secho("     (Set " + str(i) + ") Weight: " +
-                            str(calculated_weight) + " Reps: " + str(p_set.repetitions))
+@cli.command()
+@click.option('--file', '-f', required=True, type=str, help="Filepath to training data csv.")
+@click.option('--performance', '-p', prompt=True, required=True, type=float, help="Current 1RM.")
+@click.option('--hideprogram', '-h', is_flag="True",
+              help="Hide the output of the program structure.")
+def ttr(file, performance, hideprogram):
+    """
+    Using previous training data makes an recommendation.
+    """
+
+    click.echo("Hello World")
+
+
+#    if hideprogram is False:
+#        print_training_program_from_model(best_pred["model"], performance)
