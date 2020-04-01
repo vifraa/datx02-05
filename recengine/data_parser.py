@@ -25,7 +25,7 @@ def split_into_weeks(rows, time_format):
 def calculate_1rm(weight, reps):
     """
     Calculates the 1RM from given weight and repetitions.
-    Uses the Epley formula.
+    Calculations are made using the Epley formula.
 
     :param weight: The weight of the set.
     :param reps: The repetitions of the set.
@@ -36,7 +36,7 @@ def calculate_1rm(weight, reps):
     return weight * (1 + (reps / 30.0))
 
 
-def calculate_ttr_from_week_dict(weeks):
+def calculate_ttrdata_from_week_dict(weeks):
     """
     Calcualtes the ttr data from a given dictionary.
 
@@ -64,7 +64,7 @@ def calculate_ttr_from_week_dict(weeks):
     return ttr
 
 
-def ttr_from_csv(file_path, time_format, contains_header=True):
+def ttrdata_from_csv(file_path, time_format, contains_header=True):
     """
     Creates the ttr data format based on the data found in the given file path.
 
@@ -78,11 +78,12 @@ def ttr_from_csv(file_path, time_format, contains_header=True):
 
     with open(file_path, newline='') as file:
         csv_reader = csv.reader(file, delimiter="|")
-        _headers = next(csv_reader)
+
+        if contains_header:
+            _headers = next(csv_reader)
 
         rows = [row for row in csv_reader]
 
         weeks = split_into_weeks(rows, time_format)
-        ttr = calculate_ttr_from_week_dict(weeks)
-        print(ttr)
+        ttr = calculate_ttrdata_from_week_dict(weeks)
         return ttr
