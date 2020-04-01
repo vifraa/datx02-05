@@ -24,31 +24,20 @@ def test_fetch_program_from_model():
     assert len(program) == 18
 
     # Assertions for program rows structure
-    for day, sets in program.items():
+    for _day, sets in program.items():
         for p_set in sets:
 
-            # These assorts are quite useless at the moment but will
-            # will make tests fail later when we refactor into
-            # a proper set datastructure.
-            assert isinstance(p_set[0], str)
-            assert isinstance(p_set[1], str)
-            assert isinstance(p_set[2], str)
-            assert isinstance(p_set[3], str)
+            assert isinstance(p_set.exercise, int)
+            assert isinstance(p_set.percent_1rm, float)
+            assert isinstance(p_set.repetitions, int)
 
-            assert isinstance(int(p_set[0]), int)
-            assert isinstance(int(p_set[1]), int)
-            assert isinstance(int(p_set[2]), int)
-
-            try:
-                datetime.datetime.strptime(p_set[3], "%m/%d/%Y %H:%M")
-            except ValueError:
-                pytest.fail("Timestamp format is not correct.")
-
+        # Assert all sets in same day actual is done on the same
+        # day.
         previous_set_date = None
         for p_set in sets:
             if previous_set_date is None:
-                previous_set_date = datetime.datetime.strptime(p_set[3], "%m/%d/%Y %H:%M")
+                previous_set_date = p_set.date
                 continue
 
-            today = datetime.datetime.strptime(p_set[3], "%m/%d/%Y %H:%M")
-            assert previous_set_date < today
+            today = p_set.date
+            assert previous_set_date == today

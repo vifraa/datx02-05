@@ -153,8 +153,8 @@
                                     {% for set in sets %}
                                     <tr class="{{'black-striped' if ((day | int) % 2 == 0)}}">
                                         <td>{{day}}</td>
-                                        <td>{{((set[1] | float) / 100) * performance}}</td>
-                                        <td>{{set[2]}}</td>
+                                        <td>{{(set.percent_1rm / 100) * performance}}</td>
+                                        <td>{{set.repetitions}}</td>
                                     </tr>
                                     {% endfor %}
                                     {% endfor %}
