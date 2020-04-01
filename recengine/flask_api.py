@@ -1,10 +1,20 @@
-from flask import Flask, request, jsonify, render_template
-from recengine import RecommendationEngine, fetch_program_from_model
-import numpy as np
 import sys
+import json
 
+from flask import Flask, request, jsonify, render_template
+from flask.json import JSONEncoder
+from recengine import RecommendationEngine, fetch_program_from_model, ProgramSet
+import numpy as np
+
+class ExtendedJSONEncoder(JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, ProgramSet):
+            return obj.__dict__()
+
+        return JSONEncoder.default(self, obj)
 
 app = Flask(__name__)
+app.json_encoder = ExtendedJSONEncoder
 
 
 @app.route("/")
