@@ -16,7 +16,8 @@ class DecisionTree:
     An object of this class can be instantiated in one of the following ways:
 
        * using path, ex: DecisionTree(path=GIVEN_PATH) then the constructor will read
-            the data in the given path, partition, shuffle and instantiate it to:
+            the data (csv) in the given path however its sized, just that the target is
+            the located as the last column, then it partition, shuffle and instantiate the date to:
             self.data.Xtrain, self.data.Ytrain, self.data.Xtest, self.data.Ytest
 
        * using X and Y ex: DecisionTree(X=GIVEN_X, Y=GIVEN_Y) then the constructor will

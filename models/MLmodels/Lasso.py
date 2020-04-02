@@ -15,7 +15,8 @@ class Lasso:
     An object of this class can be instantiated in one of the following ways:
 
        * using path, ex: Lasso(path=GIVEN_PATH) then the constructor will read
-            the data in the given path, partition, shuffle and instantiate it to:
+            the data (csv) in the given path however its sized, just that the target is
+            the located as the last column, then it partition, shuffle and instantiate the date to:
             self.data.Xtrain, self.data.Ytrain, self.data.Xtest, self.data.Ytest
 
        * using X and Y ex: Lasso(X=GIVEN_X, Y=GIVEN_Y) then the constructor will
@@ -44,8 +45,8 @@ class Lasso:
     def read_data_from_path_and_partition(self, path):
         self.data = pd.read_csv(path)
         self.data = self.data.sample(frac=1.0, random_state=0)
-        self.data.Y = self.data['performance']
-        self.data.X = self.data.drop('performance', axis=1)
+        self.data.Y = self.data.iloc[:, -1:]
+        self.data.X = self.data.iloc[:, :-1]
         self.data.Xtrain, self.data.Xtest, self.data.Ytrain, self.data.Ytest = train_test_split(self.data.X,
                                                                                                 self.data.Y,
                                                                                                 test_size=0.2,
