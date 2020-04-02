@@ -22,3 +22,10 @@ def calculate_age(date_string):
     age = today.year - birth_date.year - ((today.month, today.day) <
                                           (birth_date.month, birth_date.day))
     return age
+
+def print_training_result_summary(model_name, mean_squared_error, score):
+    print('____________________________________________________' + '\n')
+    print('The Training results of ' + model_name + ' model are : ')
+    print_mean_squared_error(mean_squared_error)
+    print_coefficient_of_determination(score)
+    print('____________________________________________________' + '\n')
