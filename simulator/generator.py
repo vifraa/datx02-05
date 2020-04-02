@@ -64,7 +64,7 @@ def generate_individuals(num, age_mean, age_variance, weight_mean, weight_varian
         # Date could not be set, defaulting
         birth_dates = [datetime.datetime(now.year - age, 1, 1) for age in ages]
     # Normally distributed bench press fitnesses used to create bench press movementss
-    bench_press_fitnesses = np.random.normal(bench_press_fitness_mean, bench_press_fitness_variance,
+    bench_press_performances = np.random.normal(bench_press_fitness_mean, bench_press_fitness_variance,
                                              num).astype("int")
     weights = np.random.normal(weight_mean, weight_variance, num)
     genders = np.ones(num)
@@ -73,7 +73,7 @@ def generate_individuals(num, age_mean, age_variance, weight_mean, weight_varian
     for i in range(num):
         name = names.get_full_name(gender=gender_to_string(genders[i]))
         bench_press_movement = Movement(
-            bench_press_fitnesses[i], 0, bench_press_fitnesses[i],
+            0, 0, bench_press_performances[i],
             BASE_FITNESS_GAIN, BASE_FATIGUE_GAIN, BASE_FITNESS_DECAY, BASE_FATIGUE_DECAY)
         individual = Individual(i, birth_dates[i], int(genders[i]),
                                 name, weights[i], bench_press_movement)

@@ -20,7 +20,7 @@ class Model:
         """
         with open(predictor_path, "rb") as file:
             self.predictor = pickle.load(file)
-            self.name = os.path.basename(file.name)
+            self.name = os.path.splitext(os.path.basename(file.name))[0]
             self.predictor_path = predictor_path
             self.last_prediction = None
 

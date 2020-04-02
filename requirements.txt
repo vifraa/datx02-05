@@ -25,3 +25,4 @@ jupyter
 matplotlib
 click==7.0
 hypothesis
+Flask==1.1.1

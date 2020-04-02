@@ -11,5 +11,5 @@ def test_required_models_exist():
     # The check if these files exists is only used temporary until we generate 
     # models for different exercises. These test makes sure that the recommendation
     # engine is runnable.
-    assert os.path.exists(os.path.join(folder_path, "bench_lasso.sav")) is True
-    assert os.path.exists(os.path.join(folder_path, "bench_ridge.sav")) is True
+    assert os.path.exists(os.path.join(folder_path, "ogasawara_HL.sav")) is True
+    assert os.path.exists(os.path.join(folder_path, "ogasawara_LL.sav")) is True
