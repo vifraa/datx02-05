@@ -61,6 +61,12 @@ class NeuralNetwork:
     def predict(self, X_to_Predict):
         return self.nn.predict(X_to_Predict)
 
+    def mean_squared_error(self):
+        return self.DecisionTree_mean_squared_error
+
+    def DecisionTree_r2_score(self):
+        return self.DecisionTree_r2_score
+
     def plot_learning_curves(self):
         pass
 

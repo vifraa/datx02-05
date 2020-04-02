@@ -68,13 +68,19 @@ class RandomForest:
 
         RandomForest_Ypred = self.RandomForestM.predict(self.data.Xtest)
 
-        RandomForest_mean_squared_error = mean_squared_error(self.data.Ytest, RandomForest_Ypred)
-        RandomForest_r2_score = r2_score(self.data.Ytest, RandomForest_Ypred)
+        self.RandomForest_mean_squared_error = mean_squared_error(self.data.Ytest, RandomForest_Ypred)
+        self.RandomForest_r2_score = r2_score(self.data.Ytest, RandomForest_Ypred)
 
-        print_training_result_summary('Random Forest', RandomForest_mean_squared_error, RandomForest_r2_score)
+        print_training_result_summary('Random Forest', self.RandomForest_mean_squared_error, self.RandomForest_r2_score)
 
     def predict(self, X_to_Predict):
         return self.RandomForestM.predict(X_to_Predict)
+
+    def mean_squared_error(self):
+        return self.RandomForest_mean_squared_error
+
+    def r2_score(self):
+        return self.RandomForest_r2_score
 
     def plot_learning_curves(self):
         warnings.filterwarnings("ignore")

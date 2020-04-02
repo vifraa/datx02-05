@@ -68,13 +68,19 @@ class Ridge:
 
         ridge_Ypred = self.ridge.predict(self.data.Xtest)
 
-        ridge_mean_squared_error = mean_squared_error(self.data.Ytest, ridge_Ypred)
-        ridge_r2_score = r2_score(self.data.Ytest, ridge_Ypred)
+        self.ridge_mean_squared_error = mean_squared_error(self.data.Ytest, ridge_Ypred)
+        self.ridge_r2_score = r2_score(self.data.Ytest, ridge_Ypred)
 
-        print_training_result_summary('Ridge', ridge_mean_squared_error, ridge_r2_score)
+        print_training_result_summary('Ridge', self.ridge_mean_squared_error, self.ridge_r2_score)
 
     def predict(self, X_to_Predict):
         return self.ridge.predict(X_to_Predict)
+
+    def mean_squared_error(self):
+        return self.ridge_mean_squared_error
+
+    def r2_score(self):
+        return self.ridge_r2_score
 
     def plot_learning_curves(self):
         warnings.filterwarnings("ignore")
