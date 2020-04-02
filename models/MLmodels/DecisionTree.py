@@ -54,6 +54,7 @@ class DecisionTree:
                                                                                                 random_state=0)
 
     def read_X_Y_and_partition(self, X, Y):
+        self.data = pd.DataFrame()
         self.data.X = X
         self.data.Y = Y
         self.data.Xtrain, self.data.Xtest, self.data.Ytrain, self.data.Ytest = train_test_split(self.data.X,
@@ -96,5 +97,6 @@ class DecisionTree:
         pickle.dump(self, open(filename, 'wb'))
 
 
-DecisionTree().regression_and_plot_curves()
-DecisionTree(path="../data/regression_dataframes2.csv").regression_and_plot_curves()
+# DecisionTree().regression_and_plot_curves()
+# DecisionTree(path="../data/regression_dataframes2.csv").regression_and_plot_curves()
+# DecisionTree(X=DataSample().X, Y=DataSample().Y).regression_and_plot_curves()

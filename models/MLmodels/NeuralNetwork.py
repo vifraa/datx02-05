@@ -47,6 +47,7 @@ class NeuralNetwork:
                                                                                                 random_state=0)
 
     def read_X_Y_and_partition(self, X, Y):
+        self.data = pd.DataFrame()
         self.data.X = X
         self.data.Y = Y
         self.data.Xtrain, self.data.Xtest, self.data.Ytrain, self.data.Ytest = train_test_split(self.data.X,
