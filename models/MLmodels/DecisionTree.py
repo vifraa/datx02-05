@@ -12,7 +12,7 @@ from sklearn import tree
 
 
 class DecisionTree:
-    '''
+    """
     An object of this class can be instantiated in one of the following ways:
 
        * using path, ex: DecisionTree(path=GIVEN_PATH) then the constructor will read
@@ -28,8 +28,10 @@ class DecisionTree:
             self.data.Xtrain, self.data.Ytrain, self.data.Xtest, self.data.Ytest
 
        * if nothing of the above passed as argument ex. DecisionTree() then
-        the constructor
-    '''
+            the constructor will read ready data using the Data_sample class
+            in DataReader.py and have it in the same format specified above
+
+    """
     def __init__(self, data=None, path=None, X=None, Y=None):
         if data is not None:
             self.data = data
@@ -45,16 +47,18 @@ class DecisionTree:
         self.data = self.data.sample(frac=1.0, random_state=0)
         self.data.Y = self.data['performance']
         self.data.X = self.data.drop('performance', axis=1)
-        self.data.Xtrain, self.data.Xtest, self.data.Ytrain, self.data.Ytest = train_test_split(self.data.X, self.data.Y, test_size=0.2, random_state=0)
+        self.data.Xtrain, self.data.Xtest, self.data.Ytrain, self.data.Ytest = train_test_split(self.data.X,
+                                                                                                self.data.Y,
+                                                                                                test_size=0.2,
+                                                                                                random_state=0)
 
-    def read_X_Y_and_partition(self):
+    def read_X_Y_and_partition(self, X, Y):
         self.data.X = X
         self.data.Y = Y
         self.data.Xtrain, self.data.Xtest, self.data.Ytrain, self.data.Ytest = train_test_split(self.data.X,
                                                                                                 self.data.Y,
                                                                                                 test_size=0.2,
                                                                                                 random_state=0)
-
     def regression(self):
         self.DecisionTreeM = tree.DecisionTreeRegressor()
         self.DecisionTreeM.fit(self.data.Xtrain, self.data.Ytrain)
