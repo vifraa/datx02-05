@@ -2,7 +2,12 @@ import pickle
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from MLmodels.DataReader import DataSample
-
+from sklearn.datasets import load_boston
+from sklearn.neural_network import MLPRegressor
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import make_pipeline
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.inspection import plot_partial_dependence
 
 class NeuralNetwork:
     """
@@ -56,7 +61,43 @@ class NeuralNetwork:
                                                                                                 random_state=0)
 
     def regression(self):
-        pass
+        self.nn = make_pipeline(StandardScaler(), MLPRegressor(hidden_layer_sizes=(100, 100),
+                                                               tol=1e-2, max_iter=500, random_state=0))
+
+        MLPRegressor(
+            hidden_layer_sizes=(100,),
+            activation='relu',
+            solver='adam',
+            alpha=0.0001,
+            batch_size='auto',
+            learning_rate='constant',
+            learning_rate_init=0.001,
+            power_t=0.5,
+            max_iter=200,
+            shuffle=True,
+            random_state=None,
+            tol=0.0001,
+            verbose=False,
+            warm_start=False,
+            momentum=0.9,
+            nesterovs_momentum=True,
+            early_stopping=False,
+            validation_fraction=0.1,
+            beta_1=0.9,
+            beta_2=0.999,
+            epsilon=1e-08,
+            n_iter_no_change=10,
+            max_fun=15000)
+
+
+        self.eNet.fit(self.data.Xtrain, self.data.Ytrain)
+
+        eNet_Ypred = self.eNet.predict(self.data.Xtest)
+
+        self.eNet_mean_squared_error = mean_squared_error(self.data.Ytest, eNet_Ypred)
+        self.eNet_r2_score = r2_score(self.data.Ytest, eNet_Ypred)
+
+        print_training_result_summary('Elastic Net', self.eNet_mean_squared_error, self.eNet_r2_score)
 
     def predict(self, X_to_Predict):
         return self.nn.predict(X_to_Predict)
