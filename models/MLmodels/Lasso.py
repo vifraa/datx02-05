@@ -1,13 +1,14 @@
 import pickle
 import pandas as pd
+import warnings
+import matplotlib.pyplot as plt
 from MLmodels.DataReader import DataSample
 from sklearn import linear_model
 from sklearn.metrics import mean_squared_error, r2_score
 from helpers import print_training_result_summary
 from sklearn.model_selection import ShuffleSplit, train_test_split
-import matplotlib.pyplot as plt
 from visualizers.model_learning_curve_plotter import Learning_curve_plotter
-import warnings
+
 
 
 class Lasso:
@@ -70,6 +71,9 @@ class Lasso:
         lasso_r2_score = r2_score(self.data.Ytest, lasso_Ypred)
 
         print_training_result_summary('Lasso', lasso_mean_squared_error, lasso_r2_score)
+
+    def predict(self, X_to_Predict):
+        return self.lasso.predict(X_to_Predict)
 
     def plot_learning_curves(self):
         warnings.filterwarnings("ignore")

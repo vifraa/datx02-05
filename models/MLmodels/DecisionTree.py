@@ -66,10 +66,16 @@ class DecisionTree:
         self.DecisionTreeM.fit(self.data.Xtrain, self.data.Ytrain)
 
         DecisionTree_Ypred = self.DecisionTreeM.predict(self.data.Xtest)
-        DecisionTree_mean_squared_error = mean_squared_error(self.data.Ytest, DecisionTree_Ypred)
 
-        DecisionTree_r2_score = r2_score(self.data.Ytest, DecisionTree_Ypred)
-        print_training_result_summary('Decision Tree', DecisionTree_mean_squared_error, DecisionTree_r2_score)
+        self.DecisionTree_mean_squared_error = mean_squared_error(self.data.Ytest, DecisionTree_Ypred)
+        self.DecisionTree_r2_score = r2_score(self.data.Ytest, DecisionTree_Ypred)
+
+        print_training_result_summary('Decision Tree', self.DecisionTree_mean_squared_error, self.DecisionTree_r2_score)
+
+    def predict(self, X_to_Predict):
+        return self.DecisionTreeM.predict(X_to_Predict)
+
+
 
     def plot_learning_curves(self):
         warnings.filterwarnings("ignore")

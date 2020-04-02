@@ -1,13 +1,14 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+import warnings
+import pickle
 from MLmodels.DataReader import DataSample
 from sklearn.metrics import mean_squared_error, r2_score
 from helpers import print_training_result_summary
 from sklearn.model_selection import ShuffleSplit, train_test_split
 from visualizers.model_learning_curve_plotter import Learning_curve_plotter
 from sklearn.ensemble import RandomForestRegressor
-import matplotlib.pyplot as plt
-import warnings
-import pickle
+
 
 
 class RandomForest:
@@ -71,6 +72,9 @@ class RandomForest:
         RandomForest_r2_score = r2_score(self.data.Ytest, RandomForest_Ypred)
 
         print_training_result_summary('Random Forest', RandomForest_mean_squared_error, RandomForest_r2_score)
+
+    def predict(self, X_to_Predict):
+        return self.RandomForestM.predict(X_to_Predict)
 
     def plot_learning_curves(self):
         warnings.filterwarnings("ignore")

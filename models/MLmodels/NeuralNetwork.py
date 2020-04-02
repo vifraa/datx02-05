@@ -58,6 +58,9 @@ class NeuralNetwork:
     def regression(self):
         pass
 
+    def predict(self, X_to_Predict):
+        return self.nn.predict(X_to_Predict)
+
     def plot_learning_curves(self):
         pass
 
