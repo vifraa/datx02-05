@@ -79,7 +79,7 @@ class NeuralNetwork:
                             warm_start=False,
                             momentum=0.9,
                             nesterovs_momentum=True,
-                            early_stopping=False,
+                            early_stopping=True,
                             validation_fraction=0.1,
                             beta_1=0.9,
                             beta_2=0.999,
@@ -109,7 +109,7 @@ class NeuralNetwork:
     def plot_learning_curves(self):
         warnings.filterwarnings("ignore")
         title = "Learning Curves NeuralNetwork"
-        cv = ShuffleSplit(n_splits=10, test_size=0.2, random_state=0)
+        cv = ShuffleSplit(n_splits=5, test_size=0.2, random_state=0)
         estimator = self.get_pure_model()
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         plt.show()
@@ -131,17 +131,6 @@ class NeuralNetwork:
     def get_trained_model(self):
         return self.nn
 
-
+    
 NeuralNetwork().regression_and_plot_curves()
-"""
-boston = load_boston()
-X = pd.DataFrame(boston.data, columns=boston.feature_names)
-y = boston.target
-print(y)
-print(y.shape)
-YY = NeuralNetwork().data.Y
-YYY = YY.to_numpy()
-YYY = YYY.flatten()
-print(YYY.shape)
-"""
 
