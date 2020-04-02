@@ -67,19 +67,19 @@ class Lasso:
         self.lasso.fit(self.data.Xtrain, self.data.Ytrain)
         lasso_Ypred = self.lasso.predict(self.data.Xtest)
 
-        lasso_mean_squared_error = mean_squared_error(self.data.Ytest, lasso_Ypred)
-        lasso_r2_score = r2_score(self.data.Ytest, lasso_Ypred)
+        self.lasso_mean_squared_error = mean_squared_error(self.data.Ytest, lasso_Ypred)
+        self.lasso_r2_score = r2_score(self.data.Ytest, lasso_Ypred)
 
-        print_training_result_summary('Lasso', lasso_mean_squared_error, lasso_r2_score)
+        print_training_result_summary('Lasso', self.lasso_mean_squared_error, self.lasso_r2_score)
 
     def predict(self, X_to_Predict):
         return self.lasso.predict(X_to_Predict)
 
     def mean_squared_error(self):
-        return self.DecisionTree_mean_squared_error
+        return self.lasso_mean_squared_error
 
-    def DecisionTree_r2_score(self):
-        return self.DecisionTree_r2_score
+    def r2_score(self):
+        return self.lasso_r2_score
 
     def plot_learning_curves(self):
         warnings.filterwarnings("ignore")

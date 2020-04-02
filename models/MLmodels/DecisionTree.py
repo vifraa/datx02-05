@@ -107,6 +107,6 @@ class DecisionTree:
         pickle.dump(self, open(filename, 'wb'))
 
 
-# DecisionTree().regression_and_plot_curves()
-# DecisionTree(path="../data/regression_dataframes2.csv").regression_and_plot_curves()
-# DecisionTree(X=DataSample().X, Y=DataSample().Y).regression_and_plot_curves()
+DecisionTree().regression_and_plot_curves()
+DecisionTree(path="../data/regression_dataframes2.csv").regression_and_plot_curves()
+DecisionTree(X=DataSample().X, Y=DataSample().Y).regression_and_plot_curves()
