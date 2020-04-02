@@ -25,6 +25,31 @@ flags.DEFINE_float("wm", 50, "Weight mean")
 flags.DEFINE_float("wv", 5, "Weigt variance")
 
 
+def random_banister_parameters():
+    """
+    https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1974899/ table 7
+    """
+    params = {}
+
+    # Initialize the parameters given the study
+    fitness_gain = np.abs(np.random.normal(0.0029, 0.0025))
+    fatigue_gain = np.abs(np.random.normal(0.051, 0.0029))
+    fitness_decay = np.abs(np.random.normal(38, 15))
+    fatigue_decay = np.abs(np.random.normal(19, 12))
+
+    # Since the constraint fatigue_decay < fitness_decay still applies,
+    # we generate it till the constraint is fulfilled
+    while fatigue_decay > fitness_decay:
+        fatigue_decay = np.random.normal(19, 12)
+
+    # Insert them into the dict and return
+    params["fitness_gain"] = fitness_gain
+    params["fatigue_gain"] = fatigue_gain
+    params["fitness_decay"] = fitness_decay
+    params["fatigue_decay"] = fatigue_decay
+    return params
+
+
 def gender_to_string(sex_coding):
     """Returns string representing sex coding
     :param sex_coding: integer representing sex
@@ -65,16 +90,17 @@ def generate_individuals(num, age_mean, age_variance, weight_mean, weight_varian
         birth_dates = [datetime.datetime(now.year - age, 1, 1) for age in ages]
     # Normally distributed bench press fitnesses used to create bench press movementss
     bench_press_performances = np.random.normal(bench_press_fitness_mean, bench_press_fitness_variance,
-                                             num).astype("int")
+                                                num).astype("int")
     weights = np.random.normal(weight_mean, weight_variance, num)
     genders = np.ones(num)
     genders[:int(num * gender_ratio)] = 0
     np.random.shuffle(genders)
+    banister_params = random_banister_parameters()
     for i in range(num):
         name = names.get_full_name(gender=gender_to_string(genders[i]))
         bench_press_movement = Movement(
             0, 0, bench_press_performances[i],
-            BASE_FITNESS_GAIN, BASE_FATIGUE_GAIN, BASE_FITNESS_DECAY, BASE_FATIGUE_DECAY)
+            banister_params["fitness_gain"], banister_params["fatigue_gain"], banister_params["fitness_decay"], banister_params["fatigue_decay"])
         individual = Individual(i, birth_dates[i], int(genders[i]),
                                 name, weights[i], bench_press_movement)
         individuals.append(individual)
@@ -144,3 +170,4 @@ def main(argv):
 
 if __name__ == "__main__":
     app.run(main)
+    print(random_banister_parameters())

@@ -83,7 +83,6 @@ def train_population_from_file(individuals_path, training_program_path, training
 
     # load individuals from csv file
     individuals_df = pd.read_csv(individuals_path, sep="|")
-
     # construct objects from entries
     individuals = []
     for _, individual_series in individuals_df.iterrows():
