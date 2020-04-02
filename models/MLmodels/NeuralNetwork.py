@@ -63,61 +63,6 @@ class NeuralNetwork:
                                                                                                 test_size=0.2,
                                                                                                 random_state=0)
 
-    def regression(self):
-        self.nn = make_pipeline(StandardScaler(), MLPRegressor(
-                                                        hidden_layer_sizes=(100,100),
-                                                        activation='relu',
-                                                        solver='adam',
-                                                        alpha=0.0001,
-                                                        batch_size='auto',
-                                                        learning_rate='constant',
-                                                        learning_rate_init=0.001,
-                                                        power_t=0.5,
-                                                        max_iter=500,
-                                                        shuffle=True,
-                                                        random_state=None,
-                                                        tol=0.0001,
-                                                        verbose=False,
-                                                        warm_start=False,
-                                                        momentum=0.9,
-                                                        nesterovs_momentum=True,
-                                                        early_stopping=False,
-                                                        validation_fraction=0.1,
-                                                        beta_1=0.9,
-                                                        beta_2=0.999,
-                                                        epsilon=1e-08,
-                                                        n_iter_no_change=10,
-                                                        max_fun=15000
-                                                    ))
-
-
-        self.nn.fit(self.data.Xtrain, self.data.Ytrain)
-        nn_Ypred = self.nn.predict(self.data.Xtest)
-        self.nn_mean_squared_error = mean_squared_error(self.data.Ytest, nn_Ypred)
-        self.nn_r2_score = r2_score(self.data.Ytest, nn_Ypred)
-        print_training_result_summary('NeuralNetwork', self.nn_mean_squared_error, self.nn_r2_score)
-
-    def predict(self, X_to_Predict):
-        return self.nn.predict(X_to_Predict)
-
-    def mean_squared_error(self):
-        return self.nn_mean_squared_error
-
-    def r2_score(self):
-        return self.nn_r2_score
-
-    def plot_learning_curves(self):
-        warnings.filterwarnings("ignore")
-        title = "Learning Curves NeuralNetwork"
-        cv = ShuffleSplit(n_splits=50, test_size=0.2, random_state=0)
-        estimator = 
-        Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
-        plt.show()
-
-    def regression_and_plot_curves(self):
-        self.regression()
-        self.plot_learning_curves()
-
     def get_pure_model(self):
         return make_pipeline (StandardScaler(), MLPRegressor(
                                                         hidden_layer_sizes=(100,100),
@@ -144,6 +89,35 @@ class NeuralNetwork:
                                                         n_iter_no_change=10,
                                                         max_fun=15000
                                                     ))
+
+    def regression(self):
+        self.nn = self.get_pure_model()
+        self.nn.fit(self.data.Xtrain, self.data.Ytrain)
+        nn_Ypred = self.nn.predict(self.data.Xtest)
+        self.nn_mean_squared_error = mean_squared_error(self.data.Ytest, nn_Ypred)
+        self.nn_r2_score = r2_score(self.data.Ytest, nn_Ypred)
+        print_training_result_summary('NeuralNetwork', self.nn_mean_squared_error, self.nn_r2_score)
+
+    def predict(self, X_to_Predict):
+        return self.nn.predict(X_to_Predict)
+
+    def mean_squared_error(self):
+        return self.nn_mean_squared_error
+
+    def r2_score(self):
+        return self.nn_r2_score
+
+    def plot_learning_curves(self):
+        warnings.filterwarnings("ignore")
+        title = "Learning Curves NeuralNetwork"
+        cv = ShuffleSplit(n_splits=10, test_size=0.2, random_state=0)
+        estimator = self.get_pure_model()
+        Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
+        plt.show()
+
+    def regression_and_plot_curves(self):
+        self.regression()
+        self.plot_learning_curves()
 
     def save_the_trained_model(self):
         # save the model to disk
