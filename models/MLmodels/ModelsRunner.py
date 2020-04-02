@@ -22,7 +22,7 @@ class ModelsRunner:
     def __init__(self):
         pass
 
-    def run_models (self, model_names_list):
+    def run_models(self, model_names_list):
         for model_name in model_names_list:
             self.models_dict.get(model_name).regression()
 
@@ -42,10 +42,15 @@ class ModelsRunner:
             regressors.append((model_name, regressor))
         Models_comparator(self.data.X, self.data.Y, regressors)
 
+    def print_sample_data(self):
+        self.data.print_sample_data()
 
 # executing example
 # ModelsRunner().run_models_and_plot_curves(['ElasticNet', 'DecisionTree'])
-# ModelsRunner().compare_models(['ElasticNet', 'DecisionTree', 'Lasso', 'Ridge', 'RandomForest' ])
+MR = ModelsRunner().compare_models(['ElasticNet', 'DecisionTree', 'Lasso', 'Ridge', 'RandomForest' ])
+MR.run_all_models_and_plot_curves()
+MR.print_sample_data()
+
 
 
 

@@ -6,6 +6,7 @@ from visualizers.model_learning_curve_plotter import Learning_curve_plotter
 from sklearn.ensemble import RandomForestRegressor
 import matplotlib.pyplot as plt
 import warnings
+import pickle
 
 
 class RandomForest:
@@ -16,10 +17,10 @@ class RandomForest:
             self.data = data
 
     def regression(self):
-        RandomForestM = RandomForestRegressor(max_depth=10, random_state=0)
-        RandomForestM.fit(self.data.Xtrain, self.data.Ytrain)
+        self.RandomForestM = RandomForestRegressor(max_depth=2, random_state=0)
+        self.RandomForestM.fit(self.data.Xtrain, self.data.Ytrain)
 
-        RandomForest_Ypred = RandomForestM.predict(self.data.Xtest)
+        RandomForest_Ypred = self.RandomForestM.predict(self.data.Xtest)
 
         RandomForest_mean_squared_error = mean_squared_error(self.data.Ytest, RandomForest_Ypred)
         RandomForest_r2_score = r2_score(self.data.Ytest, RandomForest_Ypred)
@@ -41,6 +42,10 @@ class RandomForest:
     def get_pure_model(self):
         return RandomForestRegressor(max_depth=10, random_state=0)
 
+    def save_the_trained_model(self):
+        # save the model to disk
+        filename = 'finalized_RandomForest_model.sav'
+        pickle.dump(self.RandomForestM, open(filename, 'wb'))
 
 
 # RandomForest().regression_and_plot_curves()

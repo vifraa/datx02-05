@@ -1,3 +1,5 @@
+import pickle
+
 from MLmodels.DataReader import DataSample
 from sklearn.metrics import mean_squared_error, r2_score
 from helpers import print_training_result_summary
@@ -16,10 +18,10 @@ class Ridge:
             self.data = data
 
     def regression(self):
-        ridge = RidgeModel(alpha=1.0)
-        ridge.fit(self.data.Xtrain, self.data.Ytrain)
+        self.ridge = RidgeModel(alpha=1.0)
+        self.ridge.fit(self.data.Xtrain, self.data.Ytrain)
 
-        ridge_Ypred = ridge.predict(self.data.Xtest)
+        ridge_Ypred = self.ridge.predict(self.data.Xtest)
 
         ridge_mean_squared_error = mean_squared_error(self.data.Ytest, ridge_Ypred)
         ridge_r2_score = r2_score(self.data.Ytest, ridge_Ypred)
@@ -42,6 +44,9 @@ class Ridge:
     def get_pure_model(self):
         return RidgeModel(alpha=1.0)
 
-
+    def save_the_trained_model(self):
+        # save the model to disk
+        filename = 'finalized_Ridge_model.sav'
+        pickle.dump(self.ridge, open(filename, 'wb'))
 
 # Ridge().regression_and_plot_curves()
