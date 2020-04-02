@@ -91,7 +91,14 @@ class NeuralNetwork:
                                                     ))
 
     def regression(self):
-        self.nn = self.get_pure_model()
+        # self.nn = self.get_pure_model()
+        self.nn = make_pipeline(StandardScaler(),
+                      MLPRegressor(
+                          hidden_layer_sizes=(100, 100),
+                          tol=1e-2,
+                          max_iter=500,
+                          random_state=0
+                        ))
         self.nn.fit(self.data.Xtrain, self.data.Ytrain)
         nn_Ypred = self.nn.predict(self.data.Xtest)
         self.nn_mean_squared_error = mean_squared_error(self.data.Ytest, nn_Ypred)
