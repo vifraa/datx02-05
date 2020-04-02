@@ -78,7 +78,7 @@ class DecisionTree:
     def mean_squared_error(self):
         return self.DecisionTree_mean_squared_error
 
-    def DecisionTree_r2_score(self):
+    def r2_score(self):
         return self.DecisionTree_r2_score
 
     def plot_learning_curves(self):
@@ -105,6 +105,9 @@ class DecisionTree:
         # save the model to disk
         filename = 'class_contains_trained_RandomForest_model_with_more_functionalities.sav'
         pickle.dump(self, open(filename, 'wb'))
+
+    def get_trained_model(self):
+        return self.DecisionTreeM
 
 
 DecisionTree().regression_and_plot_curves()
