@@ -2,6 +2,7 @@ import pickle
 import warnings
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.datasets import load_boston
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split, ShuffleSplit
 from MLmodels.DataReader import DataSample
@@ -64,8 +65,8 @@ class NeuralNetwork:
                                                                                                 random_state=0)
 
     def get_pure_model(self):
-        return make_pipeline (StandardScaler(), MLPRegressor(
-                                                        hidden_layer_sizes=(100,100),
+        return MLPRegressor(
+                                                        hidden_layer_sizes=(100, 100),
                                                         activation='relu',
                                                         solver='adam',
                                                         alpha=0.0001,
@@ -88,18 +89,12 @@ class NeuralNetwork:
                                                         epsilon=1e-08,
                                                         n_iter_no_change=10,
                                                         max_fun=15000
-                                                    ))
+                                                    )
 
     def regression(self):
         # self.nn = self.get_pure_model()
-        self.nn = make_pipeline(StandardScaler(),
-                      MLPRegressor(
-                          hidden_layer_sizes=(100, 100),
-                          tol=1e-2,
-                          max_iter=500,
-                          random_state=0
-                        ))
-        self.nn.fit(self.data.Xtrain, self.data.Ytrain)
+        self.nn = self.get_pure_model()
+        self.nn.fit(self.data.Xtrain, self.data.Ytrain.to_numpy().flatten())
         nn_Ypred = self.nn.predict(self.data.Xtest)
         self.nn_mean_squared_error = mean_squared_error(self.data.Ytest, nn_Ypred)
         self.nn_r2_score = r2_score(self.data.Ytest, nn_Ypred)
@@ -140,4 +135,16 @@ class NeuralNetwork:
         return self.nn
 
 
-NeuralNetwork().regression_and_plot_curves()
+NeuralNetwork().regression()
+"""
+boston = load_boston()
+X = pd.DataFrame(boston.data, columns=boston.feature_names)
+y = boston.target
+print(y)
+print(y.shape)
+YY = NeuralNetwork().data.Y
+YYY = YY.to_numpy()
+YYY = YYY.flatten()
+print(YYY.shape)
+"""
+
