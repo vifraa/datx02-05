@@ -9,25 +9,16 @@ class DataSample:
         self.read_partition()
 
     def read_partition(self):
-        L = []
-
-        for i in range(90):
-            L.append(f"rep{i}")
-            L.append(f"weight{i}")
-
-        L2 = ["age", "person_weight", "gender", "pre-performance", "performance"]
-        L += L2
-
         # Read the CSV file.
-        self.data = pd.read_csv("../data/regression_dataframes2.csv", names=L)
+        self.data = pd.read_csv("../data/regression_dataframes2.csv")
 
         # Shuffle the dataset.
         self.data_shuffled = self.data.sample(frac=1.0, random_state=0)
 
-        self.Y = self.data_shuffled['performance']
+        # Performance as the last column of the dataframe
+        self.Y = self.data_shuffled.iloc[:, -1:]
 
-        # Split into input part X and output part Y.
-        self.X = self.data_shuffled.drop('performance', axis=1)
+        self.X = self.data_shuffled.iloc[:, :-1]
 
         # # Partition the data into training and test sets.
         self.Xtrain, self.Xtest, self.Ytrain, self.Ytest = train_test_split(self.X, self.Y, test_size=0.2, random_state=0)

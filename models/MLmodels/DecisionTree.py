@@ -36,7 +36,7 @@ class DecisionTree:
         if data is not None:
             self.data = data
         elif path is not None:
-            self.read_data_from_path_and_partition()
+            self.read_data_from_path_and_partition(path)
         elif X is not None and Y is not None:
             self.read_X_Y_and_partition(X, Y)
         else:
@@ -45,8 +45,8 @@ class DecisionTree:
     def read_data_from_path_and_partition(self, path):
         self.data = pd.read_csv(path)
         self.data = self.data.sample(frac=1.0, random_state=0)
-        self.data.Y = self.data['performance']
-        self.data.X = self.data.drop('performance', axis=1)
+        self.data.Y = self.data.iloc[:, -1:]
+        self.data.X = self.data.iloc[:, :-1]
         self.data.Xtrain, self.data.Xtest, self.data.Ytrain, self.data.Ytest = train_test_split(self.data.X,
                                                                                                 self.data.Y,
                                                                                                 test_size=0.2,
@@ -94,4 +94,6 @@ class DecisionTree:
         filename = 'class_contains_trained_RandomForest_model_with_more_functionalities.sav'
         pickle.dump(self, open(filename, 'wb'))
 
-#DecisionTree().regression_and_plot_curves()
+
+DecisionTree().regression_and_plot_curves()
+DecisionTree(path="../data/regression_dataframes2.csv").regression_and_plot_curves()

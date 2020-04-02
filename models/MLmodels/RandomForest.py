@@ -35,7 +35,7 @@ class RandomForest:
         if data is not None:
             self.data = data
         elif path is not None:
-            self.read_data_from_path_and_partition()
+            self.read_data_from_path_and_partition(path)
         elif X is not None and Y is not None:
             self.read_X_Y_and_partition(X, Y)
         else:
