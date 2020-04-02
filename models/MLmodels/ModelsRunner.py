@@ -45,11 +45,13 @@ class ModelsRunner:
     def print_sample_data(self):
         self.data.print_sample_data()
 
+
+
 # executing example
 # ModelsRunner().run_models_and_plot_curves(['ElasticNet', 'DecisionTree'])
-MR = ModelsRunner().compare_models(['ElasticNet', 'DecisionTree', 'Lasso', 'Ridge', 'RandomForest' ])
-MR.run_all_models_and_plot_curves()
-MR.print_sample_data()
+# MR = ModelsRunner().compare_models(['ElasticNet', 'DecisionTree', 'Lasso', 'Ridge', 'RandomForest' ])
+# MR.run_all_models_and_plot_curves()
+# MR.print_sample_data()
 
 
 

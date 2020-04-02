@@ -17,7 +17,7 @@ class RandomForest:
             self.data = data
 
     def regression(self):
-        self.RandomForestM = RandomForestRegressor(max_depth=2, random_state=0)
+        self.RandomForestM = RandomForestRegressor(max_depth=10, random_state=0)
         self.RandomForestM.fit(self.data.Xtrain, self.data.Ytrain)
 
         RandomForest_Ypred = self.RandomForestM.predict(self.data.Xtest)
@@ -46,6 +46,11 @@ class RandomForest:
         # save the model to disk
         filename = 'finalized_RandomForest_model.sav'
         pickle.dump(self.RandomForestM, open(filename, 'wb'))
+
+    def save_the_class_included_the_trained_model(self):
+        # save the model to disk
+        filename = 'class_contains_trained_RandomForest_model_with_more_functionalities.sav'
+        pickle.dump(self, open(filename, 'wb'))
 
 
 # RandomForest().regression_and_plot_curves()

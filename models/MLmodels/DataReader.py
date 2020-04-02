@@ -41,3 +41,4 @@ class DataSample:
         print(
             "The target (the performance of the specific person after doing the specific training): " + '\n' + "_______________________________________")
         display(self.Y.head())
+
