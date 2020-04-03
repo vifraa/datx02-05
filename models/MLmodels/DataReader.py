@@ -21,7 +21,7 @@ class DataSample:
         self.X = self.data_shuffled.iloc[:, :-1]
 
         # # Partition the data into training and test sets.
-        self.Xtrain, self.Xtest, self.Ytrain, self.Ytest = train_test_split(self.X, self.Y, test_size=0.2, random_state=0)
+        self.Xtrain, self.Xtest, self.Ytrain, self.Ytest = train_test_split(self.X, self.Y, test_size=0.33, random_state=42)
 
     def data_plot_PCA(self):
         model_plotter.Reducer_plotter.pca_plot(self.Xtrain)

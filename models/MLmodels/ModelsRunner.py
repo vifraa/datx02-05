@@ -1,3 +1,5 @@
+import pickle
+
 from MLmodels.DataReader import DataSample
 from MLmodels.DecisionTree import DecisionTree
 from MLmodels.ElasticNets import ElasticNet
@@ -55,12 +57,26 @@ class ModelsRunner:
     def print_sample_data(self):
         self.data.print_sample_data()
 
+    def train_all_models_on_specific_data_and_then_save_them_all_as_binary_sav_files(self, X, Y):
+        trained_models = [Lasso(X=X, Y=Y), Ridge(X=X, Y=Y), ElasticNet(X=X, Y=Y),
+                          DecisionTree(X=X, Y=Y), RandomForest(X=X, Y=Y), NeuralNetwork(X=X, Y=Y)]
+        for model in trained_models:
+            model.regression()
+            model.save_the_class_included_the_trained_model()
+
+
+
 
 # executing example
 # ModelsRunner().train_specific_models_and_plot_curves(['ElasticNet', 'DecisionTree'])
 # MR = ModelsRunner().compare_models(['ElasticNet', 'DecisionTree', 'Lasso', 'Ridge', 'RandomForest' ])
 # ModelsRunner().train_all_models_and_plot_curves()
 # MR.print_sample_data()
-ModelsRunner().train_all_models()
+# ModelsRunner().train_all_models()
+# Lasso(X=DataSample().X, Y=DataSample().Y).regression()
+# ModelsRunner().train_all_models_on_specific_data_and_then_save_them_all_as_binary_sav_files(DataSample().X, DataSample().Y)
+# filename = 'class_contains_trained_NeuralNetwork_model_with_more_functionalities.sav'
+# loaded_model = pickle.load(open(filename, 'rb'))
+# print(loaded_model.r2_score())
 
 

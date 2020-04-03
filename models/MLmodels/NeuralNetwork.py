@@ -49,8 +49,8 @@ class NeuralNetwork:
         self.data.X = self.data.iloc[:, :-1]
         self.data.Xtrain, self.data.Xtest, self.data.Ytrain, self.data.Ytest = train_test_split(self.data.X,
                                                                                                 self.data.Y,
-                                                                                                test_size=0.2,
-                                                                                                random_state=0)
+                                                                                                test_size=0.33,
+                                                                                                random_state=42)
 
     def read_X_Y_and_partition(self, X, Y):
         self.data = pd.DataFrame()
@@ -58,8 +58,8 @@ class NeuralNetwork:
         self.data.Y = Y
         self.data.Xtrain, self.data.Xtest, self.data.Ytrain, self.data.Ytest = train_test_split(self.data.X,
                                                                                                 self.data.Y,
-                                                                                                test_size=0.2,
-                                                                                                random_state=0)
+                                                                                                test_size=0.33,
+                                                                                                random_state=42)
 
     @classmethod
     def get_pure_model(cls):
@@ -125,7 +125,7 @@ class NeuralNetwork:
 
     def save_the_class_included_the_trained_model(self):
         # save the model to disk
-        filename = 'class_contains_trained_RandomForest_model_with_more_functionalities.sav'
+        filename = 'class_contains_trained_NeuralNetwork_model_with_more_functionalities.sav'
         pickle.dump(self, open(filename, 'wb'))
 
     def get_trained_model(self):
