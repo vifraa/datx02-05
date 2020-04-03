@@ -111,4 +111,8 @@ class Ridge:
     def get_trained_model(self):
         return self.ridge
 
+    def train_model_on_data(self, data):
+        return Ridge(data=data)
+
+
 # Ridge().regression_and_plot_curves()
