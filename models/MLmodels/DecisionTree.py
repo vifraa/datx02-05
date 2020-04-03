@@ -104,7 +104,6 @@ class DecisionTree:
 
     def save_the_class_included_the_trained_model(self):
         # save the model to disk
-        print("here")
         filename = 'class_contains_trained_DecisionTree_model_with_more_functionalities.sav'
         pickle.dump(self, open(filename, 'wb'))
 
