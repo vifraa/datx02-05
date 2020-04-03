@@ -93,7 +93,8 @@ class DecisionTree:
         self.regression()
         self.plot_learning_curves()
 
-    def get_pure_model(self):
+    @classmethod
+    def get_pure_model(cls):
         return tree.DecisionTreeRegressor()
 
     def save_the_trained_model(self):
@@ -110,6 +111,16 @@ class DecisionTree:
         return self.DecisionTreeM
 
 
-DecisionTree().regression_and_plot_curves()
-DecisionTree(path="../data/regression_dataframes2.csv").regression_and_plot_curves()
-DecisionTree(X=DataSample().X, Y=DataSample().Y).regression_and_plot_curves()
+# Example working scenarios:
+# --------------------------
+# DecisionTree().regression_and_plot_curves()
+# DecisionTree(path="../data/regression_dataframes2.csv").regression_and_plot_curves()
+# DecisionTree(X=DataSample().X, Y=DataSample().Y).regression_and_plot_curves()
+# loaded_model = pickle.load(open(filename, 'rb'))
+# dt = DecisionTree()
+# dt.regression_and_plot_curves()
+# dt.save_the_class_included_the_trained_model()
+# filename = 'class_contains_trained_RandomForest_model_with_more_functionalities.sav'
+# loaded_model = pickle.load(open(filename, 'rb'))
+# print(loaded_model.r2_score())
+

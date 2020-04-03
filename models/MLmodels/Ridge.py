@@ -94,7 +94,8 @@ class Ridge:
         self.regression()
         self.plot_learning_curves()
 
-    def get_pure_model(self):
+    @classmethod
+    def get_pure_model(cls):
         return RidgeModel(alpha=1.0)
 
     def save_the_trained_model(self):
@@ -109,5 +110,7 @@ class Ridge:
 
     def get_trained_model(self):
         return self.ridge
+
+
 
 # Ridge().regression_and_plot_curves()
