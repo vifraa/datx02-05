@@ -131,6 +131,10 @@ class NeuralNetwork:
     def get_trained_model(self):
         return self.nn
 
+    def train_model_on_data(self, data):
+        return NeuralNetwork(data=data)
+
+
 
 # NeuralNetwork().regression_and_plot_curves()
 
