@@ -110,4 +110,9 @@ class ElasticNet:
     def get_trained_model(self):
         return self.eNet
 
+    def train_model_on_data(self, data):
+        return DecisionTree(data = data)
+
+
+
 #ElasticNet().regression_and_plot_curves()
