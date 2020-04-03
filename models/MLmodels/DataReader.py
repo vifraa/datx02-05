@@ -1,7 +1,7 @@
 import pandas as pd
 from IPython.display import display
 from sklearn.model_selection import train_test_split
-from visualizers import model_plotter
+from visualizers import data_plotter
 
 class DataSample:
 
@@ -24,7 +24,7 @@ class DataSample:
         self.Xtrain, self.Xtest, self.Ytrain, self.Ytest = train_test_split(self.X, self.Y, test_size=0.33, random_state=42)
 
     def data_plot_PCA(self):
-        model_plotter.Reducer_plotter.pca_plot(self.Xtrain)
+        data_plotter.Reducer_plotter.pca_plot(self.Xtrain)
 
     def print_sample_data(self):
         print("Sample of the data: " + '\n' + "____________________")
