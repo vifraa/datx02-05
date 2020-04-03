@@ -105,7 +105,7 @@ class Ridge:
 
     def save_the_class_included_the_trained_model(self):
         # save the model to disk
-        filename = 'class_contains_trained_RandomForest_model_with_more_functionalities.sav'
+        filename = 'class_contains_trained_Ridge_model_with_more_functionalities.sav'
         pickle.dump(self, open(filename, 'wb'))
 
     def get_trained_model(self):

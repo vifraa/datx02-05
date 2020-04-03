@@ -54,6 +54,7 @@ class Lasso:
                                                                                                 random_state=42)
 
     def read_X_Y_and_partition(self, X, Y):
+        warnings.filterwarnings("ignore")
         self.data = pd.DataFrame()
         self.data.X = X
         self.data.Y = Y
@@ -104,7 +105,7 @@ class Lasso:
 
     def save_the_class_included_the_trained_model(self):
         # save the model to disk
-        filename = 'class_contains_trained_RandomForest_model_with_more_functionalities.sav'
+        filename = 'class_contains_trained_Lasso_model_with_more_functionalities.sav'
         pickle.dump(self, open(filename, 'wb'))
 
     def get_trained_model(self):
