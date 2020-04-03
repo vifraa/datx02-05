@@ -55,24 +55,12 @@ class ModelsRunner:
     def print_sample_data(self):
         self.data.print_sample_data()
 
-    def train_all_models_on_specific_data_returns_self(data):
-        pass
-
-    def train_specific_models_on_specific_data_returns_self(data, model_names_list):
-        pass
-
-    def train_all_models_on_specific_data_and_export_them_as_binary_sav_files(data):
-        pass
-
-    def train_specific_models_on_specific_data_and_export_them_as_binary_sav_files(data, model_names_list):
-        pass
 
 # executing example
 # ModelsRunner().train_specific_models_and_plot_curves(['ElasticNet', 'DecisionTree'])
 # MR = ModelsRunner().compare_models(['ElasticNet', 'DecisionTree', 'Lasso', 'Ridge', 'RandomForest' ])
-ModelsRunner().train_all_models_and_plot_curves()
+# ModelsRunner().train_all_models_and_plot_curves()
 # MR.print_sample_data()
-
-
+ModelsRunner().train_all_models()
 
 

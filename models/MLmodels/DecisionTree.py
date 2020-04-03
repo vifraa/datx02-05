@@ -110,9 +110,6 @@ class DecisionTree:
     def get_trained_model(self):
         return self.DecisionTreeM
 
-    def train_model_on_data(self, data):
-        return DecisionTree(data=data)
-
 
 # Example working scenarios:
 # --------------------------

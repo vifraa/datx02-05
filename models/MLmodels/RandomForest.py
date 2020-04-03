@@ -63,6 +63,7 @@ class RandomForest:
                                                                                                 random_state=0)
 
     def regression(self):
+        warnings.filterwarnings("ignore")
         self.RandomForestM = RandomForestRegressor(max_depth=10, random_state=0)
         self.RandomForestM.fit(self.data.Xtrain, self.data.Ytrain)
 
@@ -110,9 +111,6 @@ class RandomForest:
 
     def get_trained_model(self):
         return self.RandomForestM
-
-    def train_model_on_data(self, data):
-        return RandomForest(data=data)
 
 
 # RandomForest().regression_and_plot_curves()
