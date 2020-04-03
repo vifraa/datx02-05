@@ -110,4 +110,8 @@ class Lasso:
     def get_trained_model(self):
         return self.lasso
 
+    def train_model_on_data(self, data):
+        return Lasso(data=data)
+
+
 #Lasso().regression_and_plot_curves()

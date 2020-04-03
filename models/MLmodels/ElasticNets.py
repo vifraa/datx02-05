@@ -111,7 +111,7 @@ class ElasticNet:
         return self.eNet
 
     def train_model_on_data(self, data):
-        return DecisionTree(data = data)
+        return ElasticNet(data=data)
 
 
 
