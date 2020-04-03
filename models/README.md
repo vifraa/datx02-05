@@ -2,7 +2,7 @@
 
 ## Machine Learning Models
 
-#### We provide 6 Machine Learning models to do the regression:
+#### We provide 6 Machine Learning models to do the regression that are intended to be used by the recommendation engine:
 
 - Lasso
 - Ridge
@@ -14,8 +14,8 @@
 #### Using the models:
 You can use the models using ModelsRunner class or by using the specific model directly.
 
-#### Using the models by ModelsRunner:
-ModelsRunner has the following interface:
+#### Using the models by using ModelsRunner class:
+ModelsRunner class has the following interface:
 
  ```
     def train_all_models():
@@ -36,7 +36,7 @@ ModelsRunner has the following interface:
 
 ```
 
-#### using a specific model directly:
+#### Using a specific model directly:
 All the models have the same following interface:
 
 An object of the class of the model can be instantiated in one of the following ways:
@@ -90,6 +90,7 @@ An object of the class of the model can be instantiated in one of the following 
 
 
 ## Visualizers
+We provide 4 visualizers to the models and the data, which can be used either using ModelsRunner or directly using the specific Model class as the 2 interfaces above descirbes
 - Learning curves plotter: Plots the score of the model on the training set versus the validation set, plots the scalability of the model and the performance of the model.
 - Validation curves plotter: plots the Validation curves of the models
 - Data plotter: Reduces the dimensionality of the data using principal component analysis and plot it on a 2D plane, that helps observing eventual correlations in the data. 
@@ -103,7 +104,7 @@ ModelsRunner().train_all_models_on_specific_data_and_then_save_them_all_as_binar
 Then you see in the same directory 6 sav files which has the classes of the models, each includes the trained model and more functionalitis that the interface above descibes.
 
 ## Example working with the models:
-Here we take an example on how simply to use the trained and saved NeuralNetwork model:
+Here we take an example showing how simple is to use the trained and saved models, in this example the saved NeuralNetwork model:
 
 ```
 filename = 'class_contains_trained_NeuralNetwork_model_with_more_functionalities.sav'
