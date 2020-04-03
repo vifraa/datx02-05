@@ -61,7 +61,8 @@ class NeuralNetwork:
                                                                                                 test_size=0.2,
                                                                                                 random_state=0)
 
-    def get_pure_model(self):
+    @classmethod
+    def get_pure_model(cls):
         return MLPRegressor(
                             hidden_layer_sizes=(100, 100),
                             activation='relu',
@@ -89,7 +90,6 @@ class NeuralNetwork:
                         )
 
     def regression(self):
-        # self.nn = self.get_pure_model()
         self.nn = self.get_pure_model()
         self.nn.fit(self.data.Xtrain, self.data.Ytrain.to_numpy().flatten())
         nn_Ypred = self.nn.predict(self.data.Xtest)
@@ -131,6 +131,7 @@ class NeuralNetwork:
     def get_trained_model(self):
         return self.nn
 
-    
-NeuralNetwork().regression_and_plot_curves()
+
+# NeuralNetwork().regression_and_plot_curves()
+
 

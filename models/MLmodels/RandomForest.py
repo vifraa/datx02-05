@@ -94,7 +94,8 @@ class RandomForest:
         self.regression()
         self.plot_learning_curves()
 
-    def get_pure_model(self):
+    @classmethod
+    def get_pure_model(cls):
         return RandomForestRegressor(max_depth=10, random_state=0)
 
     def save_the_trained_model(self):

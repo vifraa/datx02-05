@@ -14,25 +14,35 @@ class ModelsRunner:
     data = DataSample()
 
     models_dict = {
-        'Lasso': Lasso(data), 'Ridge': Ridge(data), 'ElasticNet': ElasticNet(data),
-        'DecisionTree': DecisionTree(data), 'RandomForest': RandomForest(data),
-        'NeuralNetwork': NeuralNetwork(data)
+        'Lasso': Lasso(),
+        'Ridge': Ridge(),
+        'ElasticNet': ElasticNet(),
+        'DecisionTree': DecisionTree(),
+        'RandomForest': RandomForest(),
+        'NeuralNetwork': NeuralNetwork()
     }
 
     def __init__(self):
         pass
 
-    def run_models(self, model_names_list):
+    def train_all_models(self):
+        for model in self.models_dict.values():
+            model.regression()
+
+    def train_specific_models(self, model_names_list):
         for model_name in model_names_list:
             self.models_dict.get(model_name).regression()
 
-    def run_models_and_plot_curves(self, model_names_list):
+    def train_specific_models_and_plot_curves(self, model_names_list):
         for model_name in model_names_list:
             self.models_dict.get(model_name).regression_and_plot_curves()
 
-    def run_all_models_and_plot_curves(self):
+    def train_all_models_and_plot_curves(self):
         for model in self.models_dict.values():
             model.regression_and_plot_curves()
+
+    def get_instance_of_model(self, model_name):
+        self.models_dict.get(model_name)
 
     def compare_models(self, model_names_list):
         warnings.filterwarnings("ignore")
@@ -48,9 +58,9 @@ class ModelsRunner:
 
 
 # executing example
-# ModelsRunner().run_models_and_plot_curves(['ElasticNet', 'DecisionTree'])
+# ModelsRunner().train_specific_models_and_plot_curves(['ElasticNet', 'DecisionTree'])
 # MR = ModelsRunner().compare_models(['ElasticNet', 'DecisionTree', 'Lasso', 'Ridge', 'RandomForest' ])
-# MR.run_all_models_and_plot_curves()
+ModelsRunner().train_all_models_and_plot_curves()
 # MR.print_sample_data()
 
 

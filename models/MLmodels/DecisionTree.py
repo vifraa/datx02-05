@@ -93,7 +93,8 @@ class DecisionTree:
         self.regression()
         self.plot_learning_curves()
 
-    def get_pure_model(self):
+    @classmethod
+    def get_pure_model(cls):
         return tree.DecisionTreeRegressor()
 
     def save_the_trained_model(self):
@@ -108,6 +109,7 @@ class DecisionTree:
 
     def get_trained_model(self):
         return self.DecisionTreeM
+
 
 
 # Example working scenarios:
