@@ -1,9 +1,11 @@
 import sys
 import json
+import io
 
 from flask import Flask, request, jsonify, render_template
 from flask.json import JSONEncoder
 from recengine import RecommendationEngine, fetch_program_from_model, ProgramSet
+from data_parser import ttrdata_from_csv_bytes
 import numpy as np
 
 class ExtendedJSONEncoder(JSONEncoder):
@@ -21,6 +23,10 @@ app.json_encoder = ExtendedJSONEncoder
 def index():
     print('Hello world!', file=sys.stderr)
     return render_template('index.html')
+
+@app.route("/ttr")
+def ttr_template():
+    return render_template('ttr.html')
 
 
 @app.route("/formpbar", methods=["POST"])
@@ -41,6 +47,26 @@ def formpbar():
                            predicted_performance=best_pred["predicted_performance"],
                            program=program,
                            name=name)
+
+@app.route("/formttr", methods=["POST"])
+def formttr():
+    #recengine = RecommendationEngine("ttr")
+    name = request.form.get("fname")
+    file = request.files["ffile"]
+    stream = io.StringIO(file.stream.read().decode("UTF8"), newline=None)
+    ttr = ttrdata_from_csv_bytes(stream, "%m/%d/%Y %H:%M")
+    print(ttr)
+
+    #best_pred, _ = recengine.recommend_training(data)
+    #program = fetch_program_from_model(best_pred["model"])
+    return render_template("ttr.html",
+                           #best_pred=best_pred["model"].name,
+                           #predicted_performance=best_pred["predicted_performance"],
+                           #program=program,
+                           ttr=ttr,
+                           name=name)
+
+
 
 
 @app.route('/api/v1/pbar', methods=['POST'])
