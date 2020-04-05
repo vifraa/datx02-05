@@ -64,6 +64,19 @@ def calculate_ttrdata_from_week_dict(weeks):
 
     return ttr
 
+def ttr_data_from_reader(csv_reader, time_format, contains_header=True):
+    """
+    Creates the ttr data format based on the given csv reader.
+    """
+    if contains_header:
+        _headers = next(csv_reader)
+
+    rows = [row for row in csv_reader]
+
+    weeks = split_into_weeks(rows, time_format)
+    ttr = calculate_ttrdata_from_week_dict(weeks)
+    return ttr
+
 
 def ttrdata_from_csv(file_path, time_format, contains_header=True):
     """
@@ -79,12 +92,20 @@ def ttrdata_from_csv(file_path, time_format, contains_header=True):
 
     with open(file_path, newline='') as file:
         csv_reader = csv.reader(file, delimiter="|")
+        return ttr_data_from_reader(csv_reader, time_format, contains_header=True)
 
-        if contains_header:
-            _headers = next(csv_reader)
 
-        rows = [row for row in csv_reader]
+def ttrdata_from_csv_bytes(f_bytes, time_format, contains_header=True):
+    """
+    Creates the ttr data format based on the data found in the given bytes.
 
-        weeks = split_into_weeks(rows, time_format)
-        ttr = calculate_ttrdata_from_week_dict(weeks)
-        return ttr
+    File has to be of type CSV and follow the structure of:
+    Exercice | Weight | Reps | Timestamp
+
+    :param f_bytes: The csv file in bytes.
+    :param time_format: The string format of the Timestamp.
+    :param contains_header: If the given CSV file contain a header row.
+    """
+    csv_reader = csv.reader(f_bytes, delimiter="|")
+    return ttr_data_from_reader(csv_reader, time_format, contains_header=True)
+
