@@ -55,6 +55,7 @@ def formttr():
     file = request.files["ffile"]
     stream = io.StringIO(file.stream.read().decode("UTF8"), newline=None)
     ttr = ttrdata_from_csv_bytes(stream, "%m/%d/%Y %H:%M")
+    four_weeks_ttrdata = ttr[-8:]
     print(ttr)
 
     #best_pred, _ = recengine.recommend_training(data)
@@ -64,6 +65,7 @@ def formttr():
                            #predicted_performance=best_pred["predicted_performance"],
                            #program=program,
                            ttr=ttr,
+                           ttr4= four_weeks_ttrdata,
                            name=name)
 
 
