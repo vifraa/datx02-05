@@ -31,6 +31,5 @@ def test_split_into_weeks(input_sets):
 
     for week, sets in weeks.items():
         for s in sets:
-            print(s.get('timestamp'))
             set_week = datetime.strptime(s.get('timestamp'), date_format).isocalendar()[1]
             assert week == str(set_week)
