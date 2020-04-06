@@ -1,9 +1,20 @@
+"""
+Tests for the data_parser module.
+"""
 from datetime import datetime
+import os
+import csv
+
 import pytest
 from hypothesis import given
 from hypothesis.strategies import floats, integers, sampled_from, booleans, fixed_dictionaries, lists, dates
 
-from data_parser import calculate_1rm, split_into_weeks, calculate_ttrdata_from_week_dict
+from data_parser import (calculate_1rm,
+                         split_into_weeks,
+                         calculate_ttrdata_from_week_dict,
+                         ttrdata_from_csv,
+                         ttrdata_from_csv_bytes,
+                         ttr_data_from_reader)
 
 @given(floats(min_value=0, allow_infinity=False), integers(min_value=0))
 def test_calculate_1rm(weight, repetitions):
@@ -47,3 +58,36 @@ def test_calculate_ttrdata_from_week_dict(input_sets):
 
     # ttrdata should hold two values per week.
     assert len(weeks.keys()) * 2 == len(ttrdata)
+
+
+def test_ttrdata_from_csv():
+    """
+    Tests the ttrdata_from_csv function.
+    """
+    logs_path = os.path.join(os.path.dirname(__file__), "training_logs", "test.csv")
+
+    ttrdata = ttrdata_from_csv(logs_path, DATE_FORMAT)
+    assert len(ttrdata) == 12
+
+
+def test_ttrdata_from_csv_bytes():
+    """
+    Tests the ttrdata_from_csv_bytes function.
+    """
+    logs_path = os.path.join(os.path.dirname(__file__), "training_logs", "test.csv")
+
+    with open(logs_path, 'r') as file:
+        ttrdata = ttrdata_from_csv_bytes(file, DATE_FORMAT)
+        assert len(ttrdata) == 12
+
+
+def test_ttr_data_from_reader():
+    """
+    Tests the ttrdata_from_reader function.
+    """
+    logs_path = os.path.join(os.path.dirname(__file__), "training_logs", "test.csv")
+
+    with open(logs_path, 'r') as file:
+        csv_reader = csv.reader(file, delimiter="|")
+        ttrdata = ttr_data_from_reader(csv_reader, DATE_FORMAT)
+        assert len(ttrdata) == 12
