@@ -51,7 +51,7 @@ def calculate_ttrdata_from_week_dict(weeks):
         week_1rm = 0
         for row in rows:
             weight = float(row.get('weight'))
-            reps = int(row.get('reps'))
+            reps = int(row.get('repetitions'))
 
             one_rep_max = calculate_1rm(weight, reps)
             if one_rep_max > week_1rm:
@@ -75,7 +75,7 @@ def ttr_data_from_reader(csv_reader, time_format, contains_header=True):
         {
             'exercise': row[0],
             'weight': row[1],
-            'reps': row[2],
+            'repetitions': row[2],
             'timestamp': row[3]
         }
         for row in csv_reader]
