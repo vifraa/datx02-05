@@ -60,3 +60,21 @@ def test_pbar(age, weight, performance, sex, hide):
 
 
     assert res.exit_code == 0
+
+@given(integers(min_value=0, max_value=7), booleans())
+def test_ttr(weeks, hide):
+    """
+    Tests that the ttr command finishes with expected input.
+    """
+    logs_path = os.path.join(os.path.dirname(__file__), "training_logs", "test.csv")
+
+    runner = CliRunner()
+
+    cli_input = ["--file", logs_path, "--weeks", weeks,
+                                  "--timeformat", "%m/%d/%Y %H:%M", "-h"]
+    if hide:
+        cli_input.append("-h")
+
+    res = runner.invoke(ttr, cli_input)
+
+    assert res.exit_code == 0
