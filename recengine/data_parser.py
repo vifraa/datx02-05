@@ -30,9 +30,6 @@ def calculate_1rm(weight, reps):
     :param weight: The weight of the set.
     :param reps: The repetitions of the set.
     """
-    if reps == 1:
-        return weight
-
     return weight * (1 + (reps / 30.0))
 
 
