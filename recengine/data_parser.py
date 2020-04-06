@@ -5,20 +5,28 @@ import csv
 from collections import defaultdict
 from datetime import datetime
 
-def split_into_weeks(rows, time_format):
+def split_into_weeks(sets, time_format):
     """
-    Splits the given two array containing sets into a dictionary
+    Splits the given array containing sets into a dictionary
     containing keys of weeks with the values of the sets done in that
     week.
 
-    :param rows: The given sets.
+    The sets should be a dict with keys:
+    {
+        'exercise',
+        'weight',
+        'repetitions',
+        'timestamp'
+    }
+
+    :param sets: The given sets.
     :param time_format: The timeformat used for the timestamp in each set.
     """
     weeks = defaultdict(list)
 
-    for row in rows:
-        week = datetime.strptime(row.get('timestamp'), time_format).isocalendar()[1]
-        weeks[str(week)].append(row)
+    for t_set in sets:
+        week = datetime.strptime(t_set.get('timestamp'), time_format).isocalendar()[1]
+        weeks[str(week)].append(t_set)
 
     return weeks
 
@@ -42,13 +50,13 @@ def calculate_ttrdata_from_week_dict(weeks):
     ttr = []
 
     for week in sorted(weeks.keys()):
-        rows = weeks.get(week)
+        sets = weeks.get(week)
 
         week_tonnage = 0
         week_1rm = 0
-        for row in rows:
-            weight = float(row.get('weight'))
-            reps = int(row.get('repetitions'))
+        for t_set in sets:
+            weight = float(t_set.get('weight'))
+            reps = int(t_set.get('repetitions'))
 
             one_rep_max = calculate_1rm(weight, reps)
             if one_rep_max > week_1rm:
