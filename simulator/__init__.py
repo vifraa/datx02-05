@@ -120,7 +120,7 @@ def train_population_from_file_random_program(individuals_path, programs_dict, t
 
         # Get a random program
         training_program_path = programs_dict[random.randint(
-            1, len(programs_dict)-1)]
+            1, len(programs_dict))]
     timestamp = __train_and_save(
         individuals, training_results_path, training_program_path)
 
