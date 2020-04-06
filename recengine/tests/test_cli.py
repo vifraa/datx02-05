@@ -1,7 +1,8 @@
 import pytest
+import os
 import click
 from click.testing import CliRunner
-from cli import pbar
+from cli import pbar, ttr
 from hypothesis import given
 from hypothesis.strategies import floats, integers, sampled_from, booleans
 
