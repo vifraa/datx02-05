@@ -115,4 +115,3 @@ def ttrdata_from_csv_bytes(f_bytes, time_format, contains_header=True):
     """
     csv_reader = csv.reader(f_bytes, delimiter="|")
     return ttr_data_from_reader(csv_reader, time_format, contains_header=True)
-
