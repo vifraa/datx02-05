@@ -142,23 +142,24 @@ def choose_programs():
         click.echo(f"{count}: {fn}")
         count += 1
     click.echo(f"{count}: Random program for each individual")
+    click.echo(f"{count+1}: No pre-training program")
     pre_training_num = click.prompt(
         'Please enter the number of the program to train before', type=int)
 
     # If user selected last number, we choose random
-    random_program = count == pre_training_num
-
+    random_pre_program = count == pre_training_num
+    no_pre_program = count+1 == pre_training_num
     training_num = click.prompt(
         'Please enter the number of the program to train', type=int)
     training_program = programs_map_to_id[training_num]
-
-    if random_program:
-        train_population_from_file_random_program(
-            "simulator/individuals/GeneratedIndividuals.csv", programs_map_to_id, "simulator/output/pre_program_logs.csv")
-    else:
-        pre_training_program = programs_map_to_id[pre_training_num]
-        train_population_from_file("simulator/individuals/GeneratedIndividuals.csv",
-                                   pre_training_program, "simulator/output/pre_program_logs.csv")
+    if not no_pre_program:
+        if random_pre_program:
+            train_population_from_file_random_program(
+                "simulator/individuals/GeneratedIndividuals.csv", programs_map_to_id, "simulator/output/pre_program_logs.csv")
+        else:
+            pre_training_program = programs_map_to_id[pre_training_num]
+            train_population_from_file("simulator/individuals/GeneratedIndividuals.csv",
+                                       pre_training_program, "simulator/output/pre_program_logs.csv")
     train_population_from_file("simulator/individuals/GeneratedIndividuals.csv",
                                training_program, "simulator/output/program_logs.csv")
     click.echo(
