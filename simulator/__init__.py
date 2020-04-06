@@ -101,7 +101,9 @@ def train_population_from_file(individuals_path, training_program_path, training
 
 @click.command()
 def choose_programs():
-
+    """
+    Allows the user to choose which program was trained before and which program to 'actually' train.
+    """
     PROGRAMS_DIR = os.path.join("simulator", "training_programs")
     programs_map_to_id = {}
     count = 1
