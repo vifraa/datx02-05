@@ -5,7 +5,7 @@ import io
 from flask import Flask, request, jsonify, render_template
 from flask.json import JSONEncoder
 from recengine import RecommendationEngine, fetch_program_from_model, ProgramSet
-from data_parser import ttrdata_from_csv_bytes
+from data_parser import ttrdata_from_csv_bytes, calculate_ttrdata_from_week_dict, split_into_weeks
 import numpy as np
 
 class ExtendedJSONEncoder(JSONEncoder):
@@ -94,6 +94,32 @@ def pbar():
         "predicted_performance": best_pred["predicted_performance"],
         "training_program": best_pred["model"].name,
         "program_structure": program
+    }
+
+    return jsonify(res)
+
+
+@app.route('/api/v1/ttr', methods=['POST'])
+def ttr():
+
+    #recengine = RecommendationEngine("ttr")
+    #best_pred, all_predictions = recengine.recommend_training(data)
+    #program = fetch_program_from_model(best_pred["model"])
+
+    sets = request.json.get('sets', [])
+    time_format = request.json.get('timeFormat', '')
+
+    weeks = split_into_weeks(sets, time_format)
+    ttr_d = calculate_ttrdata_from_week_dict(weeks)
+    four_weeks_ttrdata = ttr_d[-8:]
+
+
+    res = {
+        #"predicted_performance": best_pred["predicted_performance"],
+        #"training_program": best_pred["model"].name,
+        #"program_structure": program
+        "ttr": ttr_d,
+        "ttr4": four_weeks_ttrdata
     }
 
     return jsonify(res)
