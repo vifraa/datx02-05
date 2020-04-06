@@ -15,9 +15,9 @@ def split_into_weeks(rows, time_format):
     :param time_format: The timeformat used for the timestamp in each set.
     """
     weeks = defaultdict(list)
-    
+
     for row in rows:
-        week = datetime.strptime(row[3], time_format).isocalendar()[1]
+        week = datetime.strptime(row.get('timestamp'), time_format).isocalendar()[1]
         weeks[str(week)].append(row)
 
     return weeks
@@ -50,8 +50,8 @@ def calculate_ttrdata_from_week_dict(weeks):
         week_tonnage = 0
         week_1rm = 0
         for row in rows:
-            weight = float(row[1])
-            reps = int(row[2])
+            weight = float(row.get('weight'))
+            reps = int(row.get('reps'))
 
             one_rep_max = calculate_1rm(weight, reps)
             if one_rep_max > week_1rm:
@@ -71,7 +71,14 @@ def ttr_data_from_reader(csv_reader, time_format, contains_header=True):
     if contains_header:
         _headers = next(csv_reader)
 
-    rows = [row for row in csv_reader]
+    rows = [
+        {
+            'exercise': row[0],
+            'weight': row[1],
+            'reps': row[2],
+            'timestamp': row[3]
+        }
+        for row in csv_reader]
 
     weeks = split_into_weeks(rows, time_format)
     ttr = calculate_ttrdata_from_week_dict(weeks)
