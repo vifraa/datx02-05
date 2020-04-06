@@ -9,6 +9,7 @@ from generator import generate_individuals, save_individuals
 from individual import Individual
 import click
 import os
+import random
 
 
 def __train_and_save(individuals, training_results_path, training_program_path):
@@ -99,6 +100,34 @@ def train_population_from_file(individuals_path, training_program_path, training
     save_individuals(individuals, individuals_path, timestamp)
 
 
+def train_population_from_file_random_program(individuals_path, programs_dict, training_results_path):
+    """Takes a file containing a set of individuals to expose training to. The function then saves
+    these individuals and their training data in a csv file.
+
+    :param individuals_path: file path to folder containing training individuals csv files
+    :param training_results_path: file path to where performed training should be saved as csv file
+
+    """
+
+    # load individuals from csv file
+    individuals_df = pd.read_csv(individuals_path, sep="|")
+    individuals_df = individuals_df.sort_values('Timestamp').drop_duplicates(
+        ['ID'], keep='last')
+    # construct objects from entries
+    individuals = []
+    for _, individual_series in individuals_df.iterrows():
+        individuals.append(Individual(series=individual_series))
+
+        # Get a random program
+        training_program_path = programs_dict[random.randint(
+            1, len(programs_dict)-1)]
+    timestamp = __train_and_save(
+        individuals, training_results_path, training_program_path)
+
+    # add the updated individuals to bottom of csv file
+    save_individuals(individuals, individuals_path, timestamp)
+
+
 @click.command()
 def choose_programs():
     """
@@ -112,13 +141,24 @@ def choose_programs():
         programs_map_to_id[count] = os.path.join(PROGRAMS_DIR, fn)
         click.echo(f"{count}: {fn}")
         count += 1
+    click.echo(f"{count}: Random program for each individual")
+    pre_training_num = click.prompt(
+        'Please enter the number of the program to train before', type=int)
 
-    pre_training_program = programs_map_to_id[click.prompt(
-        'Please enter the number of the program to train before', type=int)]
-    training_program = programs_map_to_id[click.prompt(
-        'Please enter the number of the program to train', type=int)]
-    train_population_from_file("simulator/individuals/GeneratedIndividuals.csv",
-                               pre_training_program, "simulator/output/pre_program_logs.csv")
+    # If user selected last number, we choose random
+    random_program = count == pre_training_num
+
+    training_num = click.prompt(
+        'Please enter the number of the program to train', type=int)
+    training_program = programs_map_to_id[training_num]
+
+    if random_program:
+        train_population_from_file_random_program(
+            "simulator/individuals/GeneratedIndividuals.csv", programs_map_to_id, "simulator/output/pre_program_logs.csv")
+    else:
+        pre_training_program = programs_map_to_id[pre_training_num]
+        train_population_from_file("simulator/individuals/GeneratedIndividuals.csv",
+                                   pre_training_program, "simulator/output/pre_program_logs.csv")
     train_population_from_file("simulator/individuals/GeneratedIndividuals.csv",
                                training_program, "simulator/output/program_logs.csv")
     click.echo(
