@@ -31,11 +31,4 @@ def test_save_individuals(tmpdir, individual):
     individuals = [individual, individual]  # use two individuals
     save_individuals(individuals, path, None)
 
-    with open(path) as file, open("tests/sample_individuals.csv") as file2:
-        while True:
-            a = file.read(1)
-            b = file2.read(1)
-            if a is not b:
-            if not a or not b:
-                break
     assert filecmp.cmp(path, "tests/sample_individuals.csv")
