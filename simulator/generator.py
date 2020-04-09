@@ -41,7 +41,6 @@ def random_banister_parameters():
     while fatigue_decay >= fitness_decay:
         sample = np.random.multivariate_normal(data.mean(),np.cov(data.T))
         fitness_gain, fatigue_gain, fitness_decay, fatigue_decay = sample
-        print(fitness_gain, fatigue_gain, fitness_decay, fatigue_decay)
 
     # Insert them into the dict and return
     params["fitness_gain"] = fitness_gain
