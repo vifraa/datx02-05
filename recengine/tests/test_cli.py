@@ -62,7 +62,7 @@ def test_pbar(age, weight, performance, sex, hide):
 
     assert res.exit_code == 0
 
-@given(integers(min_value=0, max_value=7), booleans())
+@given(integers(), booleans())
 def test_ttr(weeks, hide):
     """
     Tests that the ttr command finishes with expected input.
@@ -72,7 +72,7 @@ def test_ttr(weeks, hide):
     runner = CliRunner()
 
     cli_input = ["--file", logs_path, "--weeks", weeks,
-                                  "--timeformat", "%m/%d/%Y %H:%M", "-h"]
+                                  "--timeformat", "%m/%d/%Y %H:%M"]
     if hide:
         cli_input.append("-h")
 
