@@ -166,7 +166,6 @@ def Learning_curves_test():
     plt.show()
 
 
-Learning_curves_test()
 
 
 

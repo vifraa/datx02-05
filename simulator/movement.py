@@ -43,12 +43,13 @@ class Movement:
                - self.fatigue_gain * self.fatigue
 
     def amrap(self, weight):
-        """Uses Epley's formula to calculate how many reps an individual can perform at a given
+        """Uses Mayhew's formula to calculate how many reps an individual can perform at a given
         weight in a single set.
 
         :param weight: Amount of weight to use in the set.
         :returns: The amount of reps possible to perform using the given weight in a set.
 
         """
-        reps = math.floor(30 * (self.get_current_performance() / weight - 1))
+        reps = math.floor((math.log(41.9) -
+                           math.log(100*weight/self.get_current_performance() - 52.2))/.055)
         return max(0, reps)

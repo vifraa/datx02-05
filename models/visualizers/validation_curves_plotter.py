@@ -52,4 +52,3 @@ def Validation_curves_test():
     Validation_curve_plot(X, y, Perceptron(), "alpha")
 
 
-Validation_curves_test()
