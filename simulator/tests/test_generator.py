@@ -35,9 +35,7 @@ def test_save_individuals(tmpdir, individual):
         while True:
             a = file.read(1)
             b = file2.read(1)
-            print(a, b)
             if a is not b:
-                print("FAIL:", a, b)
             if not a or not b:
                 break
     assert filecmp.cmp(path, "tests/sample_individuals.csv")
