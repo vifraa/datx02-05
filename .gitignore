@@ -132,3 +132,6 @@ dmypy.json
 
 # Ignore individuals .csv file
 ./simulator/individuals/*.csv
+
+# Allow test csv files.
+!./recengine/tests/training_logs/*.csv

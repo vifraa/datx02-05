@@ -7,6 +7,9 @@ import pandas as pd
 import gym
 from generator import generate_individuals, save_individuals
 from individual import Individual
+import click
+import os
+import random
 
 
 def __train_and_save(individuals, training_results_path, training_program_path):
@@ -83,7 +86,8 @@ def train_population_from_file(individuals_path, training_program_path, training
 
     # load individuals from csv file
     individuals_df = pd.read_csv(individuals_path, sep="|")
-
+    individuals_df = individuals_df.sort_values('Timestamp').drop_duplicates(
+        ['ID'], keep='last')
     # construct objects from entries
     individuals = []
     for _, individual_series in individuals_df.iterrows():
@@ -96,10 +100,92 @@ def train_population_from_file(individuals_path, training_program_path, training
     save_individuals(individuals, individuals_path, timestamp)
 
 
+def train_population_from_file_random_program(individuals_path, programs_dict, training_results_path):
+    """Takes a file containing a set of individuals to expose training to. The function then saves
+    these individuals and their training data in a csv file.
+
+    :param individuals_path: file path to folder containing training individuals csv files
+    :param training_results_path: file path to where performed training should be saved as csv file
+
+    """
+
+    # load individuals from csv file
+    individuals_df = pd.read_csv(individuals_path, sep="|")
+    individuals_df = individuals_df.sort_values('Timestamp').drop_duplicates(
+        ['ID'], keep='last')
+    # construct objects from entries
+    individuals = []
+    for _, individual_series in individuals_df.iterrows():
+        individuals.append(Individual(series=individual_series))
+
+        # Get a random program
+        training_program_path = programs_dict[random.randint(
+            1, len(programs_dict))]
+    timestamp = __train_and_save(
+        individuals, training_results_path, training_program_path)
+
+    # add the updated individuals to bottom of csv file
+    save_individuals(individuals, individuals_path, timestamp)
+
+
+@click.command()
+def choose_programs():
+    """
+    Allows the user to choose which program was trained before and which program to 'actually' train.
+    """
+    PROGRAMS_DIR = os.path.join("simulator", "training_programs")
+    programs_map_to_id = {}
+    count = 1
+    click.echo("Programs:")
+    for fn in os.listdir(PROGRAMS_DIR):
+        programs_map_to_id[count] = os.path.join(PROGRAMS_DIR, fn)
+        click.echo(f"{count}: {fn}")
+        count += 1
+    click.echo(f"{count}: Random program for each individual")
+    click.echo(f"{count+1}: No pre-training program")
+    pre_training_num = click.prompt(
+        'Please enter the number of the program to train before', type=int)
+
+    # If user selected last number, we choose random
+    random_pre_program = count == pre_training_num
+    no_pre_program = count+1 == pre_training_num
+    training_num = click.prompt(
+        'Please enter the number of the program to train', type=int)
+    training_program = programs_map_to_id[training_num]
+    if not no_pre_program:
+        if random_pre_program:
+            train_population_from_file_random_program(
+                "simulator/individuals/GeneratedIndividuals.csv", programs_map_to_id, "simulator/output/pre_program_logs.csv")
+        else:
+            pre_training_program = programs_map_to_id[pre_training_num]
+            train_population_from_file("simulator/individuals/GeneratedIndividuals.csv",
+                                       pre_training_program, "simulator/output/pre_program_logs.csv")
+    train_population_from_file("simulator/individuals/GeneratedIndividuals.csv",
+                               training_program, "simulator/output/program_logs.csv")
+    click.echo(
+        "Your individuals were trained, results can be found in the output folder.")
+
+
 if __name__ == "__main__":
     # train_population_from_file("simulator/individuals/GeneratedIndividuals.csv",
     # "simulator/tests/sample_training_program.csv", "simulator/individuals/logs.csv")
     # train_population(10, 30, 5, 70, 5, 100, 5, 1, "simulator/training_programs/ogasawara_HL.csv",
     #                 "simulator/individuals/logs.csv", "simulator/individuals/TrainedGeneratedIndividuals.csv")
-    train_population_from_file("simulator/individuals/GeneratedIndividuals.csv",
-                               "simulator/training_programs/ogasawara_HL.csv", "simulator/individuals/logs.csv")
+
+    # train_population_from_file("simulator/individuals/GeneratedIndividuals.csv",
+    #                           "simulator/training_programs/carls_power_program_BP.csv", "simulator/output/pre_program.csv")
+    # train_population_from_file("simulator/individuals/GeneratedIndividuals.csv",
+    #                          "simulator/training_programs/ogasawara_HL.csv", "simulator/output/ogasawara_HL.csv")
+
+    # Clean up past output
+    OUTPUT_DIR = os.path.join("simulator", "output")
+    for fn in os.listdir(OUTPUT_DIR):
+
+        # Skip hidden files
+        if fn.startswith('.'):
+            continue
+        os.remove(os.path.join(OUTPUT_DIR, fn))
+
+    click.echo(
+        "Make sure you have generated a popuation using generator.py before running this!")
+    choose_programs()

@@ -2,10 +2,12 @@
 Module containing the CLI application for the Recommendation Engine.
 """
 import json
+import os
 import pprint
 import click
 import numpy as np
-from recengine import RecommendationEngine
+from recengine import RecommendationEngine, fetch_program_from_model
+from data_parser import ttrdata_from_csv
 
 @click.group()
 def cli():
@@ -13,10 +15,26 @@ def cli():
     """
 
 
-@cli.command()
-def hello():
-    """Says hello to the world."""
-    click.echo("Hello World")
+def print_training_program_from_model(model, performance):
+    """
+    Prints the training program related to the given model.
+
+    :param model: Model to find program from.
+    :param performance: Current performance of the individual.
+    """
+    program = fetch_program_from_model(model)
+
+
+
+    click.secho("Program structure: ", fg="green")
+    for day, sets in program.items():
+        click.secho("Day: " + str(day), fg="green")
+        for i, p_set in enumerate(sets):
+            calculated_weight = (p_set.percent_1rm / 100 * performance)
+            click.secho("     (Set " + str(i) + ") Weight: " +
+                        str(calculated_weight) + " Reps: " + str(p_set.repetitions))
+
+
 
 
 @cli.command()
@@ -25,7 +43,9 @@ def hello():
 @click.option('--performance', '-p', prompt=True, required=True, type=float)
 @click.option('--sex', type=click.Choice(['MAN', 'WOMAN', 'OTHER'], case_sensitive=False),
               prompt=True, required=True)
-def pbar(age, weight, performance, sex):
+@click.option('--hideprogram', '-h', is_flag="True",
+              help="Hide the output of the program structure.")
+def pbar(age, weight, performance, sex, hideprogram):
     """
     Makes recommendation based on performance before the training program.
     """
@@ -41,5 +61,48 @@ def pbar(age, weight, performance, sex):
     best_pred, _ = recengine.recommend_training(data)
 
     click.secho("\nTraining program: " + best_pred["model"].name, fg="green")
-    click.secho("Predicted performance: " + str(best_pred["predicted_performance"]) + "\n", fg="green")
-    click.echo("(Used model): " + str(best_pred["model"].__dict__))
+    click.secho("Predicted performance: " +
+                str(best_pred["predicted_performance"]) + "\n", fg="green")
+
+    if hideprogram is False:
+        print_training_program_from_model(best_pred["model"], performance)
+
+@cli.command()
+@click.option('--file', '-f', required=True, type=str, help="Filepath to training data csv.")
+@click.option('--timeformat', '-t', prompt=True, required=True, type=str,
+              help="Time format of the timestamp column.")
+@click.option('--weeks', '-w', type=int, default=4, help="How many weeks of data should be used. [DEFAULT=4]")
+@click.option('--hideprogram', '-h', is_flag="True",
+              help="Hide the output of the program structure.")
+def ttr(file, timeformat, weeks, hideprogram):
+    """
+    Using previous training data makes an recommendation.
+
+    Format of the CSV file should be the following with '|' delimiters:
+    Exercice | Weight | Reps | Timestamp
+    """
+    
+    if weeks != 4:
+        click.secho("\nINFO: Only 4 weeks is supported currently. Changing to 4.", fg="yellow")
+        weeks = 4
+
+    full_path = os.path.join(os.getcwd(), file)
+    ttrdata = ttrdata_from_csv(full_path, timeformat)
+
+    if len(ttrdata) < weeks * 2:
+        click.secho("The inputted data has to span atleast " + str(weeks) + " weeks", fg="red")
+        return
+    elif len(ttrdata) >= weeks * 2:
+        correct_length_ttr = ttrdata[-(weeks * 2):]
+
+    data = np.array(correct_length_ttr).reshape(1, -1)
+
+    recengine = RecommendationEngine("ttr")
+    best_pred, _ = recengine.recommend_training(data)
+
+    click.secho("\nTraining program: " + best_pred["model"].name, fg="green")
+    click.secho("Predicted performance: " +
+                str(best_pred["predicted_performance"]) + "\n", fg="green")
+
+    if hideprogram is False:
+        print_training_program_from_model(best_pred["model"], ttrdata[-1])

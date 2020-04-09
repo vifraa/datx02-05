@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>Recommendation Engine</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <style>
+
+                body {
+                    background: #e2e1e0;
+                }
+                
+                .col-form-label {
+                    text-align: right;
+                    font-weight: bold;
+                }
+                
+                .carder {
+                    padding: 20px;
+                    border-radius: 2px;
+                    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+                    background: #ffffff;
+                    margin-bottom: 20px;
+                    margin-top: 20px;
+                }
+
+                p.result-inputs>span {
+                    font-weight: bold;
+                }
+
+                p.result-inputs {
+                    margin-bottom: 0px;
+                }
+
+                .black-striped {
+                    background-color: rgba(0,0,0,.2);
+                }
+
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="row" >
+                <div class="col-xs-12 col-md-5">
+                    <div class="carder">
+                        <h2 style="">Recommendation Engine</h2>
+                        <p>Input your parameters to get a recommendation on the most effective workout for you.</p>
+                        <form method="POST" enctype="multipart/form-data" action="/formttr">
+                            <div class="form-group row">
+                                <label for="nameInput" class="col-sm-4 col-form-label">Name</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="fname" class="form-control" id="nameInput">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="fileInput" class="col-sm-4 col-form-label">File upload</label>
+                                <div class="col-sm-8">
+                                    <input type="file" name="ffile" class="form-control" id="fileInput" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-8 offset-sm-4" style="text-align: right;">
+                                    <button type="submit" style="width: 100%" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                {% if performance and best_pred and predicted_performance %}
+                <div class="col-xs-12 col-md-7">
+                    <div class="carder">
+                        {% if name %}
+                        <h2>Greetings {{name}}!</h2>
+                        {% endif %}
+
+                        <p class="result-inputs">
+                            <span>Current calculated 1RM: </span> {{performance}} kg
+                        </p>
+
+                        <p class="mt-4">
+                            The resulting program that yeilds the best result is <b>{{best_pred}}</b> and the machine learning models predict that
+                            you will reach the performance (1RM) of <b>{{ '%0.2f' | format(predicted_performance | float)}}</b> kg.
+                        </p>
+
+                        {% if program %}
+                        <h3>
+                            {{best_pred}}:
+                        </h3>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Day</th>
+                                        <th>Weight (kg)</th>
+                                        <th>Reps</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    {% for day, sets in program.items() %}
+                                    {% for set in sets %}
+                                    <tr class="{{'black-striped' if ((day | int) % 2 == 0)}}">
+                                        <td>{{day}}</td>
+                                        <td>{{(set.percent_1rm / 100) * performance}}</td>
+                                        <td>{{set.repetitions}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </body>
+</html>
