@@ -51,3 +51,5 @@ def test_load_training(individual):
     program_dataframe = load_training("tests/sample_training_program.csv", individual.bench_press_movement)
     assert program_dataframe.iloc[0, :]["Reps"] == 4
     assert program_dataframe.iloc[0, :]["Weight"] == 300*0.75
+
+

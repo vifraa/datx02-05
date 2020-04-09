@@ -132,7 +132,7 @@ def can_do(training_set, movement):
 
     """
 
-    reps_possible = movement.amrap(training_set["Weight"])
+    reps_possible =  math.floor(movement.amrap(training_set["Weight"])*movement.get_PC_recovered_percentage(training_set["Timestamp"]))
     if reps_possible < training_set["Reps"]:
         training_set["Reps"] = reps_possible
     return training_set
