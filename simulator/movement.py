@@ -44,12 +44,20 @@ class Movement:
 
     def amrap(self, weight):
         """Uses Mayhew's formula to calculate how many reps an individual can perform at a given
-        weight in a single set.
+        weight in a single set. NOTE: The equation is only accurate up to 11 reps. This means
+        that to keep things reasonable the range for this function is only up to 75% intensity
+        or 11 rep AMRAPs.
 
         :param weight: Amount of weight to use in the set.
         :returns: The amount of reps possible to perform using the given weight in a set.
 
         """
-        reps = math.floor((math.log(41.9) -
-                           math.log(100*weight/self.get_current_performance() - 52.2))/.055)
+        intensity = weight/self.get_current_performance()
+        if 0.91 < intensity <= 1:
+            return 1
+        elif intensity < 0.75:
+            return 11
+        else:
+            reps = math.floor((math.log(41.9) -
+                               math.log(100*weight/self.get_current_performance() - 52.2))/.055)
         return max(0, reps)
