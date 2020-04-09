@@ -81,6 +81,10 @@ def ttr(file, timeformat, weeks, hideprogram):
     Format of the CSV file should be the following with '|' delimiters:
     Exercice | Weight | Reps | Timestamp
     """
+    
+    if weeks != 4:
+        click.secho("\nINFO: Only 4 weeks is supported currently. Changing to 4.", fg="yellow")
+        weeks = 4
 
     full_path = os.path.join(os.getcwd(), file)
     ttrdata = ttrdata_from_csv(full_path, timeformat)
@@ -88,7 +92,7 @@ def ttr(file, timeformat, weeks, hideprogram):
     if len(ttrdata) < weeks * 2:
         click.secho("The inputted data has to span atleast " + str(weeks) + " weeks", fg="red")
         return
-    elif len(ttrdata) > weeks * 2:
+    elif len(ttrdata) >= weeks * 2:
         correct_length_ttr = ttrdata[-(weeks * 2):]
 
     data = np.array(correct_length_ttr).reshape(1, -1)
