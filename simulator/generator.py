@@ -30,17 +30,18 @@ def random_banister_parameters():
     https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1974899/ table 7
     """
     params = {}
+    data = pd.read_csv("simulator/data/banister_params_dist.csv")
 
-    # Initialize the parameters given the study
-    fitness_gain = np.abs(np.random.normal(0.0029, 0.0025))
-    fatigue_gain = np.abs(np.random.normal(0.051, 0.0029))
-    fitness_decay = np.abs(np.random.normal(38, 15))
-    fatigue_decay = np.abs(np.random.normal(19, 12))
+    fitness_gain, fatigue_gain, fitness_decay, fatigue_decay = 0,0,0,0
 
+    # Sample banister params from a multivariate normal distribution inferred using sports science studies and CLT
+    # Details in chapter "Simulator" of report.
     # Since the constraint fatigue_decay < fitness_decay still applies,
     # we generate it till the constraint is fulfilled
-    while fatigue_decay > fitness_decay:
-        fatigue_decay = np.random.normal(19, 12)
+    while fatigue_decay >= fitness_decay:
+        sample = np.random.multivariate_normal(data.mean(),np.cov(data.T))
+        fitness_gain, fatigue_gain, fitness_decay, fatigue_decay = sample
+        print(fitness_gain, fatigue_gain, fitness_decay, fatigue_decay)
 
     # Insert them into the dict and return
     params["fitness_gain"] = fitness_gain
