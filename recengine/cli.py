@@ -87,15 +87,18 @@ def ttr(file, timeformat, weeks, hideprogram):
 
     if len(ttrdata) < weeks * 2:
         click.secho("The inputted data has to span atleast " + str(weeks) + " weeks", fg="red")
+        return
     elif len(ttrdata) > weeks * 2:
-        four_weeks_ttrdata = ttrdata[-8:]
-        click.secho("Last 4 weeks ttrdata:", fg="green")
-        click.secho(str(four_weeks_ttrdata))
+        correct_length_ttr = ttrdata[-(weeks * 2):]
 
-    click.echo("TTR Data: " + str(ttrdata))
+    data = np.array(correct_length_ttr).reshape(1, -1)
 
-    # TODO Create TTR recengine when there exists available models.
-    # TODO Print found program.
+    recengine = RecommendationEngine("ttr")
+    best_pred, _ = recengine.recommend_training(data)
 
-#    if hideprogram is False:
-#        print_training_program_from_model(best_pred["model"], performance)
+    click.secho("\nTraining program: " + best_pred["model"].name, fg="green")
+    click.secho("Predicted performance: " +
+                str(best_pred["predicted_performance"]) + "\n", fg="green")
+
+    if hideprogram is False:
+        print_training_program_from_model(best_pred["model"], ttrdata[-1])
