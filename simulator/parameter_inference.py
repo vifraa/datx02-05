@@ -4,6 +4,7 @@ import pandas as pd
 from individual import Individual
 from generator import load_individuals
 import gym
+from matplotlib import pyplot as plt
 import copy
 
 
@@ -25,7 +26,7 @@ def infer_model_parameters(individuals_path, training_protocol_path,
 
     # load individuals
     pre_training_individuals = load_individuals(individuals_path)
-    
+
     # construct training instructions to use for simulation for each individual
     individual_training = create_training_dict(
         pre_training_individuals, training_protocol_path)
@@ -56,7 +57,6 @@ def infer_model_parameters(individuals_path, training_protocol_path,
         # Float between 1 and 5
         fitness_gain, fatigue_gain = np.random.uniform(
             1, 5, 2)
-
         # Set same parameters to each individual and train them
         for individual in post_training_individuals:
             individual.bench_press_movement.fitness_decay = fitness_decay
@@ -64,13 +64,12 @@ def infer_model_parameters(individuals_path, training_protocol_path,
             individual.bench_press_movement.fitness_gain = fitness_gain
             individual.bench_press_movement.fatigue_gain = fatigue_gain
             gym.train(individual_training[individual.id], individual)
-
         iteration_mean, iteration_stdev = \
             calculate_performance_gain_distribution(pre_training_individuals,
                                                     post_training_individuals)
 
         delta = abs(performance_gain_mean - iteration_mean) + \
-                abs(performance_gain_std - iteration_stdev)
+            abs(performance_gain_std - iteration_stdev)
 
         best_delta = min(delta, best_delta)
 
@@ -78,7 +77,8 @@ def infer_model_parameters(individuals_path, training_protocol_path,
         print("Current iteration delta: {}".format(delta))
         print("Best delta so far: {}".format(best_delta))
 
-    print("Distribution mean error: {}".format(abs(iteration_mean-performance_gain_mean)))
+    print("Distribution mean error: {}".format(
+        abs(iteration_mean-performance_gain_mean)))
     print("Distribution standard deviation error: {}".format(
         abs(iteration_stdev-performance_gain_std)))
     print("fitness_gain: {}".format(fitness_gain))
@@ -87,7 +87,7 @@ def infer_model_parameters(individuals_path, training_protocol_path,
     print("fatigue_decay: {}".format(fatigue_decay))
 
     # parameters have been found
-    return fitness_gain, fatigue_gain, fitness_decay, fatigue_decay, iteration_mean, iteration_stdev
+    return (fitness_gain, fatigue_gain, fitness_decay, fatigue_decay)
 
 
 def calculate_performance_gain_distribution(pre_training_individuals, post_training_individuals):
@@ -103,10 +103,12 @@ def calculate_performance_gain_distribution(pre_training_individuals, post_train
     changes = []
     for i in range(len(pre_training_individuals)):
         pre_training_performance = \
-            pre_training_individuals[i].bench_press_movement.get_current_performance()
+            pre_training_individuals[i].bench_press_movement.get_current_performance(
+            )
         post_training_performance = \
-            post_training_individuals[i].bench_press_movement.get_current_performance()
-        diff = math.fabs(post_training_performance-pre_training_performance)
+            post_training_individuals[i].bench_press_movement.get_current_performance(
+            )
+        diff = post_training_performance-pre_training_performance
         changes.append(diff)
 
     return np.mean(changes), np.std(changes)
@@ -124,7 +126,8 @@ def create_training_dict(individuals, program_path):
     training_dict = dict()
     for individual in individuals:
 
-        training_dict[individual.id] = gym.load_training(program_path, individual.bench_press_movement)
+        training_dict[individual.id] = gym.load_training(
+            program_path, individual.bench_press_movement)
 
     return training_dict
 
@@ -143,8 +146,21 @@ def get_weights_from_percent(individual, percentages):
 
 
 if __name__ == "__main__":
-    infer_model_parameters("simulator/training_programs/ogasawara_HL_pop.csv",
-                           "simulator/training_programs/ogasawara_HL.csv", 10.5, 2.95, 5)
+    params_og_HL = []
+    params_og_LL = []
+    params_kik = []
+    for i in range(100):
+        params_og_HL.append(infer_model_parameters("simulator/training_programs/ogasawara_HL_pop.csv",
+                                                   "simulator/training_programs/ogasawara_HL.csv", 10.5, 2.95, 5))
 
-    #infer_model_parameters("simulator/training_programs/ogasawara_LL_pop.csv","simulator/training_programs/ogasawara_LL.csv",5.2,1.7,5)
-    #infer_model_parameters("simulator/training_programs/kikuchi_pop.csv","simulator/training_programs/kikuchi.csv",5.0,12.1,5)
+        # params_og_LL.append(infer_model_parameters("simulator/training_programs/ogasawara_LL_pop.csv",
+        # "simulator/training_programs/ogasawara_LL.csv", 5.2, 1.7, 5))
+        # params_kik.append(infer_model_parameters("simulator/training_programs/kikuchi_pop.csv",
+        # "simulator/training_programs/kikuchi.csv", 5.0, 12.1, 5))
+    fi_g = [item[0] for item in params_og_HL]
+    fa_g = [item[1] for item in params_og_HL]
+    fi_d = [item[2] for item in params_og_HL]
+    fa_d = [item[3] for item in params_og_HL]
+
+    plt.hist(fi_g)
+    plt.show()

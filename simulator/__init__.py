@@ -86,6 +86,7 @@ def train_population_from_file(individuals_path, training_program_path, training
 
     # load individuals from csv file
     individuals_df = pd.read_csv(individuals_path, sep="|")
+<<<<<<< HEAD
     individuals_df = individuals_df.sort_values('Timestamp').drop_duplicates(
         ['ID'], keep='last')
     # construct objects from entries
