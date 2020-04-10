@@ -5,7 +5,7 @@ import warnings
 from MLmodels.DataReader import DataSample
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import ShuffleSplit, train_test_split
-from helpers import print_training_result_summary
+from helpers import print_training_result_summary, training_result_summary
 from visualizers.model_learning_curve_plotter import Learning_curve_plotter
 from sklearn import tree
 
@@ -71,6 +71,7 @@ class DecisionTree:
         self.DecisionTree_r2_score = r2_score(self.data.Ytest, DecisionTree_Ypred)
 
         print_training_result_summary('Decision Tree', self.DecisionTree_mean_squared_error, self.DecisionTree_r2_score)
+        return training_result_summary('Decision Tree', self.DecisionTree_mean_squared_error, self.DecisionTree_r2_score)
 
     def predict(self, X_to_Predict):
         return self.DecisionTreeM.predict(X_to_Predict)

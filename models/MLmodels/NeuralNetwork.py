@@ -6,7 +6,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split, ShuffleSplit
 from MLmodels.DataReader import DataSample
 from sklearn.neural_network import MLPRegressor
-from helpers import print_training_result_summary
+from helpers import print_training_result_summary, training_result_summary
 from visualizers.model_learning_curve_plotter import Learning_curve_plotter
 
 
@@ -96,6 +96,7 @@ class NeuralNetwork:
         self.nn_mean_squared_error = mean_squared_error(self.data.Ytest, nn_Ypred)
         self.nn_r2_score = r2_score(self.data.Ytest, nn_Ypred)
         print_training_result_summary('NeuralNetwork', self.nn_mean_squared_error, self.nn_r2_score)
+        return training_result_summary('NeuralNetwork', self.nn_mean_squared_error, self.nn_r2_score)
 
     def predict(self, X_to_Predict):
         return self.nn.predict(X_to_Predict)

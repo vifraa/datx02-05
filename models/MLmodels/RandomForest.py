@@ -4,7 +4,7 @@ import warnings
 import pickle
 from MLmodels.DataReader import DataSample
 from sklearn.metrics import mean_squared_error, r2_score
-from helpers import print_training_result_summary
+from helpers import print_training_result_summary, training_result_summary
 from sklearn.model_selection import ShuffleSplit, train_test_split
 from visualizers.model_learning_curve_plotter import Learning_curve_plotter
 from sklearn.ensemble import RandomForestRegressor
@@ -73,6 +73,7 @@ class RandomForest:
         self.RandomForest_r2_score = r2_score(self.data.Ytest, RandomForest_Ypred)
 
         print_training_result_summary('Random Forest', self.RandomForest_mean_squared_error, self.RandomForest_r2_score)
+        return training_result_summary('Random Forest', self.RandomForest_mean_squared_error, self.RandomForest_r2_score)
 
     def predict(self, X_to_Predict):
         return self.RandomForestM.predict(X_to_Predict)
