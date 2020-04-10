@@ -3,12 +3,18 @@ from IPython.display import display
 from sklearn.model_selection import train_test_split
 from visualizers import data_plotter
 
+
 class DataSample:
 
-    def __init__(self):
-        self.read_partition()
+    def __init__(self, path=None):
+        self.read_partition(path)
 
-    def read_partition(self):
+    def read_partition(self, path):
+        if path is not None:
+            self.data = pd.read_csv(path)
+        else:
+            self.data = pd.read_csv("../data/regression_dataframes2.csv")
+
         # Read the CSV file.
         self.data = pd.read_csv("../data/regression_dataframes2.csv")
 

@@ -13,7 +13,7 @@ from movement import Movement
 from gym import BASE_FITNESS_GAIN, BASE_FATIGUE_GAIN, BASE_FITNESS_DECAY, BASE_FATIGUE_DECAY
 
 FLAGS = flags.FLAGS
-flags.DEFINE_integer("n", 2, "How many individuals to generate")
+flags.DEFINE_integer("n", 100, "How many individuals to generate")
 flags.DEFINE_float("bpm", 100, "Mean of bench press max")
 flags.DEFINE_float("bpv", 5, "Variance in bench press max")
 flags.DEFINE_integer("am", 30, "Age mean")

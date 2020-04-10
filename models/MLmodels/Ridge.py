@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import warnings
 from MLmodels.DataReader import DataSample
 from sklearn.metrics import mean_squared_error, r2_score
-from helpers import print_training_result_summary
+from helpers import print_training_result_summary, training_result_summary
 from sklearn.model_selection import ShuffleSplit, train_test_split
 from visualizers.model_learning_curve_plotter import Learning_curve_plotter
 from sklearn.linear_model import Ridge as RidgeModel
@@ -72,6 +72,7 @@ class Ridge:
         self.ridge_r2_score = r2_score(self.data.Ytest, ridge_Ypred)
 
         print_training_result_summary('Ridge', self.ridge_mean_squared_error, self.ridge_r2_score)
+        return training_result_summary('Ridge', self.ridge_mean_squared_error, self.ridge_r2_score)
 
     def predict(self, X_to_Predict):
         return self.ridge.predict(X_to_Predict)

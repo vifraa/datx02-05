@@ -2,7 +2,7 @@
 for generating virtual powerlifting trainees and a virtual environment in which these trainees can
 train. The training effects of performing the training can then be observed and logged, and the
 individuals themselves (along with their personal attributes) can be logged as well."""
-
+import threading
 import pandas as pd
 import gym
 from generator import generate_individuals, save_individuals
@@ -38,9 +38,82 @@ def __train_and_save(individuals, training_results_path, training_program_path):
             0, "ID", [individual.id] * performed_training.shape[0], True)
         training_logs = training_logs.append(performed_training)
 
+    print(training_logs)
     # write training logs to given file path
     training_logs.to_csv(training_results_path, sep="|", index=False)
 
+    return training_logs["Timestamp"].iloc[-1]
+
+
+def __train_and_save_in_parallel(individuals, training_results_path, training_program_path):
+    """
+    Trains the individuals with the given traning program in parallel and save the logs
+
+    :param individuals: Individuals to train
+    :param training_results_path: Path to save logs to
+    :param training_program_path: Path to training program
+
+    :returns: Timestamp of the last completed workout
+
+    """
+    # If the number of individuals is more than the limit then one thread will be
+    # created for each 100 individuals to handle their data in parallel
+    LIMIT = 100
+
+    # creating training_logs_list and defining number_of_threads
+    column_names = ["ID", "Exercise", "Weight", "Reps", "Timestamp"]
+    number_of_threads = int(len(individuals)/LIMIT)
+    training_logs_list = [pd.DataFrame(columns=column_names) for _ in range(number_of_threads)]
+
+    # nested method to perform the training
+    # this method tells the thread from which row in individuals to which row it will handle
+    def perform_training(index, _from, _to):
+        # perform training
+        for individual in individuals[_from:_to]:
+            training_dataframe = gym.load_training(
+                training_program_path, individual.bench_press_movement)
+            performed_training = gym.train(training_dataframe, individual)
+            performed_training.insert(
+                0, "ID", [individual.id] * performed_training.shape[0], True)
+            training_logs_list[index] = training_logs_list[index].append(performed_training)
+
+    # get the bounds that the worker thread will work between
+    def get_from_to(index, offset, length):
+        if index >= (length - offset):
+            return index, length
+        else:
+            return index, offset + index
+
+    thread_list = []
+    offset = 0
+    threading_index = 0
+
+    # creating threads in thread_list
+    while offset < len(individuals):
+        _from, _to = get_from_to(offset, LIMIT, len(individuals))
+        thread_list.append(threading.Thread(target=perform_training, args=[threading_index, _from, _to]))
+        offset += LIMIT
+        threading_index += 1
+
+    # starting and joining threads
+    [worker.start() for worker in thread_list]
+    [worker.join() for worker in thread_list]
+
+    column_names = ["ID", "Exercise", "Weight", "Reps", "Timestamp", "Performance"]
+    training_logs_t = pd.DataFrame(columns=column_names)
+    training_logs = pd.DataFrame(columns=column_names)
+    for sublist in training_logs_list:
+        if training_logs_t.empty:
+            training_logs_t = pd.DataFrame(sublist, columns=column_names)
+            training_logs = pd.DataFrame(sublist, columns=column_names)
+        else:
+            training_logs_t = training_logs
+            sublist_df = pd.DataFrame(sublist)
+            training_logs = training_logs_t.append(sublist_df)
+
+    training_logs = training_logs.sort_values('ID')
+    # write training logs to given file path
+    training_logs.to_csv(training_results_path, sep="|", index=False)
     return training_logs["Timestamp"].iloc[-1]
 
 
@@ -94,10 +167,17 @@ def train_population_from_file(individuals_path, training_program_path, training
         individuals.append(Individual(series=individual_series))
 
     timestamp = __train_and_save(
-        individuals, training_results_path, training_program_path)
-
-    # add the updated individuals to bottom of csv file
+       individuals, training_results_path, training_program_path)
     save_individuals(individuals, individuals_path, timestamp)
+
+    # Parallelize gym-training
+    """
+    timestamp2 = __train_and_save_in_parallel(
+        individuals, training_results_path, training_program_path)
+    save_individuals(individuals, individuals_path, timestamp2)
+    """
+
+
 
 
 def train_population_from_file_random_program(individuals_path, programs_dict, training_results_path):

@@ -5,10 +5,9 @@ import matplotlib.pyplot as plt
 from MLmodels.DataReader import DataSample
 from sklearn import linear_model
 from sklearn.metrics import mean_squared_error, r2_score
-from helpers import print_training_result_summary
+from helpers import print_training_result_summary, training_result_summary
 from sklearn.model_selection import ShuffleSplit, train_test_split
 from visualizers.model_learning_curve_plotter import Learning_curve_plotter
-
 
 
 class Lasso:
@@ -72,6 +71,7 @@ class Lasso:
         self.lasso_r2_score = r2_score(self.data.Ytest, lasso_Ypred)
 
         print_training_result_summary('Lasso', self.lasso_mean_squared_error, self.lasso_r2_score)
+        return training_result_summary('Lasso', self.lasso_mean_squared_error, self.lasso_r2_score)
 
     def predict(self, X_to_Predict):
         return self.lasso.predict(X_to_Predict)
@@ -114,4 +114,5 @@ class Lasso:
 
 
 
-#Lasso().regression_and_plot_curves()
+
+# Lasso(path='regression_dataframe_medium.csv').regression_and_plot_curves()

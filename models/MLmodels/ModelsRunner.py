@@ -13,8 +13,6 @@ import warnings
 
 class ModelsRunner:
 
-    data = DataSample()
-
     models_dict = {
         'Lasso': Lasso(),
         'Ridge': Ridge(),
@@ -24,8 +22,11 @@ class ModelsRunner:
         'NeuralNetwork': NeuralNetwork()
     }
 
-    def __init__(self):
-        pass
+    def __init__(self, path=None):
+        if path is not None:
+            self.data = DataSample(path)
+        else:
+            self.data = DataSample()
 
     def train_all_models(self):
         for model in self.models_dict.values():
@@ -68,7 +69,7 @@ class ModelsRunner:
 
 
 # executing example
-# ModelsRunner().train_specific_models_and_plot_curves(['ElasticNet', 'DecisionTree'])
+ModelsRunner().train_specific_models_and_plot_curves(['ElasticNet', 'DecisionTree'])
 # MR = ModelsRunner().compare_models(['ElasticNet', 'DecisionTree', 'Lasso', 'Ridge', 'RandomForest' ])
 # ModelsRunner().train_all_models_and_plot_curves()
 # MR.print_sample_data()
