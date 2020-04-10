@@ -2,23 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db503931-571b-4272-b5ed-748896a9bcae" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../models/webapp/api/flask_api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/recengine.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/DataReader.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/DataReader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/DecisionTree.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/DecisionTree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/ElasticNets.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/ElasticNets.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/Lasso.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/Lasso.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/ModelsRunner.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/ModelsRunner.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/NeuralNetwork.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/NeuralNetwork.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/RandomForest.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/RandomForest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/Ridge.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/Ridge.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/helpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/helpers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/performance-before-and-after-models.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../models/performance-before-and-after-models.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../simulator/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../simulator/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../simulator/generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/../simulator/generator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simulator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../simulator/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -129,12 +113,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1586467819342</updated>
-      <workItem from="1586467820966" duration="3030000" />
+      <workItem from="1586467820966" duration="3043000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3030000" />
+    <option name="totallyTimeSpent" value="3043000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />

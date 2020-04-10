@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d99385c8-848b-42a3-a4c6-9958cef417d6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../models/webapp/api/flask_api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../recengine/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../recengine/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../recengine/.idea/recengine.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../recengine/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/DataReader.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/DataReader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/DecisionTree.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/DecisionTree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/ElasticNets.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/ElasticNets.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/Lasso.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/Lasso.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/ModelsRunner.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/ModelsRunner.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/NeuralNetwork.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/NeuralNetwork.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/RandomForest.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/RandomForest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/Ridge.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/Ridge.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/helpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/helpers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/performance-before-and-after-models.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../models/performance-before-and-after-models.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/generator.py" afterDir="false" />
-    </list>
+    <list default="true" id="d99385c8-848b-42a3-a4c6-9958cef417d6" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,6 +150,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../recengine" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -264,12 +247,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1586031189118</updated>
-      <workItem from="1586031190533" duration="27345000" />
+      <workItem from="1586031190533" duration="27355000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27345000" />
+    <option name="totallyTimeSpent" value="27355000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
