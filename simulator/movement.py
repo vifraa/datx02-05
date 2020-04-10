@@ -8,9 +8,6 @@ class Movement:
     the squat, bench press and deadlift. The parameters of the Movement class are those which are
     relevant to the Banister model."""
 
-    last_performed_set = None
-    current_PC_percentage = 1
-
     def __init__(self, fitness, fatigue, basic_performance, fitness_gain, fatigue_gain, fitness_decay,
                  fatigue_decay):
         """Constructor for the Movement class.
@@ -34,6 +31,9 @@ class Movement:
 
         self.fitness_decay = fitness_decay
         self.fatigue_decay = fatigue_decay
+
+        self.last_performed_set = None
+        self.current_PC_percentage = 1
 
     def get_current_performance(self):
         """Uses the definition of the performance from the difference between the current levels
