@@ -43,7 +43,7 @@ class Movement:
 
         """
         return self.basic_performance + self.fitness_gain * self.fitness \
-               - self.fatigue_gain * self.fatigue
+            - self.fatigue_gain * self.fatigue
 
     def amrap(self, weight):
         """Uses Mayhew's formula to calculate how many reps an individual can perform at a given
@@ -65,10 +65,19 @@ class Movement:
                                math.log(100*weight/self.get_current_performance() - 52.2))/.055)
         return max(0, reps)
 
-    def set_reps_performed(self,reps_performed,reps_possible):
-        self.current_PC_percentage = self.current_PC_percentage*(1- reps_performed/reps_possible)
+    def set_reps_performed(self, reps_performed, reps_possible):
+        """Updates the current PC-percentage after some reps where performed.
 
-    def get_PC_recovered_percentage(self,timestamp):
+        :param reps_performed: Amount of repetitions performed.
+        :param reps_possible: Amount of repetitions that potentially could be performed until failure.
+
+        """
+
+        if reps_possible > 0:
+            self.current_PC_percentage = self.current_PC_percentage * \
+                (1 - (reps_performed/reps_possible))
+
+    def get_PC_recovered_percentage(self, timestamp):
         """Uses the timestamp of the current set and subtracts from 
         the last performed set, which gives the rest time between the set. Uses 30 seconds as half-time for the 
         phosphorylcreatine (PC) levels. 
@@ -80,9 +89,9 @@ class Movement:
         if(self.last_performed_set is not None):
             rest_time = timestamp - self.last_performed_set
             self.last_performed_set = timestamp
-            self.current_PC_percentage = (1- (1- current_PC_percentage)*pow(0.5,rest_time.seconds/30))
+            self.current_PC_percentage = (
+                1 - (1 - self.current_PC_percentage)*pow(0.5, rest_time.seconds/30))
             return self.current_PC_percentage
         else:
             self.last_performed_set = timestamp
             return 1
-
