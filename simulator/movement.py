@@ -9,6 +9,7 @@ class Movement:
     relevant to the Banister model."""
 
     last_performed_set = None
+    current_PC_percentage = 1
 
     def __init__(self, fitness, fatigue, basic_performance, fitness_gain, fatigue_gain, fitness_decay,
                  fatigue_decay):
@@ -64,6 +65,9 @@ class Movement:
                                math.log(100*weight/self.get_current_performance() - 52.2))/.055)
         return max(0, reps)
 
+    def set_reps_performed(self,reps_performed,reps_possible):
+        self.current_PC_percentage = self.current_PC_percentage*(1- reps_performed/reps_possible)
+
     def get_PC_recovered_percentage(self,timestamp):
         """Uses the timestamp of the current set and subtracts from 
         the last performed set, which gives the rest time between the set. Uses 30 seconds as half-time for the 
@@ -76,7 +80,8 @@ class Movement:
         if(self.last_performed_set is not None):
             rest_time = timestamp - self.last_performed_set
             self.last_performed_set = timestamp
-            return (1- pow(0.5,rest_time.seconds/30))
+            self.current_PC_percentage = (1- (1- current_PC_percentage)*pow(0.5,rest_time.seconds/30))
+            return self.current_PC_percentage
         else:
             self.last_performed_set = timestamp
             return 1
