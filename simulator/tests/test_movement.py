@@ -36,6 +36,6 @@ def test_amrap_mid_intensity(bench_press):
 
 def test_amrap_low_intensity(bench_press):
     """Test to see that behaviour of Mayhew's formula is reasonable at low intensities"""
-    assert bench_press.amrap(300*0.7) == 11
-    assert bench_press.amrap(0) == 11
+    assert bench_press.amrap(300*0.7) == 15
+    assert bench_press.amrap(0) == 15
 

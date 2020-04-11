@@ -58,8 +58,8 @@ class Movement:
         intensity = weight/self.get_current_performance()
         if 0.91 < intensity <= 1:
             return 1
-        elif intensity < 0.75:
-            return 11
+        elif intensity < 0.70:
+            return 15
         else:
             reps = math.floor((math.log(41.9) -
                                math.log(100*weight/self.get_current_performance() - 52.2))/.055)
