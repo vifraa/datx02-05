@@ -4,7 +4,7 @@ powerlifting training."""
 import math
 from datetime import datetime
 import pandas as pd
-from movement import Movement
+from simulator.movement import Movement
 
 
 class Individual:

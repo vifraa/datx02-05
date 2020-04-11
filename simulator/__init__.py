@@ -5,9 +5,9 @@ individuals themselves (along with their personal attributes) can be logged as w
 import threading
 import pandas as pd
 import numpy as np
-import gym
-from generator import generate_individuals, save_individuals
-from individual import Individual
+import simulator.gym as gym
+from simulator.generator import generate_individuals, save_individuals
+from simulator.individual import Individual
 import click
 import os
 import random
