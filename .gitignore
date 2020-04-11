@@ -135,3 +135,6 @@ dmypy.json
 
 # Allow test csv files.
 !./recengine/tests/training_logs/*.csv
+
+# ignore pycharm IDE config
+.idea/
