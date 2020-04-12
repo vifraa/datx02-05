@@ -1,12 +1,24 @@
 from flask import Flask, jsonify
+from flask_cors import CORS, cross_origin
+import sys
+sys.path.insert(1, '../../MLmodels')
+
+import test
 
 app = Flask(__name__)
 
+cors = CORS(app) 
+app.config['CORS_HEADERS'] = 'Content-Type' 
 
 @app.route("/")
-def index():
+def index(): 
     return 'Hello world!'
-
+    
+@app.route("/ljubo", methods=['GET'])
+@cross_origin()
+def ljubo(): 
+    someVariable = test.p() 
+    return jsonify(someVariable)
 
 @app.route("/models", methods=["GET"])
 def model_names():
