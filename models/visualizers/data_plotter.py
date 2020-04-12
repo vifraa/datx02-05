@@ -1,12 +1,15 @@
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import seaborn as sns
-
+import pandas as pd
 
 # can be tested directly in 90-sets-model
 class Reducer_plotter:
 
-    def pca_plot(df):
+    def __init__(self):
+        pass
+    def pca_plot(self, dff):
+        df = pd.DataFrame(dff)
         pca = PCA(n_components=3)
         Xtest_plot = df.copy()
         pca_result = pca.fit_transform(Xtest_plot.values)

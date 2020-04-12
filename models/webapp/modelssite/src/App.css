@@ -1,3 +1,8 @@
-.App {
+.centerAlign{
   text-align: center;
+}
+
+.grayTheme{
+  background-color: #696969;
+  color: whitesmoke;
 }
