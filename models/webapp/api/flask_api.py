@@ -1,5 +1,4 @@
 from flask import Flask, jsonify
-from MLmodels import ModelsRunner
 
 app = Flask(__name__)
 
