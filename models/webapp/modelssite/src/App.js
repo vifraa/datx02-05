@@ -1,8 +1,4 @@
 import './App.css';
-<<<<<<< HEAD
-import Navbar from './Components/navbar.jsx'
-import UploadData from './Components/uploadData.jsx'
-=======
 import Navbar from './Components/navbar.jsx';
 import main from './Components/main'
 import React, { Component } from 'react';
@@ -11,15 +7,11 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Default from './Components/default';
 import Footer from './Components/footer';
->>>>>>> 24e2c174c34605b01afc0aa3fd1ff6749c008e3e
+
 
 function App() {
   return (
     <div className="App">
-<<<<<<< HEAD
-    <Navbar/>
-    <UploadData/>
-=======
       <React.Fragment>
       <header className="grayTheme centerAlign">Models Admin Site</header>
 
@@ -45,7 +37,6 @@ function App() {
         </Container>
 
       </React.Fragment>
->>>>>>> 24e2c174c34605b01afc0aa3fd1ff6749c008e3e
     </div>
   );
 }
