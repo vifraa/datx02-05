@@ -6,7 +6,6 @@ class main extends Component {
     render() {
         return (
             <div>
-                Hello World!
                 <UploadData/>
                 <ModelsContainer/>
             </div>

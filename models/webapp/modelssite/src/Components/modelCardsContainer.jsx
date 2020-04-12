@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import modelCard from './modelCard';
+import ModelCard from './modelCard';
 
 export default class modelCardsContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            model_names_and_images:{}
+            model_names_and_images:[]
         }
     }
 
@@ -21,14 +21,16 @@ export default class modelCardsContainer extends Component {
         console.log(this.state);
         return (
             <div>
-                {this.state.model_names_and_images.map((model, idx) => {
-                    return <modelCard
-                            model_name={model.model_name} 
-                            model_img={model.model_img}
-                            key={idx} 
-                        /> 
-                })}
-                            
+                 <div className="d-flex bd-highlight example-parent">
+                    {this.state.model_names_and_images.map((model, idx) => {
+                        return <ModelCard 
+                                model_name={model[0]} 
+                                model_run_name={model[1]}
+                                model_img={model[2]}
+                                key={idx} 
+                            /> 
+                    })}
+                </div>
                 <pre id="regression_output">Here you will see the results of th regression..</pre>
             </div>
         )
