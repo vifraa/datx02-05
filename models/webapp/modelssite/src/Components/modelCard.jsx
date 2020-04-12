@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBRow, MDBCol, MDBIcon } from 'mdbreact';
 
 class modelCard extends Component {
 
@@ -34,6 +35,8 @@ class modelCard extends Component {
                                 className='img-fluid'
                                 overlay="white-light"
                                 hover
+                                height="200 px"
+                                width="200 px"
                                 src={this.props.model_img}
                             />
                             <MDBBtn
