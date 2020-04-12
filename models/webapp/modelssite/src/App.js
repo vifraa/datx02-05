@@ -5,7 +5,7 @@ import Navbar from './Components/navbar.jsx'
 function App() {
   return (
     <div className="App">
-    <Navbar/>
+      <Navbar/>
     </div>
   );
 }

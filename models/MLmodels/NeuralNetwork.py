@@ -1,6 +1,7 @@
 import pickle
 import warnings
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split, ShuffleSplit
@@ -91,7 +92,7 @@ class NeuralNetwork:
 
     def regression(self):
         self.nn = self.get_pure_model()
-        self.nn.fit(self.data.Xtrain, self.data.Ytrain.to_numpy().flatten())
+        self.nn.fit(self.data.Xtrain, np.asarray(self.data.Ytrain).flatten())
         nn_Ypred = self.nn.predict(self.data.Xtest)
         self.nn_mean_squared_error = mean_squared_error(self.data.Ytest, nn_Ypred)
         self.nn_r2_score = r2_score(self.data.Ytest, nn_Ypred)
