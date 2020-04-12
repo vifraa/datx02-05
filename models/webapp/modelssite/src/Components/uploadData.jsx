@@ -1,6 +1,15 @@
 import React, { Component } from "react";
 import "../CSS_Folder/uploadData.css"; 
+import { userEndpoint } from "../endpoints";
 
+async function getUserList(){
+    try{
+       const result = await userEndpoint.get(); 
+       return console.log("RESPONSE: " + JSON.stringify(result.data));
+    } catch (e) {
+       console.log("That didnt go well");
+    }
+ }
 class uploadData extends Component {
   render() {
     return (
@@ -13,6 +22,7 @@ class uploadData extends Component {
                 <input type="file" className="form-control" multiple="" />
               </div>
             </form>
+            <button onClick={() => getUserList()}>CLICK ME AND INSPECT</button>
           </div>
         </div>
       </div>
