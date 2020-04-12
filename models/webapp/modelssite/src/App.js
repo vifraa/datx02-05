@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <React.Fragment>
-      <header>Models Admin Site</header>
+      <header className="grayTheme">Models Admin Site</header>
 
         <Container fluid={true} style={{ paddingLeft: 0, paddingRight: 0 }}>
           <Navbar/>
