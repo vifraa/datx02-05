@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split, ShuffleSplit
-from MLmodels.DataReader import DataSample
+import MLmodels.DataReader as dr
 from sklearn.neural_network import MLPRegressor
 from helpers import print_training_result_summary, training_result_summary
 from visualizers.model_learning_curve_plotter import Learning_curve_plotter
@@ -41,7 +41,7 @@ class NeuralNetwork:
         elif X is not None and Y is not None:
             self.read_X_Y_and_partition(X, Y)
         else:
-            self.data = DataSample()
+            self.data = dr.DataSample()
 
     def read_data_from_path_and_partition(self, path):
         self.data = pd.read_csv(path)

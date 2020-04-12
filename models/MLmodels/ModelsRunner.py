@@ -1,6 +1,5 @@
 import pandas as pd
 import MLmodels.DataReader as dr
-from MLmodels.DataReader import DataSample
 from MLmodels.DecisionTree import DecisionTree
 from MLmodels.ElasticNets import ElasticNet
 from MLmodels.Lasso import Lasso
@@ -25,9 +24,9 @@ class ModelsRunner:
 
     def __init__(self, path=None):
         if path is not None:
-            self.data = DataSample(path)
+            self.data = dr.DataSample(path)
         else:
-            self.data = DataSample()
+            self.data = dr.DataSample()
 
     def train_all_models(self):
         for model in self.models_dict.values():
@@ -83,8 +82,8 @@ class ModelsRunner:
 # print(loaded_model.r2_score())
 
 
-MR = ModelsRunner()
-MR.train_all_models_and_plot_curves()
+# MR = ModelsRunner()
+# MR.train_all_models_and_plot_curves()
 
 
 #df = pd.read_csv('../data/regression_dataframe_medium.csv', sep=',')
