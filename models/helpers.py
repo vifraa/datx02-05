@@ -33,8 +33,9 @@ def print_training_result_summary(model_name, mean_squared_error, score):
 
 
 def training_result_summary(model_name, mean_squared_error, score):
-    res = s = """
+    res = """
     The Training results of %s  model are : 
     Mean squared error: %.2f
     Coefficient of determination: %.2f
     """ % (model_name, mean_squared_error, score)
+    return res

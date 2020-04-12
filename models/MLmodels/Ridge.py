@@ -2,13 +2,12 @@ import pickle
 import pandas as pd
 import matplotlib.pyplot as plt
 import warnings
-from MLmodels.DataReader import DataSample
+import MLmodels.DataReader as dr
 from sklearn.metrics import mean_squared_error, r2_score
 from helpers import print_training_result_summary, training_result_summary
 from sklearn.model_selection import ShuffleSplit, train_test_split
 from visualizers.model_learning_curve_plotter import Learning_curve_plotter
 from sklearn.linear_model import Ridge as RidgeModel
-
 
 
 class Ridge:

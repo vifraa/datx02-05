@@ -3,7 +3,7 @@ from flask_cors import CORS, cross_origin
 
 from MLmodels.DecisionTree import DecisionTree
 from MLmodels.ElasticNets import ElasticNet
-from MLmodels.Lasso import Lasso
+import MLmodels.Lasso as Lasso
 from MLmodels.NeuralNetwork import NeuralNetwork
 from MLmodels.RandomForest import RandomForest
 from MLmodels.Ridge import Ridge
@@ -16,7 +16,8 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 def index():
     return 'Hello world!'
 
-@app.route("/models", methods=["GET"])
+
+@app.route("/models")
 def model_names():
     res = {
         "Lasso Model": "https://miro.medium.com/max/4328/1*KwdVLH5e_P9h8hEzeIPnTg.png",
@@ -28,18 +29,21 @@ def model_names():
     }
     return jsonify(res)
 
-@app.route("/models/<modelname>", methods=["GET"])
-def model_regression_results(modelname):
-    switcher = {
-        'Lasso': Lasso(),
-        'Ridge': Ridge(),
-        'ElasticNet': ElasticNet(),
-        'DecisionTree': DecisionTree(),
-        'RandomForest': RandomForest(),
-        'NeuralNetwork': NeuralNetwork()
-    }
-    return switcher.get(modelname, "Invalid model name")
 
+@app.route("/models/regression/<modelname>")
+def model_regression_results(modelname):
+
+     switcher = {
+        'Lasso': Lasso().regression(),
+        'Ridge': Ridge().regression(),
+        'ElasticNet': ElasticNet().regression(),
+        'DecisionTree': DecisionTree().regression(),
+        'RandomForest': RandomForest().regression(),
+        'NeuralNetwork': NeuralNetwork().regression()
+    }
+
+    #return modelname
+    # return switcher.get(modelname, "Invalid model name")
 
 
 if __name__ == "__main__":
