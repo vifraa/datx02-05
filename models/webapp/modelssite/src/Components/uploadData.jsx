@@ -6,7 +6,7 @@ class uploadData extends Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-4">
             <form method="post" action="#" id="#">
               <div className="form-group files">
                 <label>Upload Your File </label>
