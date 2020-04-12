@@ -1,16 +1,17 @@
 from flask import Flask, jsonify
 from flask_cors import CORS, cross_origin
 
-from MLmodels.DecisionTree import DecisionTree
-from MLmodels.ElasticNets import ElasticNet
+import MLmodels.DecisionTree as DecisionTree
+import MLmodels.ElasticNets as ElasticNet
 import MLmodels.Lasso as Lasso
-from MLmodels.NeuralNetwork import NeuralNetwork
-from MLmodels.RandomForest import RandomForest
-from MLmodels.Ridge import Ridge
+import MLmodels.NeuralNetwork as NeuralNetwork
+import MLmodels.RandomForest as RandomForest
+import MLmodels.Ridge as Ridge
 
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 @app.route("/")
 def index():
@@ -32,18 +33,16 @@ def model_names():
 
 @app.route("/models/regression/<modelname>")
 def model_regression_results(modelname):
-
-     switcher = {
-        'Lasso': Lasso().regression(),
-        'Ridge': Ridge().regression(),
-        'ElasticNet': ElasticNet().regression(),
-        'DecisionTree': DecisionTree().regression(),
-        'RandomForest': RandomForest().regression(),
-        'NeuralNetwork': NeuralNetwork().regression()
+    switcher = {
+        'Lasso': Lasso.Lasso().regression(),
+        'Ridge': Ridge.Ridge().regression(),
+        'ElasticNet': ElasticNet.ElasticNet().regression(),
+        'DecisionTree': DecisionTree.DecisionTree().regression(),
+        'RandomForest': RandomForest.RandomForest().regression(),
+        'NeuralNetwork': NeuralNetwork.NeuralNetwork().regression()
     }
-
-    #return modelname
-    # return switcher.get(modelname, "Invalid model name")
+    # return modelname
+    return switcher.get(modelname, "Invalid model name")
 
 
 if __name__ == "__main__":
