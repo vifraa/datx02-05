@@ -16,7 +16,7 @@ class uploadData extends Component {
           </div>
         </div>
       </div>
-    );
+    );  
   }
 }
 
