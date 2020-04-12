@@ -18,7 +18,7 @@ function App() {
           <Navbar/>
         </Container>
 
-        <Container className="h-50" fluid={true} style={{ paddingLeft: '10%', paddingRight: 0, marginTop: '10%' }}>
+        <Container fluid={true} style={{ paddingLeft: '4%', paddingRight: 0, marginTop: '2%' }}>
           <Row>
             <BrowserRouter>
               <Switch>
