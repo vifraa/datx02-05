@@ -1,12 +1,12 @@
 import './App.css';
 import Navbar from './Components/navbar.jsx'
 import main from './Components/main'
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
 import Default from './Components/default';
 import Footer from './Components/footer';
+
 
 function App() {
   return (
@@ -28,7 +28,6 @@ function App() {
               </Switch>
             </BrowserRouter>
         </Container>
-
 
         <Container fluid={true} style={{ paddingLeft: 0, paddingRight: 0,  marginTop: '10%'}}>
           <BrowserRouter>
