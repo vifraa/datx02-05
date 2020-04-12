@@ -13,7 +13,8 @@ class navbar extends Component {
                         <Nav.Link href="#features">Rubrik2</Nav.Link>
                         <Nav.Link href="#pricing">Rubrik3</Nav.Link>
                     </Nav>
-                </Navbar>
+                </Navbar> 
+                
             </div>
         );
     }
