@@ -23,4 +23,4 @@ export default class modelCardsContainer extends Component {
             </div>
         )
     }
-}
+} 

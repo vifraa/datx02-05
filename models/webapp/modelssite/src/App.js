@@ -1,5 +1,5 @@
 import './App.css';
-import Navbar from './Components/navbar.jsx';
+import Navbar from './Components/navbar.jsx'
 import main from './Components/main'
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -11,6 +11,7 @@ import Footer from './Components/footer';
 function App() {
   return (
     <div className="App">
+    
       <React.Fragment>
       <header className="grayTheme centerAlign">Models Admin Site</header>
 
