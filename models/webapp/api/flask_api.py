@@ -1,6 +1,13 @@
 from flask import Flask, jsonify
 from flask_cors import CORS, cross_origin
 
+from MLmodels.DecisionTree import DecisionTree
+from MLmodels.ElasticNets import ElasticNet
+from MLmodels.Lasso import Lasso
+from MLmodels.NeuralNetwork import NeuralNetwork
+from MLmodels.RandomForest import RandomForest
+from MLmodels.Ridge import Ridge
+
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -8,7 +15,6 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @app.route("/")
 def index():
     return 'Hello world!'
-
 
 @app.route("/models", methods=["GET"])
 def model_names():
@@ -21,6 +27,19 @@ def model_names():
         "Neural Network Model": "https://cdn-media-1.freecodecamp.org/images/1*1mpE6fsq5LNxH31xeTWi5w.jpeg"
     }
     return jsonify(res)
+
+@app.route("/models/<modelname>", methods=["GET"])
+def model_regression_results(modelname):
+    switcher = {
+        'Lasso': Lasso(),
+        'Ridge': Ridge(),
+        'ElasticNet': ElasticNet(),
+        'DecisionTree': DecisionTree(),
+        'RandomForest': RandomForest(),
+        'NeuralNetwork': NeuralNetwork()
+    }
+    return switcher.get(modelname, "Invalid model name")
+
 
 
 if __name__ == "__main__":
