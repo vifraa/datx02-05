@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import Default from './Components/default'
+
 
 function App() {
   return (
