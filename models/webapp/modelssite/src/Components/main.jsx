@@ -5,9 +5,13 @@ import UploadData from './uploadData.jsx'
 class main extends Component {
     render() {
         return (
-            <div>
-                <UploadData/>
-                <ModelsContainer/>
+            <div id="body">
+                <div id="UploadDataDiv">
+                    <UploadData />
+                </div>
+                <div id="ModelsContainerDiv">
+                    <ModelsContainer />
+                </div>
             </div>
         );
     }

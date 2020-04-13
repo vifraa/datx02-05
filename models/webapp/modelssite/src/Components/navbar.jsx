@@ -6,8 +6,8 @@ class navbar extends Component {
     render() {
         return (
             <div>
-                <Navbar bg="dark" variant="dark" className="justify-content-md-center">
-                    <Navbar.Brand href="#home">Machine Learning Regression Models Admin Site</Navbar.Brand>
+                <Navbar id="navbar" variant="dark" className="justify-content-md-center">
+                    <Navbar.Brand href="#home">Machine Learning Regression Models Site</Navbar.Brand>
                    {/**
                     * <Nav className="mr-auto">
                         <Nav.Link href="#home">Rubrik1</Nav.Link>

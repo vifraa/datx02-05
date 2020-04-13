@@ -9,9 +9,10 @@ import Footer from './Components/footer';
 
 
 function App() {
+
   return (
-    <div className="App">
-    
+    <div id="App">
+      <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital@1&display=swap" rel="stylesheet"></link>
       <React.Fragment>
       {/*<header className="grayTheme centerAlign">Models Admin Site</header>*/}
 
@@ -19,7 +20,8 @@ function App() {
           <Navbar/>
         </Container>
 
-        <Container fluid={true} style={{ paddingLeft: '4%', paddingRight: 0, marginTop: '2%' }}>
+        {/*<Container fluid={true} style={{ paddingLeft: '4%', paddingRight: 0, marginTop: '2%' }}>*/}
+        <Container fluid={true} style={{ paddingLeft: 0, paddingRight: 0}}>
             <BrowserRouter>
               <Switch>
                 <Route exact path="/" component={main} />

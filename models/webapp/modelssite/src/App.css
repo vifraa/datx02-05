@@ -12,3 +12,34 @@
   height: 10px;
   font-size: small;
 }
+
+#navbar{
+  background-color: #251e3e;
+  font-family: 'Comic Neue', cursive;
+  font-size: xx-large;
+}
+
+#UploadDataDiv{
+  width: 100%;
+  background-color: #451e3e ;
+  color: antiquewhite;
+}
+
+#ModelsContainerDiv{
+  width: 100%;
+  background-color: #651e3e ;
+}
+
+#regression_output{
+  width: 100%;
+  background-color: #451e3e ;
+  color: antiquewhite;
+}
+
+#App{
+  background-color: #451e3e ;
+}
+
+#footernav{
+  background-color: #251e3e;
+}
