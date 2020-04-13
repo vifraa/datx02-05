@@ -27,7 +27,7 @@ class modelCard extends Component {
     render() {
         return (
             <div className="p-2 flex-fill bd-highlight col-example">
-                <MDBCard cascade onClick={() => { this.run_regression(this.props.model_run_name) }}>
+                <MDBCard className="h-100" cascade onClick={() => { this.run_regression(this.props.model_run_name) }}>
                     <MDBCardImage
                         cascade
                         className='img-fluid'
@@ -46,8 +46,7 @@ class modelCard extends Component {
                         <MDBIcon icon='chevron-right' className="mdb-color lighten-3" />
                     </MDBBtn>
                     <MDBCardBody cascade>
-                        <MDBCardTitle>{this.props.model_name}</MDBCardTitle>
-                        <hr />
+                        <MDBCardTitle id="cardTitle">{this.props.model_name}</MDBCardTitle>
                     </MDBCardBody>
                 </MDBCard>
             </div>

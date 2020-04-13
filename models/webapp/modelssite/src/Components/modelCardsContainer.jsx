@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ModelCard from './modelCard';
-
+import LearningResults from './learningResults'
 export default class modelCardsContainer extends Component {
     constructor(props) {
         super(props);
@@ -21,7 +21,7 @@ export default class modelCardsContainer extends Component {
         console.log(this.state);
         return (
             <div>
-                 <div className="d-flex bd-highlight example-parent">
+                 <div className="d-flex bd-highlight example-parent ">
                     {this.state.model_names_and_images.map((model, idx) => {
                         return <ModelCard 
                                 model_name={model[0]} 
@@ -31,7 +31,7 @@ export default class modelCardsContainer extends Component {
                             /> 
                     })}
                 </div>
-                <pre id="regression_output">Here you will see the results of th regression..</pre>
+                <LearningResults/>
             </div>
         )
     }
