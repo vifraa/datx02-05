@@ -26,7 +26,7 @@ def individual(bench_press):
 @pytest.fixture()
 def timestamp():
     """Fixture for sample timestamp with set parameters"""
-    return datetime.strptime("02/02/2010 12:00", "%d/%m/%Y %H:%M")
+    return datetime.strptime("02/02/2010 12:00:00", "%d/%m/%Y %H:%M:%S")
 
 
 @pytest.fixture()

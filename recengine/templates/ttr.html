@@ -49,7 +49,7 @@
                     <div class="carder">
                         <h2 style="">Recommendation Engine</h2>
                         <p>Input your parameters to get a recommendation on the most effective workout for you.</p>
-                        <form method="POST" action="/formpbar">
+                        <form method="POST" enctype="multipart/form-data" action="/formttr">
                             <div class="form-group row">
                                 <label for="nameInput" class="col-sm-4 col-form-label">Name</label>
                                 <div class="col-sm-8">
@@ -57,44 +57,12 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="ageInput" class="col-sm-4 col-form-label">Age</label>
+                                <label for="fileInput" class="col-sm-4 col-form-label">File upload</label>
                                 <div class="col-sm-8">
-                                    <input type="number" name="fage" class="form-control" id="ageInput" required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="weightInput" class="col-sm-4 col-form-label">Weight</label>
-                                <div class="col-sm-8">
-                                    <input type="number" name="fweight" class="form-control" id="weightInput" required>
+                                    <input type="file" name="ffile" class="form-control" id="fileInput" required>
                                 </div>
                             </div>
 
-                            <fieldset class="form-group row">
-                                <div class="row">
-                                    <legend class="col-form-label col-sm-4 pt-0">Sex</legend>
-                                    <div class="col-sm-8">
-                                        <div class="form-check">
-                                            <input class="form-check-input" name="fsex" type="radio" id="inlineCheckbox1" value="0">
-                                            <label class="form-check-label" for="inlineCheckbox1">Man</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" name="fsex" type="radio" id="inlineCheckbox2" value="1">
-                                            <label class="form-check-label" for="inlineCheckbox2">Woman</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" name="fsex" type="radio" id="inlineCheckbox3" value="2">
-                                            <label class="form-check-label" for="inlineCheckbox3">Other</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-
-                            <div class="form-group row">
-                                <label for="1rmInput" class="col-sm-4 col-form-label">Current 1RM</label>
-                                <div class="col-sm-8">
-                                    <input type="number" name="fperformance" class="form-control" id="1rmInput" required>
-                                </div>
-                            </div>
                             <div class="form-group row">
                                 <div class="col-sm-8 offset-sm-4" style="text-align: right;">
                                     <button type="submit" style="width: 100%" class="btn btn-primary">Submit</button>
@@ -104,29 +72,15 @@
                     </div>
                 </div>
 
-
-                {% if age and weight and sex is number and performance and best_pred and predicted_performance %}
+                {% if performance and best_pred and predicted_performance %}
                 <div class="col-xs-12 col-md-7">
                     <div class="carder">
+                        {% if name %}
                         <h2>Greetings {{name}}!</h2>
+                        {% endif %}
+
                         <p class="result-inputs">
-                            <span>Weight: </span> {{weight}} kg
-                        </p>
-                        <p class="result-inputs">
-                            <span>Age: </span> {{age}} years
-                        </p>
-                        <p class="result-inputs">
-                            <span>Sex: </span> 
-                            {% if sex == 0 %}
-                                Man
-                            {% elif sex == 1 %}
-                                Woman
-                            {% else %}
-                                Other
-                            {% endif %}
-                        </p>
-                        <p class="result-inputs">
-                            <span>Current 1RM: </span> {{performance}} kg
+                            <span>Current calculated 1RM: </span> {{performance}} kg
                         </p>
 
                         <p class="mt-4">

@@ -32,6 +32,9 @@ class Movement:
         self.fitness_decay = fitness_decay
         self.fatigue_decay = fatigue_decay
 
+        self.last_performed_set = None
+        self.current_PC_percentage = 1
+
     def get_current_performance(self):
         """Uses the definition of the performance from the difference between the current levels
         of fitness and fatigue from the Banister model.
@@ -40,7 +43,7 @@ class Movement:
 
         """
         return self.basic_performance + self.fitness_gain * self.fitness \
-               - self.fatigue_gain * self.fatigue
+            - self.fatigue_gain * self.fatigue
 
     def amrap(self, weight):
         """Uses Mayhew's formula to calculate how many reps an individual can perform at a given
@@ -55,9 +58,40 @@ class Movement:
         intensity = weight/self.get_current_performance()
         if 0.91 < intensity <= 1:
             return 1
-        elif intensity < 0.75:
-            return 11
+        elif intensity < 0.70:
+            return 15
         else:
             reps = math.floor((math.log(41.9) -
                                math.log(100*weight/self.get_current_performance() - 52.2))/.055)
         return max(0, reps)
+
+    def set_reps_performed(self, reps_performed, reps_possible):
+        """Updates the current PC-percentage after some reps where performed.
+
+        :param reps_performed: Amount of repetitions performed.
+        :param reps_possible: Amount of repetitions that potentially could be performed until failure.
+
+        """
+
+        if reps_possible > 0:
+            self.current_PC_percentage = self.current_PC_percentage * \
+                (1 - (reps_performed/reps_possible))
+
+    def get_PC_recovered_percentage(self, timestamp):
+        """Uses the timestamp of the current set and subtracts from 
+        the last performed set, which gives the rest time between the set. Uses 30 seconds as half-time for the 
+        phosphorylcreatine (PC) levels. 
+        Used publication: "The Time Course of Phosphorylcreatine Resynthesis during Recovery of the Quadriceps Muscle in Man"
+
+        :param timestamp: The timestamp of the next set that is going to be performed.
+
+        """
+        if(self.last_performed_set is not None):
+            rest_time = timestamp - self.last_performed_set
+            self.last_performed_set = timestamp
+            self.current_PC_percentage = (
+                1 - (1 - self.current_PC_percentage)*pow(0.5, rest_time.seconds/30))
+            return self.current_PC_percentage
+        else:
+            self.last_performed_set = timestamp
+            return 1
