@@ -11,7 +11,7 @@ class Individual:
     """The Individual class is representing an individual with several personal parameters."""
 
     def __init__(self, id="", birth: datetime = datetime(1, 1, 1), name="",
-                 bench_press_movement=None, series=pd.Series()):
+                 bench_press_movement=Movement(0,0,0,0,0,0,0), series=pd.Series()):
         """Constructor for the indivual class
 
         :param id: An unique identifier.
