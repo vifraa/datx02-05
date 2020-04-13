@@ -1,10 +1,11 @@
 import pickle
 import warnings
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split, ShuffleSplit
-from MLmodels.DataReader import DataSample
+import MLmodels.DataReader as dr
 from sklearn.neural_network import MLPRegressor
 from helpers import print_training_result_summary, training_result_summary
 from visualizers.model_learning_curve_plotter import Learning_curve_plotter
@@ -40,7 +41,7 @@ class NeuralNetwork:
         elif X is not None and Y is not None:
             self.read_X_Y_and_partition(X, Y)
         else:
-            self.data = DataSample()
+            self.data = dr.DataSample()
 
     def read_data_from_path_and_partition(self, path):
         self.data = pd.read_csv(path)
@@ -91,7 +92,7 @@ class NeuralNetwork:
 
     def regression(self):
         self.nn = self.get_pure_model()
-        self.nn.fit(self.data.Xtrain, self.data.Ytrain.to_numpy().flatten())
+        self.nn.fit(self.data.Xtrain, np.asarray(self.data.Ytrain).flatten())
         nn_Ypred = self.nn.predict(self.data.Xtest)
         self.nn_mean_squared_error = mean_squared_error(self.data.Ytest, nn_Ypred)
         self.nn_r2_score = r2_score(self.data.Ytest, nn_Ypred)

@@ -1,15 +1,15 @@
-import pickle
-
-from MLmodels.DataReader import DataSample
+import pandas as pd
+import MLmodels.DataReader as dr
 from MLmodels.DecisionTree import DecisionTree
 from MLmodels.ElasticNets import ElasticNet
 from MLmodels.Lasso import Lasso
 from MLmodels.NeuralNetwork import NeuralNetwork
 from MLmodels.RandomForest import RandomForest
 from MLmodels.Ridge import Ridge
+from visualizers import data_plotter
 from visualizers.models_visual_training_comparator import Models_comparator
 import warnings
-
+from json import dumps
 
 class ModelsRunner:
 
@@ -24,9 +24,9 @@ class ModelsRunner:
 
     def __init__(self, path=None):
         if path is not None:
-            self.data = DataSample(path)
+            self.data = dr.DataSample(path)
         else:
-            self.data = DataSample()
+            self.data = dr.DataSample()
 
     def train_all_models(self):
         for model in self.models_dict.values():
@@ -58,6 +58,9 @@ class ModelsRunner:
     def print_sample_data(self):
         self.data.print_sample_data()
 
+    def plot_sample_data_pca(self):
+        self.data.data_plot_PCA()
+
     def train_all_models_on_specific_data_and_then_save_them_all_as_binary_sav_files(self, X, Y):
         trained_models = [Lasso(X=X, Y=Y), Ridge(X=X, Y=Y), ElasticNet(X=X, Y=Y),
                           DecisionTree(X=X, Y=Y), RandomForest(X=X, Y=Y), NeuralNetwork(X=X, Y=Y)]
@@ -66,11 +69,9 @@ class ModelsRunner:
             model.save_the_class_included_the_trained_model()
 
 
-
-
 # executing example
-ModelsRunner().train_specific_models_and_plot_curves(['ElasticNet', 'DecisionTree'])
-# MR = ModelsRunner().compare_models(['ElasticNet', 'DecisionTree', 'Lasso', 'Ridge', 'RandomForest' ])
+# ModelsRunner().train_specific_models_and_plot_curves(['ElasticNet', 'DecisionTree'])
+# ModelsRunner().compare_models(['ElasticNet', 'DecisionTree', 'Lasso', 'Ridge', 'RandomForest' ])
 # ModelsRunner().train_all_models_and_plot_curves()
 # MR.print_sample_data()
 # ModelsRunner().train_all_models()
@@ -81,3 +82,13 @@ ModelsRunner().train_specific_models_and_plot_curves(['ElasticNet', 'DecisionTre
 # print(loaded_model.r2_score())
 
 
+# MR = ModelsRunner()
+# MR.train_all_models_and_plot_curves()
+
+
+#df = pd.read_csv('../data/regression_dataframe_medium.csv', sep=',')
+#df.applymap(test_str)
+#df.to_csv('../data/str_regression_dataframe_medium.csv', index=False)
+
+#from sklearn import datasets
+#X, y = datasets.load_digits(return_X_y=True)

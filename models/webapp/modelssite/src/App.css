@@ -1,0 +1,58 @@
+.centerAlign{
+  text-align: center;
+}
+
+.grayTheme{
+  background-color: #696969;
+  color: whitesmoke;
+}
+
+.footer{
+  color: whitesmoke;
+  height: 10px;
+  font-size: small;
+}
+
+#navbar{
+  background-color: #251e3e;
+  font-family: 'Comic Neue', cursive;
+  font-size: xx-large;
+}
+
+#UploadDataDiv{
+  width: 100%;
+  background-color: #451e3e ;
+  color: antiquewhite;
+}
+
+#ModelsContainerDiv{
+  width: 100%;
+  background-color: #651e3e ;
+}
+
+#cardTitle{
+  text-align: center;
+  font-family: 'Comic Neue', cursive;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+#regression_output{
+  width: 100%;
+  background-color: #451e3e ;
+  color: antiquewhite;
+  padding-top: 1%;
+  padding-bottom: 10%;
+  text-align: center;
+  font-family: 'Comic Neue', cursive;
+  font-size: 2em;
+}
+
+#App{
+  background-color: #451e3e ;
+  height: 100%;
+}
+
+#footernav{
+  background-color: #251e3e;
+}

@@ -10,7 +10,7 @@ from individual import Individual
 import click
 import os
 import random
-
+import time
 
 def __train_and_save(individuals, training_results_path, training_program_path):
     """
@@ -38,7 +38,7 @@ def __train_and_save(individuals, training_results_path, training_program_path):
             0, "ID", [individual.id] * performed_training.shape[0], True)
         training_logs = training_logs.append(performed_training)
 
-    print(training_logs)
+
     # write training logs to given file path
     training_logs.to_csv(training_results_path, sep="|", index=False)
 
@@ -56,6 +56,7 @@ def __train_and_save_in_parallel(individuals, training_results_path, training_pr
     :returns: Timestamp of the last completed workout
 
     """
+
     # If the number of individuals is more than the limit then one thread will be
     # created for each 100 individuals to handle their data in parallel
     LIMIT = 100
@@ -78,6 +79,7 @@ def __train_and_save_in_parallel(individuals, training_results_path, training_pr
             training_logs_list[index] = training_logs_list[index].append(performed_training)
 
     # get the bounds that the worker thread will work between
+    # this method tells the thread from which row in individuals to which row it will handle
     def get_from_to(index, offset, length):
         if index >= (length - offset):
             return index, length
@@ -110,6 +112,7 @@ def __train_and_save_in_parallel(individuals, training_results_path, training_pr
             training_logs_t = training_logs
             sublist_df = pd.DataFrame(sublist)
             training_logs = training_logs_t.append(sublist_df)
+
 
     training_logs = training_logs.sort_values('ID')
     # write training logs to given file path
@@ -176,8 +179,6 @@ def train_population_from_file(individuals_path, training_program_path, training
         individuals, training_results_path, training_program_path)
     save_individuals(individuals, individuals_path, timestamp2)
     """
-
-
 
 
 def train_population_from_file_random_program(individuals_path, programs_dict, training_results_path):

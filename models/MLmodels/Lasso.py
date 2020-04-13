@@ -2,7 +2,7 @@ import pickle
 import pandas as pd
 import warnings
 import matplotlib.pyplot as plt
-from MLmodels.DataReader import DataSample
+import MLmodels.DataReader as dr
 from sklearn import linear_model
 from sklearn.metrics import mean_squared_error, r2_score
 from helpers import print_training_result_summary, training_result_summary
@@ -40,7 +40,7 @@ class Lasso:
         elif X is not None and Y is not None:
             self.read_X_Y_and_partition(X, Y)
         else:
-            self.data = DataSample()
+            self.data = dr.DataSample()
 
     def read_data_from_path_and_partition(self, path):
         self.data = pd.read_csv(path)
@@ -113,6 +113,4 @@ class Lasso:
 
 
 
-
-
-# Lasso(path='regression_dataframe_medium.csv').regression_and_plot_curves()
+# print(Lasso().regression())
