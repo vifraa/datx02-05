@@ -19,8 +19,7 @@ def bench_press():
 @pytest.fixture()
 def individual(bench_press):
     """Fixture for sample individual with set parameters"""
-    return Individual(id=0, birth=datetime(1, 1, 1), gender=1, name="Juliana Maddox", weight=40,
-                      bench_press_movement=bench_press)
+    return Individual(id=0, name="Juliana Maddox",bench_press_movement=bench_press)
 
 
 @pytest.fixture()
