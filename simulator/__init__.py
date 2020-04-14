@@ -67,6 +67,7 @@ def __train_and_save_in_parallel(individuals, training_results_path, training_pr
     training_logs_list = [pd.DataFrame(columns=column_names) for _ in range(number_of_threads)]
 
     # nested method to perform the training
+    # this method tells the thread from which row in individuals to which row it will handle
     def perform_training(index, _from, _to):
         # perform training
         for individual in individuals[_from:_to]:

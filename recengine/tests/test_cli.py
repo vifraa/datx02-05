@@ -1,7 +1,8 @@
 import pytest
+import os
 import click
 from click.testing import CliRunner
-from cli import pbar
+from cli import pbar, ttr
 from hypothesis import given
 from hypothesis.strategies import floats, integers, sampled_from, booleans
 
@@ -58,5 +59,23 @@ def test_pbar(age, weight, performance, sex, hide):
         res = runner.invoke(pbar, ["--age", age, "--weight",
                                    weight, "--performance", performance, "--sex", sex])
 
+
+    assert res.exit_code == 0
+
+@given(integers(), booleans())
+def test_ttr(weeks, hide):
+    """
+    Tests that the ttr command finishes with expected input.
+    """
+    logs_path = os.path.join(os.path.dirname(__file__), "training_logs", "test.csv")
+
+    runner = CliRunner()
+
+    cli_input = ["--file", logs_path, "--weeks", weeks,
+                                  "--timeformat", "%m/%d/%Y %H:%M"]
+    if hide:
+        cli_input.append("-h")
+
+    res = runner.invoke(ttr, cli_input)
 
     assert res.exit_code == 0
