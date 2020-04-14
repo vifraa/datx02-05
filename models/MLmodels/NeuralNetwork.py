@@ -5,6 +5,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split, ShuffleSplit
+import io
+import sys
+sys.path.insert(0, "C:/Users/ljubo/Desktop/Repo/datx02-05/models/")
 import MLmodels.DataReader as dr
 from sklearn.neural_network import MLPRegressor
 from helpers import print_training_result_summary, training_result_summary
@@ -115,6 +118,17 @@ class NeuralNetwork:
         estimator = self.get_pure_model()
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         plt.show()
+
+    def learning_curves(self):
+        warnings.filterwarnings("ignore")
+        title = "Learning Curves NeuralNetwork"
+        cv = ShuffleSplit(n_splits=5, test_size=0.2, random_state=0)
+        estimator = self.get_pure_model()
+        Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
+        bytes_image = io.BytesIO()
+        plt.savefig(bytes_image, format='png')
+        bytes_image.seek(0)
+        return bytes_image
 
     def regression_and_plot_curves(self):
         self.regression()

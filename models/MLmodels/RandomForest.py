@@ -2,6 +2,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import warnings
 import pickle
+import io
+import sys
+sys.path.insert(0, "C:/Users/ljubo/Desktop/Repo/datx02-05/models/")
 import MLmodels.DataReader as dr
 from sklearn.metrics import mean_squared_error, r2_score
 from helpers import print_training_result_summary, training_result_summary
@@ -91,6 +94,17 @@ class RandomForest:
         estimator = RandomForestRegressor(max_depth=10, random_state=0)
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         plt.show()
+
+    def learning_curves(self):
+        warnings.filterwarnings("ignore")
+        title = "Learning Curves RandomForest"
+        cv = ShuffleSplit(n_splits=50, test_size=0.2, random_state=0)
+        estimator = RandomForestRegressor(max_depth=10, random_state=0)
+        Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
+        bytes_image = io.BytesIO()
+        plt.savefig(bytes_image, format='png')
+        bytes_image.seek(0)
+        return bytes_image
 
     def regression_and_plot_curves(self):
         self.regression()

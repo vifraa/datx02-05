@@ -1,10 +1,11 @@
 import random
+import sys
+sys.path.insert(0, "C:/Users/ljubo/Desktop/Repo/datx02-05/models/")
 
 import pandas as pd
 from IPython.display import display
 from sklearn.model_selection import train_test_split
 from visualizers import data_plotter
-
 
 class DataSample:
 
@@ -15,7 +16,7 @@ class DataSample:
         if path is not None:
             self.data = pd.read_csv(path)
         else:
-             self.data = pd.read_csv("../regression_dataframes2.csv")
+             self.data = pd.read_csv("data/regression_dataframes2.csv")
             # self.data = pd.read_csv("../data/regression_dataframe_medium.csv")
 
         # Shuffle the dataset.

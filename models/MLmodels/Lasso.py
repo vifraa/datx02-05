@@ -1,7 +1,10 @@
 import pickle
 import pandas as pd
 import warnings
+import io
 import matplotlib.pyplot as plt
+import sys
+sys.path.insert(0, "C:/Users/ljubo/Desktop/Repo/datx02-05/models/")
 import MLmodels.DataReader as dr
 from sklearn import linear_model
 from sklearn.metrics import mean_squared_error, r2_score
@@ -90,6 +93,17 @@ class Lasso:
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         plt.show()
 
+    def learning_curves(self):
+        warnings.filterwarnings("ignore")
+        title = "Learning Curves Lasso"
+        cv = ShuffleSplit(n_splits=50, test_size=0.2, random_state=0)
+        estimator = linear_model.Lasso(alpha=0.1)
+        Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
+        bytes_image = io.BytesIO()
+        plt.savefig(bytes_image, format='png')
+        bytes_image.seek(0)
+        return bytes_image
+        
     def regression_and_plot_curves(self):
         self.regression()
         self.plot_learning_curves()

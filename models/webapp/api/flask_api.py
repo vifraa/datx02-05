@@ -1,5 +1,8 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify,send_file, make_response
 from flask_cors import CORS, cross_origin
+
+import sys
+sys.path.insert(0, "C:/Users/ljubo/Desktop/Repo/datx02-05/models/")
 
 import MLmodels.DecisionTree as DecisionTree
 import MLmodels.ElasticNets as ElasticNet
@@ -30,6 +33,20 @@ def model_names():
     ]
     return jsonify(res)
 
+@app.route("/models/plot/<modelname>")
+def plotCurves(modelname):
+    bytes_obj = {
+        'Lasso': Lasso.Lasso,
+        'Ridge': Ridge.Ridge,
+        'ElasticNet': ElasticNet.ElasticNet,
+        'DecisionTree': DecisionTree.DecisionTree,
+        'RandomForest': RandomForest.RandomForest,
+        'NeuralNetwork': NeuralNetwork.NeuralNetwork
+    }[modelname]().learning_curves()
+
+    return send_file(bytes_obj,
+                     attachment_filename='plot.png',
+                     mimetype='image/png')
 
 @app.route("/models/regression/<modelname>")
 def model_regression_results(modelname):

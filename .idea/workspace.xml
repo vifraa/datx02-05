@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ccbdfe95-89ca-4bb1-90c1-30a98e8518d5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/models/90_sets_model_4tt.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/models/90_sets_model_4tt.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/datx02-05.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/datx02-05.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/90-sets-model.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/models/90-sets-model.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/MLmodels/DataReader.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/MLmodels/DataReader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/MLmodels/DecisionTree.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/MLmodels/DecisionTree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/performance-before-and-after-models.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/models/performance-before-and-after-models.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/webapp/api/flask_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/webapp/api/flask_api.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +30,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.notebooks.jupyter.connections.configuration.JupyterServerConfigurable" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -40,6 +47,8 @@
       <workItem from="1585777873837" duration="727000" />
       <workItem from="1585827611556" duration="699000" />
       <workItem from="1585835126274" duration="1116000" />
+      <workItem from="1586782922038" duration="644000" />
+      <workItem from="1586800827393" duration="140000" />
     </task>
     <servers />
   </component>
@@ -63,13 +72,15 @@
       <screen x="63" y="0" width="1217" height="720" />
     </state>
     <state width="1173" height="30" key="GridCell.Tab.0.right/63.0.1217.720@63.0.1217.720" timestamp="1585835194184" />
-    <state x="173" y="3" key="SettingsEditor" timestamp="1585835170935">
-      <screen x="63" y="0" width="1217" height="720" />
+    <state x="177" y="3" key="SettingsEditor" timestamp="1586800961963">
+      <screen x="67" y="0" width="1213" height="720" />
     </state>
     <state x="173" y="3" key="SettingsEditor/63.0.1217.720@63.0.1217.720" timestamp="1585835170935" />
-    <state x="368" y="185" key="com.intellij.ide.util.TipDialog" timestamp="1585835128007">
-      <screen x="63" y="0" width="1217" height="720" />
+    <state x="177" y="3" key="SettingsEditor/67.0.1213.720@67.0.1213.720" timestamp="1586800961963" />
+    <state x="371" y="185" key="com.intellij.ide.util.TipDialog" timestamp="1586800834993">
+      <screen x="67" y="0" width="1213" height="720" />
     </state>
     <state x="368" y="185" key="com.intellij.ide.util.TipDialog/63.0.1217.720@63.0.1217.720" timestamp="1585835128007" />
+    <state x="371" y="185" key="com.intellij.ide.util.TipDialog/67.0.1213.720@67.0.1213.720" timestamp="1586800834993" />
   </component>
 </project>

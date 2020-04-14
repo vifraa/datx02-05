@@ -31,7 +31,7 @@ export default class modelCardsContainer extends Component {
                             /> 
                     })}
                 </div>
-                <LearningResults/>
+                <LearningResults model_run_name={this.state.model_names_and_images[1]}/>
             </div>
         )
     }
