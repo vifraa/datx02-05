@@ -19,45 +19,32 @@ class modelCard extends Component {
     };
   }
 
-  run_regression(ModelName) {
+
+  run_regression_and_curves(ModelName) {
     fetch("http://127.0.0.1:5000/models/regression/" + ModelName)
       .then((res) => res.text())
       .then((data) => {
         this.setState({ regression_results: data });
-        this.write_text("regression_output", data);
-        this.runLearningCurves(ModelName);
+        fetch("http://127.0.0.1:5000/models/plot/" + ModelName)
+        .then((ires) => ires.blob())
+        .then((images) => {
+            const objectURL = URL.createObjectURL(images);
+            console.log("Learning curve URL: " + objectURL);
+            this.setState({ img_url: objectURL });
+            this.write_text_and_show_plot("regression_output", data, "learning_curves_output", objectURL);
+        });
       })
       .catch(console.log);
   }
 
-  runLearningCurves(ModelName) {
-    fetch("http://127.0.0.1:5000/models/plot/" + ModelName)
-      .then((res) => res.blob())
-      .then((images) => {
-        const objectURL = URL.createObjectURL(images);
-        console.log("Learning curve URL: " + objectURL);
-        this.setState({ img_url: objectURL });
-      });
-  }
-
-  write_text(element_id, txt) {
+  write_text_and_show_plot(text_element_id, txt, img_element_id, objectURL) {
     console.log(txt);
-    document.getElementById(element_id).innerHTML = txt;
-  }
+    document.getElementById(text_element_id).innerHTML = txt;
+    document.getElementById(img_element_id).src = objectURL;
+}
 
-  render() {
-      let learningCurveImg= null;
-      if(this.state.img_url !== "") {
-        learningCurveImg =  <MDBCardImage
-        cascade
-        className="img-fluid"
-        overlay="white-light"
-        hover
-        height="400 px"
-        width="400 px"
-        src={this.state.img_url}
-      /> 
-      }
+  render() {      
+        
     return (
       <Container>
           <Row>
@@ -65,7 +52,7 @@ class modelCard extends Component {
             className="h-100"
             cascade
             onClick={() => {
-              this.run_regression(this.props.model_run_name);
+              this.run_regression_and_curves(this.props.model_run_name);
             }}
           >
             <MDBCardImage
@@ -91,9 +78,6 @@ class modelCard extends Component {
               </MDBCardTitle>
             </MDBCardBody>
           </MDBCard>
-        </Row>
-        <Row>
-            {learningCurveImg}
         </Row>
       </Container>
     );

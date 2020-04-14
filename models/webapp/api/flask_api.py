@@ -1,12 +1,6 @@
 from flask import Flask, jsonify,send_file, make_response
 from flask_cors import CORS, cross_origin
 
-<<<<<<< HEAD
-import sys
-sys.path.insert(0, "C:/Users/ljubo/Desktop/Repo/datx02-05/models/")
-=======
->>>>>>> ae84fa94ad87718842bf3a6fa8a1eeae9b1c5bcc
-
 import MLmodels.DecisionTree as DecisionTree
 import MLmodels.ElasticNets as ElasticNet
 import MLmodels.Lasso as Lasso
