@@ -61,7 +61,7 @@ class ProgramSet:
     def __dict__(self):
         return {
             "date": self._str_date,
-            "rest": self.rest,
+            "rest_minutes": self.rest,
             "repetitions": self.repetitions,
             "exercise": self.exercise,
             "percent_1rm": self.percent_1rm
