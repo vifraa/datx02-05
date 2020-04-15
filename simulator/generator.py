@@ -44,17 +44,6 @@ def random_banister_parameters():
     params["fatigue_decay"] = fatigue_decay
     return params
 
-
-def gender_to_string(sex_coding):
-    """Returns string representing sex coding
-    :param sex_coding: integer representing sex
-    :returns: string representing sex"""
-    if sex_coding == 0:
-        return "male"
-
-    return "female"
-
-
 def generate_individuals(num,bench_press_fitness_mean, bench_press_fitness_variance):
     """
     Generates individuals to be used in the simulator
