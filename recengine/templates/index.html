@@ -145,6 +145,7 @@
                                         <th>Day</th>
                                         <th>Weight (kg)</th>
                                         <th>Reps</th>
+                                        <th>Rest</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -155,6 +156,7 @@
                                         <td>{{day}}</td>
                                         <td>{{(set.percent_1rm / 100) * performance}}</td>
                                         <td>{{set.repetitions}}</td>
+                                        <td>{{set.rest}} minutes</td>
                                     </tr>
                                     {% endfor %}
                                     {% endfor %}

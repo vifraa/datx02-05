@@ -53,14 +53,14 @@ class ProgramSet:
         self.exercise = int(row[0])
         self.percent_1rm = float(row[1])
         self.repetitions = int(row[2])
-        self.date = datetime.strptime(row[3], "%m/%d/%Y %H:%M").date()
+        self.datetime = datetime.strptime(row[3], "%m/%d/%Y %H:%M")
         self._str_date = row[3]
         self.rest = None
 
     def __dict__(self):
         return {
             "date": self._str_date,
-            "rest": self.rest,
+            "rest_minutes": self.rest,
             "repetitions": self.repetitions,
             "exercise": self.exercise,
             "percent_1rm": self.percent_1rm
@@ -93,28 +93,49 @@ def fetch_program_from_model(model):
             program_reader = csv.reader(file, delimiter="|")
             _headers = next(program_reader)
 
-            program = defaultdict(list)
-            previous_set = None
-            current_day_index = 0
-            for row in program_reader:
-                pset = ProgramSet(row)
-
-                if previous_set is None:
-                    current_day_index += 1
-                    program[str(current_day_index)].append(pset)
-
-                elif previous_set.date == pset.date:
-                    program[str(current_day_index)].append(pset)
-                    previous_set = pset
-
-                else:
-                    current_day_index += 1
-                    previous_set = pset
-                    program[str(current_day_index)].append(pset)
-
-                previous_set = pset
+            program = _create_program_from_csv_reader(program_reader)
+            return program
 
     except FileNotFoundError:
         return {}
 
+
+def _create_program_from_csv_reader(program_reader):
+    program = defaultdict(list)
+    previous_set = None
+    current_day_index = 0
+    for row in program_reader:
+        program_set = ProgramSet(row)
+
+        if previous_set is None:
+            current_day_index += 1
+            program[str(current_day_index)].append(program_set)
+
+        elif previous_set.datetime.date() == program_set.datetime.date():
+            program[str(current_day_index)].append(program_set)
+            previous_set = program_set
+
+        else:
+            current_day_index += 1
+            previous_set = program_set
+            program[str(current_day_index)].append(program_set)
+
+        previous_set = program_set
+
+    _calculate_rest(program)
     return program
+
+def _calculate_rest(program):
+    for day, sets in program.items():
+        previous_set_rest = 0
+        for i, pset in enumerate(sets):
+            next_set = sets[i+1] if (i+1) < len(sets) else None
+
+            if next_set is None:
+                pset.rest = previous_set_rest
+            else:
+                time_delta_seconds = (pset.datetime - next_set.datetime).total_seconds()
+                time_delta_minutes = time_delta_seconds / 60
+                pset.rest = round(abs(time_delta_minutes), 1)
+
+                previous_set_rest = pset.rest
