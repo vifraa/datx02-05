@@ -109,7 +109,7 @@ def ttrdata_from_csv(file_path, time_format, contains_header=True):
         return ttr_data_from_reader(csv_reader, time_format, contains_header=True)
 
 
-def ttrdata_from_csv_population_4(logs_path, individuals_path):
+def ttrdata_from_csv_population_4_weeks(logs_path, individuals_path):
     """
     Wrapper function for ttrdata_from_csv meant for files directly outputted from the simulator.
 
