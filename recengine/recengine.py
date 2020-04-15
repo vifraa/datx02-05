@@ -117,11 +117,9 @@ def _create_program_from_csv_reader(program_reader):
 
         elif previous_set.datetime.date() == program_set.datetime.date():
             program[str(current_day_index)].append(program_set)
-            previous_set = program_set
 
         else:
             current_day_index = abs((first_datetime - program_set.datetime).days)
-            previous_set = program_set
             program[str(current_day_index)].append(program_set)
 
         previous_set = program_set
