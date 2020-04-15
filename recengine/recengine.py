@@ -104,8 +104,12 @@ def _create_program_from_csv_reader(program_reader):
     program = defaultdict(list)
     previous_set = None
     current_day_index = 0
+    first_datetime = None
     for row in program_reader:
         program_set = ProgramSet(row)
+
+        if first_datetime is None:
+            first_datetime = program_set.datetime
 
         if previous_set is None:
             current_day_index += 1
@@ -116,7 +120,7 @@ def _create_program_from_csv_reader(program_reader):
             previous_set = program_set
 
         else:
-            current_day_index += 1
+            current_day_index = abs((first_datetime - program_set.datetime).days)
             previous_set = program_set
             program[str(current_day_index)].append(program_set)
 
