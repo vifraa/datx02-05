@@ -138,3 +138,5 @@ def _calculate_rest(program):
                 time_delta_seconds = (pset.datetime - next_set.datetime).total_seconds()
                 time_delta_minutes = time_delta_seconds / 60
                 pset.rest = round(abs(time_delta_minutes), 1)
+
+                previous_set_rest = pset.rest
