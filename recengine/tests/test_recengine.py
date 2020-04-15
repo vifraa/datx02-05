@@ -38,10 +38,10 @@ def test_fetch_program_from_model():
         previous_set_date = None
         for p_set in sets:
             if previous_set_date is None:
-                previous_set_date = p_set.date
+                previous_set_date = p_set.datetime.date()
                 continue
 
-            today = p_set.date
+            today = p_set.datetime.date()
             assert previous_set_date == today
 
 def test_correctly_calculated_rest():

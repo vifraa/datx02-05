@@ -54,7 +54,6 @@ class ProgramSet:
         self.percent_1rm = float(row[1])
         self.repetitions = int(row[2])
         self.datetime = datetime.strptime(row[3], "%m/%d/%Y %H:%M")
-        self.date = self.datetime.date()
         self._str_date = row[3]
         self.rest = None
 
@@ -112,7 +111,7 @@ def _create_program_from_csv_reader(program_reader):
             current_day_index += 1
             program[str(current_day_index)].append(program_set)
 
-        elif previous_set.date == program_set.date:
+        elif previous_set.datetime.date() == program_set.datetime.date():
             program[str(current_day_index)].append(program_set)
             previous_set = program_set
 
