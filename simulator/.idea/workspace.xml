@@ -2,41 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d99385c8-848b-42a3-a4c6-9958cef417d6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.idea/datx02-05.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/.vscode/settings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/api/data/ogasawara_HL/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/api/flask_api.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/public/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/public/logo192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/public/logo512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/public/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/public/robots.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/src/App.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/src/App.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/src/App.test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/src/CSS_Folder/uploadData.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/src/Components/curvesImage.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/src/Components/default.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/src/Components/footer.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/src/Components/learningContainer.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/src/Components/learningResults.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/src/Components/main.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/src/Components/modelCard.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/src/Components/modelCardsContainer.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/src/Components/navbar.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/src/Components/showPCA.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/src/Components/uploadData.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/src/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/src/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/src/serviceWorker.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/webapp/modelssite/src/setupTests.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/generator.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +24,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api/flask_api.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="527">
@@ -71,37 +37,27 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/test_gym.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="884">
-              <caret line="53" selection-start-line="53" selection-end-line="53" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tests/test_individual.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/__init__.py">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/generator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
+            <state relative-caret-position="68">
+              <caret line="161" column="60" lean-forward="true" selection-start-line="161" selection-start-column="60" selection-end-line="161" selection-end-column="60" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/individuals/GeneratedIndividuals.csv">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/output/program_logs.csv">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -149,9 +105,9 @@
         <option value="$PROJECT_DIR$/training_programs/carls_power_program_BP.csv" />
         <option value="$PROJECT_DIR$/tests/__init__.py" />
         <option value="$PROJECT_DIR$/training_programs/ogasawara_HL.csv" />
-        <option value="$PROJECT_DIR$/generator.py" />
         <option value="$PROJECT_DIR$/__init__.py" />
         <option value="$PROJECT_DIR$/api/flask_api.py" />
+        <option value="$PROJECT_DIR$/generator.py" />
       </list>
     </option>
   </component>
@@ -178,6 +134,11 @@
               <item name="simulator" type="b2602c69:ProjectViewProjectNode" />
               <item name="simulator" type="462c0819:PsiDirectoryNode" />
               <item name="api" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="simulator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="simulator" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="simulator" type="b2602c69:ProjectViewProjectNode" />
@@ -271,9 +232,6 @@
       <module name="simulator" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -309,12 +267,12 @@
       <workItem from="1586031190533" duration="27355000" />
       <workItem from="1586543736750" duration="4426000" />
       <workItem from="1586810790463" duration="599000" />
-      <workItem from="1587072859417" duration="1188000" />
+      <workItem from="1587072859417" duration="2897000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33568000" />
+    <option name="totallyTimeSpent" value="35277000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -329,7 +287,7 @@
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.10181237" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13752665" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -343,7 +301,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32917964" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.15991692" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.49844238" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.2741433" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -443,20 +401,8 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/output/pre_program_logs.csv" />
-    <entry file="file://$PROJECT_DIR$/output/program_logs.csv" />
     <entry file="file://$PROJECT_DIR$/training_programs/kikuchi.csv">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/individuals/GeneratedIndividuals.csv" />
-    <entry file="file://$PROJECT_DIR$/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="113" column="62" selection-start-line="113" selection-start-column="62" selection-end-line="113" selection-end-column="62" />
-          <folding>
-            <element signature="e#384#400#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/test_gym.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -476,13 +422,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/conftest.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -511,6 +450,29 @@
           <folding>
             <element signature="e#0#57#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="113" column="62" selection-start-line="113" selection-start-column="62" selection-end-line="113" selection-end-column="62" />
+          <folding>
+            <element signature="e#384#400#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/output/program_logs.csv">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/individuals/GeneratedIndividuals.csv">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="161" column="60" lean-forward="true" selection-start-line="161" selection-start-column="60" selection-end-line="161" selection-end-column="60" />
         </state>
       </provider>
     </entry>
