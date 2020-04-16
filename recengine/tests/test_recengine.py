@@ -59,3 +59,34 @@ def test_correctly_calculated_rest():
             for p_set in sets:
                 assert isinstance(p_set.rest, float)
                 assert math.isclose(p_set.rest, 3.0)
+
+def test_correctly_calculated_date_intervals():
+    """
+    Tests that the calculated date intervals are correct.
+    """
+    program_path = os.path.join(os.path.dirname(__file__), "training_programs", "ogasawara_HL.csv")
+
+    with open(program_path, newline='') as file:
+        program_reader = csv.reader(file, delimiter="|")
+        _headers = next(program_reader)
+
+        program = _create_program_from_csv_reader(program_reader)
+
+        counter = -1
+        previous_day = None
+        for day, _ in program.items():
+            counter += 1
+            day = int(day)
+
+            if previous_day is None:
+                previous_day = day
+                continue
+
+            # Since the program has a 2 day difference between workout days, except after
+            # the each third workout day where there is a 3 day difference.
+            if counter % 3 == 0:
+                assert day - previous_day == 3
+            else:
+                assert day - previous_day == 2
+
+            previous_day = day

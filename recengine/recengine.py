@@ -101,23 +101,37 @@ def fetch_program_from_model(model):
 
 
 def _create_program_from_csv_reader(program_reader):
+    """
+    From a CSV Reader containing a training program from the simulator this
+    function creates and return a dict with key for the day and the value as a list
+    of the sets that is supposed to be done during that day.
+
+    :param program_reader: csv.reader containing the training program.
+    :return: The created program.
+    :rtype: A dict containing lists of ProgramSet as values.
+    """
     program = defaultdict(list)
     previous_set = None
     current_day_index = 0
+    first_datetime = None
     for row in program_reader:
         program_set = ProgramSet(row)
 
+        # Sets the first found date from the program.
+        # Needed to calculate day intervals from the start of the program.
+        if first_datetime is None:
+            first_datetime = program_set.datetime
+
         if previous_set is None:
+            #First set done on day 1.
             current_day_index += 1
             program[str(current_day_index)].append(program_set)
 
         elif previous_set.datetime.date() == program_set.datetime.date():
             program[str(current_day_index)].append(program_set)
-            previous_set = program_set
 
         else:
-            current_day_index += 1
-            previous_set = program_set
+            current_day_index = abs((first_datetime - program_set.datetime).days) + 1
             program[str(current_day_index)].append(program_set)
 
         previous_set = program_set
@@ -126,6 +140,12 @@ def _create_program_from_csv_reader(program_reader):
     return program
 
 def _calculate_rest(program):
+    """
+    From a already created program calculates the supposed rest between sets.
+    Modifies the given program.
+
+    :param program: The program to calculate rest for.
+    """
     for day, sets in program.items():
         previous_set_rest = 0
         for i, pset in enumerate(sets):
