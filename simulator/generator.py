@@ -23,9 +23,6 @@ flags.DEFINE_string("p", "simulator/individuals/GeneratedIndividuals.csv",
                     "Full path to save generated individuals in .csv format to")
 flags.DEFINE_float("wm", 50, "Weight mean")
 flags.DEFINE_float("wv", 5, "Weigt variance")
-flags.DEFINE_string("papi", "simulator/api/individuals/GeneratedIndividuals.csv",
-                    "Full path to save generated individuals in .csv format to")
-
 
 def random_banister_parameters():
     """
@@ -160,8 +157,10 @@ def load_individuals(individuals_path):
 
 
 def generate_individuals_with_param(n, bpm, bpv, am, av, gr, wm, wv):
+    import pathlib
+    os.chdir("../../")
     generated_individuals = generate_individuals(n, am, av, wm, wv, bpm, bpv, gr)
-    save_individuals(generated_individuals, FLAGS.papi, datetime.datetime.now())
+    save_individuals(generated_individuals, "simulator/api/individuals/GeneratedIndividuals.csv", datetime.datetime.now())
 
 def main(argv):
     """absl entry if user wishes to generate individuals without also training them using the main
