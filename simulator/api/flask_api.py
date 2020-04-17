@@ -33,7 +33,10 @@ def individuals(n, bpm, bpv, am, av, gr, wm, wv):
         with open('simulator/api/individuals/GeneratedIndividuals.csv', newline='') as f:
             reader = csv.reader(f)
             data = list(reader)
-        data = np.array(data)[0:6, :]
+        if n > 6:
+            data = np.array(data)[0:6, :]
+        else:
+            data = np.array(data)[:, :]
         return data
     except:
         return "The population couldn't be generated."
@@ -75,7 +78,11 @@ def logs(nr_train_before, nr_train_after):
     train_population_from_file("simulator/api/individuals/GeneratedIndividuals.csv",
                                training_program, "simulator/api/output/program_logs.csv")
 
-    return "Your individuals were trained, results can be found in the output folder."
+    with open('simulator/api/individuals/GeneratedIndividuals.csv', newline='') as f:
+        reader = csv.reader(f)
+        data = list(reader)
+    data = np.array(data)[0:10, :]
+    return data  # "Your individuals were trained, results can be found in the output folder."
 
 
 if __name__ == "__main__":
