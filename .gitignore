@@ -139,3 +139,5 @@ dmypy.json
 # ignore pycharm IDE config
 .idea/
 simulator/.idea/*
+recengine/.idea/*
+models/.idea/*

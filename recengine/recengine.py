@@ -53,14 +53,14 @@ class ProgramSet:
         self.exercise = int(row[0])
         self.percent_1rm = float(row[1])
         self.repetitions = int(row[2])
-        self.date = datetime.strptime(row[3], "%m/%d/%Y %H:%M").date()
+        self.datetime = datetime.strptime(row[3], "%m/%d/%Y %H:%M")
         self._str_date = row[3]
         self.rest = None
 
     def __dict__(self):
         return {
             "date": self._str_date,
-            "rest": self.rest,
+            "rest_minutes": self.rest,
             "repetitions": self.repetitions,
             "exercise": self.exercise,
             "percent_1rm": self.percent_1rm
@@ -93,28 +93,69 @@ def fetch_program_from_model(model):
             program_reader = csv.reader(file, delimiter="|")
             _headers = next(program_reader)
 
-            program = defaultdict(list)
-            previous_set = None
-            current_day_index = 0
-            for row in program_reader:
-                pset = ProgramSet(row)
-
-                if previous_set is None:
-                    current_day_index += 1
-                    program[str(current_day_index)].append(pset)
-
-                elif previous_set.date == pset.date:
-                    program[str(current_day_index)].append(pset)
-                    previous_set = pset
-
-                else:
-                    current_day_index += 1
-                    previous_set = pset
-                    program[str(current_day_index)].append(pset)
-
-                previous_set = pset
+            program = _create_program_from_csv_reader(program_reader)
+            return program
 
     except FileNotFoundError:
         return {}
 
+
+def _create_program_from_csv_reader(program_reader):
+    """
+    From a CSV Reader containing a training program from the simulator this
+    function creates and return a dict with key for the day and the value as a list
+    of the sets that is supposed to be done during that day.
+
+    :param program_reader: csv.reader containing the training program.
+    :return: The created program.
+    :rtype: A dict containing lists of ProgramSet as values.
+    """
+    program = defaultdict(list)
+    previous_set = None
+    current_day_index = 0
+    first_datetime = None
+    for row in program_reader:
+        program_set = ProgramSet(row)
+
+        # Sets the first found date from the program.
+        # Needed to calculate day intervals from the start of the program.
+        if first_datetime is None:
+            first_datetime = program_set.datetime
+
+        if previous_set is None:
+            #First set done on day 1.
+            current_day_index += 1
+            program[str(current_day_index)].append(program_set)
+
+        elif previous_set.datetime.date() == program_set.datetime.date():
+            program[str(current_day_index)].append(program_set)
+
+        else:
+            current_day_index = abs((first_datetime - program_set.datetime).days) + 1
+            program[str(current_day_index)].append(program_set)
+
+        previous_set = program_set
+
+    _calculate_rest(program)
     return program
+
+def _calculate_rest(program):
+    """
+    From a already created program calculates the supposed rest between sets.
+    Modifies the given program.
+
+    :param program: The program to calculate rest for.
+    """
+    for day, sets in program.items():
+        previous_set_rest = 0
+        for i, pset in enumerate(sets):
+            next_set = sets[i+1] if (i+1) < len(sets) else None
+
+            if next_set is None:
+                pset.rest = previous_set_rest
+            else:
+                time_delta_seconds = (pset.datetime - next_set.datetime).total_seconds()
+                time_delta_minutes = time_delta_seconds / 60
+                pset.rest = round(abs(time_delta_minutes), 1)
+
+                previous_set_rest = pset.rest

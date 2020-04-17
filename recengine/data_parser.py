@@ -4,6 +4,8 @@ This module is responsible of having helper function revolving around parsing da
 import csv
 from collections import defaultdict
 from datetime import datetime
+from io import StringIO
+import pandas as pd
 
 def split_into_weeks(sets, time_format):
     """
@@ -105,6 +107,49 @@ def ttrdata_from_csv(file_path, time_format, contains_header=True):
     with open(file_path, newline='') as file:
         csv_reader = csv.reader(file, delimiter="|")
         return ttr_data_from_reader(csv_reader, time_format, contains_header=True)
+
+
+def ttrdata_from_csv_population_4_weeks(logs_path):
+    """
+    Wrapper function for ttrdata_from_csv meant for files directly outputted from the simulator.
+
+    File has to be of type CSV and follow the structure of:
+    ID | Exercise | Weight | Reps | Timestamp | Performance
+
+    :param logs_path: The path to the CSV file from the simulator containing the training logs.
+
+    :returns: Dataframe consisting of the TTR data during the last 4 weeks with the associated
+    individual's ID
+    """
+    logs = pd.read_csv(logs_path, sep="|")
+
+    # Calculate TTR_DATA based on pre-logs.
+    ttr_data = {}
+    for p_id, group in logs.groupby('ID'):
+        group = group.drop(columns=['ID'])
+
+        # Saving to buffer to be able to use with data parsers directly.
+        buffer = StringIO()  # creating an empty buffer
+        group.to_csv(buffer, index=False)  # filling that buffer
+        buffer.seek(0)  # set to the start of the stream
+
+        data = ttr_data_from_reader(csv.reader(buffer), '%Y-%m-%d %H:%M:%S')
+        ttr_data[str(p_id)] = data
+
+    headers = ["load_week1", "max_week1", "load_week2", "max_week2", "load_week3", "max_week3",
+               "load_week4", "max_week4"]
+
+    data = pd.DataFrame(columns=headers)
+
+    # Transform data
+    for p_id, ttr in ttr_data.items():
+
+        # Take last 4 weeks.
+        entry = ttr[-8:]
+
+        data = data.append(pd.Series(entry, index=data.columns), ignore_index=True)
+
+    return data
 
 
 def ttrdata_from_csv_bytes(f_bytes, time_format, contains_header=True):

@@ -16,13 +16,8 @@ FLAGS = flags.FLAGS
 flags.DEFINE_integer("n", 500, "How many individuals to generate")
 flags.DEFINE_float("bpm", 100, "Mean of bench press max")
 flags.DEFINE_float("bpv", 5, "Variance in bench press max")
-flags.DEFINE_integer("am", 30, "Age mean")
-flags.DEFINE_integer("av", 5, "Age variance")
-flags.DEFINE_float("gr", 0.5, "Gender ratio of male")
 flags.DEFINE_string("p", "simulator/individuals/GeneratedIndividuals.csv",
                     "Full path to save generated individuals in .csv format to")
-flags.DEFINE_float("wm", 50, "Weight mean")
-flags.DEFINE_float("wv", 5, "Weigt variance")
 
 def random_banister_parameters():
     """
@@ -48,29 +43,14 @@ def random_banister_parameters():
     params["fatigue_decay"] = fatigue_decay
     return params
 
-
-def gender_to_string(sex_coding):
-    """Returns string representing sex coding
-    :param sex_coding: integer representing sex
-    :returns: string representing sex"""
-    if sex_coding == 0:
-        return "male"
-
-    return "female"
-
-
-def generate_individuals(num, age_mean, age_variance, weight_mean, weight_variance,
-                         bench_press_fitness_mean, bench_press_fitness_variance, gender_ratio):
+def generate_individuals(num,bench_press_fitness_mean, bench_press_fitness_variance):
     """
     Generates individuals to be used in the simulator
 
     :param num: Number of individuals to generate.
-    :param age_mean: The mean of the age for the individuals
-    :param age_variance: The variance in age for the individuals for a normal distribution
     :param bench_press_fitness_mean: The mean of the 1RM in bench press for the individuals
     :param bench_press_fitness_variance: The variance in the 1RM for the individuals for a normal
     distribution
-    :param gender_ratio: The ratio of individuals with female sex characteristics
     :return: A list of individuals generated
 
     """
@@ -78,30 +58,18 @@ def generate_individuals(num, age_mean, age_variance, weight_mean, weight_varian
     # Holds all individuals
     individuals = []
 
-    # Normally distributed ages used to create birth dates
-    ages = np.random.normal(age_mean, age_variance, num).astype("int")
-    now = datetime.datetime.now()
-    try:
-        birth_dates = [datetime.datetime(
-            now.year - age, now.month, now.day) for age in ages]
-    except ValueError:
-        # Date could not be set, defaulting
-        birth_dates = [datetime.datetime(now.year - age, 1, 1) for age in ages]
     # Normally distributed bench press fitnesses used to create bench press movementss
     bench_press_performances = np.random.normal(bench_press_fitness_mean, bench_press_fitness_variance,
                                                 num).astype("int")
-    weights = np.random.normal(weight_mean, weight_variance, num)
-    genders = np.ones(num)
-    genders[:int(num * gender_ratio)] = 0
-    np.random.shuffle(genders)
+
     banister_params = random_banister_parameters()
+
     for i in range(num):
-        name = names.get_full_name(gender=gender_to_string(genders[i]))
+        name = names.get_full_name()
         bench_press_movement = Movement(
             0, 0, bench_press_performances[i],
             banister_params["fitness_gain"], banister_params["fatigue_gain"], banister_params["fitness_decay"], banister_params["fatigue_decay"])
-        individual = Individual(i, birth_dates[i], int(genders[i]),
-                                name, weights[i], bench_press_movement)
+        individual = Individual(i,name, bench_press_movement)
         individuals.append(individual)
 
     return individuals
@@ -115,7 +83,7 @@ def save_individuals(individuals, csv_file_path, timestamp):
     :param csv_file_path: Path to file name of .csv.
     :param timestamp that denotes the time associated with the current state of the individual.
     """
-    all_indviduals_df = pd.DataFrame(columns=['ID', 'Birth', 'Gender', 'Name', 'Weight',
+    all_indviduals_df = pd.DataFrame(columns=['ID', 'Name',
                                               'bench_press_fitness',
                                               'bench_press_fatigue',
                                               'bench_press_basic_performance',
@@ -168,8 +136,8 @@ def main(argv):
     :param argv: Unused, it's required for absl
     """
     del argv  # Unused.
-    generated_individuals = generate_individuals(FLAGS.n, FLAGS.am, FLAGS.av, FLAGS.wm, FLAGS.wv,
-                                                 FLAGS.bpm, FLAGS.bpv, FLAGS.gr)
+    generated_individuals = generate_individuals(FLAGS.n,
+                                                 FLAGS.bpm, FLAGS.bpv)
     save_individuals(generated_individuals, FLAGS.p, datetime.datetime.now())
 
 

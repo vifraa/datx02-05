@@ -32,7 +32,8 @@ def print_training_program_from_model(model, performance):
         for i, p_set in enumerate(sets):
             calculated_weight = (p_set.percent_1rm / 100 * performance)
             click.secho("     (Set " + str(i) + ") Weight: " +
-                        str(calculated_weight) + " Reps: " + str(p_set.repetitions))
+                        str(calculated_weight) + ", Reps: " + str(p_set.repetitions)
+                        + ", Rest: " + str(p_set.rest) + " minutes.")
 
 
 

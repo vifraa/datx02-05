@@ -35,7 +35,7 @@
                     margin-bottom: 0px;
                 }
 
-                .black-striped {
+                .black-striped:nth-child(even) {
                     background-color: rgba(0,0,0,.2);
                 }
 
@@ -93,24 +93,34 @@
                             {{best_pred}}:
                         </h3>
                         <div class="table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered" style="border-collapse: collapse;">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th>Day</th>
-                                        <th>Weight (kg)</th>
-                                        <th>Reps</th>
+                                        <th style="width: 20%;">Day</th>
+                                        <th style="width: 35%;">Weight (kg)</th>
+                                        <th style="width: 15%;">Reps</th>
+                                        <th style="width: 30%;">Rest</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
                                     {% for day, sets in program.items() %}
-                                    {% for set in sets %}
-                                    <tr class="{{'black-striped' if ((day | int) % 2 == 0)}}">
+                                    <tr class="black-striped">
                                         <td>{{day}}</td>
-                                        <td>{{(set.percent_1rm / 100) * performance}}</td>
-                                        <td>{{set.repetitions}}</td>
+                                        <td colspan="3" style="padding: 0px;">
+                                            <table class="table table-bordered" style="border-collapse: collapse; margin: 0px;">
+                                                <tbody>
+                                                    {% for set in sets %}
+                                                    <tr>
+                                                        <td style="width: 43.75%;">{{(set.percent_1rm / 100) * performance}}</td>
+                                                        <td style="width: 18.75%;">{{set.repetitions}}</td>
+                                                        <td style="width: 37.5%;">{{set.rest}} minutes</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </td>
                                     </tr>
-                                    {% endfor %}
                                     {% endfor %}
 
                                 </tbody>
