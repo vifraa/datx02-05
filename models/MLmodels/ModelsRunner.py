@@ -14,7 +14,7 @@ import warnings
 from json import dumps
 
 class ModelsRunner:
-
+    """
     models_dict = {
         'Lasso': Lasso(),
         'Ridge': Ridge(),
@@ -23,12 +23,15 @@ class ModelsRunner:
         'RandomForest': RandomForest(),
         'NeuralNetwork': NeuralNetwork()
     }
-
+    """
     def __init__(self, path=None):
+        pass
+        """
         if path is not None:
             self.data = dr.DataSample(path)
         else:
             self.data = dr.DataSample()
+        """
 
     def train_all_models(self):
         for model in self.models_dict.values():
@@ -70,6 +73,14 @@ class ModelsRunner:
             model.regression()
             model.save_the_class_included_the_trained_model()
 
+
+    def train_all_models_on_specific_data_using_path(self, path):
+        trained_models = [Lasso(path=path), Ridge(path=path), ElasticNet(path=path),
+                          DecisionTree(path=path), RandomForest(path=path), NeuralNetwork(path=path)]
+        for model in trained_models:
+            model.regression_and_plot_curves()
+
+
     def train_specific_models_on_specific_data_and_then_save_them_all_as_binary_sav_files_with_path(self, path, model_name):
         switcher = {
             'Lasso': Lasso(path=path).save_the_class_included_the_trained_model(),
@@ -105,3 +116,6 @@ class ModelsRunner:
 
 #from sklearn import datasets
 #X, y = datasets.load_digits(return_X_y=True)
+
+MR = ModelsRunner(path="../data/6w_pb_fiesta_3000_pop/program_logs.csv")
+MR.train_all_models_on_specific_data_using_path(path="../data/6w_pb_fiesta_3000_pop/program_logs.csv")

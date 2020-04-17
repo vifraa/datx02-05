@@ -13,12 +13,13 @@ class DataSample:
         self.read_partition(path)
 
     def read_partition(self, path):
+        print("data reader checkpoint!")
         if path is not None:
             self.data = pd.read_csv(path)
         else:
-             self.data = pd.read_csv("data/regression_dataframes2.csv")
+            # self.data = pd.read_csv("data/regression_dataframes2.csv")
             # self.data = pd.read_csv("../data/regression_dataframe_medium.csv")
-
+            self.data = []
         # Shuffle the dataset.
         self.data_shuffled = self.data.sample(frac=1.0, random_state=0)
 

@@ -42,8 +42,8 @@ class Lasso:
             self.read_data_from_path_and_partition(path)
         elif X is not None and Y is not None:
             self.read_X_Y_and_partition(X, Y)
-        else:
-            self.data = dr.DataSample()
+        #else:
+        #    self.data = dr.DataSample()
 
     def read_data_from_path_and_partition(self, path):
         self.data = pd.read_csv(path)
@@ -123,7 +123,7 @@ class Lasso:
         pickle.dump(self, open(filename, 'wb'))
 
     def train_and_save_the_class_included_the_trained_model(self):
-        self.regression()
+        self.regression_and_plot_curves()
         # save the model to disk
         filename = 'class_contains_trained_Lasso_model_with_more_functionalities.sav'
         pickle.dump(self, open(filename, 'wb'))
