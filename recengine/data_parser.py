@@ -142,10 +142,7 @@ def ttrdata_from_csv_population_4_weeks(logs_path):
     data = pd.DataFrame(columns=headers)
 
     # Transform data
-    for ID in ttr_data:
-        p_id = str(ID)
-
-        ttr = ttr_data.get(p_id)
+    for p_id, ttr in ttr_data.items():
 
         # Take last 4 weeks.
         entry = ttr[-8:]
