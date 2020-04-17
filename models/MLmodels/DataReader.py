@@ -20,6 +20,7 @@ class DataSample:
             # self.data = pd.read_csv("data/regression_dataframes2.csv")
             # self.data = pd.read_csv("../data/regression_dataframe_medium.csv")
             self.data = []
+            print("The data is empty")
         # Shuffle the dataset.
         self.data_shuffled = self.data.sample(frac=1.0, random_state=0)
 

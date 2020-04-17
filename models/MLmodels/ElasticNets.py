@@ -122,6 +122,12 @@ class ElasticNet:
         filename = 'class_contains_trained_ElasticNet_model_with_more_functionalities.sav'
         pickle.dump(self, open(filename, 'wb'))
 
+    def train_and_save_the_class_included_the_trained_model(self, dataset_name):
+        self.regression_and_plot_curves()
+        # save the model to disk
+        filename = 'class_contains_trained_Elastic_Net_model_on_'+dataset_name+'_with_more_functionalities.sav'
+        pickle.dump(self, open(filename, 'wb'))
+
     def get_trained_model(self):
         return self.eNet
 

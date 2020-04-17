@@ -144,6 +144,12 @@ class NeuralNetwork:
         filename = 'class_contains_trained_NeuralNetwork_model_with_more_functionalities.sav'
         pickle.dump(self, open(filename, 'wb'))
 
+    def train_and_save_the_class_included_the_trained_model(self, dataset_name):
+        self.regression_and_plot_curves()
+        # save the model to disk
+        filename = 'class_contains_trained_Neural_Network_model_on_'+dataset_name+'_with_more_functionalities.sav'
+        pickle.dump(self, open(filename, 'wb'))
+
     def get_trained_model(self):
         return self.nn
 

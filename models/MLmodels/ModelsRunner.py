@@ -1,6 +1,4 @@
 import pandas as pd
-import sys
-sys.path.insert(0, "C:/Users/ljubo/Desktop/Repo/datx02-05/models/")
 import MLmodels.DataReader as dr
 from MLmodels.DecisionTree import DecisionTree
 from MLmodels.ElasticNets import ElasticNet
@@ -83,14 +81,14 @@ class ModelsRunner:
 
     def train_specific_models_on_specific_data_and_then_save_them_all_as_binary_sav_files_with_path(self, path, model_name):
         switcher = {
-            'Lasso': Lasso(path=path).save_the_class_included_the_trained_model(),
-            'Ridge': Ridge(path=path).save_the_class_included_the_trained_model(),
-            'ElasticNet': ElasticNet(path=path).save_the_class_included_the_trained_model(),
-            'DecisionTree': DecisionTree(path=path).save_the_class_included_the_trained_model(),
-            'RandomForest': RandomForest(path=path).save_the_class_included_the_trained_model(),
-            'NeuralNetwork': NeuralNetwork(path=path).save_the_class_included_the_trained_model()
+            'Lasso': Lasso(path=path)
+            #'Ridge': Ridge(path=path),
+            #'ElasticNet': ElasticNet(path=path),
+            #'DecisionTree': DecisionTree(path=path),
+            #'RandomForest': RandomForest(path=path),
+            #'NeuralNetwork': NeuralNetwork(path=path)
         }
-        switcher.get(model_name, "Invalid model name")
+        switcher.get(model_name, "Invalid model name").train_and_save_the_class_included_the_trained_model()
 
 
 # executing example
@@ -105,17 +103,19 @@ class ModelsRunner:
 # loaded_model = pickle.load(open(filename, 'rb'))
 # print(loaded_model.r2_score())
 
-
 # MR = ModelsRunner()
 # MR.train_all_models_and_plot_curves()
 
+# df = pd.read_csv('../data/regression_dataframe_medium.csv', sep=',')
+# df.applymap(test_str)
+# df.to_csv('../data/str_regression_dataframe_medium.csv', index=False)
 
-#df = pd.read_csv('../data/regression_dataframe_medium.csv', sep=',')
-#df.applymap(test_str)
-#df.to_csv('../data/str_regression_dataframe_medium.csv', index=False)
+# from sklearn import datasets
+# X, y = datasets.load_digits(return_X_y=True)
 
-#from sklearn import datasets
-#X, y = datasets.load_digits(return_X_y=True)
 
-MR = ModelsRunner(path="../data/6w_pb_fiesta_3000_pop/program_logs.csv")
-MR.train_all_models_on_specific_data_using_path(path="../data/6w_pb_fiesta_3000_pop/program_logs.csv")
+MR = ModelsRunner(path="../data/ready_to_train/carls_power_program_BP_3000_pop.csv")
+enet = ElasticNet(path="../data/ready_to_train/carls_power_program_BP_3000_pop.csv")
+print(enet.data.Xtrain)
+print(enet.data.Ytrain)
+print(enet.train_and_save_the_class_included_the_trained_model("carls_power_program_BP_3000_pop"))
