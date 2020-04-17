@@ -109,7 +109,7 @@ def ttrdata_from_csv(file_path, time_format, contains_header=True):
         return ttr_data_from_reader(csv_reader, time_format, contains_header=True)
 
 
-def ttrdata_from_csv_population_4_weeks(logs_path, individuals_path):
+def ttrdata_from_csv_population_4_weeks(logs_path):
     """
     Wrapper function for ttrdata_from_csv meant for files directly outputted from the simulator.
 
@@ -117,13 +117,11 @@ def ttrdata_from_csv_population_4_weeks(logs_path, individuals_path):
     ID | Exercise | Weight | Reps | Timestamp | Performance
 
     :param logs_path: The path to the CSV file from the simulator containing the training logs.
-    :param individuals_path: path to the individuals csv file.
 
     :returns: Dataframe consisting of the TTR data during the last 4 weeks with the associated
     individual's ID
     """
     logs = pd.read_csv(logs_path, sep="|")
-    individuals = pd.read_csv(individuals_path, sep="|")
 
     # Calculate TTR_DATA based on pre-logs.
     ttr_data = {}
@@ -144,10 +142,7 @@ def ttrdata_from_csv_population_4_weeks(logs_path, individuals_path):
     data = pd.DataFrame(columns=headers)
 
     # Transform data
-    for index, ind in individuals.iterrows():
-        p_id = str(ind.get("ID"))
-
-        ttr = ttr_data.get(p_id)
+    for p_id, ttr in ttr_data.items():
 
         # Take last 4 weeks.
         entry = ttr[-8:]
