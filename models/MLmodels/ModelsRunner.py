@@ -70,6 +70,17 @@ class ModelsRunner:
             model.regression()
             model.save_the_class_included_the_trained_model()
 
+    def train_specific_models_on_specific_data_and_then_save_them_all_as_binary_sav_files_with_path(self, path, model_name):
+        switcher = {
+            'Lasso': Lasso(path=path).save_the_class_included_the_trained_model(),
+            'Ridge': Ridge(path=path).save_the_class_included_the_trained_model(),
+            'ElasticNet': ElasticNet(path=path).save_the_class_included_the_trained_model(),
+            'DecisionTree': DecisionTree(path=path).save_the_class_included_the_trained_model(),
+            'RandomForest': RandomForest(path=path).save_the_class_included_the_trained_model(),
+            'NeuralNetwork': NeuralNetwork(path=path).save_the_class_included_the_trained_model()
+        }
+        switcher.get(model_name, "Invalid model name")
+
 
 # executing example
 # ModelsRunner().train_specific_models_and_plot_curves(['ElasticNet', 'DecisionTree'])
