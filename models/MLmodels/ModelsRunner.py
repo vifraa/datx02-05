@@ -114,8 +114,8 @@ class ModelsRunner:
 # X, y = datasets.load_digits(return_X_y=True)
 
 
-MR = ModelsRunner(path="../data/ready_to_train/carls_power_program_BP_3000_pop.csv")
-enet = ElasticNet(path="../data/ready_to_train/carls_power_program_BP_3000_pop.csv")
+MR = ModelsRunner(path="../data/ready_to_train/ogasawara_LL_3000_pop.csv")
+enet = ElasticNet(path="../data/ready_to_train/ogasawara_LL_3000_pop.csv")
 print(enet.data.Xtrain)
 print(enet.data.Ytrain)
-print(enet.train_and_save_the_class_included_the_trained_model("carls_power_program_BP_3000_pop"))
+print(enet.train_and_save_the_class_included_the_trained_model("ogasawara_LL_3000_pop"))
