@@ -124,10 +124,10 @@ def load_individuals(individuals_path):
     return individuals
 
 
-def generate_individuals_with_param(n, bpm, bpv, am, av, gr, wm, wv):
+def generate_individuals_with_param(n, bpm, bpv):
     import pathlib
     os.chdir("../../")
-    generated_individuals = generate_individuals(n, am, av, wm, wv, bpm, bpv, gr)
+    generated_individuals = generate_individuals(n, bpm, bpv)
     save_individuals(generated_individuals, "simulator/api/individuals/GeneratedIndividuals.csv", datetime.datetime.now())
 
 def main(argv):

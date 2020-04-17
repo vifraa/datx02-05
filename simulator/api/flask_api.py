@@ -19,8 +19,8 @@ def index():
     return 'Hello world!'
 
 
-@app.route("/individuals/<n>/<bpm>/<bpv>/<am>/<av>/<gr>/<wm>/<wv>")
-def individuals(n, bpm, bpv, am, av, gr, wm, wv):
+@app.route("/individuals/<n>/<bpm>/<bpv>")
+def individuals(n, bpm, bpv):
     try:
         os.chdir("../../")
         os.remove('simulator/api/individuals/GeneratedIndividuals.csv')
@@ -29,7 +29,7 @@ def individuals(n, bpm, bpv, am, av, gr, wm, wv):
         print("Nothing has been deleted")
     try:
         os.chdir("simulator/api")
-        generate_individuals_with_param(n, bpm, bpv, am, av, gr, wm, wv)
+        generate_individuals_with_param(n, bpm, bpv)
         with open('simulator/api/individuals/GeneratedIndividuals.csv', newline='') as f:
             reader = csv.reader(f)
             data = list(reader)
