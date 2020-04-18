@@ -6,7 +6,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Default from './Components/default';
 import Footer from './Components/footer';
-
+import simulator_main from './Components/SimulatorComponents/simulator_main';
 
 function App() {
 
@@ -25,7 +25,7 @@ function App() {
             <BrowserRouter>
               <Switch>
                 <Route exact path="/" component={main} />
-                {/*<Route path="/" component={} />*/}
+                <Route path="/simulator" component={simulator_main} />
                 <Route component={Default} />
               </Switch>
             </BrowserRouter>

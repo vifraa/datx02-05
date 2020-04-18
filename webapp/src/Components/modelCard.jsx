@@ -5,10 +5,9 @@ import {
   MDBCardBody,
   MDBCardImage,
   MDBCardTitle,
-  MDBRow,
-  MDBCol,
   MDBIcon,
 } from "mdbreact";
+
 import { Row, Container } from "react-bootstrap";
 class modelCard extends Component {
   constructor(props) {

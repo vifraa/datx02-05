@@ -119,3 +119,6 @@ enet = ElasticNet(path="../data/ready_to_train/ogasawara_LL_3000_pop.csv")
 print(enet.data.Xtrain)
 print(enet.data.Ytrain)
 print(enet.train_and_save_the_class_included_the_trained_model("ogasawara_LL_3000_pop"))
+
+
+

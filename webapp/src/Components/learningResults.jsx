@@ -1,20 +1,7 @@
 import React, { Component } from "react";
-import {
-  MDBBtn,
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBCardTitle,
-  MDBRow,
-  MDBCol,
-  MDBIcon,
-} from "mdbreact";
 
 class learningResults extends Component {
-  constructor(props) {
-      super(props);
-    };
-  
+
   render() {
     return (
       <div>

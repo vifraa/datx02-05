@@ -104,6 +104,7 @@ if __name__ == "__main__":
     data = np.array(data)[0:5, :]
     print(data)
     logs(1, 1)
+    
     """
     app.run(debug=True)
 

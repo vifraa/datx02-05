@@ -19,6 +19,15 @@
   font-size: xx-large;
 }
 
+#nav_btn_group{
+  margin: auto;
+  width: 100%;
+}
+
+#sim_button_nav, #mod_button_nav, #rec_button_nav{
+  background-color: #843b62;
+}
+
 #UploadDataDiv{
   width: 100%;
   background-color: #451e3e ;
@@ -56,3 +65,4 @@
 #footernav{
   background-color: #251e3e;
 }
+
