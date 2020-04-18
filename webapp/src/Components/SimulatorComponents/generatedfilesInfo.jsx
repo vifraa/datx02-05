@@ -4,10 +4,12 @@ export default class generatedfilesInfo extends Component {
     render() {
         return (
             <div>
-                Hello world!
-                <pre className="h-10" id="generatedfilesInfo">
-                    Generated files:
-                </pre>
+                <div class="section_title">
+                    <h3>Generated files:</h3>
+                    <div id="generated_files" className="information_section">
+                        
+                    </div>
+                </div>
             </div>
         )
     }

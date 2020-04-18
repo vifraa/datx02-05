@@ -6,10 +6,10 @@ class main extends Component {
     render() {
         return (
             <div id="body">
-                <div id="UploadDataDiv">
+                <div id="UploadDataDiv" className="information_section">
                     <UploadData />
                 </div>
-                <div id="ModelsContainerDiv">
+                <div id="ModelsContainerDiv" className="information_section">
                     <ModelsContainer />
                 </div>
 

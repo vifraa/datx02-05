@@ -67,3 +67,10 @@
   background-color: #251e3e;
 }
 
+h3{
+  background-color: #651e3e ;
+}
+
+.information_section{ 
+  min-height: 150px;
+}

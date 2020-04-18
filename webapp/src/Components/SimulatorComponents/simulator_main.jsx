@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import generateIndividuals from './generateIndividuals';
-import trainIndividuals from './trainIndividuals';
-import generatedfilesInfo from './generatedfilesInfo';
+import GenerateIndividuals from './generateIndividuals';
+import TrainIndividuals from './trainIndividuals';
+import GeneratedfilesInfo from './generatedfilesInfo';
 
 export default class simulator_main extends Component {
     render() {
@@ -9,13 +9,13 @@ export default class simulator_main extends Component {
             <div>
                 <div id="simulator_body">
                     <div id="GeneratedfilesInfo">
-                        <generatedfilesInfo />
+                        <GeneratedfilesInfo />
                     </div>
                     <div id="GenerateIndividuals">
-                        <generateIndividuals />
+                        <GenerateIndividuals />
                     </div>
                     <div id="TrainIndividuals">
-                        <trainIndividuals />
+                        <TrainIndividuals />
                     </div>
                 </div>
             </div>
