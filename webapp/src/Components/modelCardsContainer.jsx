@@ -21,6 +21,7 @@ export default class modelCardsContainer extends Component {
         console.log(this.state);
         return (
             <div>
+                <h3>ML models:</h3>
                  <div className="d-flex bd-highlight example-parent ">
                     {this.state.model_names_and_images.map((model, idx) => {
                         return <ModelCard 

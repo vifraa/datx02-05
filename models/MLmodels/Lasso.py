@@ -42,8 +42,8 @@ class Lasso:
             self.read_data_from_path_and_partition(path)
         elif X is not None and Y is not None:
             self.read_X_Y_and_partition(X, Y)
-        #else:
-        #    self.data = dr.DataSample()
+        else:
+            self.data = dr.DataSample()
 
     def read_data_from_path_and_partition(self, path):
         self.data = pd.read_csv(path)

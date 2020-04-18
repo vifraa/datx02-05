@@ -47,10 +47,8 @@ class modelCard extends Component {
   render() {      
         
     return (
-      <Container>
-          <Row>
           <MDBCard
-            className="h-100"
+            className="h-110 mr-3"
             cascade
             onClick={() => {
               this.run_regression_and_curves(this.props.model_run_name);
@@ -61,8 +59,8 @@ class modelCard extends Component {
               className="img-fluid"
               overlay="white-light"
               hover
-              height="400 px"
-              width="400 px"
+              height="400px"
+              width="400px"
               src={this.props.model_img}
             />
             <MDBBtn
@@ -79,8 +77,6 @@ class modelCard extends Component {
               </MDBCardTitle>
             </MDBCardBody>
           </MDBCard>
-        </Row>
-      </Container>
     );
   }
 }

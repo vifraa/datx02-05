@@ -48,15 +48,16 @@ def plotCurves(modelname):
 @app.route("/models/regression/<modelname>")
 def model_regression_results(modelname):
     switcher = {
-        'Lasso': Lasso.Lasso().regression(),
-        'Ridge': Ridge.Ridge().regression(),
-        'ElasticNet': ElasticNet.ElasticNet().regression(),
-        'DecisionTree': DecisionTree.DecisionTree().regression(),
-        'RandomForest': RandomForest.RandomForest().regression(),
-        'NeuralNetwork': NeuralNetwork.NeuralNetwork().regression()
+        'Lasso': Lasso.Lasso,
+        'Ridge': Ridge.Ridge,
+        'ElasticNet': ElasticNet.ElasticNet,
+        'DecisionTree': DecisionTree.DecisionTree,
+        'RandomForest': RandomForest.RandomForest,
+        'NeuralNetwork': NeuralNetwork.NeuralNetwork
     }
     # return modelname
-    return switcher.get(modelname, "Invalid model name")
+    return switcher.get(modelname, "Invalid model name")().regression()
+
 
 
 if __name__ == "__main__":
