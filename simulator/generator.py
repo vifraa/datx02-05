@@ -125,10 +125,11 @@ def load_individuals(individuals_path):
 
 
 def generate_individuals_with_param(n, bpm, bpv):
-    import pathlib
-    os.chdir("../../")
+    # os.chdir("../../")
     generated_individuals = generate_individuals(n, bpm, bpv)
     save_individuals(generated_individuals, "simulator/api/individuals/GeneratedIndividuals.csv", datetime.datetime.now())
+    #save_individuals(generated_individuals, "models/api/individuals/GeneratedIndividuals.csv", datetime.datetime.now())
+
 
 def main(argv):
     """absl entry if user wishes to generate individuals without also training them using the main
@@ -143,4 +144,5 @@ def main(argv):
 
 if __name__ == "__main__":
     app.run(main)
-    print(random_banister_parameters())
+    # print(random_banister_parameters())
+    # generate_individuals_with_param(100, 100, 5)
