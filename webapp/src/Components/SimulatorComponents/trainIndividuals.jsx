@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 export default class trainIndividuals extends Component {
 
@@ -21,11 +23,21 @@ export default class trainIndividuals extends Component {
     }
     */
     
+    submitHandler = event => {
+    event.preventDefault();
+    event.target.className += " was-validated";
+    };
+    
     remove_state(){
         this.setState({ trainings_logs: [] });
     }
     
-    train_population(nr_train_before, nr_train_after) {
+    train_population() {
+
+        var nr_train_before = document.getElementById('nr_train_before').value; 
+        var nr_train_after = document.getElementById('nr_train_after').value; 
+
+
         console.log("sending API request:")
         fetch("http://127.0.0.1:5000/simulator/logs/" + nr_train_before + "/" + nr_train_after)
             .then(res => res.json())
@@ -58,6 +70,18 @@ export default class trainIndividuals extends Component {
                     <h3>Train the individuals and generate logs:</h3>
                     <div id="train_individuals" className="information_section">
                             
+
+                        <Form
+                         onSubmit={this.submitHandler}
+                        >
+                        <Form.Row style={{display: 'block', justifyContent: 'center'}}> 
+                                <Form.Control id="nr_train_before" placeholder="Type the chosen program-number to train before" type="number" style={{width: '30%', marginBottom: '10px'}} required/>
+                                <Form.Control id="nr_train_after" placeholder="Type the chosen program-number to train after" type="number" style={{width: '30%', marginBottom: '10px'}} required/>
+                        </Form.Row>
+                        <Button type="submit" onClick={()=>{this.train_population()}}> Train Individuals</Button>
+                        </Form>
+
+
                         <table className="table-hover table-striped table-bordered">
                             <tbody>
                                 {this.render_individs_table()}

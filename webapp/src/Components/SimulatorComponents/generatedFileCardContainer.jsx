@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import GeneratedFileCard from './generatedFileCard';
+import Button from 'react-bootstrap/Button';
 
 export default class generatedFileCardContainer extends Component {
 
@@ -10,15 +11,14 @@ export default class generatedFileCardContainer extends Component {
         };
     }
 
-    /*
-    componentDidMount() {
+    
+    checkgenerated() {
         fetch("http://127.0.0.1:5000/simulator/generatedfiles")
             .then(res => res.json())
             .then((data) => {
                 this.setState({ gen_files: data });
             }).catch(console.log);
     }
-    */
     
 
     render() {
@@ -34,6 +34,7 @@ export default class generatedFileCardContainer extends Component {
                         />
                     })}
                 </div>
+                <Button style={{width: '15%', marginTop: '10px'}} onClick={()=>{this.checkgenerated()}}>Refresh after generating data</Button>
             </div>
         )
     }

@@ -7,6 +7,7 @@ export default class generatedfilesInfo extends Component {
             <div>
                 <div className="section_title">
                     <h3>Generated files:</h3>
+
                     <div id="generated_files" className="information_section">
                         <GeneratedFileCardContainer />
                     </div>

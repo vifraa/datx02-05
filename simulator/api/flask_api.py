@@ -4,7 +4,6 @@ import os
 import sys
 
 sys.path.insert(1, 'C:/Users/razan/Desktop/Kandidatarbetet/datx02-05/simulator')
-print(os.path.abspath(os.getcwd()))
 
 from generator import generate_individuals_with_param
 from __init__ import train_population_from_file_random_program, train_population_from_file, train_population
@@ -29,12 +28,8 @@ with app.app_context():
             print("Existing GeneratedIndividuals has been deleted")
         except FileNotFoundError:
             print("Nothing has been deleted")
-        print("Debug here::::::: indidviduals")
-        print(os.path.abspath(os.getcwd()))
 
         generate_individuals_with_param(int(n), int(bpm), int(bpv))
-
-        print(os.path.abspath(os.getcwd()))
 
         dataframe = pd.read_csv('simulator/api/individuals/GeneratedIndividuals.csv', sep='|')
 
@@ -43,15 +38,12 @@ with app.app_context():
         data_to_send = data.values.tolist()
         data_to_send.insert(0, headers_list)
 
-        #print(data_to_send)
         print("The population has been generated!")
-
         return jsonify(data_to_send)
 
 
     @app.route("/simulator/logs/<nr_train_before>/<nr_train_after>")
     def logs(nr_train_before, nr_train_after):
-        print("Got the request!")
         # Clean up past output
         OUTPUT_DIR = os.path.join("simulator", "api", "output")
         for fn in os.listdir(OUTPUT_DIR):
@@ -99,7 +91,6 @@ with app.app_context():
         data_to_send = data.values.tolist()
         data_to_send.insert(0, headers_list)
 
-        #print(data_to_send)
         print("The population has been trained!")
 
         return jsonify(data_to_send)
@@ -113,15 +104,10 @@ with app.app_context():
         generatedfiles_info = []
         Individuals_DIR = os.path.join("simulator", "api", "individuals")
 
-        print("Debug here::           generatedfiles")
-        print(os.path.abspath(os.getcwd()))
-
         for fn in os.listdir(Individuals_DIR):
             # Skip hidden files
             if fn.startswith('.'):
                 continue
-            print("printing here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-            print(os.path.join(Individuals_DIR, fn))    
             data = pd.read_csv(os.path.join(Individuals_DIR, fn), sep="|")
             fdimentions = data.shape
             generatedfiles_info.append([fn, fdimentions])
@@ -132,11 +118,9 @@ with app.app_context():
             if fn.startswith('.') or fn == "pre_program_logs.csv":
                 continue
             data = pd.read_csv(os.path.join(OUTPUT_DIR, fn), sep="|")
-            fdimentions = str(data.shape)
+            fdimentions = data.shape
             generatedfiles_info.append([fn, fdimentions])
 
-        print("Debug finished::::: generated files")
-        print(os.path.abspath(os.getcwd()))
 
         print(generatedfiles_info)
         return jsonify(generatedfiles_info)

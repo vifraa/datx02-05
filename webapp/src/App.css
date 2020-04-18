@@ -83,3 +83,7 @@ h3{
 .texted_information_section{ 
   padding-left: 2%;
 }
+
+#train_individuals{
+  min-height: 300px;
+}
