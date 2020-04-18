@@ -20,7 +20,7 @@ def index():
     return 'Hello from Simulator!'
 
 
-@app.route("/individuals/<n>/<bpm>/<bpv>")
+@app.route("/simulator/individuals/<n>/<bpm>/<bpv>")
 def individuals(n, bpm, bpv):
     try:
         os.chdir("../../")
@@ -39,12 +39,12 @@ def individuals(n, bpm, bpv):
             data = np.array(data)[0:6, :]
         else:
             data = np.array(data)[:, :]
-        return data
+        return jsonify(data)
     except:
         return "The population couldn't be generated."
 
 
-@app.route("/logs/<nr_train_before>/<nr_train_after>")
+@app.route("/simulator/logs/<nr_train_before>/<nr_train_after>")
 def logs(nr_train_before, nr_train_after):
     os.chdir("../../")
     # Clean up past output
@@ -91,10 +91,11 @@ def logs(nr_train_before, nr_train_after):
         reader = csv.reader(f)
         data = list(reader)
     data = np.array(data)[0:10, :]
-    return data  # "Your individuals were trained, results can be found in the output folder."
+    os.chdir("simulator/api")
+    return jsonify(data)  # "Your individuals were trained, results can be found in the output folder."
 
 
-@app.route("/generatedfiles")
+@app.route("/simulator/generatedfiles")
 def generatedfiles_info():
     os.chdir("../../")
     # Clean up past output
@@ -104,7 +105,7 @@ def generatedfiles_info():
         # Skip hidden files
         if fn.startswith('.'):
             continue
-        data = pd.read_csv(os.path.join(Individuals_DIR, fn))
+        data = pd.read_csv(os.path.join(Individuals_DIR, fn), sep="|")
         fdimentions = data.shape
         generatedfiles_info.append([fn, fdimentions])
 
@@ -113,11 +114,12 @@ def generatedfiles_info():
         # Skip hidden files
         if fn.startswith('.') or fn == "pre_program_logs.csv":
             continue
-        data = pd.read_csv(os.path.join(OUTPUT_DIR, fn))
-        fdimentions = data.shape
+        data = pd.read_csv(os.path.join(OUTPUT_DIR, fn), sep="|")
+        fdimentions = str(data.shape)
         generatedfiles_info.append([fn, fdimentions])
-
+    os.chdir("simulator/api")
     print(generatedfiles_info)
+    return jsonify(generatedfiles_info)
 
 
 if __name__ == "__main__":
@@ -141,7 +143,8 @@ if __name__ == "__main__":
     logs(1, 1)
     
     """
-    # app.run(debug=True)
+    app.run(debug=True)
+
     # individuals(10, 100, 5)
     # print(logs(1, 1))
     # generatedfiles_info()
