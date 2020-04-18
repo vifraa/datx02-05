@@ -17,7 +17,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route("/simulator")
 def index():
-    return 'Hello world!'
+    return 'Hello from Simulator!'
 
 
 @app.route("/individuals/<n>/<bpm>/<bpv>")
@@ -141,10 +141,9 @@ if __name__ == "__main__":
     logs(1, 1)
     
     """
-    #app.run(debug=True)
-    individuals(10, 100, 5)
-    os.chdir("simulator/api")
-    print(logs(1, 1))
+    # app.run(debug=True)
+    # individuals(10, 100, 5)
+    # print(logs(1, 1))
     # generatedfiles_info()
 
 

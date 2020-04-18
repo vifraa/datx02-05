@@ -15,7 +15,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route("/")
 def index():
-    return 'Hello world!'
+    return 'Hello from  Models!'
 
 
 @app.route("/models")

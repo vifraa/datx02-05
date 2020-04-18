@@ -125,10 +125,10 @@ def load_individuals(individuals_path):
 
 
 def generate_individuals_with_param(n, bpm, bpv):
-    # os.chdir("../../")
+    os.chdir("../../")
     generated_individuals = generate_individuals(n, bpm, bpv)
     save_individuals(generated_individuals, "simulator/api/individuals/GeneratedIndividuals.csv", datetime.datetime.now())
-    #save_individuals(generated_individuals, "models/api/individuals/GeneratedIndividuals.csv", datetime.datetime.now())
+    save_individuals(generated_individuals, "models/api/individuals/GeneratedIndividuals.csv", datetime.datetime.now())
 
 
 def main(argv):
@@ -143,6 +143,6 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    app.run(main)
+    # app.run(main)
     # print(random_banister_parameters())
-    # generate_individuals_with_param(100, 100, 5)
+    generate_individuals_with_param(100, 100, 5)
