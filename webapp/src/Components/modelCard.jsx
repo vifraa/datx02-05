@@ -9,6 +9,8 @@ import {
 } from "mdbreact";
 
 import { Row, Container } from "react-bootstrap";
+
+
 class modelCard extends Component {
   constructor(props) {
     super(props);
