@@ -10,6 +10,7 @@ export default class generatedFileCardContainer extends Component {
         };
     }
 
+    /*
     componentDidMount() {
         fetch("http://127.0.0.1:5000/simulator/generatedfiles")
             .then(res => res.json())
@@ -17,6 +18,8 @@ export default class generatedFileCardContainer extends Component {
                 this.setState({ gen_files: data });
             }).catch(console.log);
     }
+    */
+    
 
     render() {
         console.log(this.state)

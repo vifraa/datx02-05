@@ -21,20 +21,18 @@ flags.DEFINE_string("p", "simulator/individuals/GeneratedIndividuals.csv",
 
 def random_banister_parameters():
     """
-    https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1974899/ table 7
+    Uniformly selects parameters for the banister model
     """
     params = {}
     data = pd.read_csv("simulator/data/banister_params_dist.csv")
 
-    fitness_gain, fatigue_gain, fitness_decay, fatigue_decay = 0,0,0,0
+    fitness_decay = np.random.randint(2, 50)
 
-    # Sample banister params from a multivariate normal distribution inferred using sports science studies and CLT
-    # Details in chapter "Simulator" of report.
-    # Since the constraint fatigue_decay < fitness_decay still applies,
-    # we generate it till the constraint is fulfilled
-    while fatigue_decay >= fitness_decay:
-        sample = np.random.multivariate_normal(data.mean(),np.cov(data.T))
-        fitness_gain, fatigue_gain, fitness_decay, fatigue_decay = sample
+    # Integer between 1 and fitness_decay (fitness lasts longer than fatigue)
+    fatigue_decay = np.random.randint(1, fitness_decay)
+
+    # Float between 1 and 5
+    fitness_gain, fatigue_gain = np.random.uniform(1, 5, 2)
 
     # Insert them into the dict and return
     params["fitness_gain"] = fitness_gain
@@ -43,7 +41,7 @@ def random_banister_parameters():
     params["fatigue_decay"] = fatigue_decay
     return params
 
-def generate_individuals(num,bench_press_fitness_mean, bench_press_fitness_variance):
+def generate_individuals(num, bench_press_fitness_mean, bench_press_fitness_variance):
     """
     Generates individuals to be used in the simulator
 
@@ -69,7 +67,7 @@ def generate_individuals(num,bench_press_fitness_mean, bench_press_fitness_varia
         bench_press_movement = Movement(
             0, 0, bench_press_performances[i],
             banister_params["fitness_gain"], banister_params["fatigue_gain"], banister_params["fitness_decay"], banister_params["fatigue_decay"])
-        individual = Individual(i,name, bench_press_movement)
+        individual = Individual(i,datetime.datetime.now(),name, bench_press_movement)
         individuals.append(individual)
 
     return individuals
@@ -125,10 +123,15 @@ def load_individuals(individuals_path):
 
 
 def generate_individuals_with_param(n, bpm, bpv):
-    os.chdir("../../")
+    # os.chdir("../../")
+    print("Debug here::::::: generate_individuals_with_param")
+    print(os.path.abspath(os.getcwd()))
+
     generated_individuals = generate_individuals(n, bpm, bpv)
     save_individuals(generated_individuals, "simulator/api/individuals/GeneratedIndividuals.csv", datetime.datetime.now())
     save_individuals(generated_individuals, "models/api/individuals/GeneratedIndividuals.csv", datetime.datetime.now())
+
+    print("finish generate_individuals_with_param")
 
 
 def main(argv):
@@ -143,6 +146,6 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    # app.run(main)
+    app.run(main)
     # print(random_banister_parameters())
-    generate_individuals_with_param(100, 100, 5)
+    # generate_individuals_with_param(100, 100, 5)

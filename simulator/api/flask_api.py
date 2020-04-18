@@ -1,14 +1,14 @@
 from flask import Flask, jsonify,send_file, make_response, current_app
 from flask_cors import CORS, cross_origin
+import os
+import sys
+
+sys.path.insert(1, 'C:/Users/razan/Desktop/Kandidatarbetet/datx02-05/simulator')
+print(os.path.abspath(os.getcwd()))
+
 from generator import generate_individuals_with_param
 from __init__ import train_population_from_file_random_program, train_population_from_file, train_population
-import numpy as np
 import pandas as pd
-import csv
-import sys
-import os
-
-sys.path.append('../')
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -24,31 +24,34 @@ with app.app_context():
     @app.route("/simulator/individuals/<n>/<bpm>/<bpv>")
     def individuals(n, bpm, bpv):
         try:
-            os.chdir("../../")
             os.remove('simulator/api/individuals/GeneratedIndividuals.csv')
             os.remove('models/api/individuals/GeneratedIndividuals.csv')
             print("Existing GeneratedIndividuals has been deleted")
         except FileNotFoundError:
             print("Nothing has been deleted")
-        print("Debug here:::::::::::::::::::")
+        print("Debug here::::::: indidviduals")
         print(os.path.abspath(os.getcwd()))
 
-
-        os.chdir("simulator/api")
         generate_individuals_with_param(int(n), int(bpm), int(bpv))
-        data = pd.read_csv('simulator/api/individuals/GeneratedIndividuals.csv', sep='|')
-        data = data.head()
-        data = data.values.tolist()
-        print(data)
+
+        print(os.path.abspath(os.getcwd()))
+
+        dataframe = pd.read_csv('simulator/api/individuals/GeneratedIndividuals.csv', sep='|')
+
+        data = dataframe.head()
+        headers_list = dataframe.columns.values.tolist()
+        data_to_send = data.values.tolist()
+        data_to_send.insert(0, headers_list)
+
+        #print(data_to_send)
         print("The population has been generated!")
 
-        return jsonify(data)
-
+        return jsonify(data_to_send)
 
 
     @app.route("/simulator/logs/<nr_train_before>/<nr_train_after>")
     def logs(nr_train_before, nr_train_after):
-        os.chdir("../../")
+        print("Got the request!")
         # Clean up past output
         OUTPUT_DIR = os.path.join("simulator", "api", "output")
         for fn in os.listdir(OUTPUT_DIR):
@@ -67,9 +70,9 @@ with app.app_context():
             programs_map_to_id[count] = os.path.join(PROGRAMS_DIR, fn)
             count += 1
         # If user selected last number, we choose random
-        random_pre_program = count == nr_train_before
-        no_pre_program = count + 1 == nr_train_before
-        training_program = programs_map_to_id[nr_train_after]
+        random_pre_program = count == int(nr_train_before)
+        no_pre_program = count + 1 == int(nr_train_before)
+        training_program = programs_map_to_id[int(nr_train_after)]
         if not no_pre_program:
             if random_pre_program:
                 train_population_from_file_random_program(
@@ -79,7 +82,7 @@ with app.app_context():
                     "simulator/api/individuals/GeneratedIndividuals.csv", programs_map_to_id,
                     "models/api/output/pre_program_logs.csv")
             else:
-                pre_training_program = programs_map_to_id[nr_train_before]
+                pre_training_program = programs_map_to_id[int(nr_train_before)]
                 train_population_from_file("simulator/api/individuals/GeneratedIndividuals.csv",
                                            pre_training_program, "simulator/api/output/pre_program_logs.csv")
                 train_population_from_file("simulator/api/individuals/GeneratedIndividuals.csv",
@@ -89,31 +92,37 @@ with app.app_context():
         train_population_from_file("simulator/api/individuals/GeneratedIndividuals.csv",
                                    training_program, "models/api/output/program_logs.csv")
 
-        with open('simulator/api/output/program_logs.csv', newline='') as f:
-            reader = csv.reader(f)
-            data = list(reader)
-        data = np.array(data)[0:10, :]
-        os.chdir("simulator/api")
-        return jsonify(data)  # "Your individuals were trained, results can be found in the output folder."
+        dataframe = pd.read_csv('simulator/api/output/program_logs.csv', sep='|')
+
+        data = dataframe.head()
+        headers_list = dataframe.columns.values.tolist()
+        data_to_send = data.values.tolist()
+        data_to_send.insert(0, headers_list)
+
+        #print(data_to_send)
+        print("The population has been trained!")
+
+        return jsonify(data_to_send)
+
 
 
     @app.route("/simulator/generatedfiles")
     def generatedfiles_info():
-        os.chdir("../../")
+
         # Clean up past output
         generatedfiles_info = []
         Individuals_DIR = os.path.join("simulator", "api", "individuals")
 
-
-        print("Debug here:::::::::::::::::::")
+        print("Debug here::           generatedfiles")
         print(os.path.abspath(os.getcwd()))
-
 
         for fn in os.listdir(Individuals_DIR):
             # Skip hidden files
             if fn.startswith('.'):
                 continue
-            data = pd.read_csv(fn, sep="|")
+            print("printing here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            print(os.path.join(Individuals_DIR, fn))    
+            data = pd.read_csv(os.path.join(Individuals_DIR, fn), sep="|")
             fdimentions = data.shape
             generatedfiles_info.append([fn, fdimentions])
 
@@ -125,10 +134,9 @@ with app.app_context():
             data = pd.read_csv(os.path.join(OUTPUT_DIR, fn), sep="|")
             fdimentions = str(data.shape)
             generatedfiles_info.append([fn, fdimentions])
-        os.chdir("simulator/api")
 
-        print("Debug finished:::::::::::::::::::")
-
+        print("Debug finished::::: generated files")
+        print(os.path.abspath(os.getcwd()))
 
         print(generatedfiles_info)
         return jsonify(generatedfiles_info)
@@ -160,6 +168,7 @@ with app.app_context():
         # individuals(10, 100, 5)
         # print(logs(1, 1))
         # generatedfiles_info()
+
 
 
 

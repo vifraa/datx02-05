@@ -28,7 +28,7 @@ export default class generatedFileCard extends Component {
                                 hover
                                 height="200 px"
                                 width="200 px"
-                                src={"https://lh3.googleusercontent.com/proxy/x5h9k-MEkp9bqNgYw49pu7GfCIabeisfD5z7y76JqmSZnc_ye3Sw5obrzVY_aNtEK9yHxjJOBHSiQDc5bEAt0rghzD2KGoGIinnYIsAZAM6vUgYOHllBZ1HD_Z97N2KijX-oMEvT7DaX26DeMRQt3WGc-bN54nzm8mo"}
+                                src={"https://getdrawings.com/free-icon/csv-file-icon-52.png"}
                             />
                             <MDBBtn
                                 floating

@@ -2,15 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d99385c8-848b-42a3-a4c6-9958cef417d6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/DataReader.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/DataReader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/Lasso.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/Lasso.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/api/flask_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/api/flask_api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/flask_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/flask_api.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/generator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../webapp/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generateIndividuals.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generateIndividuals.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/src/Components/modelCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/Components/modelCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/src/Components/modelCardsContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/Components/modelCardsContainer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generatedFileCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generatedFileCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generatedFileCardContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generatedFileCardContainer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/trainIndividuals.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/trainIndividuals.jsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,34 +19,29 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/__init__.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/api/flask_api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-277">
-              <caret line="35" selection-start-line="35" selection-end-line="35" />
+            <state relative-caret-position="68">
+              <caret line="40" column="31" lean-forward="true" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="31" />
               <folding>
-                <element signature="e#384#400#0" expanded="true" />
+                <element signature="e#0#70#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/api/flask_api.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/api/output/program_logs.csv">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="111" selection-start-line="111" selection-end-line="111" />
-              <folding>
-                <element signature="e#0#57#0" expanded="true" />
-              </folding>
-            </state>
+            <state relative-caret-position="-7" />
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/modell/Lib/site-packages/flask/json/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
+            <state relative-caret-position="5848">
               <caret line="357" selection-start-line="357" selection-end-line="357" />
             </state>
           </provider>
@@ -56,7 +50,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/modell/Lib/site-packages/flask/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="428">
+            <state relative-caret-position="422">
               <caret line="2463" selection-start-line="2463" selection-end-line="2463" />
             </state>
           </provider>
@@ -65,25 +59,21 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="127" column="4" lean-forward="true" selection-start-line="127" selection-start-column="4" selection-end-line="127" selection-end-column="4" />
+            <state relative-caret-position="325">
+              <caret line="148" column="4" selection-start-line="148" selection-start-column="4" selection-end-line="148" selection-end-column="4" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/modell/Lib/site-packages/pandas/io/parsers.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="1890" selection-start-line="1890" selection-end-line="1890" />
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/individual.py">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gym.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
+            <state relative-caret-position="2261">
               <caret line="134" selection-start-line="134" selection-end-line="134" />
             </state>
           </provider>
@@ -92,7 +82,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/movement.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
+            <state relative-caret-position="969">
               <caret line="57" selection-start-line="57" selection-end-line="57" />
             </state>
           </provider>
@@ -117,6 +107,11 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>exte</find>
+      <find>generatedfiles</find>
+      <find>os.</find>
+      <find>os.ch</find>
+      <find>random_banister_parameters</find>
+      <find>move</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -125,8 +120,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/api/individuals/GeneratedIndividuals.csv" />
         <option value="$PROJECT_DIR$/generator.py" />
+        <option value="$PROJECT_DIR$/api/individuals/GeneratedIndividuals.csv" />
         <option value="$PROJECT_DIR$/api/flask_api.py" />
       </list>
     </option>
@@ -162,6 +157,18 @@
             <path>
               <item name="simulator" type="b2602c69:ProjectViewProjectNode" />
               <item name="simulator" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="individuals" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="simulator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="simulator" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="output" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="simulator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="simulator" type="462c0819:PsiDirectoryNode" />
               <item name="data" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -184,7 +191,7 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -263,12 +270,13 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1587122289929</updated>
-      <workItem from="1587122292046" duration="19422000" />
+      <workItem from="1587122292046" duration="20020000" />
+      <workItem from="1587204515619" duration="9702000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18976000" />
+    <option name="totallyTimeSpent" value="29276000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -283,13 +291,13 @@
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18283582" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18496802" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32917964" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32917964" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3997923" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3997923" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32917964" />
@@ -297,7 +305,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32917964" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.33541018" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.42159918" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.30218068" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -350,22 +358,44 @@
       </map>
     </option>
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/api/flask_api.py</url>
-          <line>111</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/simulator$generator.coverage" NAME="generator Coverage Results" MODIFIED="1587194433598" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/simulator$flask_api.coverage" NAME="flask_api Coverage Results" MODIFIED="1587195335326" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/api" />
+    <SUITE FILE_PATH="coverage/simulator$flask_api.coverage" NAME="flask_api Coverage Results" MODIFIED="1587206297088" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/api" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/api/output/pre_program_logs.csv" />
+    <entry file="file://$PROJECT_DIR$/individuals/GeneratedIndividuals.csv" />
+    <entry file="file://$PROJECT_DIR$/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
+          <folding>
+            <element signature="e#384#400#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/modell/Lib/site-packages/flask/json/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5848">
+          <caret line="357" selection-start-line="357" selection-end-line="357" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gym.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2261">
+          <caret line="134" selection-start-line="134" selection-end-line="134" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/movement.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="969">
+          <caret line="57" selection-start-line="57" selection-end-line="57" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/training_programs/carls_power_program_BP.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2550">
@@ -376,70 +406,48 @@
     <entry file="file://$PROJECT_DIR$/training_programs/ogasawara_LL.csv">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/output/pre_program_logs.csv" />
-    <entry file="file://$PROJECT_DIR$/api/output/program_logs.csv" />
-    <entry file="file://$PROJECT_DIR$/movement.py">
+    <entry file="file://$USER_HOME$/modell/Lib/site-packages/flask/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="57" selection-start-line="57" selection-end-line="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gym.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="134" selection-start-line="134" selection-end-line="134" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-277">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
-          <folding>
-            <element signature="e#384#400#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="422">
+          <caret line="2463" selection-start-line="2463" selection-end-line="2463" />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/modell/Lib/site-packages/pandas/io/parsers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="1890" selection-start-line="1890" selection-end-line="1890" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/individuals/GeneratedIndividuals.csv" />
-    <entry file="file://$PROJECT_DIR$/api/individuals/GeneratedIndividuals.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$USER_HOME$/modell/Lib/site-packages/flask/json/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="357" selection-start-line="357" selection-end-line="357" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/modell/Lib/site-packages/flask/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="2463" selection-start-line="2463" selection-end-line="2463" />
+        <state relative-caret-position="12716">
+          <caret line="1113" selection-start-line="1113" selection-end-line="1113" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="127" column="4" lean-forward="true" selection-start-line="127" selection-start-column="4" selection-end-line="127" selection-end-column="4" />
+        <state relative-caret-position="325">
+          <caret line="148" column="4" selection-start-line="148" selection-start-column="4" selection-end-line="148" selection-end-column="4" />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/individual.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/individuals/GeneratedIndividuals.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="132" lean-forward="true" selection-start-line="24" selection-start-column="132" selection-end-line="24" selection-end-column="132" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/output/program_logs.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/api/flask_api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="111" selection-start-line="111" selection-end-line="111" />
+        <state relative-caret-position="68">
+          <caret line="40" column="31" lean-forward="true" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="31" />
           <folding>
-            <element signature="e#0#57#0" expanded="true" />
+            <element signature="e#0#70#0" expanded="true" />
           </folding>
         </state>
       </provider>
