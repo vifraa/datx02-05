@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d99385c8-848b-42a3-a4c6-9958cef417d6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/api/flask_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/flask_api.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../webapp/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generateIndividuals.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generateIndividuals.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generatedFileCardContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generatedFileCardContainer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generatedfilesInfo.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generatedfilesInfo.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/trainIndividuals.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/trainIndividuals.jsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/flask_api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1428">
-              <caret line="120" column="36" lean-forward="true" selection-start-line="120" selection-start-column="36" selection-end-line="120" selection-end-column="36" />
+            <state relative-caret-position="839">
+              <caret line="125" column="14" selection-start-line="125" selection-start-column="8" selection-end-line="125" selection-end-column="14" />
               <folding>
                 <element signature="e#0#70#0" expanded="true" />
               </folding>
@@ -30,17 +26,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api/output/program_logs.csv">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-748" />
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api/individuals/GeneratedIndividuals.csv">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="187">
+              <caret line="51" lean-forward="true" selection-start-line="51" selection-end-line="51" />
             </state>
           </provider>
         </entry>
@@ -180,6 +169,11 @@
               <item name="simulator" type="462c0819:PsiDirectoryNode" />
               <item name="output" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="simulator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="simulator" type="462c0819:PsiDirectoryNode" />
+              <item name="training_programs" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -190,10 +184,15 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/api/output" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\razan\Desktop\Kandidatarbetet\datx02-05\simulator\api\output" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -270,12 +269,12 @@
       <option name="presentableId" value="Default" />
       <updated>1587122289929</updated>
       <workItem from="1587122292046" duration="20020000" />
-      <workItem from="1587204515619" duration="10884000" />
+      <workItem from="1587204515619" duration="13618000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30458000" />
+    <option name="totallyTimeSpent" value="33192000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -288,9 +287,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18496802" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18496802" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -304,7 +302,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32917964" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.26272067" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.49532712" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.30218068" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -429,22 +427,22 @@
     <entry file="file://$PROJECT_DIR$/individual.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/individuals/GeneratedIndividuals.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/api/output/program_logs.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-748" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/api/individuals/GeneratedIndividuals.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="51" lean-forward="true" selection-start-line="51" selection-end-line="51" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/api/flask_api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1428">
-          <caret line="120" column="36" lean-forward="true" selection-start-line="120" selection-start-column="36" selection-end-line="120" selection-end-column="36" />
+        <state relative-caret-position="839">
+          <caret line="125" column="14" selection-start-line="125" selection-start-column="8" selection-end-line="125" selection-end-column="14" />
           <folding>
             <element signature="e#0#70#0" expanded="true" />
           </folding>

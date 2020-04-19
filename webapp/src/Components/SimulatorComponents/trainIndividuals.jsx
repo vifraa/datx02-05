@@ -68,8 +68,22 @@ export default class trainIndividuals extends Component {
             <div>
                 <div className="section_title">
                     <h3>Train the individuals and generate logs:</h3>
+                    <h4>Make sure you have generated a popuation using generator.py before running this!</h4>
+                    <h4>Programs:</h4>
+                    <ol>
+                        <li>6w_bp_fiesta.csv</li>
+                        <li>carls_power_program_BP.csv</li>
+                        <li>kikuchi.csv</li>
+                        <li>ogasawara_HL.csv</li>
+                        <li>ogasawara_LL.csv</li>
+                        <li>Random program for each individual</li>
+                        <li>No pre-training program</li>
+                    </ol>
+                    <h5>Please enter the number of the program to train before:</h5>
+                    
+
                     <div id="train_individuals" className="information_section">
-                            
+                        
 
                         <Form
                          onSubmit={this.submitHandler}
