@@ -2,9 +2,7 @@ import pickle
 import pandas as pd
 import matplotlib.pyplot as plt
 import warnings
-import sys
 import io
-sys.path.insert(0, "C:/Users/ljubo/Desktop/Repo/datx02-05/models/")
 import MLmodels.DataReader as dr
 from sklearn.metrics import mean_squared_error, r2_score
 from helpers import print_training_result_summary, training_result_summary
@@ -43,8 +41,8 @@ class ElasticNet:
             self.read_data_from_path_and_partition(path)
         elif X is not None and Y is not None:
             self.read_X_Y_and_partition(X, Y)
-        else:
-            self.data = dr.DataSample()
+        #else:
+        #    self.data = dr.DataSample()
 
     def read_data_from_path_and_partition(self, path):
         self.data = pd.read_csv(path)
@@ -132,4 +130,9 @@ class ElasticNet:
         return self.eNet
 
 
-#ElasticNet().regression_and_plot_curves()
+
+# en = ElasticNet()
+# en.regression()
+
+
+

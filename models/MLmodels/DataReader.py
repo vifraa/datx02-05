@@ -1,6 +1,4 @@
 import random
-import sys
-sys.path.insert(0, "C:/Users/ljubo/Desktop/Repo/datx02-05/models/")
 
 import pandas as pd
 from IPython.display import display
@@ -17,9 +15,9 @@ class DataSample:
         if path is not None:
             self.data = pd.read_csv(path)
         else:
-            self.data = pd.read_csv("data/regression_dataframes2.csv")
-            # self.data = pd.read_csv("../data/regression_dataframe_medium.csv")
-            # self.data = []
+            # self.data = pd.read_csv("data/regression_dataframes2.csv")
+            # self.data = pd.read_csv("../data/regression_dataframe_medium.csv", sep=',')
+            self.data = []
             # print("The data is empty")
         # Shuffle the dataset.
         self.data_shuffled = self.data.sample(frac=1.0, random_state=0)
