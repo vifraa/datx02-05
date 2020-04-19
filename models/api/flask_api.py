@@ -1,12 +1,15 @@
 from flask import Flask, jsonify,send_file, make_response
 from flask_cors import CORS, cross_origin
-
+import sys
+sys.path.insert(0, "C:/Users/ljubo/Desktop/Repo/datx02-05/models/")
 import MLmodels.DecisionTree as DecisionTree
 import MLmodels.ElasticNets as ElasticNet
 import MLmodels.Lasso as Lasso
 import MLmodels.NeuralNetwork as NeuralNetwork
 import MLmodels.RandomForest as RandomForest
 import MLmodels.Ridge as Ridge
+import os
+import pandas as pd
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -30,8 +33,8 @@ def model_names():
     ]
     return jsonify(res)
 
-@app.route("/models/plot/<modelname>")
-def plotCurves(modelname):
+@app.route("/models/plot/<modelname>/<filename>")
+def plotCurves(modelname, filename):
     bytes_obj = {
         'Lasso': Lasso.Lasso,
         'Ridge': Ridge.Ridge,
@@ -39,14 +42,14 @@ def plotCurves(modelname):
         'DecisionTree': DecisionTree.DecisionTree,
         'RandomForest': RandomForest.RandomForest,
         'NeuralNetwork': NeuralNetwork.NeuralNetwork
-    }[modelname]().learning_curves()
+    }[modelname](path="../data/"+filename).learning_curves()
 
     return send_file(bytes_obj,
                      attachment_filename='plot.png',
                      mimetype='image/png')
 
-@app.route("/models/regression/<modelname>")
-def model_regression_results(modelname):
+@app.route("/models/regression/<modelname>/<filename>")
+def model_regression_results(modelname, filename):
     switcher = {
         'Lasso': Lasso.Lasso,
         'Ridge': Ridge.Ridge,
@@ -56,9 +59,9 @@ def model_regression_results(modelname):
         'NeuralNetwork': NeuralNetwork.NeuralNetwork
     }
     # return modelname
-    return switcher.get(modelname, "Invalid model name")().regression()
-
+    return switcher.get(modelname, "Invalid model name")(path="../data/"+filename).regression()
 
 
 if __name__ == "__main__":
     app.run(debug=True)
+

@@ -13,7 +13,7 @@ export default class generatedFileCardContainer extends Component {
 
     
     checkgenerated() {
-        fetch("http://127.0.0.1:5000/simulator/generatedfiles")
+        fetch("http://127.0.0.1:12345/simulator/generatedfiles")
             .then(res => res.json())
             .then((data) => {
                 this.setState({ gen_files: data });
@@ -29,7 +29,7 @@ export default class generatedFileCardContainer extends Component {
                     {this.state.gen_files.map((gen_file, idx) => {
                         return <GeneratedFileCard
                             csvName={gen_file[0]}
-                            csvShape={gen_file[1][0] + 'x' + gen_file[1][1]}
+                            csvShape={gen_file[1][0] + ' x ' + gen_file[1][1]}
                             key={idx}
                         />
                     })}

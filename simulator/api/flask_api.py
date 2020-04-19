@@ -3,7 +3,7 @@ from flask_cors import CORS, cross_origin
 import os
 import sys
 
-sys.path.insert(1, 'C:/Users/razan/Desktop/Kandidatarbetet/datx02-05/simulator')
+sys.path.insert(1, 'C:/Users/Ljubo/Desktop/Repo/datx02-05/simulator')
 
 from generator import generate_individuals_with_param
 from __init__ import train_population_from_file_random_program, train_population_from_file, train_population
@@ -147,7 +147,7 @@ with app.app_context():
         logs(1, 1)
         
         """
-        app.run(debug=True)
+        app.run(host= '127.0.0.1', port=12345,debug=True)
 
         # individuals(10, 100, 5)
         # print(logs(1, 1))

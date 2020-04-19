@@ -1,7 +1,10 @@
 import random
 import sys
 sys.path.insert(0, "C:/Users/ljubo/Desktop/Repo/datx02-05/models/")
-
+# C:\Users\ljubo\Desktop\Repo\datx02-05\models\api\flask_api.py
+import os
+os.chdir(os.path.dirname(__file__))
+print(os.getcwd())
 import pandas as pd
 from IPython.display import display
 from sklearn.model_selection import train_test_split
@@ -15,9 +18,11 @@ class DataSample:
     def read_partition(self, path):
         print("data reader checkpoint!")
         if path is not None:
-            self.data = pd.read_csv(path)
+            self.data = pd.read_csv("../data/"+ path)
+            print(1111111111111111111)
         else:
-            self.data = pd.read_csv("data/regression_dataframes2.csv")
+            self.data = pd.read_csv("../data/regression_dataframes2.csv")
+            print(22222222222222)
             # self.data = pd.read_csv("../data/regression_dataframe_medium.csv")
             # self.data = []
             # print("The data is empty")

@@ -1,5 +1,9 @@
+import sys
+sys.path.insert(0, "C:/Users/ljubo/Desktop/Repo/datx02-05/models/")'
 import pandas as pd
+
 import MLmodels.DataReader as dr
+
 from MLmodels.DecisionTree import DecisionTree
 from MLmodels.ElasticNets import ElasticNet
 from MLmodels.Lasso import Lasso
@@ -114,11 +118,11 @@ class ModelsRunner:
 # X, y = datasets.load_digits(return_X_y=True)
 
 
-MR = ModelsRunner(path="../data/ready_to_train/ogasawara_LL_3000_pop.csv")
-enet = ElasticNet(path="../data/ready_to_train/ogasawara_LL_3000_pop.csv")
-print(enet.data.Xtrain)
-print(enet.data.Ytrain)
-print(enet.train_and_save_the_class_included_the_trained_model("ogasawara_LL_3000_pop"))
+# MR = ModelsRunner(path="../data/ready_to_train/ogasawara_LL_3000_pop.csv")
+# enet = ElasticNet(path="../data/ready_to_train/ogasawara_LL_3000_pop.csv")
+# print(enet.data.Xtrain)
+# print(enet.data.Ytrain)
+# print(enet.train_and_save_the_class_included_the_trained_model("ogasawara_LL_3000_pop"))
 
 
 

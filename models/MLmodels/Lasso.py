@@ -1,10 +1,11 @@
+import sys
+sys.path.insert(0, "C:/Users/ljubo/Desktop/Repo/datx02-05/models/")
 import pickle
 import pandas as pd
 import warnings
 import io
 import matplotlib.pyplot as plt
-import sys
-sys.path.insert(0, "C:/Users/ljubo/Desktop/Repo/datx02-05/models/")
+
 import MLmodels.DataReader as dr
 from sklearn import linear_model
 from sklearn.metrics import mean_squared_error, r2_score
