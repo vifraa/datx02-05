@@ -17,7 +17,7 @@ export default class modelCardsContainer extends Component {
   }
 
   componentDidMount() {
-    fetch("http://127.0.0.1:5000/models")
+    fetch("http://127.0.0.1:5001/models")
       .then((res) => res.json())
       .then((data) => {
         this.setState({ model_names_and_images: data });

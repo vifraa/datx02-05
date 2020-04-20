@@ -1,6 +1,7 @@
 import sys
 import json
 import io
+from flask_cors import CORS, cross_origin
 
 from flask import Flask, request, jsonify, render_template
 from flask.json import JSONEncoder
@@ -17,7 +18,8 @@ class ExtendedJSONEncoder(JSONEncoder):
 
 app = Flask(__name__)
 app.json_encoder = ExtendedJSONEncoder
-
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route("/")
 def index():

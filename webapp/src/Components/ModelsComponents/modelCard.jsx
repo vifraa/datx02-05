@@ -20,11 +20,11 @@ class modelCard extends Component {
 
 
   run_regression_and_curves(ModelName, generatedFileName) {
-    fetch("http://127.0.0.1:5000/models/regression/" + ModelName + "/" + generatedFileName)
+    fetch("http://127.0.0.1:5001/models/regression/" + ModelName + "/" + generatedFileName)
       .then((res) => res.text())
       .then((data) => {
         this.setState({ regression_results: data });
-        fetch("http://127.0.0.1:5000/models/plot/" + ModelName + "/" + generatedFileName)
+        fetch("http://127.0.0.1:5001/models/plot/" + ModelName + "/" + generatedFileName)
         .then((ires) => ires.blob())
         .then((images) => {
             const objectURL = URL.createObjectURL(images);
