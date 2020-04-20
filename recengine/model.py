@@ -5,6 +5,11 @@ prediction model.
 import pickle
 import os
 
+import sys
+sys.path.append(os.path.join(os.pardir, "models"))
+sys.path.append(os.path.join(os.pardir, "models", "MLmodels"))
+
+
 class Model:
     """
     Model contains functionality for working with generated

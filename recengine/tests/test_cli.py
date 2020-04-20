@@ -3,7 +3,7 @@ import os
 import click
 from click.testing import CliRunner
 from cli import pbar, ttr
-from hypothesis import given
+from hypothesis import given, settings
 from hypothesis.strategies import floats, integers, sampled_from, booleans
 
 def test_pbar_works_isolated():
@@ -63,6 +63,7 @@ def test_pbar(age, weight, performance, sex, hide):
     assert res.exit_code == 0
 
 @given(integers(), booleans())
+@settings(deadline=500)
 def test_ttr(weeks, hide):
     """
     Tests that the ttr command finishes with expected input.
