@@ -24,8 +24,10 @@ function App() {
         <Container fluid={true} style={{ paddingLeft: 0, paddingRight: 0}}>
             <BrowserRouter>
               <Switch>
-                <Route exact path="/" component={main} />
-                <Route path="/simulator" component={simulator_main} />
+                <Route exact path="/simulator" component={simulator_main} />
+                <Route path="/models" component={main} />
+                <Route path="/recengine" component={main} />
+                <Route path="/ttrrecengine" component={main} />
                 <Route component={Default} />
               </Switch>
             </BrowserRouter>

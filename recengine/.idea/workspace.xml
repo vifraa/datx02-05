@@ -2,21 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db503931-571b-4272-b5ed-748896a9bcae" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../.vscode/settings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/DataReader.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/DataReader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../models/MLmodels/DecisionTree.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/DecisionTree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../models/MLmodels/ElasticNets.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/ElasticNets.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../models/MLmodels/Lasso.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/Lasso.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../models/MLmodels/ModelsRunner.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/ModelsRunner.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../models/MLmodels/NeuralNetwork.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/NeuralNetwork.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../models/MLmodels/RandomForest.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/RandomForest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../models/MLmodels/Ridge.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/Ridge.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../models/api/flask_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/api/flask_api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simulator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../simulator/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../simulator/api/flask_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/../simulator/api/flask_api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generatedFileCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generatedFileCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generatedFileCardContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generatedFileCardContainer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generatedfilesInfo.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generatedfilesInfo.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/src/Components/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/Components/main.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/src/Components/modelCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/Components/modelCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../webapp/src/Components/modelCardsContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/Components/modelCardsContainer.jsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -123,18 +118,17 @@
       <option name="presentableId" value="Default" />
       <updated>1586467819342</updated>
       <workItem from="1586467820966" duration="3043000" />
-      <workItem from="1587340649150" duration="594000" />
+      <workItem from="1587340649150" duration="678000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3637000" />
+    <option name="totallyTimeSpent" value="3721000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25266525" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25266525" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -148,7 +142,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32917964" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
