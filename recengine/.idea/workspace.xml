@@ -2,11 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db503931-571b-4272-b5ed-748896a9bcae" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/class_contains_trained_Elastic_Net_model_on_6w_pb_fiesta_3000_pop_with_more_functionalities.sav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/class_contains_trained_Elastic_Net_model_on_carls_power_program_BP_3000_pop_with_more_functionalities.sav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/class_contains_trained_Elastic_Net_model_on_kikuchi_3000_pop_with_more_functionalities.sav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/class_contains_trained_Elastic_Net_model_on_ogasawara_HL_3000_pop_with_more_functionalities.sav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../models/MLmodels/class_contains_trained_Elastic_Net_model_on_ogasawara_LL_3000_pop_with_more_functionalities.sav" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.vscode/settings.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../models/MLmodels/DataReader.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/DataReader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../models/MLmodels/Lasso.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/Lasso.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../models/MLmodels/ModelsRunner.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/MLmodels/ModelsRunner.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../models/api/flask_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/../models/api/flask_api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../simulator/api/flask_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/../simulator/api/flask_api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../webapp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../webapp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generatedFileCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generatedFileCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generatedFileCardContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generatedFileCardContainer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generatedfilesInfo.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/Components/SimulatorComponents/generatedfilesInfo.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../webapp/src/Components/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/Components/main.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../webapp/src/Components/modelCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/Components/modelCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../webapp/src/Components/modelCardsContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../webapp/src/Components/modelCardsContainer.jsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -113,12 +123,12 @@
       <option name="presentableId" value="Default" />
       <updated>1586467819342</updated>
       <workItem from="1586467820966" duration="3043000" />
-      <workItem from="1587340649150" duration="556000" />
+      <workItem from="1587340649150" duration="594000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3599000" />
+    <option name="totallyTimeSpent" value="3637000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />

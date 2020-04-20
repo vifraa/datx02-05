@@ -1,7 +1,9 @@
 import pickle
 
 import pandas as pd
+
 import MLmodels.DataReader as dr
+
 from MLmodels.DecisionTree import DecisionTree
 from MLmodels.ElasticNets import ElasticNet
 from MLmodels.Lasso import Lasso
@@ -128,13 +130,13 @@ print(enet.train_and_save_the_class_included_the_trained_model("ogasawara_HL_300
 
 """
 load the trained model
-"""
+
 filename = 'class_contains_trained_Elastic_Net_model_on_ogasawara_LL_3000_pop_with_more_functionalities.sav'
 loaded_model = pickle.load(open(filename, 'rb'))
 
-"""
+
 use the trained model
-"""
+
 import numpy as np
 data_to_predict_performance_for = np.array([4873.5, 42.75, 4873.5, 42.75, 4873.5, 42.75, 4873.5, 42.75])
 reshaped_data = data_to_predict_performance_for.reshape(1, -1)
@@ -145,9 +147,8 @@ print("The predicted performance is : ", loaded_model.predict(reshaped_data))
 print("---------------------------------------------\n")
 
 
-"""
 check the performance of the model
-"""
+
 print("---------------------------------------------")
 print("The mean squared error of the model is : ", loaded_model.mean_squared_error())
 print("The mean r2 score of the model is : ", loaded_model.r2_score())
@@ -156,3 +157,4 @@ print("---------------------------------------------")
 
 # loaded_model.plot_learning_curves() # to plot the 3 learning curves of the model
 # loaded_model.get_trained_model() # if you want to do more direct operations on the trained model
+"""

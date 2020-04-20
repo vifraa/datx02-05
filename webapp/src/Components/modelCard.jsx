@@ -8,8 +8,6 @@ import {
   MDBIcon,
 } from "mdbreact";
 
-import { Row, Container } from "react-bootstrap";
-
 
 class modelCard extends Component {
   constructor(props) {
@@ -21,12 +19,12 @@ class modelCard extends Component {
   }
 
 
-  run_regression_and_curves(ModelName) {
-    fetch("http://127.0.0.1:5000/models/regression/" + ModelName)
+  run_regression_and_curves(ModelName, generatedFileName) {
+    fetch("http://127.0.0.1:5000/models/regression/" + ModelName + "/" + generatedFileName)
       .then((res) => res.text())
       .then((data) => {
         this.setState({ regression_results: data });
-        fetch("http://127.0.0.1:5000/models/plot/" + ModelName)
+        fetch("http://127.0.0.1:5000/models/plot/" + ModelName + "/" + generatedFileName)
         .then((ires) => ires.blob())
         .then((images) => {
             const objectURL = URL.createObjectURL(images);
@@ -51,7 +49,7 @@ class modelCard extends Component {
             className="h-110 mr-3"
             cascade
             onClick={() => {
-              this.run_regression_and_curves(this.props.model_run_name);
+              this.run_regression_and_curves(this.props.model_run_name, this.props.generatedFileName);
             }}
           >
             <MDBCardImage

@@ -1,10 +1,6 @@
 from flask import Flask, jsonify,send_file, make_response, current_app
 from flask_cors import CORS, cross_origin
 import os
-import sys
-
-sys.path.insert(1, 'C:/Users/razan/Desktop/Kandidatarbetet/datx02-05/simulator')
-
 from generator import generate_individuals_with_param
 from __init__ import train_population_from_file_random_program, train_population_from_file, train_population
 import pandas as pd
@@ -147,7 +143,7 @@ with app.app_context():
         logs(1, 1)
         
         """
-        app.run(debug=True)
+        app.run(host= '127.0.0.1', port=12345,debug=True)
 
         # individuals(10, 100, 5)
         # print(logs(1, 1))

@@ -14,7 +14,7 @@ import {
 export default class generatedFileCard extends Component {
     render() {
         return (
-            <div>
+            <div >
                 <Container>
                     <Row>
                         <MDBCard
@@ -29,6 +29,7 @@ export default class generatedFileCard extends Component {
                                 height="200 px"
                                 width="200 px"
                                 src={"https://getdrawings.com/free-icon/csv-file-icon-52.png"}
+                                
                             />
                             <MDBBtn
                                 floating

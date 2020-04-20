@@ -1,5 +1,3 @@
-import random
-
 import pandas as pd
 from IPython.display import display
 from sklearn.model_selection import train_test_split
@@ -18,7 +16,12 @@ class DataSample:
             # self.data = pd.read_csv("data/regression_dataframes2.csv")
             # self.data = pd.read_csv("../data/regression_dataframe_medium.csv", sep=',')
             self.data = []
+            raise Exception('The Data reader is being used now and it shouldn't)
+            # self.data = pd.read_csv("../data/regression_dataframes2.csv")
+            # self.data = pd.read_csv("../data/regression_dataframe_medium.csv")
+            # self.data = []
             # print("The data is empty")
+
         # Shuffle the dataset.
         self.data_shuffled = self.data.sample(frac=1.0, random_state=0)
 
