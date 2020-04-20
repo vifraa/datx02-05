@@ -125,6 +125,25 @@ with app.app_context():
         return jsonify(generatedfiles_info)
 
 
+    @app.route("/simulator/trainingsets")
+    def trainingsets():
+
+        # Clean up past output
+        generatedfiles_info = []
+
+        trainingsets_DIR = os.path.join("simulator", "api", "trainingsets")
+        for fn in os.listdir(trainingsets_DIR):
+            # Skip hidden files
+            if fn.startswith('.'):
+                continue
+            data = pd.read_csv(os.path.join(trainingsets_DIR, fn), sep="|")
+            fdimentions = data.shape
+            generatedfiles_info.append([fn, fdimentions])
+
+        print(generatedfiles_info)
+        return jsonify(generatedfiles_info)
+
+
     if __name__ == "__main__":
         """
         import pathlib

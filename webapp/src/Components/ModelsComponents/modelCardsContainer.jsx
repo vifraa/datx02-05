@@ -4,7 +4,6 @@ import LearningResults from "./learningResults";
 import GeneratedFilesInfo from "../SimulatorComponents/generatedfilesInfo";
 import Select from 'react-select'
 
-
 export default class modelCardsContainer extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +26,7 @@ export default class modelCardsContainer extends Component {
   }
 
   datasetOptions() {
-        fetch("http://127.0.0.1:12345/simulator/generatedfiles")
+        fetch("http://127.0.0.1:12345/simulator/trainingsets")
             .then(res => res.json())
             .then((data) => {
                 let options = [];
@@ -71,6 +70,8 @@ export default class modelCardsContainer extends Component {
         <LearningResults
           model_run_name={this.state.model_names_and_images[1]}
         />
+
+       
       </div>
     );
   }

@@ -18,18 +18,19 @@ export default class generatedFileCard extends Component {
                 <Container>
                     <Row>
                         <MDBCard
-                            className="h-100"
+                            className="h-100 ml-2"
                             cascade
+                            height="220 px"
+                            width="220 px"
                         >
                             <MDBCardImage
                                 cascade
                                 className="img-fluid"
                                 overlay="white-light"
                                 hover
-                                height="200 px"
-                                width="200 px"
                                 src={"https://getdrawings.com/free-icon/csv-file-icon-52.png"}
-                                
+                                height="150 px"
+                                width="150 px"
                             />
                             <MDBBtn
                                 floating

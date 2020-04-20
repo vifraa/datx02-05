@@ -8,6 +8,7 @@ import {
   MDBCardTitle,
   MDBIcon,
 } from "mdbreact";
+import ModelUse from './modelUse';
 
 
 class modelCard extends Component {
@@ -82,6 +83,7 @@ class modelCard extends Component {
           </MDBCard>
           <AwesomeComponent loading={this.state.loading}/>
 
+           <ModelUse ModelName={this.props.model_run_name} generatedFileName={this.props.generatedFileName}/>
         </div>
     );
   }

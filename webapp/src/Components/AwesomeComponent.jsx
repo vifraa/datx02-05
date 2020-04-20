@@ -1,5 +1,5 @@
 import React from 'react';
-import { BallBeat } from 'react-pure-loaders';
+import { TriangleSkewSpin	 } from 'react-pure-loaders';
 
 class AwesomeComponent extends React.Component {
   constructor(props) {
@@ -11,8 +11,8 @@ class AwesomeComponent extends React.Component {
   render() {
     return (
       <div>
-        <BallBeat
-          color={'#123abc'}
+        <TriangleSkewSpin	
+          color={'#ffffff'}
           loading={this.props.loading}
         />
       </div>

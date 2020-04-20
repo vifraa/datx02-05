@@ -2,15 +2,14 @@ from flask import Flask, jsonify,send_file, make_response
 from flask_cors import CORS, cross_origin
 import sys
 sys.path.insert(1, 'C:/Users/razan/Desktop/Kandidatarbetet/datx02-05/models')
-
+import ast
 import MLmodels.DecisionTree as DecisionTree
 import MLmodels.ElasticNets as ElasticNet
 import MLmodels.Lasso as Lasso
 import MLmodels.NeuralNetwork as NeuralNetwork
 import MLmodels.RandomForest as RandomForest
 import MLmodels.Ridge as Ridge
-import os
-import pandas as pd
+import numpy as np
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -46,7 +45,7 @@ def plotCurves(modelname, filename):
         'RandomForest': RandomForest.RandomForest,
         'NeuralNetwork': NeuralNetwork.NeuralNetwork
     }
-    bo = bytes_obj.get(modelname, "Invalid model name")(path="models/api/output/"+filename).learning_curves()
+    bo = bytes_obj.get(modelname, "Invalid model name")(path="models/api/trainingsets/"+filename).learning_curves()
     return send_file(bo,
                      attachment_filename='plot.png',
                      mimetype='image/png')
@@ -61,7 +60,27 @@ def model_regression_results(modelname, filename):
         'RandomForest': RandomForest.RandomForest,
         'NeuralNetwork': NeuralNetwork.NeuralNetwork
     }
-    return switcher.get(modelname, "Invalid model name")(path="models/api/output/"+filename).regression()
+    return switcher.get(modelname, "Invalid model name")(path="models/api/trainingsets/"+filename).regression()
+
+@app.route("/models/predict/<modelname>/<filename>/<data_to_predict>")
+def predict(modelname, filename, data_to_predict):
+    switcher = {
+        'Lasso': Lasso.Lasso,
+        'Ridge': Ridge.Ridge,
+        'ElasticNet': ElasticNet.ElasticNet,
+        'DecisionTree': DecisionTree.DecisionTree,
+        'RandomForest': RandomForest.RandomForest,
+        'NeuralNetwork': NeuralNetwork.NeuralNetwork
+    }
+    model = switcher.get(modelname, "Invalid model name")(path="models/api/trainingsets/"+filename)
+    model.regression()
+    coming_data_as_list_of_str = ast.literal_eval(data_to_predict)
+    coming_data_as_list_of_floats = [float(x) for x in coming_data_as_list_of_str]
+    data_to_predict_performance_for = np.array(coming_data_as_list_of_floats)
+    reshaped_data = data_to_predict_performance_for.reshape(1, -1)
+    print(reshaped_data)
+    return str(model.predict(reshaped_data))
+
 
 
 if __name__ == "__main__":
