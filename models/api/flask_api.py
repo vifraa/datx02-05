@@ -34,8 +34,10 @@ def model_names():
     ]
     return jsonify(res)
 
+
 @app.route("/models/plot/<modelname>/<filename>")
 def plotCurves(modelname, filename):
+    print("HERE======================================================================================================")
     bytes_obj = {
         'Lasso': Lasso.Lasso,
         'Ridge': Ridge.Ridge,
@@ -43,9 +45,9 @@ def plotCurves(modelname, filename):
         'DecisionTree': DecisionTree.DecisionTree,
         'RandomForest': RandomForest.RandomForest,
         'NeuralNetwork': NeuralNetwork.NeuralNetwork
-    }[modelname](path="../data/"+filename).learning_curves()
-
-    return send_file(bytes_obj,
+    }
+    bo = bytes_obj.get(modelname, "Invalid model name")(path="models/api/output/"+filename).learning_curves()
+    return send_file(bo,
                      attachment_filename='plot.png',
                      mimetype='image/png')
 
@@ -59,8 +61,7 @@ def model_regression_results(modelname, filename):
         'RandomForest': RandomForest.RandomForest,
         'NeuralNetwork': NeuralNetwork.NeuralNetwork
     }
-    # return modelname
-    return switcher.get(modelname, "Invalid model name")(path="../data/"+filename).regression()
+    return switcher.get(modelname, "Invalid model name")(path="models/api/output/"+filename).regression()
 
 
 if __name__ == "__main__":

@@ -66,7 +66,7 @@ class RandomForest:
 
     def regression(self):
         warnings.filterwarnings("ignore")
-        self.RandomForestM = RandomForestRegressor(max_depth=10, random_state=0)
+        self.RandomForestM = RandomForestRegressor(max_depth=2, random_state=0)
         self.RandomForestM.fit(self.data.Xtrain, self.data.Ytrain)
 
         RandomForest_Ypred = self.RandomForestM.predict(self.data.Xtest)
@@ -89,16 +89,16 @@ class RandomForest:
     def plot_learning_curves(self):
         warnings.filterwarnings("ignore")
         title = "Learning Curves RandomForest"
-        cv = ShuffleSplit(n_splits=50, test_size=0.2, random_state=0)
-        estimator = RandomForestRegressor(max_depth=10, random_state=0)
+        cv = ShuffleSplit(n_splits=5, test_size=0.2, random_state=0)
+        estimator = RandomForestRegressor(max_depth=2, random_state=0)
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         plt.show()
 
     def learning_curves(self):
         warnings.filterwarnings("ignore")
         title = "Learning Curves RandomForest"
-        cv = ShuffleSplit(n_splits=50, test_size=0.2, random_state=0)
-        estimator = RandomForestRegressor(max_depth=10, random_state=0)
+        cv = ShuffleSplit(n_splits=5, test_size=0.2, random_state=0)
+        estimator = RandomForestRegressor(max_depth=2, random_state=0)
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         bytes_image = io.BytesIO()
         plt.savefig(bytes_image, format='png')
@@ -111,7 +111,7 @@ class RandomForest:
 
     @classmethod
     def get_pure_model(cls):
-        return RandomForestRegressor(max_depth=10, random_state=0)
+        return RandomForestRegressor(max_depth=2, random_state=0)
 
     def save_the_trained_model(self):
         # save the model to disk

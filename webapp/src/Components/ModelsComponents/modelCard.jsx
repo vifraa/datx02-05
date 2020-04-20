@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import AwesomeComponent from '../AwesomeComponent';
 import {
   MDBBtn,
   MDBCard,
@@ -15,18 +16,21 @@ class modelCard extends Component {
     this.state = {
       regression_results: "",
       img_url: "",
+      loading: false
     };
   }
 
 
   run_regression_and_curves(ModelName, generatedFileName) {
     fetch("http://127.0.0.1:5001/models/regression/" + ModelName + "/" + generatedFileName)
+      .then(this.state.loading = true)
       .then((res) => res.text())
       .then((data) => {
         this.setState({ regression_results: data });
         fetch("http://127.0.0.1:5001/models/plot/" + ModelName + "/" + generatedFileName)
         .then((ires) => ires.blob())
         .then((images) => {
+            this.state.loading = false;
             const objectURL = URL.createObjectURL(images);
             console.log("Learning curve URL: " + objectURL);
             this.setState({ img_url: objectURL });
@@ -45,8 +49,10 @@ class modelCard extends Component {
   render() {      
         
     return (
+      <div>
+          
           <MDBCard
-            className="h-110 mr-3"
+            className="h-150 mr-3 mt-3"
             cascade
             onClick={() => {
               this.run_regression_and_curves(this.props.model_run_name, this.props.generatedFileName);
@@ -54,11 +60,10 @@ class modelCard extends Component {
           >
             <MDBCardImage
               cascade
-              className="img-fluid"
               overlay="white-light"
               hover
-              height="400px"
-              width="400px"
+              height="200px"
+              width="260px"
               src={this.props.model_img}
             />
             <MDBBtn
@@ -75,6 +80,9 @@ class modelCard extends Component {
               </MDBCardTitle>
             </MDBCardBody>
           </MDBCard>
+          <AwesomeComponent loading={this.state.loading}/>
+
+        </div>
     );
   }
 }
