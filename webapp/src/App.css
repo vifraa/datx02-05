@@ -98,5 +98,9 @@ h4, h5{
 }
 
 #transformdata{
-  min-height: 350px;
+  min-height: 500px;
+}
+
+.section_notes{
+  margin-left: 2%;
 }

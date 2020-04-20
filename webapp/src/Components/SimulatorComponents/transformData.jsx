@@ -82,7 +82,10 @@ export default class TransformData extends Component {
     render() {
         return (
                  <div className="section_title" >
-                    <h3>Transform The Generated Data to TTR format:</h3>
+                    <h3>Transform The Generated Data to TTR format (After the Transformation You Will Find Your ready-to-train Data-set In the Models Tab):</h3>
+                    <p className="section_notes">note that after the transformation you will find your ready-to-train data-set in the Models Tab:</p>
+                    <p className="section_notes">now choose your generated dataset and waite for the data to be crunched!</p>
+
                     <div id="transformdata" className="information_section" >
 
 
@@ -98,7 +101,7 @@ export default class TransformData extends Component {
                                 onSubmit={this.submitHandler}
                             >
                             <Form.Row style={{display: 'block', justifyContent: 'center'}}> 
-                                    <Form.Control id="dataset_name" placeholder="Write the name of the transformed csv file ex. my_data_set.csv" type="text" style={{width: '40%', marginLeft:'4px', marginTop:'10px', marginBottom: '10px'}} required/>
+                                    <Form.Control id="dataset_name" placeholder="Write the name of the transformed csv file ex. my_data_set" type="text" style={{width: '40%', marginLeft:'4px', marginTop:'10px', marginBottom: '10px'}} required/>
                             </Form.Row>
                             <Button type="submit" onClick={()=>{this.transorm()}}> Transform</Button>
                         </Form>

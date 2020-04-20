@@ -47,7 +47,7 @@ export default class modelCardsContainer extends Component {
     console.log(this.state);
     return (
       <div>
-        <h3>ML models:</h3>
+        <h3>Please choose a training set to train a model on, then click on a model:</h3>
         <div style={{color:"black"}}>
         <Select
         options={this.state.datasetOptions}

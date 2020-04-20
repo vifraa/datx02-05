@@ -5,7 +5,7 @@ class learningResults extends Component {
   render() {
     return (
       <div>
-        <h3>Machine Learning Regression Models:</h3>
+        <h3>Learning Results:</h3>
         <pre className="information_section" id="regression_output">
           Click on a model and you will see the results of the regression here..
         </pre>
