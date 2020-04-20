@@ -27,7 +27,8 @@ def print_training_program_from_model(model, performance):
 
 
     click.secho("Program structure: ", fg="green")
-    for day, sets in program.items():
+    for day in sorted(program.keys()):
+        sets = program[day]
         click.secho("Day: " + str(day), fg="green")
         for i, p_set in enumerate(sets):
             calculated_weight = (p_set.percent_1rm / 100 * performance)
