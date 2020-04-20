@@ -24,3 +24,7 @@ def test_required_models_exist_ttr():
     folder_path = os.path.join(os.path.dirname(__file__), os.pardir, "ttr")
 
     assert os.path.exists(os.path.join(folder_path, "ogasawara_HL.sav")) is True
+    assert os.path.exists(os.path.join(folder_path, "ogasawara_LL.sav")) is True
+    assert os.path.exists(os.path.join(folder_path, "6w_bp_fiesta.sav")) is True
+    assert os.path.exists(os.path.join(folder_path, "carls_power_program_BP.sav")) is True
+    assert os.path.exists(os.path.join(folder_path, "kikuchi.sav")) is True
