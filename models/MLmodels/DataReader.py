@@ -5,6 +5,14 @@ from IPython.display import display
 from sklearn.model_selection import train_test_split
 from visualizers import data_plotter
 
+class DataSampleValues:
+
+    def __init__(self, x, y):
+        self.X = x
+        self.Y = y
+
+        self.Xtrain, self.Xtest, self.Ytrain, self.Ytest = train_test_split(self.X, self.Y, test_size=0.33, random_state=42)
+
 
 class DataSample:
 
