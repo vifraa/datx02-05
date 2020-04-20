@@ -24,7 +24,6 @@ class DataSample:
             self.data = pd.read_csv(path)
         else:
              self.data = pd.read_csv("../regression_dataframes2.csv")
-            # self.data = pd.read_csv("../data/regression_dataframe_medium.csv")
 
         # Shuffle the dataset.
         self.data_shuffled = self.data.sample(frac=1.0, random_state=0)
@@ -41,28 +40,7 @@ class DataSample:
         # shape the data ex. (5000,)
         self.Y = self.Y[:, 0]
 
-        # distorting the data
-        """
-        rows = self.X.shape[0]
-        cols = self.X.shape[1]
-        for i in range(0, rows):
-            for j in range(0, cols):
-                self.X[i, j] = self.X[i, j] + random.randrange(0, 20)
-
-        for i in range(0, self.Y.shape[0]):
-            self.Y[i] += random.randrange(0, 20)
-        """
-
-        # testing another data set
-        """ 
-        from sklearn import datasets
-        X, y = datasets.load_digits(return_X_y=True)
-        self.Y = y
-        self.X = X
-        """
-        # <----
-
-        # # Partition the data into training and test sets.
+        # Partition the data into training and test sets.
         self.Xtrain, self.Xtest, self.Ytrain, self.Ytest = train_test_split(self.X, self.Y, test_size=0.33, random_state=42)
 
     def data_plot_PCA(self):
