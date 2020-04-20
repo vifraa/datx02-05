@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ModelCard from "./modelCard";
 import LearningResults from "./learningResults";
-import GeneratedFilesInfo from "./SimulatorComponents/generatedfilesInfo";
+import GeneratedFilesInfo from "../SimulatorComponents/generatedfilesInfo";
 import Select from 'react-select'
 
 

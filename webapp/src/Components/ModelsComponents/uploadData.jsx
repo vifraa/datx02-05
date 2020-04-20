@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../CSS_Folder/uploadData.css"; 
+import "../../CSS_Folder/uploadData.css"; 
 
 class uploadData extends Component {
   render() {

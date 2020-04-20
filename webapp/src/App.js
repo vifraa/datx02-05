@@ -1,14 +1,14 @@
 import './App.css';
 import Navbar from './Components/navbar.jsx'
-import main from './Components/main'
+import main from './Components/ModelsComponents/main'
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Default from './Components/default';
 import Footer from './Components/footer';
 import Simulator_main from './Components/SimulatorComponents/simulator_main';
-import Recengine from './Components/Recengine/recengine';
-import Ttrrecengine from './Components/Recengine/ttrrecengine';
+import Recengine from './Components/RecengineComponents/recengine';
+import Ttrrecengine from './Components/RecengineComponents/ttrrecengine';
 
 function App() {
 

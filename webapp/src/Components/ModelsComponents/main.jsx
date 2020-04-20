@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ModelsContainer from './modelCardsContainer';
 import UploadData from './uploadData.jsx'
-import GeneratedfilesInfo from './SimulatorComponents/generatedfilesInfo.jsx';
+import GeneratedfilesInfo from '../SimulatorComponents/generatedfilesInfo.jsx';
 
 class main extends Component {
     render() {
