@@ -15,6 +15,8 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
+last_used_model_name = ""
+last_used_training_set = ""
 
 @app.route("/")
 def index():
@@ -60,6 +62,10 @@ def model_regression_results(modelname, filename):
         'RandomForest': RandomForest.RandomForest,
         'NeuralNetwork': NeuralNetwork.NeuralNetwork
     }
+    global last_used_model_name
+    global last_used_training_set
+    last_used_model_name = modelname
+    last_used_training_set = filename
     return switcher.get(modelname, "Invalid model name")(path="models/api/trainingsets/"+filename).regression()
 
 @app.route("/models/predict/<modelname>/<filename>/<data_to_predict>")
@@ -81,6 +87,10 @@ def predict(modelname, filename, data_to_predict):
     print(reshaped_data)
     return str(model.predict(reshaped_data))
 
+
+@app.route("/models/last_training_info")
+def last_training_info():
+    return jsonify([last_used_model_name, last_used_training_set])
 
 
 if __name__ == "__main__":

@@ -3,6 +3,7 @@ import ModelCard from "./modelCard";
 import LearningResults from "./learningResults";
 import GeneratedFilesInfo from "../SimulatorComponents/generatedfilesInfo";
 import Select from 'react-select'
+import ModelUse from './modelUse';
 
 export default class modelCardsContainer extends Component {
   constructor(props) {
@@ -70,6 +71,8 @@ export default class modelCardsContainer extends Component {
         <LearningResults
           model_run_name={this.state.model_names_and_images[1]}
         />
+        
+        <ModelUse/>
 
        
       </div>

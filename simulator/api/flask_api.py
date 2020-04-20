@@ -144,6 +144,11 @@ with app.app_context():
         return jsonify(generatedfiles_info)
 
 
+    @app.route("/simulator/ttr_transform")
+    def ttr_transform():
+        pass
+
+
     if __name__ == "__main__":
         """
         import pathlib

@@ -11,17 +11,7 @@ export default class trainIndividuals extends Component {
         };
     }
 
-    /*
-    componentDidMount(){
-        console.log("sending API request:")
-        fetch("http://127.0.0.1:5000/simulator/logs/1/1")
-        .then(res => res.json())
-        .then((data) => {
-            this.setState({ trainings_logs: data });
-            console.log(data);
-        }).catch(this.remove_state());
-    }
-    */
+
     
     submitHandler = event => {
     event.preventDefault();

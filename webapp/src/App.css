@@ -73,6 +73,7 @@ h3 {
   background-color: #651e3e ;
   margin-top: 30px !important;
   margin-bottom: 20px !important;
+  padding-top:10px;
 }
 
 h4, h5{
@@ -90,4 +91,12 @@ h4, h5{
 
 #train_individuals{
   min-height: 300px;
+}
+
+#modelUseResult{
+  margin-bottom: 100px;
+}
+
+#transformdata{
+  min-height: 350px;
 }
