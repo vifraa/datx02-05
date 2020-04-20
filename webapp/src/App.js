@@ -6,7 +6,9 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Default from './Components/default';
 import Footer from './Components/footer';
-import simulator_main from './Components/SimulatorComponents/simulator_main';
+import Simulator_main from './Components/SimulatorComponents/simulator_main';
+import Recengine from './Components/Recengine/recengine';
+import Ttrrecengine from './Components/Recengine/ttrrecengine';
 
 function App() {
 
@@ -24,10 +26,11 @@ function App() {
         <Container fluid={true} style={{ paddingLeft: 0, paddingRight: 0}}>
             <BrowserRouter>
               <Switch>
-                <Route exact path="/simulator" component={simulator_main} />
+                <Route exact path="/" component={Simulator_main} />
+                <Route exact path="/simulator" component={Simulator_main} />
                 <Route path="/models" component={main} />
-                <Route path="/recengine" component={main} />
-                <Route path="/ttrrecengine" component={main} />
+                <Route path="/recengine" component={Recengine} />
+                <Route path="/ttrrecengine" component={Ttrrecengine} />
                 <Route component={Default} />
               </Switch>
             </BrowserRouter>
