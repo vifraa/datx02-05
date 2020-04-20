@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import AwesomeComponent from '../AwesomeComponent';
 
 export default class TransformData extends Component {
 
@@ -9,7 +11,9 @@ export default class TransformData extends Component {
     this.state = {
       datasetOptions: [],
       selectedDataset: "",
-      ttr_transormed: []
+      ttr_transormed: [],
+      dataset_name:"",
+      loading: true
     };
     this.handleDropdownChange=this.handleDropdownChange.bind(this);
   }
@@ -36,6 +40,12 @@ export default class TransformData extends Component {
     }
 
 
+    submitHandler = event => {
+        event.preventDefault();
+        event.target.className += " was-validated";
+    };
+
+
   datasetOptions() {
         fetch("http://127.0.0.1:12345/simulator/generatedfiles")
             .then(res => res.json())
@@ -56,9 +66,14 @@ export default class TransformData extends Component {
 
   transorm(){
 
-        fetch("http://127.0.0.1:5001/simulator/ttr_transform/" + this.state.selectedDataset)
+        var ds_name = document.getElementById('dataset_name').value; 
+
+
+        fetch("http://127.0.0.1:12345/simulator/ttr_transform/" + this.state.selectedDataset + "/" + ds_name)
+            .then(this.state.loading = true)
             .then(res => res.json())
             .then((data) => {
+                this.state.loading = false;
                 this.setState({ ttr_transormed: data });
             }).catch(console.log);
   }
@@ -77,9 +92,21 @@ export default class TransformData extends Component {
                             onChange={this.handleDropdownChange}
                             >
                             </Select>
+
+
+                            <Form
+                                onSubmit={this.submitHandler}
+                            >
+                            <Form.Row style={{display: 'block', justifyContent: 'center'}}> 
+                                    <Form.Control id="dataset_name" placeholder="Write the name of the transformed csv file ex. my_data_set.csv" type="text" style={{width: '40%', marginLeft:'4px', marginTop:'10px', marginBottom: '10px'}} required/>
+                            </Form.Row>
+                            <Button type="submit" onClick={()=>{this.transorm()}}> Transform</Button>
+                        </Form>
+                            <AwesomeComponent loading={this.state.loading}/>
+
+
                         </div>
 
-                        <Button type="submit" onClick={()=>{this.transorm()}}> Transform</Button>
 
                         <table className="table-hover table-striped table-bordered">
                             <tbody>

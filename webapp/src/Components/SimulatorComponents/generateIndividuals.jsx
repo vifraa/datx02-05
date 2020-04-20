@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import AwesomeComponent from '../AwesomeComponent';
 
 export default class generateIndividuals extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            gen_individs: []
+            gen_individs: [],
+            loading: true
         };
     }
 
@@ -34,15 +36,19 @@ export default class generateIndividuals extends Component {
 
     generate_individs() {
         
-
+        this.state.loading = true;
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        console.log(this.state.loading)
         var n = document.getElementById('ind_n').value; 
         var bpm = document.getElementById('ind_mean').value; 
         var bpv = document.getElementById('ind_variance').value; 
 
         console.log("sending API request:")
-        fetch("http://127.0.0.1:5000/simulator/individuals/" + n + "/" + bpm + "/" + bpv)
+        fetch("http://127.0.0.1:12345/simulator/individuals/" + n + "/" + bpm + "/" + bpv)
+            .then(this.state.loading = true)
             .then(res => res.json())
             .then((data) => {
+                this.state.loading = false;
                 this.setState({ gen_individs: data });
             }).catch(console.log);
     }
@@ -84,8 +90,11 @@ export default class generateIndividuals extends Component {
                                 <Form.Control id="ind_mean" placeholder="Mean of bench press max" type="number" style={{width: '30%', marginBottom: '10px'}} required/>
                             <Form.Control id="ind_variance" placeholder="Variance in bench press max" type="number" style={{width: '30%', marginBottom: '10px'}} required/>
                         </Form.Row>
+
                         <Button type="submit" onClick={()=>{this.generate_individs()}}> Generate Individuals</Button>
                         </Form>
+                        <AwesomeComponent loading={this.state.loading}/>
+
 
                         <table className="table-hover table-striped table-bordered">
                             <tbody>

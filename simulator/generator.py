@@ -123,9 +123,6 @@ def load_individuals(individuals_path):
 
 
 def generate_individuals_with_param(n, bpm, bpv):
-    # os.chdir("../../")
-    print("Debug here::::::: generate_individuals_with_param")
-    print(os.path.abspath(os.getcwd()))
 
     generated_individuals = generate_individuals(n, bpm, bpv)
     save_individuals(generated_individuals, "simulator/api/individuals/GeneratedIndividuals.csv", datetime.datetime.now())

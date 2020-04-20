@@ -144,9 +144,40 @@ with app.app_context():
         return jsonify(generatedfiles_info)
 
 
-    @app.route("/simulator/ttr_transform")
-    def ttr_transform():
-        pass
+    @app.route("/simulator/ttr_transform/<selectedDataset>/<dataset_name>")
+    def ttr_transform(selectedDataset, dataset_name):
+        import sys
+        sys.path.insert(1, 'C:/Users/razan/Desktop/Kandidatarbetet/datx02-05')
+
+        from recengine.data_parser import ttrdata_from_csv_population_4_weeks
+        import pandas as pd
+
+        logs = pd.read_csv("simulator/api/output/"+selectedDataset, sep="|")
+        data = ttrdata_from_csv_population_4_weeks("simulator/api/output/"+selectedDataset)
+
+        headers = ["load_week1", "max_week1", "load_week2", "max_week2", "load_week3", "max_week3", "load_week4",
+                   "max_week4", "Performance"]
+        new_data = pd.DataFrame(columns=headers)
+        new_data = new_data.append(data)
+
+        # %%
+        post_logs = {}
+        for p_id, group in logs.groupby('ID'):
+            post_logs[str(p_id)] = group
+
+        # Transform data
+        for index, _ in data.iterrows():
+            new_data.at[index, 'Performance'] = post_logs.get(str(index))["Performance"].values[-1]
+
+        new_data.to_csv("models/api/trainingsets/"+dataset_name+".csv", index=False)
+        new_data.to_csv("simulator/api/trainingsets/"+dataset_name+".csv", index=False)
+
+        data = new_data.head()
+        headers_list = new_data.columns.values.tolist()
+        data_to_send = data.values.tolist()
+        data_to_send.insert(0, headers_list)
+
+        return jsonify(data_to_send)
 
 
     if __name__ == "__main__":
@@ -170,7 +201,7 @@ with app.app_context():
         logs(1, 1)
         
         """
-        app.run(host= '127.0.0.1', port=12345,debug=True)
+        app.run(host= '127.0.0.1', port=12345, debug=True)
 
         # individuals(10, 100, 5)
         # print(logs(1, 1))

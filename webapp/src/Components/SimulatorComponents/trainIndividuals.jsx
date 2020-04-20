@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import AwesomeComponent from '../AwesomeComponent';
 
 export default class trainIndividuals extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            trainings_logs: []
+            trainings_logs: [],
+            loading: true
         };
     }
 
@@ -29,9 +31,11 @@ export default class trainIndividuals extends Component {
 
 
         console.log("sending API request:")
-        fetch("http://127.0.0.1:5000/simulator/logs/" + nr_train_before + "/" + nr_train_after)
+        fetch("http://127.0.0.1:12345/simulator/logs/" + nr_train_before + "/" + nr_train_after)
+            .then(this.state.loading = true)
             .then(res => res.json())
             .then((data) => {
+                this.state.loading = false;
                 this.setState({ trainings_logs: data });
             }).catch(console.log);
     }
@@ -84,6 +88,8 @@ export default class trainIndividuals extends Component {
                         </Form.Row>
                         <Button type="submit" onClick={()=>{this.train_population()}}> Train Individuals</Button>
                         </Form>
+                        <AwesomeComponent loading={this.state.loading}/>
+
 
 
                         <table className="table-hover table-striped table-bordered">
