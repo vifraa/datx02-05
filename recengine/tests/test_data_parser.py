@@ -68,8 +68,9 @@ def test_ttrdata_from_csv_population_4_weeks():
     logs_path = os.path.join(os.path.dirname(__file__), "training_logs", "test_sim.csv")
 
     ttrdata = ttrdata_from_csv_population_4_weeks(logs_path)
-    assert ttrdata.iloc[0, 0] == 200
-    assert ttrdata.iloc[0, 1] == calculate_1rm(20, 10)
+    assert ttrdata.iloc[0, 0] == '0'
+    assert ttrdata.iloc[0, 1] == 200
+    assert ttrdata.iloc[0, 2] == calculate_1rm(20, 10)
 
 
 def test_ttrdata_from_csv():
