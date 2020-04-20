@@ -6,8 +6,8 @@ import pickle
 import os
 
 import sys
-sys.path.append(os.path.join(os.pardir, "models"))
-sys.path.append(os.path.join(os.pardir, "models", "MLmodels"))
+sys.path.append(os.path.join(os.path.dirname(__file__), os.pardir, "models"))
+sys.path.append(os.path.join(os.path.dirname(__file__), os.pardir, "models", "MLmodels"))
 
 
 class Model:
