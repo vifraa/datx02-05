@@ -193,8 +193,8 @@ def train_population_from_file_random_program(individuals_path, programs_dict, t
     these individuals and their training data in a csv file.
 
     :param individuals_path: file path to folder containing training individuals csv files
+    :param programs_dict: a dictionary that maps a number to a path of a program
     :param training_results_path: file path to where performed training should be saved as csv file
-
     """
 
     # load individuals from csv file
