@@ -40,8 +40,10 @@ def __train_and_save(individuals, training_results_path, training_program_path):
 
 
     # write training logs to given file path
-    training_logs.to_csv(training_results_path, sep="|", index=False)
-
+    if not os.path.isfile(training_results_path):
+        training_logs.to_csv(training_results_path, sep="|", index=False)
+    else: # else it exists so append without writing the header
+        training_logs.to_csv(training_results_path, mode='a', header=False, sep="|", index=False)
     return training_logs["Timestamp"].iloc[-1]
 
 
@@ -116,7 +118,12 @@ def __train_and_save_in_parallel(individuals, training_results_path, training_pr
 
     training_logs = training_logs.sort_values('ID')
     # write training logs to given file path
-    training_logs.to_csv(training_results_path, sep="|", index=False)
+    if not os.path.isfile(training_results_path):
+        training_logs.to_csv(training_results_path, sep="|", index=False)
+    else: # else it exists so append without writing the header
+        training_logs.to_csv(training_results_path, mode='a', header=False, sep="|", index=False)
+    return training_logs["Timestamp"].iloc[-1]
+
     return training_logs["Timestamp"].iloc[-1]
 
 
@@ -198,15 +205,15 @@ def train_population_from_file_random_program(individuals_path, programs_dict, t
     individuals = []
     for _, individual_series in individuals_df.iterrows():
         individuals.append(Individual(series=individual_series))
-
+    for individual in individuals:
         # Get a random program
         training_program_path = programs_dict[random.randint(
             1, len(programs_dict))]
-    timestamp = __train_and_save(
-        individuals, training_results_path, training_program_path)
+        timestamp = __train_and_save(
+        [individual], training_results_path, training_program_path)
 
-    # add the updated individuals to bottom of csv file
-    save_individuals(individuals, individuals_path, timestamp)
+        # add the updated individuals to bottom of csv file
+        save_individuals([individual], individuals_path, timestamp)
 
 
 @click.command()
@@ -248,16 +255,6 @@ def choose_programs():
 
 
 if __name__ == "__main__":
-    # train_population_from_file("simulator/individuals/GeneratedIndividuals.csv",
-    # "simulator/tests/sample_training_program.csv", "simulator/individuals/logs.csv")
-    # train_population(10, 30, 5, 70, 5, 100, 5, 1, "simulator/training_programs/ogasawara_HL.csv",
-    #                 "simulator/individuals/logs.csv", "simulator/individuals/TrainedGeneratedIndividuals.csv")
-
-    # train_population_from_file("simulator/individuals/GeneratedIndividuals.csv",
-    #                           "simulator/training_programs/carls_power_program_BP.csv", "simulator/output/pre_program.csv")
-    # train_population_from_file("simulator/individuals/GeneratedIndividuals.csv",
-    #                          "simulator/training_programs/ogasawara_HL.csv", "simulator/output/ogasawara_HL.csv")
-
     # Clean up past output
     OUTPUT_DIR = os.path.join("simulator", "output")
     for fn in os.listdir(OUTPUT_DIR):
