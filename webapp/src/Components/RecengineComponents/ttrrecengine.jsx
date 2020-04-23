@@ -7,7 +7,7 @@ class ttrrecengine extends React.Component {
     }
 
     componentDidMount(){
-        window.location = "http://127.0.0.1:5000/ttr"
+        window.location = "http://py-yazanghafir.pagekite.me/ttr"
     }
 
     render(){

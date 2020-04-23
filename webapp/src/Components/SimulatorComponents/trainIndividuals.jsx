@@ -31,7 +31,7 @@ export default class trainIndividuals extends Component {
 
 
         console.log("sending API request:")
-        fetch("http://127.0.0.1:12345/simulator/logs/" + nr_train_before + "/" + nr_train_after)
+        fetch("http://mo-yazanghafir.pagekite.me/simulator/logs/" + nr_train_before + "/" + nr_train_after)
             .then(this.state.loading = true)
             .then(res => res.json())
             .then((data) => {

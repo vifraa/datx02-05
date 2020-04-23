@@ -4,6 +4,8 @@ import LearningResults from "./learningResults";
 import GeneratedFilesInfo from "../SimulatorComponents/generatedfilesInfo";
 import Select from 'react-select'
 import ModelUse from './modelUse';
+import Row from 'react-bootstrap/Row';
+
 
 export default class modelCardsContainer extends Component {
   constructor(props) {
@@ -17,7 +19,7 @@ export default class modelCardsContainer extends Component {
   }
 
   componentDidMount() {
-    fetch("http://127.0.0.1:5001/models")
+    fetch("http://si-yazanghafir.pagekite.me/models")
       .then((res) => res.json())
       .then((data) => {
         this.setState({ model_names_and_images: data });
@@ -27,7 +29,7 @@ export default class modelCardsContainer extends Component {
   }
 
   datasetOptions() {
-        fetch("http://127.0.0.1:12345/simulator/trainingsets")
+        fetch("http://mo-yazanghafir.pagekite.me/simulator/trainingsets")
             .then(res => res.json())
             .then((data) => {
                 let options = [];
@@ -56,6 +58,8 @@ export default class modelCardsContainer extends Component {
         </Select>
         </div>
         <div className="d-flex bd-highlight example-parent ">
+
+          <Row>
           {this.state.model_names_and_images.map((model, idx) => {
             return (
               <ModelCard
@@ -67,7 +71,10 @@ export default class modelCardsContainer extends Component {
               />
             );
           })}
+          </Row>
+
         </div>
+
         <LearningResults
           model_run_name={this.state.model_names_and_images[1]}
         />

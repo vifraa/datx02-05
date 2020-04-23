@@ -47,7 +47,7 @@ export default class TransformData extends Component {
 
 
   datasetOptions() {
-        fetch("http://127.0.0.1:12345/simulator/generatedfiles")
+        fetch("http://mo-yazanghafir.pagekite.me/simulator/generatedfiles")
             .then(res => res.json())
             .then((data) => {
                 let options = [];
@@ -69,7 +69,7 @@ export default class TransformData extends Component {
         var ds_name = document.getElementById('dataset_name').value; 
 
 
-        fetch("http://127.0.0.1:12345/simulator/ttr_transform/" + this.state.selectedDataset + "/" + ds_name)
+        fetch("http://mo-yazanghafir.pagekite.me/simulator/ttr_transform/" + this.state.selectedDataset + "/" + ds_name)
             .then(this.state.loading = true)
             .then(res => res.json())
             .then((data) => {

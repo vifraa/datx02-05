@@ -8,6 +8,7 @@ import {
   MDBCardTitle,
   MDBIcon,
 } from "mdbreact";
+import Col from 'react-bootstrap/Col';
 
 
 class modelCard extends Component {
@@ -22,12 +23,12 @@ class modelCard extends Component {
 
 
   run_regression_and_curves(ModelName, generatedFileName) {
-    fetch("http://127.0.0.1:5001/models/regression/" + ModelName + "/" + generatedFileName)
+    fetch("http://si-yazanghafir.pagekite.me/models/regression/" + ModelName + "/" + generatedFileName)
       .then(this.state.loading = true)
       .then((res) => res.text())
       .then((data) => {
         this.setState({ regression_results: data });
-        fetch("http://127.0.0.1:5001/models/plot/" + ModelName + "/" + generatedFileName)
+        fetch("http://si-yazanghafir.pagekite.me/models/plot/" + ModelName + "/" + generatedFileName)
         .then((ires) => ires.blob())
         .then((images) => {
             this.state.loading = false;
@@ -49,8 +50,8 @@ class modelCard extends Component {
   render() {      
         
     return (
-      <div>
-          
+      <div> 
+           <Col >
           <MDBCard
             className="h-150 mr-3 mt-3"
             cascade
@@ -81,7 +82,7 @@ class modelCard extends Component {
             </MDBCardBody>
           </MDBCard>
           <AwesomeComponent loading={this.state.loading}/>
-
+          </Col>
         </div>
     );
   }

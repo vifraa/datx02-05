@@ -13,7 +13,7 @@ export default class generatedFileCardContainer extends Component {
 
     
     checkgenerated() {
-        fetch("http://127.0.0.1:12345/simulator/generatedfiles")
+        fetch("http://mo-yazanghafir.pagekite.me/simulator/generatedfiles")
             .then(res => res.json())
             .then((data) => {
                 this.setState({ gen_files: data });

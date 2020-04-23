@@ -28,11 +28,11 @@ export default class ModelUse extends Component {
 
         
 
-        fetch("http://127.0.0.1:5001/models/last_training_info")
+        fetch("http://si-yazanghafir.pagekite.me/models/last_training_info")
             .then(res => res.json())
             .then((data) => {
                 this.setState({ last_info: data });
-                fetch("http://127.0.0.1:5001/models/predict/" + this.state.last_info[0] + "/" + this.state.last_info[1] + "/" + data_to_predict)
+                fetch("http://si-yazanghafir.pagekite.me/models/predict/" + this.state.last_info[0] + "/" + this.state.last_info[1] + "/" + data_to_predict)
                 .then(res => res.json())
                 .then((data) => {
                     this.setState({ results: data });

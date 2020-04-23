@@ -28,7 +28,7 @@ export default class generatedFileCard extends Component {
                                 className="img-fluid"
                                 overlay="white-light"
                                 hover
-                                src={"https://getdrawings.com/free-icon/csv-file-icon-52.png"}
+                                src={"http://getdrawings.com/free-icon/csv-file-icon-52.png"}
                                 height="150 px"
                                 width="150 px"
                             />

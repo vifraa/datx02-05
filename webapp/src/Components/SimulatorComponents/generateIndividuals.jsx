@@ -44,7 +44,7 @@ export default class generateIndividuals extends Component {
         var bpv = document.getElementById('ind_variance').value; 
 
         console.log("sending API request:")
-        fetch("http://127.0.0.1:12345/simulator/individuals/" + n + "/" + bpm + "/" + bpv)
+        fetch("http://mo-yazanghafir.pagekite.me/simulator/individuals/" + n + "/" + bpm + "/" + bpv)
             .then(this.state.loading = true)
             .then(res => res.json())
             .then((data) => {

@@ -7,7 +7,7 @@ class recengine extends React.Component {
     }
 
     componentDidMount(){
-        window.location = "http://127.0.0.1:5000/"
+        window.location = "http://py-yazanghafir.pagekite.me/"
     }
 
     render(){
