@@ -1,7 +1,18 @@
+import random
+
 import pandas as pd
 from IPython.display import display
 from sklearn.model_selection import train_test_split
 from visualizers import data_plotter
+
+class DataSampleValues:
+
+    def __init__(self, x, y):
+        self.X = x
+        self.Y = y
+
+        self.Xtrain, self.Xtest, self.Ytrain, self.Ytest = train_test_split(self.X, self.Y, test_size=0.33, random_state=42)
+
 
 class DataSample:
 
@@ -9,18 +20,10 @@ class DataSample:
         self.read_partition(path)
 
     def read_partition(self, path):
-        print("data reader checkpoint!")
         if path is not None:
             self.data = pd.read_csv(path)
         else:
-            # self.data = pd.read_csv("data/regression_dataframes2.csv")
-            # self.data = pd.read_csv("../data/regression_dataframe_medium.csv", sep=',')
-            self.data = []
-            raise Exception('The Data reader is being used now and it shouldn't)
-            # self.data = pd.read_csv("../data/regression_dataframes2.csv")
-            # self.data = pd.read_csv("../data/regression_dataframe_medium.csv")
-            # self.data = []
-            # print("The data is empty")
+             self.data = pd.read_csv("../regression_dataframes2.csv")
 
         # Shuffle the dataset.
         self.data_shuffled = self.data.sample(frac=1.0, random_state=0)
@@ -37,28 +40,7 @@ class DataSample:
         # shape the data ex. (5000,)
         self.Y = self.Y[:, 0]
 
-        # distorting the data
-        """
-        rows = self.X.shape[0]
-        cols = self.X.shape[1]
-        for i in range(0, rows):
-            for j in range(0, cols):
-                self.X[i, j] = self.X[i, j] + random.randrange(0, 20)
-
-        for i in range(0, self.Y.shape[0]):
-            self.Y[i] += random.randrange(0, 20)
-        """
-
-        # testing another data set
-        """ 
-        from sklearn import datasets
-        X, y = datasets.load_digits(return_X_y=True)
-        self.Y = y
-        self.X = X
-        """
-        # <----
-
-        # # Partition the data into training and test sets.
+        # Partition the data into training and test sets.
         self.Xtrain, self.Xtest, self.Ytrain, self.Ytest = train_test_split(self.X, self.Y, test_size=0.33, random_state=42)
 
     def data_plot_PCA(self):

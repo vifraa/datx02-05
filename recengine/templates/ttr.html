@@ -151,7 +151,7 @@
                                 </thead>
                                 <tbody>
 
-                                    {% for day, sets in program.items() %}
+                                    {% for day, sets in program |dictsort %}
                                     <tr class="black-striped">
                                         <td>{{day}}</td>
                                         <td colspan="3" style="padding: 0px;">

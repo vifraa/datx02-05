@@ -19,20 +19,23 @@ flags.DEFINE_float("bpv", 5, "Variance in bench press max")
 flags.DEFINE_string("p", "simulator/individuals/GeneratedIndividuals.csv",
                     "Full path to save generated individuals in .csv format to")
 
+
 def random_banister_parameters():
     """
     Uniformly selects parameters for the banister model
     """
     params = {}
-    data = pd.read_csv("simulator/data/banister_params_dist.csv")
 
-    fitness_decay = np.random.randint(2, 50)
+    fitness_decay = np.random.randint(
+        2, 50)
 
     # Integer between 1 and fitness_decay (fitness lasts longer than fatigue)
     fatigue_decay = np.random.randint(1, fitness_decay)
 
     # Float between 1 and 5
-    fitness_gain, fatigue_gain = np.random.uniform(1, 5, 2)
+    fitness_gain, fatigue_gain = np.random.uniform(
+        1, 5, 2)
+
 
     # Insert them into the dict and return
     params["fitness_gain"] = fitness_gain

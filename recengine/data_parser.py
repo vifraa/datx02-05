@@ -136,7 +136,7 @@ def ttrdata_from_csv_population_4_weeks(logs_path):
         data = ttr_data_from_reader(csv.reader(buffer), '%Y-%m-%d %H:%M:%S')
         ttr_data[str(p_id)] = data
 
-    headers = ["load_week1", "max_week1", "load_week2", "max_week2", "load_week3", "max_week3",
+    headers = ["id", "load_week1", "max_week1", "load_week2", "max_week2", "load_week3", "max_week3",
                "load_week4", "max_week4"]
 
     data = pd.DataFrame(columns=headers)
@@ -146,6 +146,7 @@ def ttrdata_from_csv_population_4_weeks(logs_path):
 
         # Take last 4 weeks.
         entry = ttr[-8:]
+        entry.insert(0, p_id)
 
         data = data.append(pd.Series(entry, index=data.columns), ignore_index=True)
 

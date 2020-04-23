@@ -1,9 +1,4 @@
-import pickle
-
-import pandas as pd
-
-#import MLmodels.DataReader as dr
-
+import MLmodels.DataReader as dr
 from MLmodels.DecisionTree import DecisionTree
 from MLmodels.ElasticNets import ElasticNet
 from MLmodels.Lasso import Lasso
@@ -16,24 +11,23 @@ import warnings
 from json import dumps
 
 class ModelsRunner:
-    """
-    models_dict = {
-        'Lasso': Lasso(),
-        'Ridge': Ridge(),
-        'ElasticNet': ElasticNet(),
-        'DecisionTree': DecisionTree(),
-        'RandomForest': RandomForest(),
-        'NeuralNetwork': NeuralNetwork()
-    }
-    """
-    def __init__(self, path=None):
-        pass
-        """
+
+    def __init__(self, path=None, data_sample=None):
         if path is not None:
             self.data = dr.DataSample(path)
+        elif data_sample is not None:
+            self.data = data_sample
         else:
             self.data = dr.DataSample()
-        """
+
+        self.models_dict = {
+            'Lasso': Lasso(data=self.data),
+            'Ridge': Ridge(data=self.data),
+            'ElasticNet': ElasticNet(data=self.data),
+            'DecisionTree': DecisionTree(data=self.data),
+            'RandomForest': RandomForest(data=self.data),
+            'NeuralNetwork': NeuralNetwork(data=self.data)
+        }
 
     def train_all_models(self):
         for model in self.models_dict.values():
