@@ -45,7 +45,7 @@ def calculate_1rm(weight, reps):
 
 def calculate_ttrdata_from_week_dict(weeks):
     """
-    Calcualtes the ttr data from a given dictionary.
+    Calculates the ttr data from a given dictionary.
 
     :param weeks: Dictionary containing lists of sets done in a week.
     """
@@ -60,7 +60,7 @@ def calculate_ttrdata_from_week_dict(weeks):
             weight = float(t_set.get('weight'))
             reps = int(t_set.get('repetitions'))
 
-            one_rep_max = calculate_1rm(weight, reps)
+            one_rep_max = float(t_set.get("performance"))
             if one_rep_max > week_1rm:
                 week_1rm = one_rep_max
 
@@ -83,7 +83,8 @@ def ttr_data_from_reader(csv_reader, time_format, contains_header=True):
             'exercise': row[0],
             'weight': row[1],
             'repetitions': row[2],
-            'timestamp': row[3]
+            'timestamp': row[3],
+            'performance': row[4]
         }
         for row in csv_reader]
 
