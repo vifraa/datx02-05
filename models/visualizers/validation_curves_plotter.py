@@ -3,11 +3,12 @@ import numpy as np
 from sklearn.model_selection import validation_curve
 
 class Validation_curve_plot:
-    def __init__(self, X, y, estimator, param_name):
+    def __init__(self, X, y, estimator, estimator_name, param_name):
         self.X = X
         self.y = y
         self.estimator = estimator
         self.param_name = param_name
+        self.estimator_name = estimator_name
         self.validate()
 
     def validate(self):
@@ -20,7 +21,7 @@ class Validation_curve_plot:
         test_scores_mean = np.mean(test_scores, axis=1)
         test_scores_std = np.std(test_scores, axis=1)
 
-        plt.title("Validation Curve with SVM")
+        plt.title("Validation Curve with "+self.estimator_name)
         plt.xlabel(r"$\gamma$")
         plt.ylabel("Score")
         plt.ylim(0.0, 1.1)
@@ -48,7 +49,8 @@ def Validation_curves_test():
     from sklearn.svm import SVC
     from sklearn.linear_model import Perceptron
     X, y = datasets.load_digits(return_X_y=True)
-    Validation_curve_plot(X, y, SVC(), "gamma")
-    Validation_curve_plot(X, y, Perceptron(), "alpha")
+    Validation_curve_plot(X, y, SVC(), "SVC", "gamma")
+    Validation_curve_plot(X, y, Perceptron(), "Perceptron", "alpha")
 
 
+Validation_curves_test()
