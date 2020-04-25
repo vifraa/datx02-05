@@ -32,7 +32,8 @@ MAPPING = {
     'weight': floats(min_value=0, allow_infinity=False),
     'repetitions': integers(min_value=0),
     'timestamp': dates(min_value=datetime(1000, 1, 1).date()).map(
-        lambda x: datetime.strftime(x, DATE_FORMAT))
+        lambda x: datetime.strftime(x, DATE_FORMAT)),
+    'performance': integers(min_value=0),
 }
 @given(lists(fixed_dictionaries(MAPPING)))
 def test_split_into_weeks(input_sets):
@@ -70,7 +71,7 @@ def test_ttrdata_from_csv_population_4_weeks():
     ttrdata = ttrdata_from_csv_population_4_weeks(logs_path)
     assert ttrdata.iloc[0, 0] == '0'
     assert ttrdata.iloc[0, 1] == 200
-    assert ttrdata.iloc[0, 2] == calculate_1rm(20, 10)
+    assert ttrdata.iloc[0, 2] == 200
 
 
 def test_ttrdata_from_csv():
