@@ -75,6 +75,13 @@ export default class TransformData extends Component {
             .then((data) => {
                 this.state.loading = false;
                 this.setState({ ttr_transormed: data });
+                fetch("http://mo-yazanghafir.pagekite.me/simulator/ttr/img/" + ds_name)
+                .then((ires) => ires.blob())
+                .then((images) => {
+                    const objectURL = URL.createObjectURL(images);
+                    console.log("Learning curve URL: " + objectURL);
+                    document.getElementById('ttr_img').src = objectURL;
+                });
             }).catch(console.log);
   }
 
@@ -116,6 +123,9 @@ export default class TransformData extends Component {
                                 {this.render_individs_table()}
                             </tbody>
                         </table>
+
+                        <img id="ttr_img" src="" className="visible margin-auto information_section" alt="ttr_img"></img>
+
                     </div>
                 </div>      
         )

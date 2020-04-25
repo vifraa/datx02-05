@@ -38,7 +38,6 @@ def model_names():
 
 @app.route("/models/plot/<modelname>/<filename>")
 def plotCurves(modelname, filename):
-    print("HERE======================================================================================================")
     bytes_obj = {
         'Lasso': Lasso.Lasso,
         'Ridge': Ridge.Ridge,

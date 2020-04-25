@@ -3,6 +3,8 @@ from flask_cors import CORS, cross_origin
 import os
 import sys
 sys.path.insert(1, 'C:/Users/razan/Desktop/Kandidatarbetet/datx02-05/simulator')
+import io
+import matplotlib.pyplot as plt
 
 from generator import generate_individuals_with_param
 from __init__ import train_population_from_file_random_program, train_population_from_file, train_population
@@ -32,6 +34,7 @@ with app.app_context():
 
         dataframe = pd.read_csv('simulator/api/individuals/GeneratedIndividuals.csv', sep='|')
 
+
         if dataframe.shape[0] > 20:
             data = dataframe.head(20)
         else:
@@ -42,7 +45,30 @@ with app.app_context():
         data_to_send.insert(0, headers_list)
 
         print("The population has been generated!")
+
+        data.plot()
+        bytes_image = io.BytesIO()
+        plt.savefig(bytes_image, format='png')
+        bytes_image.seek(0)
+
+        img = send_file(bytes_image,
+                     attachment_filename='plot.png',
+                     mimetype='image/png')
+
         return jsonify(data_to_send)
+
+
+    @app.route("/simulator/individuals/img")
+    def individuals_img():
+        dataframe = pd.read_csv('simulator/api/individuals/GeneratedIndividuals.csv', sep='|')
+        dataframe.plot()
+        bytes_image = io.BytesIO()
+        plt.savefig(bytes_image, format='png')
+        bytes_image.seek(0)
+        img = send_file(bytes_image,
+                        attachment_filename='plot.png',
+                        mimetype='image/png')
+        return img
 
 
     @app.route("/simulator/logs/<nr_train_before>/<nr_train_after>")
@@ -160,22 +186,48 @@ with app.app_context():
         from recengine.data_parser import ttrdata_from_csv_population_4_weeks
         import pandas as pd
 
-        logs = pd.read_csv("simulator/api/output/"+selectedDataset, sep="|")
-        data = ttrdata_from_csv_population_4_weeks("simulator/api/output/"+selectedDataset)
+        """
+        pre_logs = pd.read_csv("simulator/api/output/pre_program_logs.csv", sep="|")
+        post_logs = ttrdata_from_csv_population_4_weeks("simulator/api/output/"+selectedDataset)
 
         headers = ["load_week1", "max_week1", "load_week2", "max_week2", "load_week3", "max_week3", "load_week4",
                    "max_week4", "Performance"]
         new_data = pd.DataFrame(columns=headers)
-        new_data = new_data.append(data)
+        new_data = new_data.append(post_logs)
 
         # %%
+        pre_logs_grouped_by_ID = {}
+        for p_id, group in pre_logs.groupby('ID'):
+            pre_logs_grouped_by_ID[str(p_id)] = group
+
+        # Transform data
+        for index, _ in post_logs.iterrows():
+            new_data.at[index, 'Performance'] = pre_logs_grouped_by_ID.get(str(index))["Performance"].values[-1]
+        """
+
+        # Loads raw data and transforms.
+        logs = pd.read_csv("simulator/api/output/program_logs.csv", sep="|")
+
+        # Calculate TTR_DATA based on pre-logs.
+        ttr_data = ttrdata_from_csv_population_4_weeks("simulator/api/output/pre_program_logs.csv")
+
         post_logs = {}
         for p_id, group in logs.groupby('ID'):
             post_logs[str(p_id)] = group
 
-        # Transform data
-        for index, _ in data.iterrows():
-            new_data.at[index, 'Performance'] = post_logs.get(str(index))["Performance"].values[-1]
+        headers = ["load_week1", "max_week1", "load_week2", "max_week2", "load_week3", "max_week3", "load_week4",
+                   "max_week4", "Performance"]
+
+        new_data = pd.DataFrame(columns=headers)
+
+        for index, row in ttr_data.iterrows():
+            p_id = row["id"]
+            ttr = row.drop("id").values.tolist()
+
+            postperformance = post_logs.get(p_id)["Performance"].values[-1]
+            ttr.append(postperformance)
+
+            new_data = new_data.append(pd.Series(ttr, index=new_data.columns), ignore_index=True)
 
         new_data.to_csv("models/api/trainingsets/"+dataset_name+".csv", index=False)
         new_data.to_csv("simulator/api/trainingsets/"+dataset_name+".csv", index=False)
@@ -191,6 +243,18 @@ with app.app_context():
 
         return jsonify(data_to_send)
 
+
+    @app.route("/simulator/ttr/img/<dataset_name>")
+    def ttr_img(dataset_name):
+        dataframe = pd.read_csv("models/api/trainingsets/"+dataset_name+".csv", sep=',')
+        dataframe.plot()
+        bytes_image = io.BytesIO()
+        plt.savefig(bytes_image, format='png')
+        bytes_image.seek(0)
+        img = send_file(bytes_image,
+                        attachment_filename='plot.png',
+                        mimetype='image/png')
+        return img
 
     if __name__ == "__main__":
         """

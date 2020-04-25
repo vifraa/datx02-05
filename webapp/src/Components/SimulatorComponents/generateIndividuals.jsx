@@ -37,19 +37,27 @@ export default class generateIndividuals extends Component {
     generate_individs() {
         
         this.state.loading = true;
-        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        console.log(this.state.loading)
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        console.log(this.state.loading);
         var n = document.getElementById('ind_n').value; 
         var bpm = document.getElementById('ind_mean').value; 
         var bpv = document.getElementById('ind_variance').value; 
 
-        console.log("sending API request:")
+        console.log("sending API request:");
+        
         fetch("http://mo-yazanghafir.pagekite.me/simulator/individuals/" + n + "/" + bpm + "/" + bpv)
             .then(this.state.loading = true)
             .then(res => res.json())
             .then((data) => {
                 this.state.loading = false;
                 this.setState({ gen_individs: data });
+                fetch("http://mo-yazanghafir.pagekite.me/simulator/individuals/img")
+                .then((ires) => ires.blob())
+                .then((images) => {
+                    const objectURL = URL.createObjectURL(images);
+                    console.log("Learning curve URL: " + objectURL);
+                    document.getElementById('img_gen_individs').src = objectURL;
+                });
             }).catch(console.log);
     }
 
@@ -104,6 +112,7 @@ export default class generateIndividuals extends Component {
                         
                     </div>
 
+                    <img id="img_gen_individs" src="" className="visible margin-auto information_section" alt="img_gen_individs"></img>
 
                 </div>
             </div>
