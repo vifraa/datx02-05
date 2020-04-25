@@ -32,7 +32,11 @@ with app.app_context():
 
         dataframe = pd.read_csv('simulator/api/individuals/GeneratedIndividuals.csv', sep='|')
 
-        data = dataframe.head()
+        if dataframe.shape[0] > 20:
+            data = dataframe.head(20)
+        else:
+            data = dataframe
+
         headers_list = dataframe.columns.values.tolist()
         data_to_send = data.values.tolist()
         data_to_send.insert(0, headers_list)
@@ -85,7 +89,11 @@ with app.app_context():
 
         dataframe = pd.read_csv('simulator/api/output/program_logs.csv', sep='|')
 
-        data = dataframe.head()
+        if dataframe.shape[0] > 20:
+            data = dataframe.head(20)
+        else:
+            data = dataframe
+
         headers_list = dataframe.columns.values.tolist()
         data_to_send = data.values.tolist()
         data_to_send.insert(0, headers_list)
@@ -172,7 +180,11 @@ with app.app_context():
         new_data.to_csv("models/api/trainingsets/"+dataset_name+".csv", index=False)
         new_data.to_csv("simulator/api/trainingsets/"+dataset_name+".csv", index=False)
 
-        data = new_data.head()
+        if new_data.shape[0] > 20:
+            data = new_data.head(20)
+        else:
+            data = new_data
+
         headers_list = new_data.columns.values.tolist()
         data_to_send = data.values.tolist()
         data_to_send.insert(0, headers_list)
