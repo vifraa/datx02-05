@@ -15,7 +15,7 @@ from gym import BASE_FITNESS_GAIN, BASE_FATIGUE_GAIN, BASE_FITNESS_DECAY, BASE_F
 FLAGS = flags.FLAGS
 flags.DEFINE_integer("n", 500, "How many individuals to generate")
 flags.DEFINE_float("bpm", 100, "Mean of bench press max")
-flags.DEFINE_float("bpv", 5, "Variance in bench press max")
+flags.DEFINE_float("bpv", 15, "Variance in bench press max")
 flags.DEFINE_string("p", "simulator/individuals/GeneratedIndividuals.csv",
                     "Full path to save generated individuals in .csv format to")
 
@@ -63,9 +63,9 @@ def generate_individuals(num, bench_press_fitness_mean, bench_press_fitness_vari
     bench_press_performances = np.random.normal(bench_press_fitness_mean, bench_press_fitness_variance,
                                                 num).astype("int")
 
-    banister_params = random_banister_parameters()
 
     for i in range(num):
+        banister_params = random_banister_parameters()
         name = names.get_full_name()
         bench_press_movement = Movement(
             0, 0, bench_press_performances[i],
