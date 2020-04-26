@@ -49,7 +49,7 @@ export default class trainIndividuals extends Component {
                         const objectURL = URL.createObjectURL(images);
                         console.log("Learning curve URL: " + objectURL);
                         document.getElementById('post_img').src = objectURL;
-                });
+                    });
                 });
             }).catch(console.log);
     }

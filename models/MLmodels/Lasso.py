@@ -6,11 +6,14 @@ import io
 import matplotlib.pyplot as plt
 
 #import MLmodels.DataReader as dr
-from sklearn import linear_model
+from sklearn import linear_model, datasets
 from sklearn.metrics import mean_squared_error, r2_score
+
 from helpers import print_training_result_summary, training_result_summary
 from sklearn.model_selection import ShuffleSplit, train_test_split
 from visualizers.model_learning_curve_plotter import Learning_curve_plotter
+from visualizers.validation_curves_plotter import Validation_curve_plot
+from visualizers.models_visual_training_comparator import Models_comparator
 
 
 class Lasso:
@@ -134,4 +137,4 @@ class Lasso:
 
 
 
-# print(Lasso().regression())
+#Lasso.compare_all_models(path="../api/trainingsets/newttrimg.csv")

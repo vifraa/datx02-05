@@ -76,6 +76,11 @@ h3 {
   padding-top:10px;
 }
 
+
+#compare_button{
+  margin-left: 2%;
+}
+
 h4, h5{
   padding-left: 2%;
 }

@@ -36,7 +36,7 @@ class Models_comparator:
         plt.legend(loc="upper right")
         plt.xlabel("Proportion train")
         plt.ylabel("Test Error Rate")
-        plt.show()
+        #plt.show()
 
 
 '''

@@ -1,7 +1,12 @@
+import io
+
 from flask import Flask, jsonify,send_file, make_response
 from flask_cors import CORS, cross_origin
 import sys
+
+
 sys.path.insert(1, 'C:/Users/razan/Desktop/Kandidatarbetet/datx02-05/models')
+from visualizers.models_visual_training_comparator import Models_comparator
 import ast
 import MLmodels.DecisionTree as DecisionTree
 import MLmodels.ElasticNets as ElasticNet
@@ -46,7 +51,7 @@ def plotCurves(modelname, filename):
         'RandomForest': RandomForest.RandomForest,
         'NeuralNetwork': NeuralNetwork.NeuralNetwork
     }
-    bo = bytes_obj.get(modelname, "Invalid model name")(path="models/api/trainingsets/"+filename).learning_curves()
+    bo = bytes_obj.get(modelname, "Invalid model name")(path="simulator/api/trainingsets/"+filename).learning_curves()
     return send_file(bo,
                      attachment_filename='plot.png',
                      mimetype='image/png')
@@ -65,7 +70,7 @@ def model_regression_results(modelname, filename):
     global last_used_training_set
     last_used_model_name = modelname
     last_used_training_set = filename
-    return switcher.get(modelname, "Invalid model name")(path="models/api/trainingsets/"+filename).regression()
+    return switcher.get(modelname, "Invalid model name")(path="simulator/api/trainingsets/"+filename).regression()
 
 @app.route("/models/predict/<modelname>/<filename>/<data_to_predict>")
 def predict(modelname, filename, data_to_predict):
@@ -77,7 +82,7 @@ def predict(modelname, filename, data_to_predict):
         'RandomForest': RandomForest.RandomForest,
         'NeuralNetwork': NeuralNetwork.NeuralNetwork
     }
-    model = switcher.get(modelname, "Invalid model name")(path="models/api/trainingsets/"+filename)
+    model = switcher.get(modelname, "Invalid model name")(path="simulator/api/trainingsets/"+filename)
     model.regression()
     coming_data_as_list_of_str = ast.literal_eval(data_to_predict)
     coming_data_as_list_of_floats = [float(x) for x in coming_data_as_list_of_str]
@@ -85,6 +90,40 @@ def predict(modelname, filename, data_to_predict):
     reshaped_data = data_to_predict_performance_for.reshape(1, -1)
     print(reshaped_data)
     return str(model.predict(reshaped_data))
+
+
+@app.route("/models/compare_all_models/<filename>")
+def compare_all_models(filename):
+    import pandas as pd
+    import matplotlib.pyplot as plt
+
+    path = "simulator/api/trainingsets/"+filename
+    data = pd.read_csv(path, sep=',')
+    data = data.sample(frac=1.0, random_state=0)
+    y = data.iloc[:, -1:]
+    X = data.iloc[:, :-1]
+
+    y = y.to_numpy()
+    X = X.to_numpy()
+
+    # shape the data ex. (5000,)
+    y = y[:, 0]
+
+    Models_comparator(X, y, [("Lasso", Lasso.Lasso.get_pure_model()),
+                             ("Ridge", Ridge.Ridge.get_pure_model()),
+                             ("ElasticNets", ElasticNet.ElasticNet.get_pure_model()),
+                             ("DecisionTree", DecisionTree.DecisionTree.get_pure_model()),
+                             ("RandomForest", RandomForest.RandomForest.get_pure_model()),
+                             ("NeuralNetwork", NeuralNetwork.NeuralNetwork.get_pure_model())])
+
+    bytes_image = io.BytesIO()
+    plt.savefig(bytes_image, format='png')
+    bytes_image.seek(0)
+    img = send_file(bytes_image,
+                    attachment_filename='plot.png',
+                    mimetype='image/png')
+    print("The comparing img is ready to be sent")
+    return img
 
 
 @app.route("/models/last_training_info")

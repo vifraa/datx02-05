@@ -83,6 +83,8 @@ class modelCard extends Component {
           </MDBCard>
           <AwesomeComponent loading={this.state.loading}/>
           </Col>
+
+
         </div>
     );
   }

@@ -5,7 +5,7 @@ import GeneratedFilesInfo from "../SimulatorComponents/generatedfilesInfo";
 import Select from 'react-select'
 import ModelUse from './modelUse';
 import Row from 'react-bootstrap/Row';
-
+import Button from 'react-bootstrap/Button';
 
 export default class modelCardsContainer extends Component {
   constructor(props) {
@@ -45,6 +45,18 @@ export default class modelCardsContainer extends Component {
       this.setState({selectedDataset: e.value});
   }
 
+
+
+  compare(){
+      fetch("http://si-yazanghafir.pagekite.me/models/compare_all_models/" + this.state.selectedDataset)
+              .then((ires) => ires.blob())
+              .then((images) => {
+                  const objectURL = URL.createObjectURL(images);
+                  console.log("Comparing curve URL: " + objectURL);
+                  document.getElementById('compare_models_img').src = objectURL;
+      });
+  }
+
   render() {
     console.log(this.state);
     return (
@@ -78,7 +90,15 @@ export default class modelCardsContainer extends Component {
         <LearningResults
           model_run_name={this.state.model_names_and_images[1]}
         />
-        
+
+
+        <div className="section_title">
+            <h3 id = "compare_header" >Here you can compare all the models on the training data you have chosen: </h3>
+            <h4>Note that this function will not work if the number of the points in your training data is not big enough ex less than 100.</h4>
+            <h4>OBS! This can take more than 15 minutes depending on the size of your training set!</h4>
+            <Button id="compare_button" type="btn" onClick={()=>{this.compare()}}> Compare all models</Button>
+            <img id="compare_models_img" src="" className="visible margin-auto information_section" alt="compare_models_img"></img>
+        </div>
         <ModelUse/>
 
        
