@@ -37,9 +37,24 @@ export default class trainIndividuals extends Component {
             .then((data) => {
                 this.state.loading = false;
                 this.setState({ trainings_logs: data });
+                fetch("http://mo-yazanghafir.pagekite.me/simulator/individuals/pre_img")
+                .then((ires) => ires.blob())
+                .then((images) => {
+                    const objectURL = URL.createObjectURL(images);
+                    console.log("Learning curve URL: " + objectURL);
+                    document.getElementById('pre_img').src = objectURL;
+                    fetch("http://mo-yazanghafir.pagekite.me/simulator/individuals/post_img")
+                    .then((ires) => ires.blob())
+                    .then((images) => {
+                        const objectURL = URL.createObjectURL(images);
+                        console.log("Learning curve URL: " + objectURL);
+                        document.getElementById('post_img').src = objectURL;
+                });
+                });
             }).catch(console.log);
     }
-    
+
+        
     render_individs_table(){
         var rows = this.state.trainings_logs.map(function (item, i){
             
@@ -97,6 +112,11 @@ export default class trainIndividuals extends Component {
                                 {this.render_individs_table()}
                             </tbody>
                         </table>
+                        <p className="section_notes">Here you can see the progress of one randomly chosen individual of your gym trained individuals on pre and post programs respectivly over timestamp:</p>
+
+                        <img id="pre_img" src="" className="visible margin-auto information_section" alt="pre_img"></img>
+                        <img id="post_img" src="" className="visible margin-auto information_section" alt="post_img"></img>
+
 
                     </div>
                 </div>

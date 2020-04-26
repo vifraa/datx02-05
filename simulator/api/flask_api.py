@@ -1,3 +1,5 @@
+from random import randint
+
 from flask import Flask, jsonify,send_file, make_response, current_app
 from flask_cors import CORS, cross_origin
 import os
@@ -83,7 +85,7 @@ with app.app_context():
 
         """
             Allows the user to choose which program was trained before and which program to 'actually' train.
-            """
+        """
         PROGRAMS_DIR = os.path.join("simulator", "training_programs")
         programs_map_to_id = {}
         count = 1
@@ -99,19 +101,12 @@ with app.app_context():
                 train_population_from_file_random_program(
                     "simulator/api/individuals/GeneratedIndividuals.csv", programs_map_to_id,
                     "simulator/api/output/pre_program_logs.csv")
-                train_population_from_file_random_program(
-                    "simulator/api/individuals/GeneratedIndividuals.csv", programs_map_to_id,
-                    "models/api/output/pre_program_logs.csv")
             else:
                 pre_training_program = programs_map_to_id[int(nr_train_before)]
                 train_population_from_file("simulator/api/individuals/GeneratedIndividuals.csv",
                                            pre_training_program, "simulator/api/output/pre_program_logs.csv")
-                train_population_from_file("simulator/api/individuals/GeneratedIndividuals.csv",
-                                           pre_training_program, "models/api/output/pre_program_logs.csv")
         train_population_from_file("simulator/api/individuals/GeneratedIndividuals.csv",
                                    training_program, "simulator/api/output/program_logs.csv")
-        train_population_from_file("simulator/api/individuals/GeneratedIndividuals.csv",
-                                   training_program, "models/api/output/program_logs.csv")
 
         dataframe = pd.read_csv('simulator/api/output/program_logs.csv', sep='|')
 
@@ -128,6 +123,73 @@ with app.app_context():
 
         return jsonify(data_to_send)
 
+
+    @app.route("/simulator/individuals/post_img")
+    def gymtraining_post_img():
+
+        dataframepost = pd.read_csv("simulator/api/output/program_logs.csv", sep='|', index_col=False)
+
+        dataframepost = dataframepost.sort_values(by='Timestamp')
+
+        dataframepost = dataframepost.sort_values(by='ID')
+
+        dataframepost = dataframepost.iloc[0:222, :]
+
+        dataframepost = dataframepost.sort_values(by='Timestamp')
+
+        headers = ["ID", "Exercise", "Weight", "Reps", "Timestamp", "Performance"]
+        dataframe = pd.DataFrame(columns=headers)
+
+        dataframe = dataframe.append(dataframepost)
+
+        import matplotlib.ticker as ticker
+
+        dataframe.set_index('Timestamp', inplace=True)
+        ax = dataframe[["Exercise", "Weight", "Reps", "Performance"]].plot()
+
+        ax.yaxis.set_major_formatter(ticker.FormatStrFormatter('%.2f'))
+
+        bytes_image = io.BytesIO()
+        plt.savefig(bytes_image, format='png')
+        bytes_image.seek(0)
+        img = send_file(bytes_image,
+                        attachment_filename='plot' + str(randint(10, 200)) + '.png',
+                        mimetype='image/png')
+        return img
+
+
+
+    @app.route("/simulator/individuals/pre_img")
+    def gymtraining_pre_img():
+        dataframepre = pd.read_csv("simulator/api/output/pre_program_logs.csv", sep='|', index_col=False)
+
+        dataframepre = dataframepre.sort_values(by='Timestamp')
+
+        dataframepre = dataframepre.sort_values(by='ID')
+
+        dataframepre = dataframepre.iloc[0:222, :]
+
+        dataframepre = dataframepre.sort_values(by='Timestamp')
+
+        headers = ["ID", "Exercise", "Weight", "Reps", "Timestamp", "Performance"]
+        dataframe = pd.DataFrame(columns=headers)
+
+        dataframe = dataframe.append(dataframepre)
+
+        import matplotlib.ticker as ticker
+
+        dataframe.set_index('Timestamp', inplace=True)
+        ax = dataframe[["Exercise", "Weight", "Reps", "Performance"]].plot()
+
+        ax.yaxis.set_major_formatter(ticker.FormatStrFormatter('%.2f'))
+
+        bytes_image = io.BytesIO()
+        plt.savefig(bytes_image, format='png')
+        bytes_image.seek(0)
+        img = send_file(bytes_image,
+                        attachment_filename='plot' + str(randint(10, 200)) + '.png',
+                        mimetype='image/png')
+        return img
 
 
     @app.route("/simulator/generatedfiles")
@@ -178,8 +240,8 @@ with app.app_context():
         return jsonify(generatedfiles_info)
 
 
-    @app.route("/simulator/ttr_transform/<selectedDataset>/<dataset_name>")
-    def ttr_transform(selectedDataset, dataset_name):
+    @app.route("/simulator/ttr_transform/<dataset_name>")
+    def ttr_transform(dataset_name):
         import sys
         sys.path.insert(1, 'C:/Users/razan/Desktop/Kandidatarbetet/datx02-05')
 
@@ -244,9 +306,67 @@ with app.app_context():
         return jsonify(data_to_send)
 
 
-    @app.route("/simulator/ttr/img/<dataset_name>")
-    def ttr_img(dataset_name):
+    @app.route("/simulator/ttr/imgXLoads/<dataset_name>")
+    def ttr_imgXLoads(dataset_name):
+        dataframe = pd.read_csv("models/api/trainingsets/"+dataset_name+".csv", sep=',', index_col=False)
+        dataframe = dataframe[['load_week1', 'load_week2', 'load_week3', 'load_week4']]
+        print(dataframe)
+        dataframe.plot()
+        bytes_image = io.BytesIO()
+        plt.savefig(bytes_image, format='png')
+        bytes_image.seek(0)
+        img = send_file(bytes_image,
+                        attachment_filename='plot'+str(randint(10, 200))+'.png',
+                        mimetype='image/png')
+        return img
+    """
+
+    @app.route("/simulator/ttr/imgXLoads/<dataset_name>")
+    def ttr_imgXLoads(dataset_name):
+        dataframepre = pd.read_csv("models/api/output/pre_program_logs.csv", sep='|', index_col=False)
+        dataframepost = pd.read_csv("models/api/output/program_logs.csv", sep='|', index_col=False)
+
+        dataframepre = dataframepre.iloc[0, :]
+        dataframepost = dataframepost.iloc[0, :]
+
+        headers = ["ID", "Exercise", "Weight", "Reps", "Timestamp", "Performance"]
+        dataframe = pd.DataFrame(columns=headers)
+
+        dataframe.append(dataframepre)
+        dataframe.append(dataframepost)
+
+        print(dataframe)
+        dataframe.plot()
+        bytes_image = io.BytesIO()
+        plt.savefig(bytes_image, format='png')
+        bytes_image.seek(0)
+        img = send_file(bytes_image,
+                        attachment_filename='plot' + str(randint(10, 200)) + '.png',
+                        mimetype='image/png')
+        plt.show()
+        return img
+
+    """
+
+    @app.route("/simulator/ttr/imgXMax/<dataset_name>")
+    def ttr_imgXMax(dataset_name):
+        dataframe = pd.read_csv("models/api/trainingsets/"+dataset_name+".csv", sep=',', index_col=False)
+        dataframe = dataframe[['max_week1', 'max_week2', 'max_week3', 'max_week4', 'Performance']]
+        print(dataframe)
+        dataframe.plot()
+        bytes_image = io.BytesIO()
+        plt.savefig(bytes_image, format='png')
+        bytes_image.seek(0)
+        img = send_file(bytes_image,
+                        attachment_filename='plot'+str(randint(10, 200))+'.png',
+                        mimetype='image/png')
+        return img
+
+
+    @app.route("/simulator/ttr/imgY/<dataset_name>")
+    def ttr_imgY(dataset_name):
         dataframe = pd.read_csv("models/api/trainingsets/"+dataset_name+".csv", sep=',')
+        dataframe = dataframe.iloc[:, -1:]
         dataframe.plot()
         bytes_image = io.BytesIO()
         plt.savefig(bytes_image, format='png')

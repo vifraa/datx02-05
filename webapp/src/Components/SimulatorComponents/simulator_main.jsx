@@ -4,7 +4,12 @@ import TrainIndividuals from './trainIndividuals';
 import GeneratedfilesInfo from './generatedfilesInfo';
 import TransformData from './transformData';
 export default class simulator_main extends Component {
+    componentDidMount() {
+        document.title = 'DATX02-05';
+    }
+    
     render() {
+        
         return (
             <div>
                 <div id="simulator_body">

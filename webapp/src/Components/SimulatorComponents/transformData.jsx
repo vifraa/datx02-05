@@ -10,12 +10,10 @@ export default class TransformData extends Component {
     super(props);
     this.state = {
       datasetOptions: [],
-      selectedDataset: "",
       ttr_transormed: [],
       dataset_name:"",
       loading: true
     };
-    this.handleDropdownChange=this.handleDropdownChange.bind(this);
   }
 
   componentDidMount() {
@@ -60,28 +58,40 @@ export default class TransformData extends Component {
             }).catch(console.log);
   }
 
-  handleDropdownChange(e){
-      this.setState({selectedDataset: e.value});
-  }
-
+ 
   transorm(){
 
         var ds_name = document.getElementById('dataset_name').value; 
 
 
-        fetch("http://mo-yazanghafir.pagekite.me/simulator/ttr_transform/" + this.state.selectedDataset + "/" + ds_name)
+        fetch("http://mo-yazanghafir.pagekite.me/simulator/ttr_transform/" + ds_name)
             .then(this.state.loading = true)
             .then(res => res.json())
             .then((data) => {
                 this.state.loading = false;
                 this.setState({ ttr_transormed: data });
-                fetch("http://mo-yazanghafir.pagekite.me/simulator/ttr/img/" + ds_name)
+                fetch("http://mo-yazanghafir.pagekite.me/simulator/ttr/imgXLoads/" + ds_name)
                 .then((ires) => ires.blob())
                 .then((images) => {
                     const objectURL = URL.createObjectURL(images);
                     console.log("Learning curve URL: " + objectURL);
-                    document.getElementById('ttr_img').src = objectURL;
+                    document.getElementById('ttr_imgXLoads').src = objectURL;
+                    fetch("http://mo-yazanghafir.pagekite.me/simulator/ttr/imgXMax/" + ds_name)
+                    .then((ires) => ires.blob())
+                    .then((images) => {
+                        const objectURL = URL.createObjectURL(images);
+                        console.log("Learning curve URL: " + objectURL);
+                        document.getElementById('ttr_imgXMax').src = objectURL;
+                        fetch("http://mo-yazanghafir.pagekite.me/simulator/ttr/imgY/" + ds_name)
+                        .then((ires) => ires.blob())
+                        .then((images) => {
+                            const objectURL = URL.createObjectURL(images);
+                            console.log("Learning curve URL: " + objectURL);
+                            document.getElementById('ttr_imgY').src = objectURL;
+                        });
+                    });
                 });
+                
             }).catch(console.log);
   }
 
@@ -97,13 +107,7 @@ export default class TransformData extends Component {
 
 
                         <div style={{color:"black", marginBottom: '10px'}}>
-                            <Select
-                            options={this.state.datasetOptions}
-                            onChange={this.handleDropdownChange}
-                            >
-                            </Select>
-
-
+                    
                             <Form
                                 onSubmit={this.submitHandler}
                             >
@@ -124,7 +128,9 @@ export default class TransformData extends Component {
                             </tbody>
                         </table>
 
-                        <img id="ttr_img" src="" className="visible margin-auto information_section" alt="ttr_img"></img>
+                        <img id="ttr_imgXLoads" src="" className="visible margin-auto information_section" alt="ttr_imgXLoads"></img>
+                        <img id="ttr_imgXMax" src="" className="visible margin-auto information_section" alt="ttr_imgXMax"></img>
+                        <img id="ttr_imgY" src="" className="visible margin-auto information_section" alt="ttr_imgY"></img>
 
                     </div>
                 </div>      
