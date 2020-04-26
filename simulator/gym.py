@@ -27,7 +27,7 @@ def _adjust_set_dates_from_start_date(training_dataframe, start_date):
 
     for i, row in training_dataframe.iterrows():
         set_date = row["Timestamp"]
-        training_dataframe.at[i, "Timestamp"] = set_date + timedelta(days=(abs(delta.days) +1))
+        training_dataframe.at[i, "Timestamp"] = set_date + timedelta(days=abs(delta.days))
 
     return training_dataframe
 
@@ -50,7 +50,8 @@ def train(training_dataframe, individual):
 
     """
 
-    training_dataframe = _adjust_set_dates_from_start_date(training_dataframe, individual.timestamp)
+    training_dataframe = _adjust_set_dates_from_start_date(
+        training_dataframe, (individual.timestamp + timedelta(days=1)))
 
     # train the bench press
     performed_training_dataframe = apply_banister(training_dataframe,
