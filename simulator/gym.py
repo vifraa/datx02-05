@@ -11,6 +11,31 @@ BASE_FITNESS_DECAY = 45
 BASE_FATIGUE_GAIN = 1.3279029823134185
 BASE_FATIGUE_DECAY = 36
 
+def _adjust_set_dates_from_start_date(training_dataframe, start_date):
+    """
+    Adjust the set datetimes in the inputed training dataframe to keep the same interval
+    but from the starting date.
+
+    :param training_dateframe: Dataframe containing the training sets.
+    :param start_date: Datetime representing when the training should start from.
+    :returns: The converted dataframe.
+    """
+
+    program_start = training_dataframe['Timestamp'].iloc[0]
+    delta = program_start.date() - start_date.date()
+
+    for i, row in training_dataframe.iterrows():
+        set_date = row["Timestamp"]
+        training_dataframe.at[i, "Timestamp"] = set_date + timedelta(days=abs(delta.days))
+
+
+    for _, row in training_dataframe.iterrows():
+        print(row["Timestamp"])
+
+    return training_dataframe
+
+
+
 
 def train(training_dataframe, individual):
     """Function uses an implementation of the Banister model to
@@ -27,6 +52,8 @@ def train(training_dataframe, individual):
     :returns: list of performed training logs with current level of performance
 
     """
+
+    training_dataframe = _adjust_set_dates_from_start_date(training_dataframe, individual.timestamp)
 
     # train the bench press
     performed_training_dataframe = apply_banister(training_dataframe,
