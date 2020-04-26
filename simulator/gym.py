@@ -5,11 +5,33 @@ feasible for the trainee."""
 
 import math
 import pandas as pd
+from datetime import timedelta
 
 BASE_FITNESS_GAIN = 1.8254336640074262
 BASE_FITNESS_DECAY = 45
 BASE_FATIGUE_GAIN = 1.3279029823134185
 BASE_FATIGUE_DECAY = 36
+
+def _adjust_set_dates_from_start_date(training_dataframe, start_date):
+    """
+    Adjust the set datetimes in the inputed training dataframe to keep the same interval
+    but from the starting date.
+
+    :param training_dateframe: Dataframe containing the training sets.
+    :param start_date: Datetime representing when the training should start from.
+    :returns: The converted dataframe.
+    """
+
+    program_start = training_dataframe['Timestamp'].iloc[0]
+    delta = program_start.date() - start_date.date()
+
+    for i, row in training_dataframe.iterrows():
+        set_date = row["Timestamp"]
+        training_dataframe.at[i, "Timestamp"] = set_date + timedelta(days=abs(delta.days))
+
+    return training_dataframe
+
+
 
 
 def train(training_dataframe, individual):
@@ -27,6 +49,9 @@ def train(training_dataframe, individual):
     :returns: list of performed training logs with current level of performance
 
     """
+
+    training_dataframe = _adjust_set_dates_from_start_date(
+        training_dataframe, (individual.timestamp + timedelta(days=1)))
 
     # train the bench press
     performed_training_dataframe = apply_banister(training_dataframe,
