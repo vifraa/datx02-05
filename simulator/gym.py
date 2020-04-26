@@ -5,6 +5,7 @@ feasible for the trainee."""
 
 import math
 import pandas as pd
+from datetime import timedelta
 
 BASE_FITNESS_GAIN = 1.8254336640074262
 BASE_FITNESS_DECAY = 45
@@ -26,11 +27,7 @@ def _adjust_set_dates_from_start_date(training_dataframe, start_date):
 
     for i, row in training_dataframe.iterrows():
         set_date = row["Timestamp"]
-        training_dataframe.at[i, "Timestamp"] = set_date + timedelta(days=abs(delta.days))
-
-
-    for _, row in training_dataframe.iterrows():
-        print(row["Timestamp"])
+        training_dataframe.at[i, "Timestamp"] = set_date + timedelta(days=(abs(delta.days) +1))
 
     return training_dataframe
 
