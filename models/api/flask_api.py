@@ -109,6 +109,9 @@ def compare_all_models(filename):
     # shape the data ex. (5000,)
     y = y[:, 0]
 
+    print(X.shape)
+    print(y.shape)
+
     Models_comparator(X, y, [("Lasso", Lasso.Lasso.get_pure_model()),
                              ("Ridge", Ridge.Ridge.get_pure_model()),
                              ("ElasticNets", ElasticNet.ElasticNet.get_pure_model()),

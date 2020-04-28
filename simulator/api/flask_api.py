@@ -137,6 +137,8 @@ with app.app_context():
 
         dataframepost = dataframepost.sort_values(by='Timestamp')
 
+        print(dataframepost)
+
         headers = ["ID", "Exercise", "Weight", "Reps", "Timestamp", "Performance"]
         dataframe = pd.DataFrame(columns=headers)
 
@@ -161,7 +163,9 @@ with app.app_context():
 
     @app.route("/simulator/individuals/pre_img")
     def gymtraining_pre_img():
-        dataframepre = pd.read_csv("simulator/api/output/pre_program_logs.csv", sep='|', index_col=False)
+
+        dataframepre = pd.read_csv("simulator/api/output/pre_program_logs.csv", sep='|',
+                                   index_col=False)
 
         dataframepre = dataframepre.sort_values(by='Timestamp')
 
@@ -170,6 +174,8 @@ with app.app_context():
         dataframepre = dataframepre.iloc[0:222, :]
 
         dataframepre = dataframepre.sort_values(by='Timestamp')
+
+        print(dataframepre)
 
         headers = ["ID", "Exercise", "Weight", "Reps", "Timestamp", "Performance"]
         dataframe = pd.DataFrame(columns=headers)
@@ -310,7 +316,8 @@ with app.app_context():
     def ttr_imgXLoads(dataset_name):
         dataframe = pd.read_csv("models/api/trainingsets/"+dataset_name+".csv", sep=',', index_col=False)
         dataframe = dataframe[['load_week1', 'load_week2', 'load_week3', 'load_week4']]
-        print(dataframe)
+        dataframe = dataframe.head(50)
+        #print(dataframe)
         dataframe.plot()
         bytes_image = io.BytesIO()
         plt.savefig(bytes_image, format='png')
@@ -352,6 +359,7 @@ with app.app_context():
     def ttr_imgXMax(dataset_name):
         dataframe = pd.read_csv("models/api/trainingsets/"+dataset_name+".csv", sep=',', index_col=False)
         dataframe = dataframe[['max_week1', 'max_week2', 'max_week3', 'max_week4', 'Performance']]
+        dataframe = dataframe.head(50)
         print(dataframe)
         dataframe.plot()
         bytes_image = io.BytesIO()
@@ -367,6 +375,7 @@ with app.app_context():
     def ttr_imgY(dataset_name):
         dataframe = pd.read_csv("models/api/trainingsets/"+dataset_name+".csv", sep=',')
         dataframe = dataframe.iloc[:, -1:]
+        dataframe = dataframe.head(50)
         dataframe.plot()
         bytes_image = io.BytesIO()
         plt.savefig(bytes_image, format='png')

@@ -87,6 +87,8 @@ export default class trainIndividuals extends Component {
                         <li>ogasawara_LL.csv</li>
                         <li>Random program for each individual</li>
                         <li>No pre-training program</li>
+                        
+
                     </ol>
                     <h5>Please enter the number of the program to train before:</h5>
                     
