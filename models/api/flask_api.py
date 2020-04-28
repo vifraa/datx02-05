@@ -31,12 +31,12 @@ def index():
 @app.route("/models")
 def model_names():
     res = [
-        ["Lasso Model", "Lasso", "https://miro.medium.com/max/4328/1*KwdVLH5e_P9h8hEzeIPnTg.png"],
-        ["Ridge Model", "Ridge", "https://miro.medium.com/max/1200/1*87aMm1RRoaxS4Sy8Q-XMDg.png"],
-        ["Elastic Net Model", "ElasticNet", "https://scikit-learn.org/stable/_images/sphx_glr_plot_lasso_and_elasticnet_thumb.png"],
-        ["Decision Tree Model", "DecisionTree", "https://scikit-learn.org/stable/_images/sphx_glr_plot_tree_regression_001.png"],
-        ["Random Forest Model", "RandomForest", "https://i.pinimg.com/originals/1a/dd/ef/1addef7a01f76b57aa939bd5b8ff6b57.png"],
-        ["Neural Network Model", "NeuralNetwork", "https://cdn-media-1.freecodecamp.org/images/1*1mpE6fsq5LNxH31xeTWi5w.jpeg"]
+        ["Lasso Model", "Lasso", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Linear_regression.svg/1024px-Linear_regression.svg.png"],
+        ["Ridge Model", "Ridge", "https://lh3.googleusercontent.com/proxy/RFek_Hib_kVPmYE2df9uAqoxzfup8Udda3vPRle-6tPHBNPqJIN6nzClNUDk9xcPOJP5a0OV_P5yY7bwx6yN-yDzXvuZCGWrM_Fx-btB7N9bsky6UPhh8AkIqqfJk_eopS66vVJ5L9TYIWlws66edsp4pfAirAuNXrJBgvfe1UQjTtTA16Y8Ff3yJFphGGDpJx3OxR3EHIaOrQb32tN0BZpeEYGA6w"],
+        ["Elastic Net Model", "ElasticNet", "https://www.researchgate.net/profile/Bart_Hobijn2/publication/46566214/figure/fig1/AS:652216872488960@1532512028126/Okuns-law-before-and-during-the-2007-recession.png"],
+        ["Decision Tree Model", "DecisionTree", "https://upload.wikimedia.org/wikipedia/commons/f/ff/Decision_tree_model.png"],
+        ["Random Forest Model", "RandomForest", "https://upload.wikimedia.org/wikipedia/commons/c/c7/Randomforests_ensemble.gif"],
+        ["Neural Network Model", "NeuralNetwork", "https://live.staticflickr.com/8435/7880912598_389d98a505_b.jpg"]
     ]
     return jsonify(res)
 

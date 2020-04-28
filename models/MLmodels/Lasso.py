@@ -77,6 +77,8 @@ class Lasso:
         self.lasso_r2_score = r2_score(self.data.Ytest, lasso_Ypred)
 
         print_training_result_summary('Lasso', self.lasso_mean_squared_error, self.lasso_r2_score)
+        self.save_the_trained_model()
+        self.save_the_class_included_the_trained_model()
         return training_result_summary('Lasso', self.lasso_mean_squared_error, self.lasso_r2_score)
 
     def predict(self, X_to_Predict):

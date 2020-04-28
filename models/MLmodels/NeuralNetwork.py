@@ -82,7 +82,7 @@ class NeuralNetwork:
                             warm_start=False,
                             momentum=0.9,
                             nesterovs_momentum=True,
-                            early_stopping=True,
+                            early_stopping=False,
                             validation_fraction=0.1,
                             beta_1=0.9,
                             beta_2=0.999,
@@ -93,11 +93,27 @@ class NeuralNetwork:
 
     def regression(self):
         self.nn = self.get_pure_model()
-        self.nn.fit(self.data.Xtrain, np.asarray(self.data.Ytrain).flatten())
+
+        self.data.Y = self.data.Y.to_numpy()
+        self.data.X = self.data.X.to_numpy()
+
+        # shape the data ex. (5000,)
+        self.data.Y = self.data.Y[:, 0]
+
+        # Partition the data into training and test sets.
+        self.data.Xtrain, self.data.Xtest, self.data.Ytrain, self.data.Ytest = train_test_split(self.data.X, self.data.Y, test_size=0.33,
+                                                                            random_state=42)
+
+        self.nn.fit(self.data.Xtrain, self.data.Ytrain)
         nn_Ypred = self.nn.predict(self.data.Xtest)
         self.nn_mean_squared_error = mean_squared_error(self.data.Ytest, nn_Ypred)
         self.nn_r2_score = r2_score(self.data.Ytest, nn_Ypred)
         print_training_result_summary('NeuralNetwork', self.nn_mean_squared_error, self.nn_r2_score)
+
+
+        self.save_the_trained_model()
+        self.save_the_class_included_the_trained_model()
+
         return training_result_summary('NeuralNetwork', self.nn_mean_squared_error, self.nn_r2_score)
 
     def predict(self, X_to_Predict):
@@ -134,7 +150,7 @@ class NeuralNetwork:
 
     def save_the_trained_model(self):
         # save the model to disk
-        filename = 'finalized_Lasso_model.sav'
+        filename = 'finalized_NeuralNetwork_model.sav'
         pickle.dump(self.nn, open(filename, 'wb'))
 
     def save_the_class_included_the_trained_model(self):
@@ -145,7 +161,7 @@ class NeuralNetwork:
     def train_and_save_the_class_included_the_trained_model(self, dataset_name):
         self.regression_and_plot_curves()
         # save the model to disk
-        filename = 'class_contains_trained_Neural_Network_model_on_'+dataset_name+'_with_more_functionalities.sav'
+        filename = 'class_contains_trained_NeuralNetwork_model_on_'+dataset_name+'_with_more_functionalities.sav'
         pickle.dump(self, open(filename, 'wb'))
 
     def get_trained_model(self):

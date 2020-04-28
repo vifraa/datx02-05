@@ -52,7 +52,7 @@ dataframepre = dataframepre.sort_values(by='Timestamp')
 
 dataframepre = dataframepre.sort_values(by='ID')
 
-dataframepre = dataframepre.iloc[0:48, :]
+dataframepre = dataframepre.iloc[0:222, :]
 
 dataframepre = dataframepre.sort_values(by='Timestamp')
 
@@ -72,20 +72,20 @@ ax.yaxis.set_major_formatter(ticker.FormatStrFormatter('%.2f'))
 
 
 plt.show()
-
 """
+
 
 
 
 # Post
 
-dataframepost = pd.read_csv("output/program_logs.csv", sep='|', index_col=False)
+dataframepost = pd.read_csv("newest_training_sets/6w_pb_fiesta_3000_pop_v3/pre_program_logs.csv", sep='|', index_col=False)
 
 dataframepost = dataframepost.sort_values(by='Timestamp')
 
 dataframepost = dataframepost.sort_values(by='ID')
 
-dataframepost = dataframepost.iloc[0:15, :]
+dataframepost = dataframepost.iloc[0:48, :]
 
 dataframepost = dataframepost.sort_values(by='Timestamp')
 

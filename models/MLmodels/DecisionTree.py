@@ -73,6 +73,8 @@ class DecisionTree:
         self.DecisionTree_r2_score = r2_score(self.data.Ytest, DecisionTree_Ypred)
 
         print_training_result_summary('Decision Tree', self.DecisionTree_mean_squared_error, self.DecisionTree_r2_score)
+        self.save_the_trained_model()
+        self.save_the_class_included_the_trained_model()
         return training_result_summary('Decision Tree', self.DecisionTree_mean_squared_error, self.DecisionTree_r2_score)
 
     def predict(self, X_to_Predict):
