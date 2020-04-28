@@ -42,6 +42,7 @@ class Individual:
             series["bench_press_fitness_decay"],
             series["bench_press_fatigue_decay"],
         )
+        self.timestamp = pd.to_datetime(series["Timestamp"])
 
     def to_series(self):
         """Returns an one-dimentional array (series) containing all parameters from the individual."""
