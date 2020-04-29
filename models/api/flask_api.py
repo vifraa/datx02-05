@@ -32,7 +32,7 @@ def index():
 def model_names():
     res = [
         ["Lasso Model", "Lasso", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Linear_regression.svg/1024px-Linear_regression.svg.png"],
-        ["Ridge Model", "Ridge", "https://lh3.googleusercontent.com/proxy/RFek_Hib_kVPmYE2df9uAqoxzfup8Udda3vPRle-6tPHBNPqJIN6nzClNUDk9xcPOJP5a0OV_P5yY7bwx6yN-yDzXvuZCGWrM_Fx-btB7N9bsky6UPhh8AkIqqfJk_eopS66vVJ5L9TYIWlws66edsp4pfAirAuNXrJBgvfe1UQjTtTA16Y8Ff3yJFphGGDpJx3OxR3EHIaOrQb32tN0BZpeEYGA6w"],
+        ["Ridge Model", "Ridge", "https://upload.wikimedia.org/wikipedia/en/e/ed/First_order_hsked.svg"],
         ["Elastic Net Model", "ElasticNet", "https://www.researchgate.net/profile/Bart_Hobijn2/publication/46566214/figure/fig1/AS:652216872488960@1532512028126/Okuns-law-before-and-during-the-2007-recession.png"],
         ["Decision Tree Model", "DecisionTree", "https://upload.wikimedia.org/wikipedia/commons/f/ff/Decision_tree_model.png"],
         ["Random Forest Model", "RandomForest", "https://upload.wikimedia.org/wikipedia/commons/c/c7/Randomforests_ensemble.gif"],
