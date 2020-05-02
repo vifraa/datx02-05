@@ -4,6 +4,7 @@ train. The training effects of performing the training can then be observed and 
 individuals themselves (along with their personal attributes) can be logged as well."""
 import threading
 import pandas as pd
+import numpy as np
 import gym
 from generator import generate_individuals, save_individuals
 from individual import Individual
@@ -11,6 +12,7 @@ import click
 import os
 import random
 import time
+from tqdm import tqdm
 
 def __train_and_save(individuals, training_results_path, training_program_path):
     """
@@ -30,7 +32,7 @@ def __train_and_save(individuals, training_results_path, training_program_path):
     # load training program
 
     # perform training
-    for individual in individuals:
+    for individual in tqdm(individuals):
         training_dataframe = gym.load_training(
             training_program_path, individual.bench_press_movement)
         performed_training = gym.train(training_dataframe, individual)
@@ -205,15 +207,17 @@ def train_population_from_file_random_program(individuals_path, programs_dict, t
     individuals = []
     for _, individual_series in individuals_df.iterrows():
         individuals.append(Individual(series=individual_series))
-    for individual in individuals:
-        # Get a random program
-        training_program_path = programs_dict[random.randint(
-            1, len(programs_dict))]
-        timestamp = __train_and_save(
-        [individual], training_results_path, training_program_path)
+
+
+    # assign even cohorts of programs
+    cohorts = np.array_split(individuals, len(programs_dict))
+
+    for i, training_program_path in enumerate(programs_dict.values()):
+
+        timestamp = __train_and_save(cohorts[i], training_results_path, training_program_path)
 
         # add the updated individuals to bottom of csv file
-        save_individuals([individual], individuals_path, timestamp)
+        save_individuals(cohorts[i], individuals_path, timestamp)
 
 
 @click.command()
