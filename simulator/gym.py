@@ -73,21 +73,17 @@ def apply_banister(training_dataframe, movement):
     # iterate through all prescribed sets
     previous_date = training_dataframe["Timestamp"].iloc[0].date()
     cumulative_trimp = 0
-    performed_training = training_dataframe.copy()
+    performed_training = [0] * len(training_dataframe)
 
     # add column for current level of performance
-    performed_training["Performance"] = [0] * len(performed_training)
+    training_dataframe["Performance"] = [0] * len(training_dataframe)
 
     for index, training_set in training_dataframe.iterrows():
 
         # convert training to what would be possible for the individual to perform
         training_set = can_do(training_set, movement)
-        performed_training.iloc[index, :] = training_set
-
-        # add current level of performance to log
-        index_label = training_dataframe.index[index]
-        performed_training.loc[index_label,
-                               "Performance"] = movement.get_current_performance()
+        performed_training[index] = training_set
+        performed_training[index].iat[-1] = movement.get_current_performance()
 
         # since our timestep is daily, we have to accumulate the training sets taken place during
         # the same day in our calculations
@@ -116,7 +112,7 @@ def apply_banister(training_dataframe, movement):
         apply_training_effects(movement, cumulative_trimp)
 
     # return actual performed training
-    return performed_training
+    return pd.DataFrame(performed_training)
 
 
 def apply_training_effects(movement, cumulative_trimp):
