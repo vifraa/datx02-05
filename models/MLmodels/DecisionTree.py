@@ -100,16 +100,26 @@ class DecisionTree:
 
     def save_the_trained_model(self):
         # save the model to disk
+        model_trained_on_full_data = self.train_model_without_train_test_split()
         filename = 'finalized_DecisionTree_model.sav'
-        pickle.dump(self.DecisionTreeM, open(filename, 'wb'))
+        pickle.dump(model_trained_on_full_data, open(filename, 'wb'))
 
     def save_the_class_included_the_trained_model(self):
         # save the model to disk
+        self.DecisionTreeM = self.train_model_without_train_test_split()
         filename = 'class_contains_trained_DecisionTree_model_with_more_functionalities.sav'
         pickle.dump(self, open(filename, 'wb'))
 
     def get_trained_model(self):
         return self.DecisionTreeM
+
+    def train_model_without_train_test_split(self):
+        """
+        Creates a new instance of the machine learning model,
+        training it on the full data set.
+        """
+        return self.get_pure_model().fit(self.data.X, self.data.Y)
+
 
 
 # Example working scenarios:

@@ -122,16 +122,26 @@ class NeuralNetwork:
 
     def save_the_trained_model(self):
         # save the model to disk
+        model_trained_on_full_data = self.train_model_without_train_test_split()
         filename = 'finalized_Lasso_model.sav'
-        pickle.dump(self.nn, open(filename, 'wb'))
+        pickle.dump(model_trained_on_full_data, open(filename, 'wb'))
 
     def save_the_class_included_the_trained_model(self):
         # save the model to disk
+        self.nn = self.train_model_without_train_test_split()
         filename = 'class_contains_trained_NeuralNetwork_model_with_more_functionalities.sav'
         pickle.dump(self, open(filename, 'wb'))
 
     def get_trained_model(self):
         return self.nn
+
+    def train_model_without_train_test_split(self):
+        """
+        Creates a new instance of the machine learning model,
+        training it on the full data set.
+        """
+        return self.get_pure_model().fit(self.data.X, np.asarray(self.data.Y).flatten())
+
 
 
 

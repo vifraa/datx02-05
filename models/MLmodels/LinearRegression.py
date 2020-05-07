@@ -106,14 +106,16 @@ class LinearRegression:
         Saves the trained machine learning model to binary file in current
         working diractory.
         """
+        model_trained_on_full_data = self.train_model_without_train_test_split()
         filename = 'finalized_LinearRegression_model.sav'
-        pickle.dump(self.model, open(filename, 'wb'))
+        pickle.dump(model_trained_on_full_data, open(filename, 'wb'))
 
     def save_the_class_included_the_trained_model(self):
         """
         Saves the wrapper class including the trained machine learning model to binary file
         in current working directory.
         """
+        self.model = self.train_model_without_train_test_split()
         filename = 'class_contains_trained_LinearRegression_model_with_more_functionalities.sav'
         pickle.dump(self, open(filename, 'wb'))
 
@@ -122,3 +124,12 @@ class LinearRegression:
         Returns the trained machine learning model.
         """
         return self.model
+
+    def train_model_without_train_test_split(self):
+        """
+        Creates a new instance of the machine learning model,
+        training it on the full data set.
+        """
+        return self.get_pure_model().fit(self.data.X, self.data.Y)
+
+

@@ -100,16 +100,26 @@ class ElasticNet:
 
     def save_the_trained_model(self):
         # save the model to disk
+        model_trained_on_full_data = self.train_model_without_train_test_split()
         filename = 'finalized_ElasticNet_model.sav'
-        pickle.dump(self.eNet, open(filename, 'wb'))
+        pickle.dump(model_trained_on_full_data, open(filename, 'wb'))
 
     def save_the_class_included_the_trained_model(self):
         # save the model to disk
+        self.eNet = self.train_model_without_train_test_split()
         filename = 'class_contains_trained_ElasticNet_model_with_more_functionalities.sav'
         pickle.dump(self, open(filename, 'wb'))
 
     def get_trained_model(self):
         return self.eNet
+
+    def train_model_without_train_test_split(self):
+        """
+        Creates a new instance of the machine learning model,
+        training it on the full data set.
+        """
+        return self.get_pure_model().fit(self.data.X, self.data.Y)
+
 
 
 #ElasticNet().regression_and_plot_curves()
