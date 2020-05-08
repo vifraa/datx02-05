@@ -89,7 +89,7 @@ class ElasticNet:
         warnings.filterwarnings("ignore")
         title = "Learning Curves ElasticNet"
         cv = ShuffleSplit(n_splits=50, test_size=0.2, random_state=0)
-        estimator = ElasticNetModel(alpha=0.1, normalize=True)
+        estimator = ElasticNetModel(alpha=1.0, normalize=True)
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         plt.show()
 
