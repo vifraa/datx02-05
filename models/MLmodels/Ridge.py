@@ -45,7 +45,7 @@ class Ridge:
             self.data = dr.DataSample()
 
     def read_data_from_path_and_partition(self, path):
-        self.data = pd.read_csv(path)
+        self.data = pd.read_csv(path, sep=",")
         self.data = self.data.sample(frac=1.0, random_state=0)
         self.data.Y = self.data.iloc[:, -1:]
         self.data.X = self.data.iloc[:, :-1]

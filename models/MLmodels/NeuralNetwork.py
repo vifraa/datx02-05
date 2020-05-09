@@ -66,7 +66,7 @@ class NeuralNetwork:
     @classmethod
     def get_pure_model(cls):
         return MLPRegressor(
-                            hidden_layer_sizes=(100, 100),
+                            hidden_layer_sizes=(100,100,100,100,100,100,100,100,100,100,100,100,100,100,100),
                             activation='relu',
                             solver='adam',
                             alpha=0.0001,
@@ -74,7 +74,7 @@ class NeuralNetwork:
                             learning_rate='constant',
                             learning_rate_init=0.001,
                             power_t=0.5,
-                            max_iter=10000,
+                            max_iter=500,
                             shuffle=True,
                             random_state=None,
                             tol=0.0001,
@@ -82,7 +82,7 @@ class NeuralNetwork:
                             warm_start=False,
                             momentum=0.9,
                             nesterovs_momentum=True,
-                            early_stopping=False,
+                            early_stopping=True,
                             validation_fraction=0.1,
                             beta_1=0.9,
                             beta_2=0.999,
