@@ -3,7 +3,7 @@ import random
 import pandas as pd
 from IPython.display import display
 from sklearn.model_selection import train_test_split
-from visualizers import data_plotter
+#from visualizers import data_plotter
 
 class DataSampleValues:
 
@@ -53,3 +53,11 @@ class DataSample:
             "The target (the performance of the specific person after doing the specific training): " + '\n' + "_______________________________________")
         display(self.Y.head())
 
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+data = pd.read_csv("../api/trainingsets/ttrtest.csv", sep=',')
+data = data.head(100)
+data.plot()
+plt.show()

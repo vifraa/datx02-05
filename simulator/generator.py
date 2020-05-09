@@ -35,7 +35,7 @@ def random_banister_parameters():
     # Float between 1 and 5
     fitness_gain, fatigue_gain = np.random.uniform(
         1, 5, 2)
-    
+
 
     # Insert them into the dict and return
     params["fitness_gain"] = fitness_gain
@@ -72,7 +72,6 @@ def generate_individuals(num, bench_press_fitness_mean, bench_press_fitness_vari
             banister_params["fitness_gain"], banister_params["fatigue_gain"], banister_params["fitness_decay"], banister_params["fatigue_decay"])
         individual = Individual(i,datetime.datetime.now(),name, bench_press_movement)
         individuals.append(individual)
-
 
     return individuals
 
@@ -126,6 +125,15 @@ def load_individuals(individuals_path):
     return individuals
 
 
+def generate_individuals_with_param(n, bpm, bpv):
+
+    generated_individuals = generate_individuals(n, bpm, bpv)
+    save_individuals(generated_individuals, "simulator/api/individuals/GeneratedIndividuals.csv", datetime.datetime.now())
+    save_individuals(generated_individuals, "models/api/individuals/GeneratedIndividuals.csv", datetime.datetime.now())
+
+    print("finish generate_individuals_with_param")
+
+
 def main(argv):
     """absl entry if user wishes to generate individuals without also training them using the main
     program
@@ -139,4 +147,5 @@ def main(argv):
 
 if __name__ == "__main__":
     app.run(main)
-
+    # print(random_banister_parameters())
+    # generate_individuals_with_param(100, 100, 5)

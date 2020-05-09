@@ -36,7 +36,7 @@ class Models_comparator:
         plt.legend(loc="upper right")
         plt.xlabel("Proportion train")
         plt.ylabel("Test Error Rate")
-        plt.show()
+        #plt.show()
 
 
 '''
@@ -50,5 +50,5 @@ def comparator_test():
     regressors = [("SGD", SGDClassifier(max_iter=100)), ("Perceptron", Perceptron())]
     Models_comparator(X, y, regressors)
 
-# comparator_test()
+#comparator_test()
 

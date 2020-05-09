@@ -1,13 +1,19 @@
+import sys
 import pickle
 import pandas as pd
 import warnings
+import io
 import matplotlib.pyplot as plt
-import MLmodels.DataReader as dr
-from sklearn import linear_model
+
+#import MLmodels.DataReader as dr
+from sklearn import linear_model, datasets
 from sklearn.metrics import mean_squared_error, r2_score
+
 from helpers import print_training_result_summary, training_result_summary
 from sklearn.model_selection import ShuffleSplit, train_test_split
 from visualizers.model_learning_curve_plotter import Learning_curve_plotter
+from visualizers.validation_curves_plotter import Validation_curve_plot
+from visualizers.models_visual_training_comparator import Models_comparator
 
 
 class Lasso:
@@ -39,8 +45,8 @@ class Lasso:
             self.read_data_from_path_and_partition(path)
         elif X is not None and Y is not None:
             self.read_X_Y_and_partition(X, Y)
-        else:
-            self.data = dr.DataSample()
+        #else:
+        #    self.data = dr.DataSample()
 
     def read_data_from_path_and_partition(self, path):
         self.data = pd.read_csv(path)
@@ -71,6 +77,8 @@ class Lasso:
         self.lasso_r2_score = r2_score(self.data.Ytest, lasso_Ypred)
 
         print_training_result_summary('Lasso', self.lasso_mean_squared_error, self.lasso_r2_score)
+        self.save_the_trained_model()
+        self.save_the_class_included_the_trained_model()
         return training_result_summary('Lasso', self.lasso_mean_squared_error, self.lasso_r2_score)
 
     def predict(self, X_to_Predict):
@@ -90,6 +98,17 @@ class Lasso:
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         plt.show()
 
+    def learning_curves(self):
+        warnings.filterwarnings("ignore")
+        title = "Learning Curves Lasso"
+        cv = ShuffleSplit(n_splits=50, test_size=0.2, random_state=0)
+        estimator = linear_model.LinearRegression()
+        Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
+        bytes_image = io.BytesIO()
+        plt.savefig(bytes_image, format='png')
+        bytes_image.seek(0)
+        return bytes_image
+        
     def regression_and_plot_curves(self):
         self.regression()
         self.plot_learning_curves()
@@ -108,9 +127,16 @@ class Lasso:
         filename = 'class_contains_trained_Lasso_model_with_more_functionalities.sav'
         pickle.dump(self, open(filename, 'wb'))
 
+    def train_and_save_the_class_included_the_trained_model(self, dataset_name):
+        self.regression_and_plot_curves()
+        # save the model to disk
+        filename = 'class_contains_trained_Lasso_model_on_'+dataset_name+'_with_more_functionalities.sav'
+        pickle.dump(self, open(filename, 'wb'))
+
+
     def get_trained_model(self):
         return self.lasso
 
 
 
-# print(Lasso().regression())
+#Lasso.compare_all_models(path="../api/trainingsets/newttrimg.csv")
