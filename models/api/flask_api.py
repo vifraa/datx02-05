@@ -14,6 +14,7 @@ import MLmodels.Lasso as Lasso
 import MLmodels.NeuralNetwork as NeuralNetwork
 import MLmodels.RandomForest as RandomForest
 import MLmodels.Ridge as Ridge
+import MLmodels.LinearRegression as LinearRegression
 import numpy as np
 
 app = Flask(__name__)
@@ -31,6 +32,7 @@ def index():
 @app.route("/models")
 def model_names():
     res = [
+        ["Linear Model", "Linear", "https://lh3.googleusercontent.com/proxy/TXzQC9Le_D21W5x0sli4XmC4oBzZDUA8n8vq3vWehZdf26mEQIhJuaM5pr_W42quoGyvmZjtfX2LRy-zUgOfB2SP4I6RfquMvzPbbHlDs3LwtVAdgQ"],
         ["Lasso Model", "Lasso", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Linear_regression.svg/1024px-Linear_regression.svg.png"],
         ["Ridge Model", "Ridge", "https://upload.wikimedia.org/wikipedia/en/e/ed/First_order_hsked.svg"],
         ["Elastic Net Model", "ElasticNet", "https://www.researchgate.net/profile/Bart_Hobijn2/publication/46566214/figure/fig1/AS:652216872488960@1532512028126/Okuns-law-before-and-during-the-2007-recession.png"],
@@ -44,6 +46,7 @@ def model_names():
 @app.route("/models/plot/<modelname>/<filename>")
 def plotCurves(modelname, filename):
     bytes_obj = {
+        'Linear': LinearRegression.LinearRegression,
         'Lasso': Lasso.Lasso,
         'Ridge': Ridge.Ridge,
         'ElasticNet': ElasticNet.ElasticNet,
@@ -59,6 +62,7 @@ def plotCurves(modelname, filename):
 @app.route("/models/regression/<modelname>/<filename>")
 def model_regression_results(modelname, filename):
     switcher = {
+        'Linear': LinearRegression.LinearRegression,
         'Lasso': Lasso.Lasso,
         'Ridge': Ridge.Ridge,
         'ElasticNet': ElasticNet.ElasticNet,
@@ -75,6 +79,7 @@ def model_regression_results(modelname, filename):
 @app.route("/models/predict/<modelname>/<filename>/<data_to_predict>")
 def predict(modelname, filename, data_to_predict):
     switcher = {
+        'Linear': LinearRegression.LinearRegression,
         'Lasso': Lasso.Lasso,
         'Ridge': Ridge.Ridge,
         'ElasticNet': ElasticNet.ElasticNet,
@@ -112,7 +117,8 @@ def compare_all_models(filename):
     print(X.shape)
     print(y.shape)
 
-    Models_comparator(X, y, [("Lasso", Lasso.Lasso.get_pure_model()),
+    Models_comparator(X, y, [("Linear", LinearRegression.LinearRegression.get_pure_model()),
+                             ("Lasso", Lasso.Lasso.get_pure_model()),
                              ("Ridge", Ridge.Ridge.get_pure_model()),
                              ("ElasticNets", ElasticNet.ElasticNet.get_pure_model()),
                              ("DecisionTree", DecisionTree.DecisionTree.get_pure_model()),

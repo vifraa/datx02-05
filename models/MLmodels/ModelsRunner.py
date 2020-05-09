@@ -5,6 +5,7 @@ from MLmodels.Lasso import Lasso
 from MLmodels.NeuralNetwork import NeuralNetwork
 from MLmodels.RandomForest import RandomForest
 from MLmodels.Ridge import Ridge
+from MLmodels.LinearRegression import LinearRegression
 from visualizers import data_plotter
 from visualizers.models_visual_training_comparator import Models_comparator
 import warnings
@@ -22,6 +23,7 @@ class ModelsRunner:
 
         self.models_dict = {
             'Lasso': Lasso(data=self.data),
+            'LinearRegression': LinearRegression(data=self.data),
             'Ridge': Ridge(data=self.data),
             'ElasticNet': ElasticNet(data=self.data),
             'DecisionTree': DecisionTree(data=self.data),
