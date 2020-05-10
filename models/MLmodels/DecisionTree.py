@@ -2,7 +2,9 @@ import pickle
 import pandas as pd
 import matplotlib.pyplot as plt
 import warnings
-import MLmodels.DataReader as dr
+import sys
+import io
+#import MLmodels.DataReader as dr
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import ShuffleSplit, train_test_split
 from helpers import print_training_result_summary, training_result_summary
@@ -71,6 +73,8 @@ class DecisionTree:
         self.DecisionTree_r2_score = r2_score(self.data.Ytest, DecisionTree_Ypred)
 
         print_training_result_summary('Decision Tree', self.DecisionTree_mean_squared_error, self.DecisionTree_r2_score)
+        self.save_the_trained_model()
+        self.save_the_class_included_the_trained_model()
         return training_result_summary('Decision Tree', self.DecisionTree_mean_squared_error, self.DecisionTree_r2_score)
 
     def predict(self, X_to_Predict):
@@ -90,6 +94,17 @@ class DecisionTree:
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         plt.show()
 
+    def learning_curves(self):
+        warnings.filterwarnings("ignore")
+        title = "Learning Curves DecisionTree"
+        cv = ShuffleSplit(n_splits=50, test_size=0.2, random_state=0)
+        estimator = tree.DecisionTreeRegressor()
+        Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
+        bytes_image = io.BytesIO()
+        plt.savefig(bytes_image, format='png')
+        bytes_image.seek(0)
+        return bytes_image
+
     def regression_and_plot_curves(self):
         self.regression()
         self.plot_learning_curves()
@@ -106,6 +121,12 @@ class DecisionTree:
     def save_the_class_included_the_trained_model(self):
         # save the model to disk
         filename = 'class_contains_trained_DecisionTree_model_with_more_functionalities.sav'
+        pickle.dump(self, open(filename, 'wb'))
+
+    def train_and_save_the_class_included_the_trained_model(self, dataset_name):
+        self.regression_and_plot_curves()
+        # save the model to disk
+        filename = 'class_contains_trained_Decision_Tree_model_on_'+dataset_name+'_with_more_functionalities.sav'
         pickle.dump(self, open(filename, 'wb'))
 
     def get_trained_model(self):

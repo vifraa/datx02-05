@@ -5,7 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split, ShuffleSplit
-import MLmodels.DataReader as dr
+import io
+#import MLmodels.DataReader as dr
 from sklearn.neural_network import MLPRegressor
 from helpers import print_training_result_summary, training_result_summary
 from visualizers.model_learning_curve_plotter import Learning_curve_plotter
@@ -40,8 +41,8 @@ class NeuralNetwork:
             self.read_data_from_path_and_partition(path)
         elif X is not None and Y is not None:
             self.read_X_Y_and_partition(X, Y)
-        else:
-            self.data = dr.DataSample()
+        #else:
+        #    self.data = dr.DataSample()
 
     def read_data_from_path_and_partition(self, path):
         self.data = pd.read_csv(path)
@@ -65,7 +66,7 @@ class NeuralNetwork:
     @classmethod
     def get_pure_model(cls):
         return MLPRegressor(
-                            hidden_layer_sizes=(100, 100),
+                            hidden_layer_sizes=(100,100,100,100,100,100,100,100,100,100,100,100,100,100,100),
                             activation='relu',
                             solver='adam',
                             alpha=0.0001,
@@ -73,7 +74,7 @@ class NeuralNetwork:
                             learning_rate='constant',
                             learning_rate_init=0.001,
                             power_t=0.5,
-                            max_iter=10000,
+                            max_iter=500,
                             shuffle=True,
                             random_state=None,
                             tol=0.0001,
@@ -92,11 +93,27 @@ class NeuralNetwork:
 
     def regression(self):
         self.nn = self.get_pure_model()
-        self.nn.fit(self.data.Xtrain, np.asarray(self.data.Ytrain).flatten())
+
+        self.data.Y = self.data.Y.to_numpy()
+        self.data.X = self.data.X.to_numpy()
+
+        # shape the data ex. (5000,)
+        self.data.Y = self.data.Y[:, 0]
+
+        # Partition the data into training and test sets.
+        self.data.Xtrain, self.data.Xtest, self.data.Ytrain, self.data.Ytest = train_test_split(self.data.X, self.data.Y, test_size=0.33,
+                                                                            random_state=42)
+
+        self.nn.fit(self.data.Xtrain, self.data.Ytrain)
         nn_Ypred = self.nn.predict(self.data.Xtest)
         self.nn_mean_squared_error = mean_squared_error(self.data.Ytest, nn_Ypred)
         self.nn_r2_score = r2_score(self.data.Ytest, nn_Ypred)
         print_training_result_summary('NeuralNetwork', self.nn_mean_squared_error, self.nn_r2_score)
+
+
+        self.save_the_trained_model()
+        self.save_the_class_included_the_trained_model()
+
         return training_result_summary('NeuralNetwork', self.nn_mean_squared_error, self.nn_r2_score)
 
     def predict(self, X_to_Predict):
@@ -116,18 +133,35 @@ class NeuralNetwork:
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         plt.show()
 
+    def learning_curves(self):
+        warnings.filterwarnings("ignore")
+        title = "Learning Curves NeuralNetwork"
+        cv = ShuffleSplit(n_splits=5, test_size=0.2, random_state=0)
+        estimator = self.get_pure_model()
+        Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
+        bytes_image = io.BytesIO()
+        plt.savefig(bytes_image, format='png')
+        bytes_image.seek(0)
+        return bytes_image
+
     def regression_and_plot_curves(self):
         self.regression()
         self.plot_learning_curves()
 
     def save_the_trained_model(self):
         # save the model to disk
-        filename = 'finalized_Lasso_model.sav'
+        filename = 'finalized_NeuralNetwork_model.sav'
         pickle.dump(self.nn, open(filename, 'wb'))
 
     def save_the_class_included_the_trained_model(self):
         # save the model to disk
         filename = 'class_contains_trained_NeuralNetwork_model_with_more_functionalities.sav'
+        pickle.dump(self, open(filename, 'wb'))
+
+    def train_and_save_the_class_included_the_trained_model(self, dataset_name):
+        self.regression_and_plot_curves()
+        # save the model to disk
+        filename = 'class_contains_trained_NeuralNetwork_model_on_'+dataset_name+'_with_more_functionalities.sav'
         pickle.dump(self, open(filename, 'wb'))
 
     def get_trained_model(self):

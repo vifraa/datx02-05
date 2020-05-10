@@ -1,8 +1,9 @@
 import pickle
 import pandas as pd
 import warnings
+import io
 import matplotlib.pyplot as plt
-import MLmodels.DataReader as dr
+#import MLmodels.DataReader as dr
 from sklearn import linear_model
 from sklearn.metrics import mean_squared_error, r2_score
 from helpers import print_training_result_summary, training_result_summary
@@ -22,8 +23,8 @@ class LinearRegression:
             self.read_data_from_path_and_partition(path)
         elif X is not None and Y is not None:
             self.read_X_Y_and_partition(X, Y)
-        else:
-            self.data = dr.DataSample()
+        #else:
+        #    self.data = dr.DataSample()
 
 
     def read_data_from_path_and_partition(self, path):
@@ -86,6 +87,17 @@ class LinearRegression:
         estimator = linear_model.LinearRegression()
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         plt.show()
+
+    def learning_curves(self):
+        warnings.filterwarnings("ignore")
+        title = "Learning Curves LinearRegression"
+        cv = ShuffleSplit(n_splits=50, test_size=0.2, random_state=0)
+        estimator = linear_model.LinearRegression()
+        Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
+        bytes_image = io.BytesIO()
+        plt.savefig(bytes_image, format='png')
+        bytes_image.seek(0)
+        return bytes_image
 
     def regression_and_plot_curves(self):
         """

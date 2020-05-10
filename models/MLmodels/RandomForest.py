@@ -2,7 +2,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import warnings
 import pickle
-import MLmodels.DataReader as dr
+import io
+import sys
+#import MLmodels.DataReader as dr
 from sklearn.metrics import mean_squared_error, r2_score
 from helpers import print_training_result_summary, training_result_summary
 from sklearn.model_selection import ShuffleSplit, train_test_split
@@ -40,8 +42,8 @@ class RandomForest:
             self.read_data_from_path_and_partition(path)
         elif X is not None and Y is not None:
             self.read_X_Y_and_partition(X, Y)
-        else:
-            self.data = dr.DataSample()
+        #else:
+        #    self.data = dr.DataSample()
 
     def read_data_from_path_and_partition(self, path):
         self.data = pd.read_csv(path)
@@ -64,7 +66,7 @@ class RandomForest:
 
     def regression(self):
         warnings.filterwarnings("ignore")
-        self.RandomForestM = RandomForestRegressor(max_depth=10, random_state=0)
+        self.RandomForestM = RandomForestRegressor(max_depth=2, random_state=0)
         self.RandomForestM.fit(self.data.Xtrain, self.data.Ytrain)
 
         RandomForest_Ypred = self.RandomForestM.predict(self.data.Xtest)
@@ -73,6 +75,8 @@ class RandomForest:
         self.RandomForest_r2_score = r2_score(self.data.Ytest, RandomForest_Ypred)
 
         print_training_result_summary('Random Forest', self.RandomForest_mean_squared_error, self.RandomForest_r2_score)
+        self.save_the_trained_model()
+        self.save_the_class_included_the_trained_model()
         return training_result_summary('Random Forest', self.RandomForest_mean_squared_error, self.RandomForest_r2_score)
 
     def predict(self, X_to_Predict):
@@ -87,10 +91,21 @@ class RandomForest:
     def plot_learning_curves(self):
         warnings.filterwarnings("ignore")
         title = "Learning Curves RandomForest"
-        cv = ShuffleSplit(n_splits=50, test_size=0.2, random_state=0)
-        estimator = RandomForestRegressor(max_depth=10, random_state=0)
+        cv = ShuffleSplit(n_splits=5, test_size=0.2, random_state=0)
+        estimator = RandomForestRegressor(max_depth=2, random_state=0)
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         plt.show()
+
+    def learning_curves(self):
+        warnings.filterwarnings("ignore")
+        title = "Learning Curves RandomForest"
+        cv = ShuffleSplit(n_splits=5, test_size=0.2, random_state=0)
+        estimator = RandomForestRegressor(max_depth=2, random_state=0)
+        Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
+        bytes_image = io.BytesIO()
+        plt.savefig(bytes_image, format='png')
+        bytes_image.seek(0)
+        return bytes_image
 
     def regression_and_plot_curves(self):
         self.regression()
@@ -98,7 +113,7 @@ class RandomForest:
 
     @classmethod
     def get_pure_model(cls):
-        return RandomForestRegressor(max_depth=10, random_state=0)
+        return RandomForestRegressor(max_depth=2, random_state=0)
 
     def save_the_trained_model(self):
         # save the model to disk
@@ -108,6 +123,12 @@ class RandomForest:
     def save_the_class_included_the_trained_model(self):
         # save the model to disk
         filename = 'class_contains_trained_RandomForest_model_with_more_functionalities.sav'
+        pickle.dump(self, open(filename, 'wb'))
+
+    def train_and_save_the_class_included_the_trained_model(self, dataset_name):
+        self.regression_and_plot_curves()
+        # save the model to disk
+        filename = 'class_contains_trained_Random_Forest_model_on_'+dataset_name+'_with_more_functionalities.sav'
         pickle.dump(self, open(filename, 'wb'))
 
     def get_trained_model(self):

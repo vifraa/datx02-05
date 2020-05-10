@@ -1,6 +1,7 @@
 import sys
 import json
 import io
+from flask_cors import CORS, cross_origin
 
 from flask import Flask, request, jsonify, render_template
 from flask.json import JSONEncoder
@@ -17,7 +18,8 @@ class ExtendedJSONEncoder(JSONEncoder):
 
 app = Flask(__name__)
 app.json_encoder = ExtendedJSONEncoder
-
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route("/")
 def index():
@@ -105,7 +107,6 @@ def pbar():
 def ttr():
     sets = request.json.get('sets', [])
     time_format = request.json.get('timeformat', '')
-
     weeks = split_into_weeks(sets, time_format)
     if len(weeks.keys()) < 4:
         return jsonify(error=400, text="Sets spanning atleast four weeks is required.")
@@ -113,9 +114,7 @@ def ttr():
 
     ttr_d = calculate_ttrdata_from_week_dict(weeks)
     four_weeks_ttrdata = ttr_d[-8:]
-
     data = np.array(four_weeks_ttrdata).reshape(1, -1)
-
     recengine = RecommendationEngine("ttr")
     best_pred, _ = recengine.recommend_training(data)
     program = fetch_program_from_model(best_pred["model"])
