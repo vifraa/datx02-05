@@ -29,3 +29,4 @@ hypothesis
 Flask==1.1.1
 seaborn
 flask_cors
+tqdm
