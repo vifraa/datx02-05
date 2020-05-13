@@ -11,6 +11,7 @@ from absl import app
 from individual import Individual
 from movement import Movement
 from gym import BASE_FITNESS_GAIN, BASE_FATIGUE_GAIN, BASE_FITNESS_DECAY, BASE_FATIGUE_DECAY
+from tqdm import tqdm
 
 FLAGS = flags.FLAGS
 flags.DEFINE_integer("n", 500, "How many individuals to generate")
@@ -64,7 +65,7 @@ def generate_individuals(num, bench_press_fitness_mean, bench_press_fitness_vari
                                                 num).astype("int")
 
 
-    for i in range(num):
+    for i in tqdm(range(num)):
         banister_params = random_banister_parameters()
         name = names.get_full_name()
         bench_press_movement = Movement(

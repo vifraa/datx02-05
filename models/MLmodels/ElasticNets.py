@@ -63,7 +63,7 @@ class ElasticNet:
                                                                                                 test_size=0.33,
                                                                                                 random_state=42)
     def regression(self):
-        self.eNet = ElasticNetModel(alpha=1.0)
+        self.eNet = ElasticNetModel(alpha=1.0, normalize=True)
         self.eNet.fit(self.data.Xtrain, self.data.Ytrain)
 
         eNet_Ypred = self.eNet.predict(self.data.Xtest)
@@ -89,7 +89,7 @@ class ElasticNet:
         warnings.filterwarnings("ignore")
         title = "Learning Curves ElasticNet"
         cv = ShuffleSplit(n_splits=50, test_size=0.2, random_state=0)
-        estimator = ElasticNetModel(alpha=1.0)
+        estimator = ElasticNetModel(alpha=1.0, normalize=True)
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         plt.show()
 
@@ -110,7 +110,7 @@ class ElasticNet:
 
     @classmethod
     def get_pure_model(cls):
-        return ElasticNetModel(alpha=1.0)
+        return ElasticNetModel(alpha=1.0, normalize=True)
 
     def save_the_trained_model(self):
         # save the model to disk
@@ -130,11 +130,4 @@ class ElasticNet:
 
     def get_trained_model(self):
         return self.eNet
-
-
-
-# en = ElasticNet()
-# en.regression()
-
-
 

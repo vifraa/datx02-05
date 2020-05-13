@@ -6,6 +6,7 @@ from collections import defaultdict
 from datetime import datetime
 from io import StringIO
 import pandas as pd
+from tqdm import tqdm
 
 def split_into_weeks(sets, time_format):
     """
@@ -126,7 +127,7 @@ def ttrdata_from_csv_population_4_weeks(logs_path):
 
     # Calculate TTR_DATA based on pre-logs.
     ttr_data = {}
-    for p_id, group in logs.groupby('ID'):
+    for p_id, group in tqdm(logs.groupby('ID')):
         group = group.drop(columns=['ID'])
 
         # Saving to buffer to be able to use with data parsers directly.
@@ -143,7 +144,7 @@ def ttrdata_from_csv_population_4_weeks(logs_path):
     data = pd.DataFrame(columns=headers)
 
     # Transform data
-    for p_id, ttr in ttr_data.items():
+    for p_id, ttr in tqdm(ttr_data.items()):
 
         # Take last 4 weeks.
         entry = ttr[-8:]
