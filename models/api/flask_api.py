@@ -45,6 +45,7 @@ def model_names():
 
 @app.route("/models/plot/<modelname>/<filename>")
 def plotCurves(modelname, filename):
+    """
     bytes_obj = {
         'Linear': LinearRegression.LinearRegression,
         'Lasso': Lasso.Lasso,
@@ -58,6 +59,8 @@ def plotCurves(modelname, filename):
     return send_file(bo,
                      attachment_filename='plot.png',
                      mimetype='image/png')
+    """
+    return "  "
 
 @app.route("/models/regression/<modelname>/<filename>")
 def model_regression_results(modelname, filename):

@@ -66,7 +66,7 @@ class NeuralNetwork:
     @classmethod
     def get_pure_model(cls):
         return MLPRegressor(
-                            hidden_layer_sizes=(100,100,100,100,100,100,100,100,100,100,100,100,100,100,100),
+                            hidden_layer_sizes=(100,100),
                             activation='relu',
                             solver='adam',
                             alpha=0.0001,

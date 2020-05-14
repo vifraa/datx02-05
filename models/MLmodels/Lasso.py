@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 #import MLmodels.DataReader as dr
 from sklearn import linear_model, datasets
 from sklearn.metrics import mean_squared_error, r2_score
-
 from helpers import print_training_result_summary, training_result_summary
 from sklearn.model_selection import ShuffleSplit, train_test_split
 from visualizers.model_learning_curve_plotter import Learning_curve_plotter
@@ -69,7 +68,7 @@ class Lasso:
                                                                                                 random_state=42)
 
     def regression(self):
-        self.lasso = linear_model.Lasso(alpha=1.0, normalize=True)
+        self.lasso = linear_model.Lasso(alpha=1.0)
         self.lasso.fit(self.data.Xtrain, self.data.Ytrain)
         lasso_Ypred = self.lasso.predict(self.data.Xtest)
 
@@ -94,7 +93,7 @@ class Lasso:
         warnings.filterwarnings("ignore")
         title = "Learning Curves Lasso"
         cv = ShuffleSplit(n_splits=50, test_size=0.2, random_state=0)
-        estimator = linear_model.Lasso(alpha=1.0, normalize=True)
+        estimator = linear_model.Lasso(alpha=1.0)
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         plt.show()
 
@@ -115,7 +114,7 @@ class Lasso:
 
     @classmethod
     def get_pure_model(cls):
-        return linear_model.Lasso(alpha=1.0, normalize=True)
+        return linear_model.Lasso(alpha=1.0)
 
     def save_the_trained_model(self):
         # save the model to disk
