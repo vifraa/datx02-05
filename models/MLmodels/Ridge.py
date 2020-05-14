@@ -90,7 +90,7 @@ class Ridge:
         warnings.filterwarnings("ignore")
         title = "Learning Curves Ridge"
         cv = ShuffleSplit(n_splits=50, test_size=0.2, random_state=0)
-        estimator = RidgeModel(alpha=1.0)
+        estimator = RidgeModel(alpha=1.0, normalize=True)
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         plt.show()
 
@@ -98,7 +98,7 @@ class Ridge:
         warnings.filterwarnings("ignore")
         title = "Learning Curves Ridge"
         cv = ShuffleSplit(n_splits=50, test_size=0.2, random_state=0)
-        estimator = RidgeModel(alpha=1.0)
+        estimator = RidgeModel(alpha=1.0, normalize=True)
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         bytes_image = io.BytesIO()
         plt.savefig(bytes_image, format='png')
@@ -112,7 +112,7 @@ class Ridge:
 
     @classmethod
     def get_pure_model(cls):
-        return RidgeModel(alpha=1.0)
+        return RidgeModel(alpha=1.0, normalize=True)
 
     def save_the_trained_model(self):
         # save the model to disk

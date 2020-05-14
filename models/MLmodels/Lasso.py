@@ -69,7 +69,7 @@ class Lasso:
                                                                                                 random_state=42)
 
     def regression(self):
-        self.lasso = linear_model.Lasso(alpha=1.0)
+        self.lasso = linear_model.Lasso(alpha=1.0, normalize=True)
         self.lasso.fit(self.data.Xtrain, self.data.Ytrain)
         lasso_Ypred = self.lasso.predict(self.data.Xtest)
 
@@ -94,7 +94,7 @@ class Lasso:
         warnings.filterwarnings("ignore")
         title = "Learning Curves Lasso"
         cv = ShuffleSplit(n_splits=50, test_size=0.2, random_state=0)
-        estimator = linear_model.Lasso(alpha=1.0)
+        estimator = linear_model.Lasso(alpha=1.0, normalize=True)
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         plt.show()
 
@@ -115,7 +115,7 @@ class Lasso:
 
     @classmethod
     def get_pure_model(cls):
-        return linear_model.Lasso(alpha=1.0)
+        return linear_model.Lasso(alpha=1.0, normalize=True)
 
     def save_the_trained_model(self):
         # save the model to disk
@@ -137,6 +137,3 @@ class Lasso:
     def get_trained_model(self):
         return self.lasso
 
-
-
-#Lasso.compare_all_models(path="../api/trainingsets/newttrimg.csv")
