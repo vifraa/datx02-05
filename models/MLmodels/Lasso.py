@@ -119,18 +119,18 @@ class Lasso:
     def save_the_trained_model(self):
         # save the model to disk
         filename = 'finalized_Lasso_model.sav'
-        pickle.dump(self.lasso, open(filename, 'wb'))
+        pickle.dump(self.lasso, open('simulator/api/'+filename, 'wb'))
 
     def save_the_class_included_the_trained_model(self):
         # save the model to disk
         filename = 'class_contains_trained_Lasso_model_with_more_functionalities.sav'
-        pickle.dump(self, open(filename, 'wb'))
+        pickle.dump(self, open('simulator/api/'+filename, 'wb'))
 
     def train_and_save_the_class_included_the_trained_model(self, dataset_name):
         self.regression_and_plot_curves()
         # save the model to disk
         filename = 'class_contains_trained_Lasso_model_on_'+dataset_name+'_with_more_functionalities.sav'
-        pickle.dump(self, open(filename, 'wb'))
+        pickle.dump(self, open('simulator/api/'+filename, 'wb'))
 
 
     def get_trained_model(self):

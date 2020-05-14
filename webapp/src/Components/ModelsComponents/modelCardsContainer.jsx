@@ -6,6 +6,7 @@ import Select from 'react-select'
 import ModelUse from './modelUse';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
+import UploadData from './uploadData';
 
 export default class modelCardsContainer extends Component {
   constructor(props) {
@@ -61,7 +62,11 @@ export default class modelCardsContainer extends Component {
     console.log(this.state);
     return (
       <div>
-        <h3>Please choose a training set to train a model on, then click on a model:</h3>
+
+        <UploadData/>
+        <h4>Please choose a training set to train a model on (you can see your ttr transformed training data using the simulator here), then click on a model:</h4>
+        <h5>Note that Neural Network and Random Forest models will take more time to train than the other models:</h5>
+
         <div style={{color:"black"}}>
         <Select
         options={this.state.datasetOptions}
