@@ -116,18 +116,18 @@ class DecisionTree:
     def save_the_trained_model(self):
         # save the model to disk
         filename = 'finalized_DecisionTree_model.sav'
-        pickle.dump(self.DecisionTreeM, open(filename, 'wb'))
+        pickle.dump(self.DecisionTreeM, open('simulator/api/'+filename, 'wb'))
 
     def save_the_class_included_the_trained_model(self):
         # save the model to disk
         filename = 'class_contains_trained_DecisionTree_model_with_more_functionalities.sav'
-        pickle.dump(self, open(filename, 'wb'))
+        pickle.dump(self, open('simulator/api/'+filename, 'wb'))
 
     def train_and_save_the_class_included_the_trained_model(self, dataset_name):
         self.regression_and_plot_curves()
         # save the model to disk
         filename = 'class_contains_trained_Decision_Tree_model_on_'+dataset_name+'_with_more_functionalities.sav'
-        pickle.dump(self, open(filename, 'wb'))
+        pickle.dump(self, open('simulator/api/'+filename, 'wb'))
 
     def get_trained_model(self):
         return self.DecisionTreeM
