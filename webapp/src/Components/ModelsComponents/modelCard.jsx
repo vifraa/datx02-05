@@ -9,7 +9,8 @@ import {
   MDBIcon,
 } from "mdbreact";
 import Col from 'react-bootstrap/Col';
-
+import { Link } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
 
 class modelCard extends Component {
   constructor(props) {
@@ -47,6 +48,7 @@ class modelCard extends Component {
     document.getElementById(img_element_id).src = objectURL;
 }
 
+
   render() {      
         
     return (
@@ -63,8 +65,8 @@ class modelCard extends Component {
               cascade
               overlay="white-light"
               hover
-              height="200px"
-              width="260px"
+              height="260px"
+              width="350px"
               src={this.props.model_img}
             />
             <MDBBtn
@@ -79,6 +81,9 @@ class modelCard extends Component {
               <MDBCardTitle id="cardTitle">
                 {this.props.model_name}
               </MDBCardTitle>
+              <a href={'http://mo-yazanghafir.pagekite.me/simulator/download/'+this.props.model_run_name} download={'texttest.sav'}><button>Download row model</button></a>
+              <a href={'http://mo-yazanghafir.pagekite.me/simulator/downloadraw/'+this.props.model_run_name} download={'texttest.sav'}><button>Download wrapped model</button></a>
+          
             </MDBCardBody>
           </MDBCard>
           <AwesomeComponent loading={this.state.loading}/>
@@ -91,3 +96,7 @@ class modelCard extends Component {
 }
 
 export default modelCard;
+
+/*
+<Link to="http://mo-yazanghafir.pagekite.me/simulator/download" target="_blank" download>Download after training</Link>
+*/

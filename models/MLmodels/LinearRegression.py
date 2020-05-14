@@ -56,6 +56,9 @@ class LinearRegression:
 
         print_training_result_summary(
             'LinearRegression', self.model_mean_squared_error, self.model_r2_score)
+
+        self.save_the_trained_model()
+        self.save_the_class_included_the_trained_model()
         return training_result_summary(
             'LinearRegression', self.model_mean_squared_error, self.model_r2_score)
 
@@ -114,20 +117,20 @@ class LinearRegression:
         return linear_model.LinearRegression()
 
     def save_the_trained_model(self):
-        """
-        Saves the trained machine learning model to binary file in current
-        working diractory.
-        """
-        filename = 'finalized_LinearRegression_model.sav'
-        pickle.dump(self.model, open(filename, 'wb'))
+        # save the model to disk
+        filename = 'finalized_Linear_model.sav'
+        pickle.dump(self.model, open('simulator/api/'+filename, 'wb'))
 
     def save_the_class_included_the_trained_model(self):
-        """
-        Saves the wrapper class including the trained machine learning model to binary file
-        in current working directory.
-        """
-        filename = 'class_contains_trained_LinearRegression_model_with_more_functionalities.sav'
-        pickle.dump(self, open(filename, 'wb'))
+        # save the model to disk
+        filename = 'class_contains_trained_Linear_model_with_more_functionalities.sav'
+        pickle.dump(self, open('simulator/api/'+filename, 'wb'))
+
+    def train_and_save_the_class_included_the_trained_model(self, dataset_name):
+        self.regression_and_plot_curves()
+        # save the model to disk
+        filename = 'class_contains_trained_Linear_model_on_' + dataset_name + '_with_more_functionalities.sav'
+        pickle.dump(self, open('simulator/api/'+filename, 'wb'))
 
     def get_trained_model(self):
         """

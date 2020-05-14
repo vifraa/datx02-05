@@ -64,7 +64,7 @@ class Ridge:
                                                                                                 random_state=42)
 
     def regression(self):
-        self.ridge = RidgeModel(alpha=1.0, normalize=True)
+        self.ridge = RidgeModel(alpha=1.0)
         self.ridge.fit(self.data.Xtrain, self.data.Ytrain)
 
         ridge_Ypred = self.ridge.predict(self.data.Xtest)
@@ -98,7 +98,7 @@ class Ridge:
         warnings.filterwarnings("ignore")
         title = "Learning Curves Ridge"
         cv = ShuffleSplit(n_splits=50, test_size=0.2, random_state=0)
-        estimator = RidgeModel(alpha=1.0)
+        estimator = RidgeModel(alpha=1.0, normalize=True)
         Learning_curve_plotter(estimator, title, self.data.X, self.data.Y, cv=cv)
         bytes_image = io.BytesIO()
         plt.savefig(bytes_image, format='png')
@@ -117,18 +117,18 @@ class Ridge:
     def save_the_trained_model(self):
         # save the model to disk
         filename = 'finalized_Ridge_model.sav'
-        pickle.dump(self.ridge, open(filename, 'wb'))
+        pickle.dump(self.ridge, open('simulator/api/'+filename, 'wb'))
 
     def save_the_class_included_the_trained_model(self):
         # save the model to disk
         filename = 'class_contains_trained_Ridge_model_with_more_functionalities.sav'
-        pickle.dump(self, open(filename, 'wb'))
+        pickle.dump(self, open('simulator/api/'+filename, 'wb'))
 
     def train_and_save_the_class_included_the_trained_model(self, dataset_name):
         self.regression_and_plot_curves()
         # save the model to disk
         filename = 'class_contains_trained_Ridge_model_on_'+dataset_name+'_with_more_functionalities.sav'
-        pickle.dump(self, open(filename, 'wb'))
+        pickle.dump(self, open('simulator/api/'+filename, 'wb'))
 
     def get_trained_model(self):
         return self.ridge
