@@ -62,49 +62,58 @@ export default class modelCardsContainer extends Component {
     console.log(this.state);
     return (
       <div>
-
+        
         <UploadData/>
-        <h4>Please choose a training set to train a model on (you can see your ttr transformed training data using the simulator here), then click on a model:</h4>
-        <h5>Note that Neural Network and Random Forest models will take more time to train than the other models:</h5>
 
-        <div style={{color:"black"}}>
-        <Select
-        options={this.state.datasetOptions}
-        onChange={this.handleDropdownChange}
-        >
-        </Select>
-        </div>
-        <div className="d-flex bd-highlight example-parent ">
-
-          <Row>
-          {this.state.model_names_and_images.map((model, idx) => {
-            return (
-              <ModelCard
-                model_name={model[0]}
-                model_run_name={model[1]}
-                model_img={model[2]}
-                key={idx}
-                generatedFileName={(this.state.selectedDataset)}
-              />
-            );
-          })}
-          </Row>
-
+        <div className="rcorners">
+          <h5>Choose a training set:</h5>
+          <Select 
+          options={this.state.datasetOptions}
+          onChange={this.handleDropdownChange}
+          >
+          </Select>
         </div>
 
+        <div className="rcorners">
+          <h5>Click on a model to train:</h5>
+          <h7>OBS! Neural Network and Random Forest models will take more time to train than the other models:</h7>
+
+          <div className="d-flex bd-highlight example-parent ">
+
+            <Row>
+            {this.state.model_names_and_images.map((model, idx) => {
+              return (
+                <ModelCard
+                  model_name={model[0]}
+                  model_run_name={model[1]}
+                  model_img={model[2]}
+                  key={idx}
+                  generatedFileName={(this.state.selectedDataset)}
+                />
+              );
+            })}
+            </Row>
+
+          </div>
+        </div>
+
+        
         <LearningResults
           model_run_name={this.state.model_names_and_images[1]}
         />
 
 
-        <div className="section_title">
-            <h3 id = "compare_header" >Here you can compare all the models on the training data you have chosen: </h3>
-            <h4>Note that this function will not work if the number of the points in your training data is not big enough ex less than 100.</h4>
-            <h4>OBS! This can take more than 15 minutes depending on the size of your training set!</h4>
-            <Button id="compare_button" type="btn" onClick={()=>{this.compare()}}> Compare all models</Button>
-            <img id="compare_models_img" src="" className="visible margin-auto information_section" alt="compare_models_img"></img>
+        <div className="section_title rcorners">
+            <h5 id = "compare_header" >Here you can compare all the models on the training data you have chosen: </h5>
+            <h7>Note that this function will not work if the number of the points in your training data is not big enough ex less than 100.</h7>
+            <br/><h7>OBS! This can take more than 15 minutes depending on the size of your training set!</h7>
+            <br/><br/><Button id="compare_button" type="btn" onClick={()=>{this.compare()}}> Compare all models</Button>
+            <br/><img id="compare_models_img" src="" className="visible margin-auto information_section" alt="compare_models_img"></img>
         </div>
-        <ModelUse/>
+
+        <div className="rcorners">
+          <ModelUse/>
+        </div>
 
        
       </div>

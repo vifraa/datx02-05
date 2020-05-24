@@ -4,24 +4,18 @@ import "../../CSS_Folder/uploadData.css";
 class uploadData extends Component {
   render() {
     return (
-      <div className="container pt-3 flex">
-        <div className="row">
-          <div className="col-md-4">
-           
+      <div className="rcorners" id="upload_data_container">
+            <h5>Manually upload a data set:</h5>
             <form action="http://mo-yazanghafir.pagekite.me/simulator/upload" method="post" enctype="multipart/form-data">
-              <input type="file" name="fileupload" id="fileToUpload"></input>
+              <input type="file" name="fileupload" id="fileToUpload" ></input>
               <input type="submit" value="Upload File" name="submit"></input>
             </form>
-
-          </div>
-            <div className="col-md-4 m-auto">
-              <label>You can choose to upload your trainingdata csv file here</label>
-            </div>
-
-          </div>
         </div>
         );  
       }
     }
     
     export default uploadData;
+
+
+    

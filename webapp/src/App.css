@@ -1,42 +1,61 @@
+/* 1 EBEFF2 */
+/* 2 E2E8ED */
+/* 3 D8E0E5 */
+/* 4 B6C3CC  */
+
+/* 20 0C1419  */
+
 .centerAlign{
   text-align: center;
 }
 
+.rcorners {
+  border-radius: 25px;
+  border: 2px solid #B6C3CC;
+  padding: 20px;
+  width: 100%;
+  margin-bottom: 2em;
+  margin-top: 1em;
+}
+
 .grayTheme{
   background-color: #696969;
-  color: whitesmoke;
+  color: #0C1419;
 }
 
 .footer{
-  color: whitesmoke;
+  color: #0C1419;
   height: 10px;
   font-size: small;
 }
 
-#navbar{
-  background-color: #251e3e;
-  font-family: 'Comic Neue', cursive;
-  font-size: xx-large;
+a{
+  color: #0C1419;
 }
 
-#nav_btn_group{
+#navbar{
+  background-color: #EBEFF2;
+  font-family: 'Comic Neue', cursive;
+  font-size: xx-large;
+  color: #0C1419;
+}
+
+#nav_btn_group {
   margin: auto;
   width: 100%;
 }
 
 #sim_button_nav, #mod_button_nav, #rec_button_nav, #ttr_rec_button_nav{
-  background-color: #843b62;
+  color: #0C1419;
 }
 
-#UploadDataDiv{
-  width: 100%;
-  background-color: #451e3e ;
-  color: antiquewhite;
+#sim_button_nav, #mod_button_nav, #rec_button_nav, #ttr_rec_button_nav{
+  background-color: #FFFFFF;
 }
 
 #ModelsContainerDiv{
   width: 100%;
-  background-color: #651e3e ;
+  background-color: #FFFFFF ;
 }
 
 #cardTitle, #filecardTitle, #filecardText{
@@ -44,33 +63,30 @@
   font-family: 'Comic Neue', cursive;
   font-size: 1em;
   font-weight: bold;
-  color: #451e3e;
+  color: #0C1419;
 }
 
 #regression_output{
   width: 100%;
-  background-color: #451e3e ;
-  color: antiquewhite;
-  padding-top: 1%;
-  padding-bottom: 10%;
+  color: #0C1419;
   text-align: center;
   font-family: 'Comic Neue', cursive;
   font-size: 2em;
 }
 
 #App{
-  background-color: #451e3e ;
+  background-color: #FFFFFF ;
   height: 100%;
-  color: whitesmoke;
+  color: #0C1419;
 }
 
 #footernav{
-  background-color: #251e3e;
+  background-color: #E2E8ED;
 }
 
 h3 {
   padding-left: 2%;
-  background-color: #651e3e ;
+  background-color: #FFFFFF ;
   margin-top: 30px !important;
   margin-bottom: 20px !important;
   padding-top:10px;
@@ -86,7 +102,6 @@ h4, h5{
 }
 
 .information_section{ 
-  min-height: 150px;
   padding-left: 2%;
 }
 

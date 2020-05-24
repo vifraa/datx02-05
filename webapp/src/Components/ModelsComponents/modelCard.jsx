@@ -46,6 +46,7 @@ class modelCard extends Component {
     console.log(txt);
     document.getElementById(text_element_id).innerHTML = txt;
     document.getElementById(img_element_id).src = objectURL;
+    document.getElementById(img_element_id).className -= " invisible";
 }
 
 
