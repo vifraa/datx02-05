@@ -25,7 +25,7 @@ export default class generatedFileCardContainer extends Component {
         console.log(this.state)
         return (
             <div>
-                <div className="d-flex bd-highlight example-parent ">
+                <div className="d-flex bd-highlight example-parent">
                     {this.state.gen_files.map((gen_file, idx) => {
                         return <GeneratedFileCard
                             csvName={gen_file[0]}
@@ -34,7 +34,7 @@ export default class generatedFileCardContainer extends Component {
                         />
                     })}
                 </div>
-                <Button style={{width: '15%', marginTop: '10px'}} onClick={()=>{this.checkgenerated()}}>Refresh after generating data</Button>
+                <Button className="simbutton" onClick={()=>{this.checkgenerated()}}>Refresh after generating data</Button>
             </div>
         )
     }

@@ -56,6 +56,7 @@ export default class generateIndividuals extends Component {
                 .then((images) => {
                     const objectURL = URL.createObjectURL(images);
                     console.log("Learning curve URL: " + objectURL);
+                    document.getElementById('img_gen_individs').className -= " invisible";
                     document.getElementById('img_gen_individs').src = objectURL;
                 });
             }).catch(console.log);
@@ -87,16 +88,16 @@ export default class generateIndividuals extends Component {
             <div>
 
                 <div className="section_title" >
-                    <h3>Generate individuals:</h3>
+                    <h5>Generate individuals:</h5>
                     <div id="generated_individuals" className="information_section" >
                     
                         <Form
                          onSubmit={this.submitHandler}
                         >
                         <Form.Row style={{display: 'block', justifyContent: 'center'}}> 
-                                <Form.Control id="ind_n" placeholder="Number of individuals you want to generate" type="number" style={{width: '30%', marginBottom: '10px'}} required/>
-                                <Form.Control id="ind_mean" placeholder="Mean of bench press max" type="number" style={{width: '30%', marginBottom: '10px'}} required/>
-                            <Form.Control id="ind_variance" placeholder="Variance in bench press max" type="number" style={{width: '30%', marginBottom: '10px'}} required/>
+                                <Form.Control id="ind_n" placeholder="Number of individuals you want to generate" type="number" style={{width: '90%', marginBottom: '10px'}} required/>
+                                <Form.Control id="ind_mean" placeholder="Mean of bench press max" type="number" style={{width: '90%', marginBottom: '10px'}} required/>
+                            <Form.Control id="ind_variance" placeholder="Variance in bench press max" type="number" style={{width: '90%', marginBottom: '10px'}} required/>
                         </Form.Row>
 
                         <Button type="submit" onClick={()=>{this.generate_individs()}}> Generate Individuals</Button>
@@ -112,7 +113,7 @@ export default class generateIndividuals extends Component {
                         
                     </div>
 
-                    <img id="img_gen_individs" src="" className="visible margin-auto information_section" alt="img_gen_individs"></img>
+                    <img id="img_gen_individs" src="" className="invisible margin-auto information_section" alt="img_gen_individs"></img>
 
                 </div>
             </div>

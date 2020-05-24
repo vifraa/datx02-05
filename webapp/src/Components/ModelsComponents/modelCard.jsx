@@ -56,7 +56,7 @@ class modelCard extends Component {
       <div> 
            <Col >
           <MDBCard
-            className="h-150 mr-3 mt-3"
+            className="mr-2 mt-3"
             cascade
             onClick={() => {
               this.run_regression_and_curves(this.props.model_run_name, this.props.generatedFileName);
@@ -66,8 +66,8 @@ class modelCard extends Component {
               cascade
               overlay="white-light"
               hover
-              height="260px"
-              width="350px"
+              height="160px"
+              width="250px"
               src={this.props.model_img}
             />
             <MDBBtn
@@ -82,9 +82,8 @@ class modelCard extends Component {
               <MDBCardTitle id="cardTitle">
                 {this.props.model_name}
               </MDBCardTitle>
-              <a href={'http://mo-yazanghafir.pagekite.me/simulator/download/'+this.props.model_run_name} download={'texttest.sav'}><button>Download row model</button></a>
-              <a href={'http://mo-yazanghafir.pagekite.me/simulator/downloadraw/'+this.props.model_run_name} download={'texttest.sav'}><button>Download wrapped model</button></a>
-          
+              <a href={'http://mo-yazanghafir.pagekite.me/simulator/download/'+this.props.model_run_name} download={'texttest.sav'}><button className="blockBtn">Download row model</button></a>
+              <a href={'http://mo-yazanghafir.pagekite.me/simulator/downloadraw/'+this.props.model_run_name} download={'texttest.sav'}><button className="blockBtn">Download wrapped model</button></a>
             </MDBCardBody>
           </MDBCard>
           <AwesomeComponent loading={this.state.loading}/>

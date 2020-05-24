@@ -12,17 +12,17 @@ export default class simulator_main extends Component {
         
         return (
             <div>
-                <div id="simulator_body">
-                    <div id="GeneratedfilesInfo">
+                <div className="information_section">
+                    <div id="GeneratedfilesInfo" className="rcorners">
                         <GeneratedfilesInfo />
                     </div>
-                    <div id="GenerateIndividuals">
+                    <div id="GenerateIndividuals" className="rcorners">
                         <GenerateIndividuals />
                     </div>
-                    <div id="TrainIndividuals">
+                    <div id="TrainIndividuals" className="rcorners">
                         <TrainIndividuals />
                     </div>
-                    <div id="TransformData">
+                    <div id="TransformData" className="rcorners">
                         <TransformData />
                     </div>
                 </div>

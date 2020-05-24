@@ -50,7 +50,7 @@ export default class ModelUse extends Component {
             <div>
 
                 <div className="section_title" >
-                    <h3>Use The Trained Model:</h3>
+                    <h5>Use The Trained Model:</h5>
                     <div id="modelUse" className="information_section" >
                     
                         <Form

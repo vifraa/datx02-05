@@ -75,18 +75,21 @@ export default class TransformData extends Component {
                 .then((images) => {
                     const objectURL = URL.createObjectURL(images);
                     console.log("Learning curve URL: " + objectURL);
+                    document.getElementById('ttr_imgXLoads').className -= " invisible";
                     document.getElementById('ttr_imgXLoads').src = objectURL;
                     fetch("http://mo-yazanghafir.pagekite.me/simulator/ttr/imgXMax/" + ds_name)
                     .then((ires) => ires.blob())
                     .then((images) => {
                         const objectURL = URL.createObjectURL(images);
                         console.log("Learning curve URL: " + objectURL);
+                        document.getElementById('ttr_imgXMax').className -= " invisible";
                         document.getElementById('ttr_imgXMax').src = objectURL;
                         fetch("http://mo-yazanghafir.pagekite.me/simulator/ttr/imgY/" + ds_name)
                         .then((ires) => ires.blob())
                         .then((images) => {
                             const objectURL = URL.createObjectURL(images);
                             console.log("Learning curve URL: " + objectURL);
+                            document.getElementById('ttr_imgY').className -= " invisible";
                             document.getElementById('ttr_imgY').src = objectURL;
                         });
                     });
@@ -128,9 +131,9 @@ export default class TransformData extends Component {
                             </tbody>
                         </table>
 
-                        <img id="ttr_imgXLoads" src="" className="visible margin-auto information_section" alt="ttr_imgXLoads"></img>
-                        <img id="ttr_imgXMax" src="" className="visible margin-auto information_section" alt="ttr_imgXMax"></img>
-                        <img id="ttr_imgY" src="" className="visible margin-auto information_section" alt="ttr_imgY"></img>
+                        <img id="ttr_imgXLoads" src="" className="invisible margin-auto information_section" alt="ttr_imgXLoads"></img>
+                        <img id="ttr_imgXMax" src="" className="invisible margin-auto information_section" alt="ttr_imgXMax"></img>
+                        <img id="ttr_imgY" src="" className="invisible margin-auto information_section" alt="ttr_imgY"></img>
 
                     </div>
                 </div>      

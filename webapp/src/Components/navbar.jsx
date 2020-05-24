@@ -11,8 +11,8 @@ class navbar extends Component {
                     <Navbar.Brand href="#home">Powerlifting strength coach AI Webapp</Navbar.Brand>
                 </Navbar> 
 
-                <Navbar id="navbar_buttons" >
-                        <div id= "nav_btn_group" className="btn-group" role="group" aria-label="Basic example">
+                <Navbar>
+                        <div id= "nav_btn_group" className="btn-group" role="group">
                             <Button id="sim_button_nav" type="button" className="btn" href="simulator">Simulator</Button>
                             <Button id="mod_button_nav" type="button" className="btn" href="models">Machine Learning Regression Models</Button>
                             <Button id="rec_button_nav" type="button" className="btn" href="recengine">Recommendation Engine</Button>

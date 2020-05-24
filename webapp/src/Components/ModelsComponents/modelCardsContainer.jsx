@@ -54,6 +54,7 @@ export default class modelCardsContainer extends Component {
               .then((images) => {
                   const objectURL = URL.createObjectURL(images);
                   console.log("Comparing curve URL: " + objectURL);
+                  document.getElementById('compare_models_img').className -= " invisible";
                   document.getElementById('compare_models_img').src = objectURL;
       });
   }
@@ -108,7 +109,7 @@ export default class modelCardsContainer extends Component {
             <h7>Note that this function will not work if the number of the points in your training data is not big enough ex less than 100.</h7>
             <br/><h7>OBS! This can take more than 15 minutes depending on the size of your training set!</h7>
             <br/><br/><Button id="compare_button" type="btn" onClick={()=>{this.compare()}}> Compare all models</Button>
-            <br/><img id="compare_models_img" src="" className="visible margin-auto information_section" alt="compare_models_img"></img>
+            <br/><img id="compare_models_img" src="" className="invisible margin-auto information_section" alt="compare_models_img"></img>
         </div>
 
         <div className="rcorners">
