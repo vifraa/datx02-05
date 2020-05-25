@@ -9,15 +9,19 @@
 
         <style>
 
-                body {
-                    background: #451e3e;
+                  body {
+                    background: #FFFFFF;
                 }
-                
+
+                .special {
+                  flex: 1
+                }
+
                 .col-form-label {
                     text-align: right;
                     font-weight: bold;
                 }
-                
+
                 .carder {
                     padding: 20px;
                     border-radius: 2px;
@@ -39,55 +43,71 @@
                     background-color: rgba(0,0,0,.2);
                 }
 
-                 #navbar{
-                  background-color: #251e3e;
-                  font-family: 'Comic Neue', cursive;
-                  font-size: xx-large;
-                  text-align: center;
-                  padding-bottom: 15px;
-                   margin-bottom: 10px;
+                #navbar{
+                    background-color: #E2E8ED;
+                    color: #0C1419;
+                    font-weight: 500;
+                    text-align: center;
+                    padding: .7rem 1rem;
                 }
 
-                .nav_button_coloring{
-                  background-color: #843b62;
-                  color: #ffffff;
+
+                 #nav_btn_group {
+                     margin: auto;
+                     width: 100%;
+                    text-align: center;
+                    padding: .7rem 1rem;
+                 }
+
+                #sim_button_nav, #mod_button_nav, #rec_button_nav, #ttr_rec_button_nav{
+                  color: #0C1419;
+                  background-color: #FFFFFF;
+                  border-color: #B6C3CC;
+                  border-width: 2px;
+                  font-size:calc(8px + .5vw);
                 }
 
-                #footernav{
-                  background-color: #251e3e;
-                  color: #ffffff;
-                  position: fixed;
-                  bottom: 0;
-                  width: 100%;
-                  height: 1.5rem;
-                  text-align: center;
-                }
 
                 .btn-group.special {
                   display: flex;
                 }
 
-                .special .btn {
-                  flex: 1
+
+                a{
+                    color: #0C1419;
                 }
 
+                .footer{
+                      background-color: #E2E8ED;
+                      color: #0C1419;
+                      font-size: small;
+                      position: fixed;
+                      width: 100%;
+                      bottom: 0;
+                      text-align: center;
+                }
+
+
+                .push {
+                    height: 150px;
+                }
 
         </style>
     </head>
 
     <body>
 
-        <nav id="navbar" class="justify-content-md-center navbar-dark navbar-expand-sm fixed-botto">
-            <a class="navbar-brand" href="">Powerlifting strength coach AI Webapp</a>
-        </nav>
+         <nav id="navbar" >
+                <a href="#" >Powerlifting strength coach AI Webapp</a>
+            </nav>
 
-            <nav id="navbar_buttons" class="navbar-dark navbar-expand-sm">
-                <div id= "btn-group special" class="btn-group special" role="group" aria-label="...">
-                    <button  id="sim_button_nav" type="button" class="btn btn-info nav_button_coloring" onclick="location.href = 'http://re-yazanghafir.pagekite.me/simulator';">Simulator</button >
-                    <button  id="mod_button_nav" type="button" class="btn btn-info nav_button_coloring" onclick="location.href = 'http://re-yazanghafir.pagekite.me/models';">Machine Learning Regression Models</button >
-                    <button  id="rec_button_nav" type="button" class="btn btn-info nav_button_coloring" onclick="location.href = 'http://py-yazanghafir.pagekite.me/';">Recommendation Engine</button >
-                    <button  id="ttr_rec_button_nav" type="button" class="btn btn-info nav_button_coloring" onclick="location.href = 'http://py-yazanghafir.pagekite.me/ttr';">TTR Recommendation Engine</button >
-                </div>
+            <nav id="nav_btn_group" class="navbar-dark navbar-expand-sm">
+                    <div id= "btn-group special" class="btn-group special" role="group" aria-label="...">
+                        <button  id="sim_button_nav" type="button" class="btn nav_button_coloring" onclick="location.href = 'http://re-yazanghafir.pagekite.me/simulator';">Simulator</button >
+                        <button  id="mod_button_nav" type="button" class="btn nav_button_coloring" onclick="location.href = 'http://re-yazanghafir.pagekite.me/models';">Machine Learning Regression Models</button >
+                        <button  id="rec_button_nav" type="button" class="btn nav_button_coloring" onclick="location.href = 'http://py-yazanghafir.pagekite.me/';">Recommendation Engine</button >
+                        <button  id="ttr_rec_button_nav" type="button" class="btn nav_button_coloring" onclick="location.href = 'http://py-yazanghafir.pagekite.me/ttr';">TTR Recommendation Engine</button >
+                    </div>
             </nav>
 
         <div class="container">
@@ -178,9 +198,11 @@
                 </div>
                 {% endif %}
             </div>
+        <div class="push"></div>
         </div>
-        <nav id="footernav" fixed="bottom" class="justify-content-md-center footer navbar-dark navbar-expand-sm">
-                   This is a part of the Bachelor's Thesis project: Powerlifting strength coach AI using machine learning methods. Chalmers University of technology 2020
+        <nav id="footernav" class="footer">
+                    <h6>This project is part of the Bachelor's Thesis project: Powerlifting strength coach AI using machine learning methods. Chalmers University of technology 2020</h6>
+                    <h6>Developed by: Yazan Ghafir, Daniel Berg Thomsen, Carl Östling, Viktor Franzén, Ljubo Cvijetic and Henrik Lagergren.</h6>
         </nav>
     </body>
 </html>

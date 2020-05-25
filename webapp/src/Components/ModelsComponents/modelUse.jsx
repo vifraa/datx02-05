@@ -57,7 +57,7 @@ export default class ModelUse extends Component {
                          onSubmit={this.submitHandler}
                         >
                         <Form.Row style={{display: 'block', justifyContent: 'center'}}> 
-                                <Form.Control id="data_to_predict" placeholder="write the data to predict here in the following form: [0.2, .., 23]" type="text" style={{width: '90%', marginBottom: '10px'}} required/>
+                                <Form.Control id="data_to_predict" placeholder="write the data to predict here in the following form: [0.2, ... , 23]" type="text" style={{width: '90%', marginBottom: '10px'}} required/>
                         </Form.Row>
                         <Button type="submit" onClick={()=>{this.predict()}}> Predict</Button>
                         </Form>

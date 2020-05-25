@@ -21,6 +21,7 @@ function App() {
           <Navbar/>
         </Container>
 
+        <div class="wrapper">
         <Container fluid={true} style={{ paddingLeft: 0, paddingRight: 0}}>
             <BrowserRouter>
               <Switch>
@@ -34,11 +35,10 @@ function App() {
             </BrowserRouter>
         </Container>
 
-        <Container fluid={true} style={{ paddingLeft: 0, paddingRight: 0}}>
+        </div>
           <BrowserRouter>
             <Footer />
           </BrowserRouter>
-        </Container>
 
       </React.Fragment>
     </div>

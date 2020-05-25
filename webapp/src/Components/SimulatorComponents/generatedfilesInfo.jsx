@@ -5,7 +5,7 @@ export default class generatedfilesInfo extends Component {
     render() {
         return (
             <div>
-                <div className="section_title">
+                <div>
                     <h5>Generated files:</h5>
                     <div id="generated_files" className="information_section">
                         <GeneratedFileCardContainer />

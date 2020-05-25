@@ -41,7 +41,6 @@ a{
 
 #navbar{
   background-color: #E2E8ED;
-  font-size: 4vw;
   color: #0C1419;
   font-weight: 500;
 }
@@ -49,6 +48,7 @@ a{
 #nav_btn_group {
   margin: auto;
   width: 100%;
+  text-align: center;
 }
 
 #sim_button_nav, #mod_button_nav, #rec_button_nav, #ttr_rec_button_nav{
@@ -56,7 +56,7 @@ a{
   background-color: #FFFFFF;
   border-color: #B6C3CC;
   border-width: 2px;
-  font-size: 2vw;
+  font-size:calc(8px + .5vw);
 }
 
 
@@ -107,13 +107,6 @@ h4, h5{
   padding-left: 2%;
 }
 
-#train_individuals{
-  min-height: 300px;
-}
-
-#transformdata{
-  min-height: 500px;
-}
 
 .section_notes{
   margin-left: 2%;
@@ -127,4 +120,15 @@ h4, h5{
 
 .simbutton{
   margin-top: 1em;
+}
+
+table{
+  max-width: 100%;
+  width: 100%;
+  table-layout: fixed;
+  font-size: calc(2px + .7vw);
+}
+
+.plot{
+  max-width: 100%;
 }

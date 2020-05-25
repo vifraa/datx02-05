@@ -101,21 +101,20 @@ export default class TransformData extends Component {
 
     render() {
         return (
-                 <div className="section_title" >
-                    <h3>Transform The Generated Data to TTR format (After the Transformation You Will Find Your ready-to-train Data-set In the Models Tab):</h3>
-                    <p className="section_notes">note that after the transformation you will find your ready-to-train data-set in the Models Tab:</p>
-                    <p className="section_notes">now choose your generated dataset and waite for the data to be crunched!</p>
+                 <div>
+                    <h5>Transform the generated data to TTR format:</h5>
+                    <p>OBS! after the transformation you will find your ready-to-train data-set in the Models Tab:</p>
 
                     <div id="transformdata" className="information_section" >
 
 
-                        <div style={{color:"black", marginBottom: '10px'}}>
+                        <div style={{color:"black"}}>
                     
                             <Form
                                 onSubmit={this.submitHandler}
                             >
                             <Form.Row style={{display: 'block', justifyContent: 'center'}}> 
-                                    <Form.Control id="dataset_name" placeholder="Write the name of the transformed csv file ex. my_data_set" type="text" style={{width: '40%', marginLeft:'4px', marginTop:'10px', marginBottom: '10px'}} required/>
+                                    <Form.Control id="dataset_name" placeholder="Write the name of the transformed csv file ex. my_data_set" type="text" style={{width: '90%', marginLeft:'4px', marginTop:'10px', marginBottom: '10px'}} required/>
                             </Form.Row>
                             <Button type="submit" onClick={()=>{this.transorm()}}> Transform</Button>
                         </Form>
@@ -131,9 +130,9 @@ export default class TransformData extends Component {
                             </tbody>
                         </table>
 
-                        <img id="ttr_imgXLoads" src="" className="invisible margin-auto information_section" alt="ttr_imgXLoads"></img>
-                        <img id="ttr_imgXMax" src="" className="invisible margin-auto information_section" alt="ttr_imgXMax"></img>
-                        <img id="ttr_imgY" src="" className="invisible margin-auto information_section" alt="ttr_imgY"></img>
+                        <img id="ttr_imgXLoads" src="" className="invisible margin-auto" alt="ttr_imgXLoads" width='100%'></img>
+                        <img id="ttr_imgXMax" src="" className="invisible margin-auto" alt="ttr_imgXMax" width='100%'></img>
+                        <img id="ttr_imgY" src="" className="invisible margin-auto" alt="ttr_imgY" width='100%'></img>
 
                     </div>
                 </div>      

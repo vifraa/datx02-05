@@ -105,16 +105,14 @@ export default class generateIndividuals extends Component {
                         <AwesomeComponent loading={this.state.loading}/>
 
 
-                        <table className="table-hover table-striped table-bordered">
+                        <table className="table-hover table-striped table-bordered tablestyle">
                             <tbody>
                                 {this.render_individs_table()}
                             </tbody>
                         </table>
                         
                     </div>
-
-                    <img id="img_gen_individs" src="" className="invisible margin-auto information_section" alt="img_gen_individs"></img>
-
+                        <img id="img_gen_individs" src="" className="invisible margin-auto information_section" alt="img_gen_individs" width='100%'></img>
                 </div>
             </div>
         )

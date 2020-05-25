@@ -78,9 +78,8 @@ export default class trainIndividuals extends Component {
         return (
             <div>
                 <div className="section_title">
-                    <h3>Train the individuals and generate logs:</h3>
-                    <h4>Make sure you have generated a popuation using generator.py before running this!</h4>
-                    <h4>Programs:</h4>
+                    <h5>Train the individuals and generate logs:</h5>
+                    <h7>Make sure you have generated a popuation using generator.py before running this!</h7>
                     <ol>
                         <li>6w_bp_fiesta.csv</li>
                         <li>carls_power_program_BP.csv</li>
@@ -98,17 +97,14 @@ export default class trainIndividuals extends Component {
                     <div id="train_individuals" className="information_section">
                         
 
-                        <Form
-                         onSubmit={this.submitHandler}
-                        >
-                        <Form.Row style={{display: 'block', justifyContent: 'center'}}> 
-                                <Form.Control id="nr_train_before" placeholder="Type the chosen program-number to train before" type="number" style={{width: '30%', marginBottom: '10px'}} required/>
-                                <Form.Control id="nr_train_after" placeholder="Type the chosen program-number to train after" type="number" style={{width: '30%', marginBottom: '10px'}} required/>
-                        </Form.Row>
-                        <Button type="submit" onClick={()=>{this.train_population()}}> Train Individuals</Button>
+                        <Form onSubmit={this.submitHandler}>
+                            <Form.Row style={{display: 'block', justifyContent: 'center'}}> 
+                                    <Form.Control id="nr_train_before" placeholder="Type the chosen program-number to train before" type="number" style={{width: '90%', marginBottom: '10px'}} required/>
+                                    <Form.Control id="nr_train_after" placeholder="Type the chosen program-number to train after" type="number" style={{width: '90%', marginBottom: '10px'}} required/>
+                            </Form.Row>
+                            <Button type="submit" onClick={()=>{this.train_population()}}>Train Individuals</Button>
                         </Form>
                         <AwesomeComponent loading={this.state.loading}/>
-
 
 
                         <table className="table-hover table-striped table-bordered">
@@ -116,10 +112,10 @@ export default class trainIndividuals extends Component {
                                 {this.render_individs_table()}
                             </tbody>
                         </table>
-                        <p className="section_notes">Here you can see the progress of one randomly chosen individual of your gym trained individuals on pre and post programs respectivly over timestamp:</p>
+                        <p>Here you can see the progress of one randomly chosen individual of your gym trained individuals on pre and post programs respectivly over timestamp:</p>
 
-                        <img id="pre_img" src="" className="invisible margin-auto information_section" alt="pre_img"></img>
-                        <img id="post_img" src="" className="unvisible margin-auto information_section" alt="post_img"></img>
+                        <img id="pre_img" src="" className="invisible margin-auto" alt="pre_img" width='100%'></img>
+                        <img id="post_img" src="" className="invisible margin-auto" alt="post_img" width='100%'></img>
 
 
                     </div>

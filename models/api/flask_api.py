@@ -64,7 +64,7 @@ def plotCurves(modelname, filename):
                      attachment_filename='plot.png',
                      mimetype='image/png')
 
-    
+
 
 @app.route("/models/regression/<modelname>/<filename>")
 def model_regression_results(modelname, filename):
