@@ -8,9 +8,9 @@ import names
 import pandas as pd
 from absl import flags
 from absl import app
-from individual import Individual
-from movement import Movement
-from gym import BASE_FITNESS_GAIN, BASE_FATIGUE_GAIN, BASE_FITNESS_DECAY, BASE_FATIGUE_DECAY
+from simulator.individual import Individual
+from simulator.movement import Movement
+from simulator.gym import BASE_FITNESS_GAIN, BASE_FATIGUE_GAIN, BASE_FITNESS_DECAY, BASE_FATIGUE_DECAY
 from tqdm import tqdm
 
 FLAGS = flags.FLAGS

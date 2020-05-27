@@ -5,16 +5,16 @@ individuals themselves (along with their personal attributes) can be logged as w
 import threading
 import pandas as pd
 import numpy as np
-import gym
-from generator import generate_individuals, save_individuals
-from individual import Individual
+import simulator.gym as gym
+from simulator.generator import generate_individuals, save_individuals
+from simulator.individual import Individual
 import click
 import os
 import random
 import time
 from tqdm import tqdm
 
-def __train_and_save(individuals, training_results_path, training_program_path):
+def train_and_save(individuals, training_results_path, training_program_path):
     """
     Trains the individuals with the given traning program and save the logss
 
@@ -152,7 +152,7 @@ def train_population(population_size, age_mean, age_variance, weight_mean, weigh
     individuals = generate_individuals(population_size, age_mean, age_variance, weight_mean,
                                        weight_variance, bench_press_fitness_mean,
                                        bench_press_fitness_variance, gender_ratio)
-    timestamp = __train_and_save(
+    timestamp = train_and_save(
         individuals, training_results_path, training_program_path)
 
     # save the generated individuals
@@ -178,7 +178,7 @@ def train_population_from_file(individuals_path, training_program_path, training
     for _, individual_series in individuals_df.iterrows():
         individuals.append(Individual(series=individual_series))
 
-    timestamp = __train_and_save(
+    timestamp = train_and_save(
        individuals, training_results_path, training_program_path)
     save_individuals(individuals, individuals_path, timestamp)
 
@@ -214,7 +214,7 @@ def train_population_from_file_random_program(individuals_path, programs_dict, t
 
     for i, training_program_path in enumerate(programs_dict.values()):
 
-        timestamp = __train_and_save(cohorts[i], training_results_path, training_program_path)
+        timestamp = train_and_save(cohorts[i], training_results_path, training_program_path)
 
         # add the updated individuals to bottom of csv file
         save_individuals(cohorts[i], individuals_path, timestamp)

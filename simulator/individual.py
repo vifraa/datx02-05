@@ -4,13 +4,13 @@ powerlifting training."""
 import math
 from datetime import datetime
 import pandas as pd
-from movement import Movement
+from simulator.movement import Movement
 
 
 class Individual:
     """The Individual class is representing an individual with several personal parameters."""
 
-    def __init__(self, id="", birth: datetime = datetime(1, 1, 1), name="",
+    def __init__(self, id="", timestamp=datetime.now(), name="",
                  bench_press_movement=Movement(0,0,0,0,0,0,0), series=pd.Series()):
         """Constructor for the indivual class
 
@@ -21,6 +21,7 @@ class Individual:
         """
         if series.empty:
             self.name = name
+            self.timestamp = timestamp
             self.id = id
             self.bench_press_movement = bench_press_movement
         else:
